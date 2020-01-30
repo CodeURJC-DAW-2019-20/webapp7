@@ -437,6 +437,10 @@
 	border-radius: 30px;
 }
 
+.page-content{
+	min-height:568px;
+}
+
 /* Theme BTN */
 
 .site-button-secondry:after, .site-button:after {
