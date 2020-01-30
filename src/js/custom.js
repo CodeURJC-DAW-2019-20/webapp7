@@ -704,4 +704,21 @@ $(window).resize(function () {
 	} 
 }
 );
+
+$(".like").click(
+	function(){
+		if($(".like").hasClass("grey")){
+			$(this).removeClass("grey")
+			$(this).addClass("blue")
+			$(".like-button").removeClass("grey2")
+			$(".like-button").addClass("blue2")
+		}
+		else{
+			$(this).removeClass("blue")
+			$(this).addClass("grey")
+			$(".like-button").removeClass("blue2")
+			$(".like-button").addClass("grey2")
+		}
+	}
+)
 /* Search Bar Responsive END */

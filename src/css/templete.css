@@ -1294,3 +1294,49 @@
 		display: none;
 	}
 }
+
+.blue{
+	color:#2e55fa;
+	border-color: #white;
+	color: white;
+	font-size: 15px;
+	-webkit-text-stroke-width: 2px;
+	-webkit-text-stroke-color: white;
+}
+
+.grey{
+	color: white;
+	border-color: #2e55fa;
+	color: #2e55fa;
+	font-size: 15px;
+	-webkit-text-stroke-width: 2px;
+	-webkit-text-stroke-color: #2e55fa;
+}
+
+.like{
+	position: relative;
+	margin: auto 0;
+}
+
+.blue2{
+	background-color: #2e55fa;
+	border-color: white;
+}
+
+.grey2{
+	background-color: white;
+	border-color: #2e55fa;
+}
+
+.like-button{
+	position:fixed;
+	right:15px;
+	bottom: 75px;
+	height: 40px;
+	width:40px;
+	border-radius: 90px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 2px 2px 12px -5px #000000;
+}
