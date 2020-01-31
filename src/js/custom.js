@@ -705,19 +705,19 @@ $(window).resize(function () {
 }
 );
 
-$(".like").click(
+$(".like-button").click(
 	function(){
 		if($(".like").hasClass("grey")){
-			$(this).removeClass("grey")
-			$(this).addClass("blue")
-			$(".like-button").removeClass("grey2")
-			$(".like-button").addClass("blue2")
+			$(".like").removeClass("grey")
+			$(".like").addClass("blue")
+			$(this).removeClass("grey2")
+			$(this).addClass("blue2")
 		}
 		else{
-			$(this).removeClass("blue")
-			$(this).addClass("grey")
-			$(".like-button").removeClass("blue2")
-			$(".like-button").addClass("grey2")
+			$(".like").removeClass("blue")
+			$(".like").addClass("grey")
+			$(this).removeClass("blue2")
+			$(this).addClass("grey2")
 		}
 	}
 )
