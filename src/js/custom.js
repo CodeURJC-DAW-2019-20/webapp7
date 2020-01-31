@@ -705,19 +705,28 @@ $(window).resize(function () {
 }
 );
 
-$(".like").click(
+jQuery(window).bind("scroll", function () {
+	var scroll = jQuery(window).scrollTop();
+	if (scroll > 900) {
+		jQuery(".like-button").fadeIn(1000);
+	} else {
+		jQuery(".like-button").fadeOut(1000);
+	}
+});
+
+$(".like-button").click(
 	function(){
 		if($(".like").hasClass("grey")){
-			$(this).removeClass("grey")
-			$(this).addClass("blue")
-			$(".like-button").removeClass("grey2")
-			$(".like-button").addClass("blue2")
+			$(".like").removeClass("grey")
+			$(".like").addClass("blue")
+			$(this).removeClass("grey2")
+			$(this).addClass("blue2")
 		}
 		else{
-			$(this).removeClass("blue")
-			$(this).addClass("grey")
-			$(".like-button").removeClass("blue2")
-			$(".like-button").addClass("grey2")
+			$(".like").removeClass("blue")
+			$(".like").addClass("grey")
+			$(this).removeClass("blue2")
+			$(this).addClass("grey2")
 		}
 	}
 )
