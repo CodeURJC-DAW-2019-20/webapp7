@@ -97,7 +97,7 @@
 }
 
 #search-input:focus {
-	width: 18em;
+	width: 15em;
 	opacity: 1;
 }
 
@@ -1340,4 +1340,12 @@
 	align-items: center;
 	box-shadow: 2px 2px 12px -5px #000000;
 	cursor: pointer;
+}
+
+footer .widget ul{
+	list-style: inside;
+}
+
+footer img{
+	border-radius: 5px;
 }
