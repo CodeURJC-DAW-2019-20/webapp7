@@ -437,8 +437,8 @@
 	border-radius: 30px;
 }
 
-.page-content{
-	min-height:568px;
+.page-content {
+	min-height: 568px;
 }
 
 /* Theme BTN */
@@ -1295,8 +1295,8 @@
 	}
 }
 
-.blue{
-	color:#2e55fa;
+.blue {
+	color: #2e55fa;
 	border-color: white;
 	color: white;
 	font-size: 15px;
@@ -1304,7 +1304,7 @@
 	-webkit-text-stroke-color: white;
 }
 
-.grey{
+.grey {
 	color: white;
 	border-color: #2e55fa;
 	color: #2e55fa;
@@ -1313,27 +1313,27 @@
 	-webkit-text-stroke-color: #2e55fa;
 }
 
-.like{
+.like {
 	position: relative;
 	margin: auto 0;
 }
 
-.blue2{
+.blue2 {
 	background-color: #2e55fa;
 	border-color: white;
 }
 
-.grey2{
+.grey2 {
 	background-color: white;
 	border-color: #2e55fa;
 }
 
-.like-button{
-	position:fixed;
-	right:15px;
+.like-button {
+	position: fixed;
+	right: 15px;
 	bottom: 75px;
 	height: 40px;
-	width:40px;
+	width: 40px;
 	border-radius: 90px;
 	display: flex;
 	justify-content: center;
@@ -1342,10 +1342,27 @@
 	cursor: pointer;
 }
 
-footer .widget ul{
+footer .widget ul {
 	list-style: inside;
 }
 
-footer img{
+footer img {
 	border-radius: 5px;
+}
+
+.container-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 900px;
+	overflow: hidden;
+	float: left;
+}
+
+.container-avatar img {
+	height: 100%;
+	width: 100%;
+}
+
+.reset-color {
+	color: rgb(53, 53, 53);
 }

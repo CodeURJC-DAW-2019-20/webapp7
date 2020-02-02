@@ -684,24 +684,24 @@ jQuery(window).on('resize', function () {
 });
 /*  Window Resize END */
 /* Search Bar Responsive */
-$(document).ready(function(){
+$(document).ready(function () {
 	screenWidth = $(window).width();
-		if (screenWidth < 992) {
-			$(".search-box").insertAfter($(".ls-mobile")[1]);
-			if($(".search-box")[1]) {
-				$(".search-box")[1].remove();
-			}
-		} 
+	if (screenWidth < 992) {
+		$(".search-box").insertAfter($(".ls-mobile")[1]);
+		if ($(".search-box")[1]) {
+			$(".search-box")[1].remove();
+		}
+	}
 
 });
 $(window).resize(function () {
 	screenWidth = $(window).width();
 	if (screenWidth < 992) {
 		$(".search-box").insertAfter($(".ls-mobile")[1]);
-		if($(".search-box")[1]) {
+		if ($(".search-box")[1]) {
 			$(".search-box")[1].remove();
 		}
-	} 
+	}
 }
 );
 
@@ -715,14 +715,14 @@ jQuery(window).bind("scroll", function () {
 });
 
 $(".like-button").click(
-	function(){
-		if($(".like").hasClass("grey")){
+	function () {
+		if ($(".like").hasClass("grey")) {
 			$(".like").removeClass("grey")
 			$(".like").addClass("blue")
 			$(this).removeClass("grey2")
 			$(this).addClass("blue2")
 		}
-		else{
+		else {
 			$(".like").removeClass("blue")
 			$(".like").addClass("grey")
 			$(this).removeClass("blue2")
