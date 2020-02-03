@@ -72,10 +72,13 @@ This webpage shows information about a specific NGO, with its name, its data and
 This website allows NGOs to change data on their Voluntaweb account such as their name, address, email, category, profile picture etc.
   
 ![](./screenshots/register.PNG)
-  
+This webpage allows users to chose if they want register as NGOs or Volunteers.
+
 ![](./screenshots/registroONG.PNG)
+This webpage allows NGOs to create an account in VoluntaWeb.
 
 ![](./screenshots/registroVoluntarios.PNG)
+This webpage allows Volunteers to create an account in VoluntaWeb.
 
 ![](./screenshots/resultados.PNG)
 “Searches” This page display the results of a search and allow the user to change the parameters of the search.
