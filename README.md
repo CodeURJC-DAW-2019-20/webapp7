@@ -48,3 +48,20 @@ We're implemented graphic charts:
 -The search page has a search filter for volunteerings and NGOs.
 ### Diagrams
 <img src="./diagrams/NavigationDiagram.svg">
+### Screenshots
+<img src="./screenshots/index.PNG" height="500" width="800">
+<img src="./screenshots/about-us.PNG" height="500" width="800">
+<img src="./screenshots/contacto.PNG" height="500" width="800">
+<img src="./screenshots/gestion-voluntariados.PNG" height="500" width="800">
+<img src="./screenshots/lista-ongs.PNG" height="500" width="800">
+<img src="./screenshots/login.PNG" height="500" width="800">
+<img src="./screenshots/my-volunteerings.PNG" height="500" width="800">
+<img src="./screenshots/ong.PNG" height="500" width="800">
+<img src="./screenshots/ong-settings.PNG" height="500" width="800">
+<img src="./screenshots/register.PNG" height="500" width="800">
+<img src="./screenshots/registroONG.PNG" height="500" width="800">
+<img src="./screenshots/registroVoluntarios.PNG" height="500" width="800">
+<img src="./screenshots/resultados.PNG" height="500" width="800">
+<img src="./screenshots/submit-ad.PNG" height="500" width="800">
+<img src="./screenshots/user-settings.PNG" height="500" width="800">
+<img src="./screenshots/voluntariado.PNG" height="500" width="800">
