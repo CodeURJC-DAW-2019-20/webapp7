@@ -78,11 +78,11 @@ This website allows NGOs to change data on their Voluntaweb account such as thei
 ![](./screenshots/registroVoluntarios.PNG)
 
 ![](./screenshots/resultados.PNG)
-  
+“Searches” This page display the results of a search and allow the user to change the parameters of the search.
 ![](./screenshots/submit-ad.PNG)
-
+“Ong submit advertisement” This page will allow the NGOs to submit a volunteering offer.
 ![](./screenshots/user-settings.PNG)
-
+“User settings” This page will allow the user to change the settings of his account.
 ![](./screenshots/voluntariado.PNG)
- 
+ “Volunteering” This page is an example of the design of the volunteering offers.
 
