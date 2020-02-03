@@ -57,11 +57,11 @@ We're implemented graphic charts:
 ![](./screenshots/contacto.PNG)
 The "Contact" page, as her name says, is for contact the administrator of the website in order to make sugerences and questions.  
 ![](./screenshots/gestion-voluntariados.PNG)
-
+Esta página solamente estará disponible para las ONGs y servirá para gestionar los voluntariados de su organización. Para ello, se muestran todos los voluntariados y en cada uno de ellos tenemos la opción de editar con el botón "Editar" y de borrar con el botón "Borrar". Además, se puede visualizar el tiempo que ha pasado desde su última modificación.
 ![](./screenshots/lista-ongs.PNG)
-
+En esta página se podrán buscar todas las ONGs filtrando por la primera letra del nombre de la organización. En cada logo se podrá acceder al perfil de la ONG deseada.
 ![](./screenshots/login.PNG)
- 
+ Esta página servirá para iniciar sesión con una cuenta ya creada, tanto para voluntariados como para ONGs. Se introduce el e-mail con su contraseña correspondiente y se inicia sesión; si hay algún percance con el olvido de la contraseña, se enviará un mensaje para restablecerla.
 ![](./screenshots/my-volunteerings.PNG)
  
 ![](./screenshots/ong.PNG)
