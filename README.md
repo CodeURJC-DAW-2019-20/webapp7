@@ -51,41 +51,66 @@ We're implemented graphic charts:
 
 ### Screenshots
 ![](./screenshots/index.PNG)
+####Description
 "Index" page is the main page of the web application. It's the entry point to the other pages.
+
 ![](./screenshots/about-us.PNG)
+####Description
 "About Us" is a page that have some information about VoluntaWeb and it's objectives.  
+
 ![](./screenshots/contacto.PNG)
+####Description
 The "Contact" page, as her name says, is for contact the administrator of the website in order to make sugerences and questions.  
+
 ![](./screenshots/gestion-voluntariados.PNG)
+####Description
 "Volunteering-gestion-panel" is a page that have, mainly, two options: edit and delete. Also appears the last modification.
+
 ![](./screenshots/lista-ongs.PNG)
+####Description
 "Ongs" is a page that contains all ONGs that are in our data base. It is possible to filter a search looking ONG's name.
+
 ![](./screenshots/login.PNG)
-"Login" is a page where users, such as volunteers and ONGs, can login and browse the website 
+####Description
+"Login" is a page where users, such as volunteers and ONGs, can login and browse the website.
+
 ![](./screenshots/my-volunteerings.PNG)
+####Description
 This webpage shows all the volunteers to whom a user of the web has subscribed, with their title, their location, the email of the corresponding NGO and more information about the activity by clicking on it.
  
 ![](./screenshots/ong.PNG)
+####Description
 This webpage shows information about a specific NGO, with its name, its data and also a short description. Also below shows recent volunteers from that NGO.
 
 ![](./screenshots/ong-settings.PNG)
+####Description
 This website allows NGOs to change data on their Voluntaweb account such as their name, address, email, category, profile picture etc.
   
 ![](./screenshots/register.PNG)
+####Description
 This webpage allows users to chose if they want register as NGOs or Volunteers.
 
 ![](./screenshots/registroONG.PNG)
+####Description
 This webpage allows NGOs to create an account in VoluntaWeb.
 
 ![](./screenshots/registroVoluntarios.PNG)
+####Description
 This webpage allows Volunteers to create an account in VoluntaWeb.
 
 ![](./screenshots/resultados.PNG)
+####Description
 “Searches” This page display the results of a search and allow the user to change the parameters of the search.
+
 ![](./screenshots/submit-ad.PNG)
+####Description
 “Ong submit advertisement” This page will allow the NGOs to submit a volunteering offer.
+
 ![](./screenshots/user-settings.PNG)
+####Description
 “User settings” This page will allow the user to change the settings of his account.
+
 ![](./screenshots/voluntariado.PNG)
+####Description
  “Volunteering” This page is an example of the design of the volunteering offers.
 
