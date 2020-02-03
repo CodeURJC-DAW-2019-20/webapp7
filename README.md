@@ -47,7 +47,8 @@ We're implemented graphic charts:
 ### Advanced algorithm
 -The search page has a search filter for volunteerings and NGOs.
 ### Diagrams
-<img src="./diagrams/NavigationDiagram.svg">
+<img src="./diagrams/NavigationDiagram.svg">  
+
 ### Screenshots
 <img src="./screenshots/index.PNG" height="500" width="800">
 <img src="./screenshots/about-us.PNG" height="500" width="800">
