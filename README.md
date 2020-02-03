@@ -25,14 +25,14 @@ VoluntaWeb is a project developed by group 7 of the subject "Web Application Dev
 
 ## Main aspects
 ### Entities
-VoluntaWeb has 4 entities: users (users table), support comments (comments table), NGOs(ngos table) and volunteerings (volunteerings table).
--NGOs can publish volunteerings ads (ngo_volunteering table).
--Users can join volunteerings (user_volunteering).
+VoluntaWeb has 4 entities: users (users table), support comments (comments table), NGOs(ngos table) and volunteerings (volunteerings table).  
+-NGOs can publish volunteerings ads (ngo_volunteering table).  
+-Users can join volunteerings (user_volunteering).  
 ### Permissions
--Visitors can search NGOs and volunteerings but not join them or like them.
--Logged users can do the actions vistors can do, but also join volunteerings and like them and modify their user settings.
--NGOs can publish volunteerings and edit/remove them, aswell edit their NGO settings.
--Administrator can moderate volunteerings.
+-Visitors can search NGOs and volunteerings but not join them or like them.  
+-Logged users can do the actions vistors can do, but also join volunteerings and like them and modify their user settings.  
+-NGOs can publish volunteerings and edit/remove them, aswell edit their NGO settings.  
+-Administrator can moderate volunteerings.  
 ### Images
 -Logged user have a profile image.  
 -NGOs have a profile image.  
@@ -50,19 +50,36 @@ We're implemented graphic charts:
 <img src="./diagrams/NavigationDiagram.svg">  
 
 ### Screenshots
-<img src="./screenshots/index.PNG" height="500" width="800">
-<img src="./screenshots/about-us.PNG" height="500" width="800">
-<img src="./screenshots/contacto.PNG" height="500" width="800">
-<img src="./screenshots/gestion-voluntariados.PNG" height="500" width="800">
-<img src="./screenshots/lista-ongs.PNG" height="500" width="800">
-<img src="./screenshots/login.PNG" height="500" width="800">
-<img src="./screenshots/my-volunteerings.PNG" height="500" width="800">
-<img src="./screenshots/ong.PNG" height="500" width="800">
-<img src="./screenshots/ong-settings.PNG" height="500" width="800">
-<img src="./screenshots/register.PNG" height="500" width="800">
-<img src="./screenshots/registroONG.PNG" height="500" width="800">
-<img src="./screenshots/registroVoluntarios.PNG" height="500" width="800">
-<img src="./screenshots/resultados.PNG" height="500" width="800">
-<img src="./screenshots/submit-ad.PNG" height="500" width="800">
-<img src="./screenshots/user-settings.PNG" height="500" width="800">
-<img src="./screenshots/voluntariado.PNG" height="500" width="800">
+![](./screenshots/index.PNG)
+"Index" page is the main page of the web application. It's the entry point to the other pages.
+![](./screenshots/about-us.PNG)
+"About Us" is a page that have some information about VoluntaWeb and it's objectives.  
+![](./screenshots/contacto.PNG)
+The "Contact" page, as her name says, is for contact the administrator of the website in order to make sugerences and questions.  
+![](./screenshots/gestion-voluntariados.PNG)
+
+![](./screenshots/lista-ongs.PNG)
+
+![](./screenshots/login.PNG)
+ 
+![](./screenshots/my-volunteerings.PNG)
+ 
+![](./screenshots/ong.PNG)
+
+![](./screenshots/ong-settings.PNG)
+  
+![](./screenshots/register.PNG)
+  
+![](./screenshots/registroONG.PNG)
+
+![](./screenshots/registroVoluntarios.PNG)
+
+![](./screenshots/resultados.PNG)
+  
+![](./screenshots/submit-ad.PNG)
+
+![](./screenshots/user-settings.PNG)
+
+![](./screenshots/voluntariado.PNG)
+ 
+
