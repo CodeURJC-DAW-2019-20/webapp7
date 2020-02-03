@@ -63,10 +63,13 @@ En esta página se podrán buscar todas las ONGs filtrando por la primera letra 
 ![](./screenshots/login.PNG)
  Esta página servirá para iniciar sesión con una cuenta ya creada, tanto para voluntariados como para ONGs. Se introduce el e-mail con su contraseña correspondiente y se inicia sesión; si hay algún percance con el olvido de la contraseña, se enviará un mensaje para restablecerla.
 ![](./screenshots/my-volunteerings.PNG)
+This webpage shows all the volunteers to whom a user of the web has subscribed, with their title, their location, the email of the corresponding NGO and more information about the activity by clicking on it.
  
 ![](./screenshots/ong.PNG)
+This webpage shows information about a specific NGO, with its name, its data and also a short description. Also below shows recent volunteers from that NGO.
 
 ![](./screenshots/ong-settings.PNG)
+This website allows NGOs to change data on their Voluntaweb account such as their name, address, email, category, profile picture etc.
   
 ![](./screenshots/register.PNG)
   
