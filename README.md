@@ -25,7 +25,7 @@ VoluntaWeb is a project developed by group 7 of the subject "Web Application Dev
 
 ## Main aspects
 ### Entities
-VoluntaWeb has 4 entities: users (users table), messages (messages table), NGOs(ngos table) and volunteerings (volunteerings table).
+VoluntaWeb has 4 entities: users (users table), support comments (comments table), NGOs(ngos table) and volunteerings (volunteerings table).
 -NGOs can publish volunteerings ads (ngo_volunteering table).
 -Users can join volunteerings (user_volunteering).
 ### Permissions
@@ -47,4 +47,4 @@ We're implemented graphic charts:
 ### Advanced algorithm
 -The search page has a search filter for volunteerings and NGOs.
 ### Diagrams
-In construction
+<img src="./diagrams/NavigationDiagram.svg">
