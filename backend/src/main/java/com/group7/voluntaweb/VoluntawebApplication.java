@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BackendSrcApplication {
+public class VoluntawebApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BackendSrcApplication.class, args);
+		SpringApplication.run(VoluntawebApplication.class, args);
 	}
 
 }
