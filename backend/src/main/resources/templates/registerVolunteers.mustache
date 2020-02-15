@@ -1,46 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="keywords" content="" />
-	<meta name="author" content="" />
-	<meta name="robots" content="" />
-		<meta name="description" content="VoluntaWeb - Portal para encontrar voluntariados gratis" />
-	<meta property="og:title" content="VoluntaWeb" />
-	<meta property="og:description" content="VoluntaWeb - Portal para encontrar voluntariados gratis" />
-	<meta property="og:image" content="VoluntaWeb" />
-	<meta name="format-detection" content="telephone=no">
-	
-	<!-- FAVICONS ICON -->
-	<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
-	
-	<!-- PAGE TITLE HERE -->
-	<title>VoluntaWeb - {{title}} </title>
-	
-	<!-- MOBILE SPECIFIC -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<!--[if lt IE 9]>
-	<script src="js/html5shiv.min.js"></script>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
-	
-	<!-- STYLESHEETS -->
-	<link rel="stylesheet" type="text/css" href="css/plugins.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/templete.css">
-	<link class="skin" rel="stylesheet" type="text/css" href="css/skin/skin-1.css">
-	<link rel="stylesheet" href="plugins/datepicker/css/bootstrap-datetimepicker.min.css"/>
-	<!-- Revolution Slider Css -->
-	<link rel="stylesheet" type="text/css" href="plugins/revolution/revolution/css/layers.css">
-	<link rel="stylesheet" type="text/css" href="plugins/revolution/revolution/css/settings.css">
-	<link rel="stylesheet" type="text/css" href="plugins/revolution/revolution/css/navigation.css">
-	<!-- Revolution Navigation Style -->
-</head>
+{{>layout/header}}
 <body id="bg">
 <div class="page-wraper">
 <div id="loading-area"></div>
@@ -144,32 +102,32 @@
 						<div class="p-a30 border-1  max-w500 m-auto">
 							<div class="tab-content nav">							
 								<!--Form for Volunteers-->
-								<form id="loginVolunteers" class="tab-pane active">
+								<form id="loginVolunteers" class="tab-pane active" action="/add-user" method="POST">
 									<h4 class="font-weight-700">INFORMACIÓN PERSONAL</h4>
 									<p class="font-weight-600">Si tiene una cuenta con nosotros, por favor inicie sesión.</p>
 									<div class="form-group">
 										<label class="font-weight-700">Nombre *</label>
-										<input name="dzName" required="" class="form-control" placeholder="Nombre" type="text">
+										<input name="name" required="" class="form-control" placeholder="Nombre" type="text">
 									</div>
 									<div class="form-group">
 										<label class="font-weight-700">Apellidos *</label>
-										<input name="dzName" required="" class="form-control" placeholder="Apellidos" type="text">
+										<input name="surname" required="" class="form-control" placeholder="Apellidos" type="text">
 									</div>
 									<div class="form-group">
 										<label class="font-weight-700">Ciudad *</label>
-										<input name="dzName" required="" class="form-control" placeholder="Ciudad" type="text">
+										<input name="city" required="" class="form-control" placeholder="Ciudad" type="text">
 									</div>
 									<div class="form-group">
 										<label class="font-weight-700">Teléfono *</label>
-										<input name="dzName" required="" class="form-control" placeholder="Teléfono" type="text">
+										<input name="telephone" required="" class="form-control" placeholder="Teléfono" type="text">
 									</div>
 									<div class="form-group">
 										<label class="font-weight-700">E-MAIL *</label>
-										<input name="dzName" required="" class="form-control" placeholder="Tu Email" type="email">
+										<input name="email" required="" class="form-control" placeholder="Tu Email" type="email">
 									</div>
 									<div class="form-group">
 										<label class="font-weight-700">CONTRASEÑA *</label>
-										<input name="dzName" required="" class="form-control " placeholder="Contraseña" type="password">
+										<input name="password" required="" class="form-control " placeholder="Contraseña" type="password">
 									</div>
 									<div class="text-left">
 										<button class="site-button button-lg outline outline-2">CREAR</button>
@@ -188,69 +146,4 @@
 		<!-- contact area  END -->
     </div>
     <!-- Content END-->
-    <!-- Footer -->
-    <footer class="site-footer">
-		<div class="footer-top">
-		<div class="container">
-			<div class="row">
-				<div class="col-xl-5 col-lg-4 col-md-12 col-sm-12">
-					<div class="widget">
-						<img src="images/logo.png" width="250" class="m-b15" alt=""/>
-						<p class="text-capitalize m-b20">Plataforma líder en la búsqueda de voluntariados y ONGs.</p>
-						<div class="subscribe-form m-b20">
-							<div class="icon-content">
-								<h6 class="text-uppercase m-tb0 dez-tilte"><i class="ti-location-pin"></i> Dirección:</h6>
-								<p>Calle Tulipán, s/n, 28933 Móstoles, Madrid</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-5 col-lg-5 col-md-8 col-sm-8 col-12">
-					<div class="widget border-0">
-						<h5 class="m-b30 text-white">Enlaces de interés</h5>
-						<ul class="list-line">
-							<li><a href="about-us">¿Quiénes somos?</a></li>
-							<li><a href="contact">Contacto</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-		<!-- footer bottom part -->
-		<div class="footer-bottom">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 text-center"><span><a target="_blank" href="https://www.urjc.es">DAW GIS
-								2019-2020</a></span></div>
-				</div>
-			</div>
-		</div>
-	</footer>
-    <!-- Footer END -->
-    <button class="scroltop fa fa-chevron-up" ></button>
-</div>
-<!-- JAVASCRIPT FILES ========================================= -->
-<script src="js/jquery.min.js"></script><!-- JQUERY.MIN JS -->
-<script src="plugins/wow/wow.js"></script><!-- WOW JS -->
-<script src="plugins/bootstrap/js/popper.min.js"></script><!-- BOOTSTRAP.MIN JS -->
-<script src="plugins/bootstrap/js/bootstrap.min.js"></script><!-- BOOTSTRAP.MIN JS -->
-<script src="plugins/bootstrap-select/bootstrap-select.min.js"></script><!-- FORM JS -->
-<script src="plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script><!-- FORM JS -->
-<script src="plugins/magnific-popup/magnific-popup.js"></script><!-- MAGNIFIC POPUP JS -->
-<script src="plugins/counter/waypoints-min.js"></script><!-- WAYPOINTS JS -->
-<script src="plugins/counter/counterup.min.js"></script><!-- COUNTERUP JS -->
-<script src="plugins/imagesloaded/imagesloaded.js"></script><!-- IMAGESLOADED -->
-<script src="plugins/masonry/masonry-3.1.4.js"></script><!-- MASONRY -->
-<script src="plugins/masonry/masonry.filter.js"></script><!-- MASONRY -->
-<script src="plugins/owl-carousel/owl.carousel.js"></script><!-- OWL SLIDER -->
-<script src="plugins/rangeslider/rangeslider.js" ></script><!-- Rangeslider -->
-<script src="js/custom.js"></script><!-- CUSTOM FUCTIONS  -->
-<script src="js/dz.carousel.js"></script><!-- SORTCODE FUCTIONS  -->
-<script src="js/dz.ajax.js"></script><!-- CONTACT JS  -->
- 
-
-</body>
-
-
-</html>
+{{>layout/footer}}
