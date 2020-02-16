@@ -1,9 +1,12 @@
 package com.group7.voluntaweb.Models;
 
 
-import javax.persistence.Column;
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +33,8 @@ public class User {
 	private String password;
 	private String city;
 	private String telephone;
-	private String role;
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles;
 	private String image;
     
    
@@ -100,19 +104,19 @@ public class User {
 	}
 	
 	
-	public String getRole() {
-		return role;
+	public List<String> getRoles() {
+		return roles;
 	}
-	
-	public void setRole(String role) {
-		this.role = role;
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 
     public User() {
     }
 
 public User(String name, String surname, String email, String password, String city, String telephone,
-			String image, String role) {
+			String image, List<String> role) {
 
 		this.name = name;
 		this.surname = surname;
@@ -121,7 +125,7 @@ public User(String name, String surname, String email, String password, String c
 		this.city = city;
 		this.telephone = telephone;
 		this.image = image;
-		this.role = role;
+		this.roles = roles;
 
 	}
 

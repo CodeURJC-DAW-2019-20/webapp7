@@ -1,6 +1,8 @@
 package com.group7.voluntaweb.Controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +61,12 @@ public class UserController {
 		
 		String enc_password = new BCryptPasswordEncoder().encode(password);
 		
+		List<String> roles = new ArrayList<String>();
 		
-		User user = new User(name, surname, email, enc_password, city, telephone, null, "ROLE_USER");
+		roles.add("ROLE_USER");
+		
+		
+		User user = new User(name, surname, email, enc_password, city, telephone, null, roles);
 		
 		
 		
@@ -77,6 +83,13 @@ public class UserController {
 	
 		return userRepo.findAll();
 	}
+	
+	@GetMapping("/login")
+	public String login(Map<String, Object> model) {
+		model.put("title", "Iniciar sesión");
+		return "login";
+	}
+	
 		
 
 
