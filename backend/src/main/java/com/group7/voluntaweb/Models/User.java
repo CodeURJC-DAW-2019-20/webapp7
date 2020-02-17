@@ -116,7 +116,7 @@ public class User {
     }
 
 public User(String name, String surname, String email, String password, String city, String telephone,
-			String image, List<String> role) {
+			String image, List<String> roles) {
 
 		this.name = name;
 		this.surname = surname;

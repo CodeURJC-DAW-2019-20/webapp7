@@ -27,11 +27,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	//Logout page
         http.authorizeRequests().antMatchers("/logout").permitAll();
         	//Register pages and save actions
-        http.authorizeRequests().antMatchers("/register").permitAll();
-        http.authorizeRequests().antMatchers("/register-ong").permitAll();
-        http.authorizeRequests().antMatchers("/add-ong").permitAll();
-        http.authorizeRequests().antMatchers("/register-user").permitAll();
-        http.authorizeRequests().antMatchers("/add-user").permitAll();
+        http.authorizeRequests().antMatchers("/register").anonymous();
+        http.authorizeRequests().antMatchers("/register-ong").anonymous();
+        http.authorizeRequests().antMatchers("/add-ong").anonymous();
+        http.authorizeRequests().antMatchers("/register-user").anonymous();
+        http.authorizeRequests().antMatchers("/add-user").anonymous();
         	//Assets
         http.authorizeRequests().antMatchers("/css/**").permitAll();
         http.authorizeRequests().antMatchers("/images/**").permitAll();
@@ -39,8 +39,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/plugins/**").permitAll();
 
         // Private pages (all other pages)
-        http.authorizeRequests().anyRequest().authenticated();
         http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN");;
+        http.authorizeRequests().anyRequest().authenticated();
 
         // Login form
         http.formLogin().loginPage("/login");
@@ -60,8 +60,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     	
-    	// Database authentication provider
+        
+     // Database authentication provider
         auth.authenticationProvider(userRepoAuthProvider);
+
+
     }
 
 }

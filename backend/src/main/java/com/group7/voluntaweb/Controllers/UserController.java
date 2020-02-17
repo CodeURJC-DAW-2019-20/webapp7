@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -79,14 +81,15 @@ public class UserController {
 	}
 	
 	@GetMapping("/users")
-	public Collection<User> listUsers() {
+	public Iterable<User> listUsers() {
 	
 		return userRepo.findAll();
 	}
 	
 	@GetMapping("/login")
-	public String login(Map<String, Object> model) {
+	public String login(Map<String, Object> model, HttpSession sesion) {
 		model.put("title", "Iniciar sesión");
+		
 		return "login";
 	}
 	
