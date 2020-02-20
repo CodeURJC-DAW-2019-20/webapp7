@@ -15,7 +15,7 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "volunteerings")
 public class Volunteering {
-	@OneToMany(mappedBy = "advert")
+	@OneToMany(mappedBy = "volunteering")
 	private Set<Join> joined_users;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

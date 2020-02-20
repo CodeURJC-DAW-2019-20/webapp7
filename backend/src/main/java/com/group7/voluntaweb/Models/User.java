@@ -37,9 +37,9 @@ public class User {
 	@NotEmpty
 	private String telephone;
 	
-	@NotEmpty
-	@ElementCollection(fetch = FetchType.EAGER)
-	private List<String> roles;
+	//@NotEmpty
+	//@ElementCollection(fetch = FetchType.EAGER)
+	//private List<String> roles;
 	@NotEmpty
 	private String image;
 
@@ -107,13 +107,13 @@ public class User {
 		this.image = image;
 	}
 
-	public List<String> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<String> roles) {
-		this.roles = roles;
-	}
+//	public List<String> getRoles() {
+//		return roles;
+//	}
+//
+//	public void setRoles(List<String> roles) {
+//		this.roles = roles;
+//	}
 
 	public User() {
 	}
@@ -127,7 +127,7 @@ public class User {
 	}
 
 	public User(Set<Join> registrations, @NotEmpty String name, @NotEmpty String surname, @NotEmpty String email,
-			@NotEmpty String password, @NotEmpty String city, @NotEmpty String telephone, @NotEmpty List<String> roles,
+			@NotEmpty String password, @NotEmpty String city, @NotEmpty String telephone, //@NotEmpty List<String> roles,
 			@NotEmpty String image) {
 		super();
 		this.registrations = registrations;
@@ -137,7 +137,7 @@ public class User {
 		this.password = password;
 		this.city = city;
 		this.telephone = telephone;
-		this.roles = roles;
+		//this.roles = roles;
 		this.image = image;
 	}
 

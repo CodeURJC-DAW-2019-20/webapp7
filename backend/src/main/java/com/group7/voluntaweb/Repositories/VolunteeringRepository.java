@@ -6,11 +6,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.group7.voluntaweb.Models.User;
+import com.group7.voluntaweb.Models.Volunteering;
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface VolunteeringRepository extends CrudRepository<Volunteering, Long> {
 	
-	User findByName(String name);
-	User findByEmail(String email);
+	Volunteering findById(String name);
+
 	
 	
 	//@Query("SELECT id FROM user_volunteerings WHERE user_volunteerings.user_id = :idUser AND user_volunteerings.volunteering_id = :idVolunteering")

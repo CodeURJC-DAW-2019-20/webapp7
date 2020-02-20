@@ -1,5 +1,6 @@
 package com.group7.voluntaweb.Models;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -14,9 +15,12 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users_volunteerings")
-public class Join {
+public class Join implements Serializable{
+	
+	
+	private static final long serialVersionUID = 1L;
 
-	@Column(unique = true)
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -32,6 +36,7 @@ public class Join {
 	private Volunteering volunteering;
 	@NotEmpty
 	private Date date;
+
 
 	public Long getId() {
 		return id;
@@ -65,9 +70,6 @@ public class Join {
 		this.date = date;
 	}
 
-	public Join() {
-
-	}
 
 
 }
