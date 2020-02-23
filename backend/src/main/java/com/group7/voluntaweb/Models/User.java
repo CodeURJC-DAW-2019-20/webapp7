@@ -1,6 +1,7 @@
 package com.group7.voluntaweb.Models;
 
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -36,6 +37,7 @@ public class User {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 	private String image;
+	private Date registered_at;
     
    
 
@@ -112,11 +114,19 @@ public class User {
 		this.roles = roles;
 	}
 
-    public User() {
+    public Date getRegistered_at() {
+		return registered_at;
+	}
+
+	public void setRegistered_at(Date registered_at) {
+		this.registered_at = registered_at;
+	}
+
+	public User() {
     }
 
 public User(String name, String surname, String email, String password, String city, String telephone,
-			String image, List<String> roles) {
+			String image, List<String> roles, Date registered_at) {
 
 		this.name = name;
 		this.surname = surname;
@@ -126,6 +136,7 @@ public User(String name, String surname, String email, String password, String c
 		this.telephone = telephone;
 		this.image = image;
 		this.roles = roles;
+		this.registered_at = registered_at;
 
 	}
 
