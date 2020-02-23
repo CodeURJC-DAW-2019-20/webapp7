@@ -1,6 +1,7 @@
 package com.group7.voluntaweb.Repositories;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,10 +14,13 @@ import antlr.collections.List;
 
 public interface VolunteeringRepository extends CrudRepository<Volunteering, Long> {
 	
-	Volunteering findById(String name);
+	@Query("SELECT vol FROM Volunteering vol INNER JOIN FETCH vol.category")
+	Iterable<Volunteering> findAll();
 	
-	@Query("SELECT vol, ngo.name from Volunteering vol INNER JOIN VolPerONG vPo ON vol.id = vPo.volunteering_id INNER JOIN ONG ngo ON vPo.ngo_id = ngo.id where vol.category_id = :id")
-	Iterable<Volunteering> findByCategory(@Param("id") int id);
+	Optional<Volunteering> findById(Long id);
+	
+	@Query("SELECT vol, ngo.name from Volunteering vol INNER JOIN VolPerONG vPo ON vol.id = vPo.volunteering INNER JOIN ONG ngo ON vPo.ong = ngo.id where vol.category = :id")
+	Iterable<Volunteering> findByCategory(@Param("id") Long id);
 
 
 	
