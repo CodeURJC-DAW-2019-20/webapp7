@@ -1,11 +1,13 @@
 package com.group7.voluntaweb.Models;
 
+
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -13,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -34,6 +37,7 @@ public class User {
 	@Column(unique = true)
 	private String email;
 
+
 	private String password;
 	private String city;
 	private String telephone;
@@ -41,11 +45,12 @@ public class User {
 	private List<String> roles;
 	private String image;
 
-	public long getId() {
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -113,6 +118,7 @@ public class User {
 		this.roles = roles;
 	}
 
+
 	public Set<UsersVolunteerings> getRegistrations() {
 		return registrations;
 	}
@@ -137,6 +143,7 @@ public class User {
 		this.roles = roles;
 
 	}
+
 
 	public User(Set<UsersVolunteerings> registrations, @NotEmpty String name, @NotEmpty String surname,
 			@NotEmpty String email, @NotEmpty String password, @NotEmpty String city, @NotEmpty String telephone,
@@ -172,3 +179,4 @@ public class User {
 	}
 
 }
+
