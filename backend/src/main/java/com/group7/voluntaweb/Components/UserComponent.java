@@ -35,9 +35,5 @@ public class UserComponent {
 	public boolean isLoggedUser() {
 		return this.user != null;
 	}
-	
-	public boolean isJoinedUser() {
-		return this.user != null;
-	}
 
 }

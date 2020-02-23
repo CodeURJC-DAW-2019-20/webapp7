@@ -1,6 +1,7 @@
 package com.group7.voluntaweb.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,4 +24,15 @@ public class UserService {
 		return userRepository.findAll();
 	}
 
+	public User findUser(long userId) {
+		// TODO Auto-generated method stub
+		return userRepository.findById(userId);
+	}
+	
+
+//	public boolean isJoined(long userId, long volunteeringId) {
+//		long searchingUserId = userRepository.findJoinedUser(userId, volunteeringId);
+//		boolean isThere = searchingUserId != 0;
+//		return isThere;
+//	}
 }

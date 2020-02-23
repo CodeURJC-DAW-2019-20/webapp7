@@ -1,8 +1,12 @@
 package com.group7.voluntaweb.Models;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,38 +20,32 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "users")
 public class User {
-	@OneToMany(mappedBy = "user")
-	private Set<Join> registrations;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private long id;
 
-	@NotEmpty
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<UsersVolunteerings> registrations;
+
 	private String name;
-	@NotEmpty
+
 	private String surname;
 
-	@NotEmpty
+	@Column(unique = true)
 	private String email;
-	@NotEmpty
+
 	private String password;
-	@NotEmpty
 	private String city;
-	@NotEmpty
 	private String telephone;
-	
-	//@NotEmpty
-	//@ElementCollection(fetch = FetchType.EAGER)
-	//private List<String> roles;
-	@NotEmpty
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles;
 	private String image;
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -107,28 +105,42 @@ public class User {
 		this.image = image;
 	}
 
-//	public List<String> getRoles() {
-//		return roles;
-//	}
-//
-//	public void setRoles(List<String> roles) {
-//		this.roles = roles;
-//	}
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
+
+	public Set<UsersVolunteerings> getRegistrations() {
+		return registrations;
+	}
+
+	public void setRegistrations(Set<UsersVolunteerings> registrations) {
+		this.registrations = registrations;
+	}
 
 	public User() {
 	}
 
-	public Set<Join> getRegistrations() {
-		return registrations;
+	public User(String name, String surname, String email, String password, String city, String telephone, String image,
+			List<String> roles) {
+
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+		this.password = password;
+		this.city = city;
+		this.telephone = telephone;
+		this.image = image;
+		this.roles = roles;
+
 	}
 
-	public void setRegistrations(Set<Join> registrations) {
-		this.registrations = registrations;
-	}
-
-	public User(Set<Join> registrations, @NotEmpty String name, @NotEmpty String surname, @NotEmpty String email,
-			@NotEmpty String password, @NotEmpty String city, @NotEmpty String telephone, //@NotEmpty List<String> roles,
-			@NotEmpty String image) {
+	public User(Set<UsersVolunteerings> registrations, @NotEmpty String name, @NotEmpty String surname,
+			@NotEmpty String email, @NotEmpty String password, @NotEmpty String city, @NotEmpty String telephone,
+			@NotEmpty List<String> roles, @NotEmpty String image) {
 		super();
 		this.registrations = registrations;
 		this.name = name;
@@ -137,8 +149,26 @@ public class User {
 		this.password = password;
 		this.city = city;
 		this.telephone = telephone;
-		//this.roles = roles;
+		this.roles = roles;
 		this.image = image;
+	}
+
+	public void addJoinedVolunteering(Volunteering volunteering) {
+		UsersVolunteerings join = new UsersVolunteerings();
+		join.setUser(this);
+		join.setVolunteering(volunteering);
+		join.setDate(new Timestamp(new Date().getTime()));
+		registrations.add(join);
+	}
+
+	public void unjoinVolunteering(Volunteering volunteering) {
+		UsersVolunteerings join = new UsersVolunteerings();
+		for (UsersVolunteerings a : registrations) {
+			if (a.getUser().equals(this) && a.getVolunteering().equals(volunteering)) {
+				join = a;
+			}
+		}
+		registrations.remove(join);
 	}
 
 }

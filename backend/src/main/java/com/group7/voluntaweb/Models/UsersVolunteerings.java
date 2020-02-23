@@ -1,7 +1,6 @@
 package com.group7.voluntaweb.Models;
 
-import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,28 +14,21 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users_volunteerings")
-public class Join implements Serializable{
-	
-	
-	private static final long serialVersionUID = 1L;
-
-
+public class UsersVolunteerings {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	@NotEmpty
 	private User user;
 
 	@ManyToOne
 	@JoinColumn(name = "volunteering_id")
-	@NotEmpty
 	private Volunteering volunteering;
-	@NotEmpty
-	private Date date;
 
+	@Column(nullable = false)
+	private Timestamp date;
 
 	public Long getId() {
 		return id;
@@ -62,14 +54,12 @@ public class Join implements Serializable{
 		this.volunteering = volunteering;
 	}
 
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
-
-
 
 }

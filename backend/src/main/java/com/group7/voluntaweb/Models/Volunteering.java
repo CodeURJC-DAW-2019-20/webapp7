@@ -1,6 +1,7 @@
 package com.group7.voluntaweb.Models;
 
-import java.sql.Date;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -12,34 +13,64 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "volunteerings")
 public class Volunteering {
-	@OneToMany(mappedBy = "volunteering")
-	private Set<Join> joined_users;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private long id;
+	
+	@OneToMany(mappedBy = "volunteering")
+	private Set<UsersVolunteerings> joined_users;
+	
 	@NotEmpty
 	private String name;
 
 	@NotEmpty
-	private String category;
+	private long category_id;
 	@NotEmpty
-	private Date startDate;
+
+	@DateTimeFormat(pattern="MM/dd") 
+	private Calendar startDate;
 	@NotEmpty
-	private Date endDate;
+
+    private Calendar endDate;
 	@NotEmpty
 	@Lob
 	private String description;
 	@NotEmpty
 	private String image;
+	@NotEmpty
+	private String city;
+	@NotEmpty
+	private String email;
 
-	public Long getId() {
+	public Volunteering() {
+	}
+
+	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty long category_id,
+			@NotEmpty Calendar startDate, @NotEmpty Calendar endDate, @NotEmpty String description, @NotEmpty String image,
+			@NotEmpty String city, @NotEmpty String email) {
+		super();
+		this.joined_users = joined_users;
+		this.name = name;
+		this.category_id = category_id;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.description = description;
+		this.image = image;
+		this.city = city;
+		this.email = email;
+	}
+	
+	
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -51,27 +82,27 @@ public class Volunteering {
 		this.name = name;
 	}
 
-	public String getCategory() {
-		return category;
+	public long getCategory() {
+		return category_id;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategory(long category) {
+		this.category_id = category;
 	}
 
-	public Date getStartDate() {
+	public Calendar getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(Calendar startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public Calendar getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(Calendar endDate) {
 		this.endDate = endDate;
 	}
 
@@ -91,27 +122,37 @@ public class Volunteering {
 		this.image = image;
 	}
 
-	public Set<Join> getJoined_users() {
+	public Set<UsersVolunteerings> getJoined_users() {
 		return joined_users;
 	}
 
-	public void setJoined_users(Set<Join> joined_users) {
+	public void setJoined_users(Set<UsersVolunteerings> joined_users) {
 		this.joined_users = joined_users;
 	}
 
-	public Volunteering() {
+	public String getCity() {
+		return city;
 	}
 
-	public Volunteering(Set<Join> joined_users, @NotEmpty String name, @NotEmpty String category,
-			@NotEmpty Date startDate, @NotEmpty Date endDate, @NotEmpty String description, @NotEmpty String image) {
-		super();
-		this.joined_users = joined_users;
-		this.name = name;
-		this.category = category;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.description = description;
-		this.image = image;
+	public void setCity(String city) {
+		this.city = city;
 	}
+
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	
+
+
+
+
+
+
 
 }
