@@ -1,0 +1,121 @@
+{{>layout/header}}
+<body id="bg">
+<div class="page-wraper">
+<div id="loading-area"></div>
+	<!-- header -->
+    <header class="site-header mo-left header fullwidth">
+		<!-- main header -->
+		<div class="sticky-header main-bar-wraper navbar-expand-lg">
+			<div class="main-bar clearfix">
+				<div class="container clearfix">
+					<!-- website logo -->
+					<div class="logo-header mostion">
+						<a href="index.html"><img src="images/logo.png" class="logo" alt=""></a>
+					</div>
+					<!-- nav toggle button -->
+					<!-- nav toggle button -->
+					<button class="navbar-toggler collapsed navicon justify-content-end" type="button"
+						data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+					<!-- extra nav -->
+					<div class="extra-nav">
+						<div class="extra-cell">
+							<a href="register.html" class="site-button"><i class="fa fa-user"></i> Regístrate</a>
+							<a href="login.html" class="site-button"><i class="fa fa-lock"></i> Inicia sesión</a>
+						</div>
+					</div>
+					<!-- Quik search -->
+					<div class="dez-quik-search bg-primary">
+						<form action="#">
+							<input name="search" value="" type="text" class="form-control"
+								placeholder="Escribe algo para buscar">
+							<span id="quik-search-remove"><i class="flaticon-close"></i></span>
+						</form>
+					</div>
+					<!-- main nav -->
+					<div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
+						<ul class="nav navbar-nav">
+							<li>
+								<a href="index.html">Inicio</a>
+							</li>
+							<li>
+								<a href="searches.html">Voluntariados</a>
+							</li>
+							<li class="active"><a href="ongs.html">ONGs</a></li>
+							<li class="search-box">
+								<form role="search" method="get" id="searchform" action="">
+									<label for="search-input">
+										<i class="fa fa-search"></i>
+									</label>
+									<input type="text" value="" placeholder="Buscar..." class="" id="search-input" />
+								</form>
+							</li>
+							<li class="ls-mobile">
+								<a href="register.html">Regístrate <i class="fa fa-user"></i></a>
+							</li>
+							<li class="ls-mobile">
+								<a href="login.html">Inicia sesión <i class="fa fa-lock"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- main header END -->
+	</header>
+    <!-- header END -->
+    <!-- Content -->
+    <div class="page-content bg-white">
+        <!-- inner page banner -->
+        <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(images/background/Volunteerswalk.jpg);">
+            <div class="container">
+                <div class="dez-bnr-inr-entry">
+                    <h1 class="text-white">ONGs</h1>
+					<!-- Breadcrumb row -->
+					<div class="breadcrumb-row">
+						<ul class="list-inline">
+							<li><a href="#">Inicio</a></li>
+							<li>ONGs</li>
+						</ul>
+					</div>
+					<!-- Breadcrumb row END -->
+                </div>
+            </div>
+        </div>
+        <!-- inner page banner END -->
+        <!-- contact area -->
+        <div class="content-block">
+			<!-- Find Job -->
+			<div class="section-full bg-white content-inner">
+				<div class="container">
+					<ul class="post-job-bx">
+					{{#ngos}}
+						<li>
+							<a href="/ongs/{{id}}">
+		                        <div class="d-flex m-b30">
+		                            <div class="job-post-company">
+		                                <span><img src="{{image}}"></span>
+		                            </div>
+		                            <div class="job-post-info">
+		                                <h4>{{name}}</h4>
+		                                <ul>
+		                                    <li><i class="fa fa-map-marker"></i> {{address}}</li>
+		                                </ul>
+		                            </div>
+		                        </div>
+		                    </a>
+	                    </li>
+					{{/ngos}}
+					</ul>
+				</div>
+			</div>
+            <!-- Find Job END -->
+		</div>
+    </div>
+    <!-- Content END-->
+{{>layout/footer}}

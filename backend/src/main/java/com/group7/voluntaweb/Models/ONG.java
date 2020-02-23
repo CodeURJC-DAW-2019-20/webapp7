@@ -1,6 +1,5 @@
 package com.group7.voluntaweb.Models;
 
-
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
@@ -9,38 +8,39 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="ngos")
+@Table(name = "ngos")
 public class ONG {
 
-
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
+	private String name;
 
-    private String name;
-    
-    
-    @Column(unique = true)
-    private String email;
-    
-    private String responsible_name;
-    private String responsible_surname;
-	
+	@Column(unique = true)
+	private String email;
+
+	private String responsible_name;
+	private String responsible_surname;
+
 	private String address;
 	private String telephone;
 	private String postal;
 	private String password;
 	private String image;
-    
-   
+	private String description;
 
-	
-
-    public Long getId() {
+	public Long getId() {
 		return id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public void setId(Long id) {
@@ -120,9 +120,10 @@ public class ONG {
 	}
 
 	public ONG() {
-    }
+	}
 
-public ONG(String name, String email, String responsible_name, String responsible_surname, String address,String telephone, String postal, String image, String password) {
+	public ONG(String name, String email, String responsible_name, String responsible_surname, String address,
+			String telephone, String postal, String image, String password, String description) {
 
 		this.name = name;
 		this.email = email;
@@ -133,9 +134,8 @@ public ONG(String name, String email, String responsible_name, String responsibl
 		this.postal = postal;
 		this.image = image;
 		this.password = password;
-
+		this.description = description;
 
 	}
-
 
 }
