@@ -1,18 +1,25 @@
 package com.group7.voluntaweb.Models;
 
 
+import java.util.Set;
+
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name="ngos")
 public class ONG {
+	
+	@OneToMany(mappedBy = "ong")
+	private Set<VolPerONG> volsPerOng;
 
 
 	@Id
@@ -34,6 +41,7 @@ public class ONG {
 	private String postal;
 	private String password;
 	private String image;
+
     
    
 
