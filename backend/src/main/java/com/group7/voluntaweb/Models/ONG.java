@@ -1,5 +1,6 @@
 package com.group7.voluntaweb.Models;
 
+import java.util.List;
 
 
 import javax.persistence.Column;
@@ -11,10 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="ngos")
+@Table(name = "ngos")
 public class ONG {
+
 	
 
 	@Id
@@ -33,19 +34,23 @@ public class ONG {
     @Lob
     private String description;
 	
+
 	private String address;
 	private String telephone;
 	private String postal;
 	private String password;
 	private String image;
 
-    
-   
-
-	
-
-    public Long getId() {
+	public Long getId() {
 		return id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public void setId(Long id) {
@@ -133,9 +138,11 @@ public class ONG {
 	}
 
 	public ONG() {
-    }
+	}
+
 
 public ONG(String name, String email, String responsible_name, String responsible_surname,String description, String address,String telephone, String postal, String image, String password) {
+
 
 		this.name = name;
 		this.email = email;
@@ -147,9 +154,8 @@ public ONG(String name, String email, String responsible_name, String responsibl
 		this.postal = postal;
 		this.image = image;
 		this.password = password;
-
+		this.description = description;
 
 	}
-
 
 }

@@ -3,6 +3,7 @@ package com.group7.voluntaweb.Models;
 import java.sql.Date;
 import java.util.Set;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,40 +17,62 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "volunteerings")
 public class Volunteering {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
 
-	@Column(unique = true)
 
+	@OneToMany(mappedBy = "volunteering")
+	private Set<UsersVolunteerings> joined_users;
+
+	@NotEmpty
 	private String name;
 
-
-	@ManyToOne
-	private Category category;
-	
+	@NotEmpty
+	private long category_id;
+	@NotEmpty
 
 	private Date startdate;
+	@NotEmpty
 
 	private Date enddate;
-
+	@NotEmpty
 	@Lob
 	private String description;
+	@NotEmpty
 	private String image;
-	private String city;
-	@ManyToOne
+	@NotEmpty
+	private String city;  
+  @ManyToOne
 	private ONG ong;
-	
+	@NotEmpty
+	private String email;
 
-	public Long getId() {
+	public Volunteering() {
+	}
+
+	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty long category_id,
+			@NotEmpty Date startdate, @NotEmpty Date enddate, @NotEmpty String description, @NotEmpty String image,
+			@NotEmpty String city, @NotEmpty String email) {
+		super();
+		this.joined_users = joined_users;
+		this.name = name;
+		this.category_id = category_id;
+		this.startdate = startdate;
+		this.enddate = enddate;
+		this.description = description;
+		this.image = image;
+		this.city = city;
+		this.email = email;
+	}
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -60,7 +83,6 @@ public class Volunteering {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public Date getStartdate() {
 		return startdate;
@@ -94,6 +116,15 @@ public class Volunteering {
 		this.image = image;
 	}
 
+
+	public Set<UsersVolunteerings> getJoined_users() {
+		return joined_users;
+	}
+
+	public void setJoined_users(Set<UsersVolunteerings> joined_users) {
+		this.joined_users = joined_users;
+	}
+
 	public String getCity() {
 		return city;
 	}
@@ -101,6 +132,7 @@ public class Volunteering {
 	public void setCity(String city) {
 		this.city = city;
 	}
+
 
 	public Volunteering() {
 	}
@@ -114,6 +146,14 @@ public class Volunteering {
 		this.description = description;
 		this.image = image;
 		this.city = city;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+
 	}
 
 }

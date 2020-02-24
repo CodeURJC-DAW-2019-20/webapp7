@@ -19,7 +19,7 @@ public class ONGService {
 		ongRepository.save(user);
 	}
 	
-	public List<ONG> getAll(){
+	public Iterable<ONG> getAll(){
 		return ongRepository.findAll();
 	}
 

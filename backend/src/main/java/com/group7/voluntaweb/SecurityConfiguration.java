@@ -2,6 +2,7 @@ package com.group7.voluntaweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import com.group7.voluntaweb.Repositories.UserRepositoryAuthProvider;
 
 @Configuration
+@Order(1)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -19,8 +21,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		// Public pages
 		http.authorizeRequests().antMatchers("/").permitAll();
+		http.authorizeRequests().antMatchers("/ongs").permitAll();
+		http.authorizeRequests().antMatchers("/ongs/**").permitAll();
 		// Login pages
-		http.authorizeRequests().antMatchers("/login").permitAll();
+		http.authorizeRequests().antMatchers("/login").anonymous();
 		http.authorizeRequests().antMatchers("/loginerror").permitAll();
 		// Logout page
 		http.authorizeRequests().antMatchers("/logout").permitAll();
@@ -30,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/add-ong").anonymous();
 		http.authorizeRequests().antMatchers("/register-user").anonymous();
 		http.authorizeRequests().antMatchers("/add-user").anonymous();
+		http.authorizeRequests().antMatchers("/login-ong").anonymous();
 		// Assets
 		http.authorizeRequests().antMatchers("/css/**").permitAll();
 		http.authorizeRequests().antMatchers("/images/**").permitAll();
@@ -46,7 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.formLogin().loginPage("/login");
 		http.formLogin().usernameParameter("email");
 		http.formLogin().passwordParameter("password");
-		http.formLogin().defaultSuccessUrl("/login");
+		http.formLogin().defaultSuccessUrl("/");
 		http.formLogin().failureUrl("/loginerror");
 
 		// Logout
@@ -66,3 +71,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 
 }
+
