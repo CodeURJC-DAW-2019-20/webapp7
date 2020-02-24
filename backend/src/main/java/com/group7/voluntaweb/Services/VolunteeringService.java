@@ -3,6 +3,7 @@ package com.group7.voluntaweb.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Models.Volunteering;
 import com.group7.voluntaweb.Repositories.VolunteeringRepository;
 
@@ -15,5 +16,7 @@ public class VolunteeringService {
 	public Volunteering findVolunteering(long id) {
 		return volunteeringRepository.findById(id);
 	}
+
+	
 
 }

@@ -45,7 +45,8 @@ public class VolunteeringController {
 		Volunteering advert = volunteeringRepo.findById(id);
 		model.addAttribute("advert", advert);
 		model.addAttribute("buttonName", "Apuntarse");
-		model.addAttribute("user", 9);
+		//User user = userComponent.getLoggedUser();
+		model.addAttribute("user", 52);
 		model.addAttribute("volunteering", id);
 
 		return "volunteering";
@@ -54,23 +55,23 @@ public class VolunteeringController {
 	@RequestMapping(value = "/joinToVolunteering", method = RequestMethod.POST)
 	public String join(Model model, @ModelAttribute("volunteering") long volunteeringId,
 			@ModelAttribute("user") long userId) {
-		// User user = userComponent.getLoggedUser();
+		//User user = userComponent.getLoggedUser();
 		User user = userService.findUser(userId);
 		Volunteering volunteering = volunteeringService.findVolunteering(volunteeringId);
 		
 		
-		UsersVolunteerings join = new UsersVolunteerings();
-		join.setUser(user);
-		join.setVolunteering(volunteering);
-		join.setDate(new Timestamp(new Date().getTime()));
+			UsersVolunteerings join = new UsersVolunteerings();
+			join.setUser(user);
+			join.setVolunteering(volunteering);
+			join.setDate(new Timestamp(new Date().getTime()));
+			
+			Set<UsersVolunteerings> x = user.getRegistrations();
+			x.add(join);
+	
+			user.setRegistrations(x);
+	
+			userService.save(user);	
 		
-		Set<UsersVolunteerings> x = user.getRegistrations();
-		x.add(join);
-
-		user.setRegistrations(x);
-
-		userService.save(user);	
-
 		return "redirect:volunteering/" + volunteeringId;
 	}
 	
