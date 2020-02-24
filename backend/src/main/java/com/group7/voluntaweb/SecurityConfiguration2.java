@@ -7,14 +7,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import com.group7.voluntaweb.Repositories.UserRepositoryAuthProvider;
+import com.group7.voluntaweb.Repositories.ONGRepositoryAuthProvider;
 
 @Configuration
-@Order(1)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+@Order(2)
+public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	public UserRepositoryAuthProvider userRepoAuthProvider;
+	public ONGRepositoryAuthProvider userRepoAuthProvider;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -24,7 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/ongs").permitAll();
 		http.authorizeRequests().antMatchers("/ongs/**").permitAll();
 		// Login pages
-		http.authorizeRequests().antMatchers("/login").anonymous();
+		http.authorizeRequests().antMatchers("/login-ong").anonymous();
 		http.authorizeRequests().antMatchers("/loginerror").permitAll();
 		// Logout page
 		http.authorizeRequests().antMatchers("/logout").permitAll();
@@ -34,7 +34,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/add-ong").anonymous();
 		http.authorizeRequests().antMatchers("/register-user").anonymous();
 		http.authorizeRequests().antMatchers("/add-user").anonymous();
-		http.authorizeRequests().antMatchers("/login-ong").anonymous();
 		// Assets
 		http.authorizeRequests().antMatchers("/css/**").permitAll();
 		http.authorizeRequests().antMatchers("/images/**").permitAll();
@@ -70,4 +69,3 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 
 }
-

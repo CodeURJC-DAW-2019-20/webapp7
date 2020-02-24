@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.group7.voluntaweb.Components.ONGComponent;
 import com.group7.voluntaweb.Models.ONG;
+import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Repositories.ONGRepository;
 import com.group7.voluntaweb.Services.ImageService;
 import com.group7.voluntaweb.Services.ONGService;
@@ -25,6 +29,9 @@ public class ONGController {
 
 	@Autowired
 	private ONGRepository ongRepo;
+	
+	@Autowired
+	private ONGComponent ongComponent;
 
 	@Autowired
 	private ONGService ongService;
@@ -74,6 +81,19 @@ public class ONGController {
 		imgService.saveImage("ong", ong.getId(), imagenFile);
 		return "redirect:index"; // REDIRECTS TO INDEX
 
+	}
+	
+	@GetMapping("/login-ong")
+	public String login(Map<String, Object> model, HttpSession sesion) {
+		model.put("title", "Iniciar sesión");
+
+		Boolean logged = ongComponent.isLoggedUser();
+		ONG user = ongComponent.getLoggedUser();
+
+		model.put("logged", logged);
+		model.put("user", user);
+
+		return "login";
 	}
 
 }
