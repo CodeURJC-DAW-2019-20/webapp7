@@ -1,5 +1,7 @@
 package com.group7.voluntaweb.Models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
