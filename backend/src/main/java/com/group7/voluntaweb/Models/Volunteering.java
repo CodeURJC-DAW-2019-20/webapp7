@@ -1,7 +1,6 @@
 package com.group7.voluntaweb.Models;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -13,18 +12,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
 @Table(name = "volunteerings")
 public class Volunteering {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
 	@OneToMany(mappedBy = "volunteering")
 	private Set<UsersVolunteerings> joined_users;
-	
+
 	@NotEmpty
 	private String name;
 
@@ -32,11 +29,10 @@ public class Volunteering {
 	private long category_id;
 	@NotEmpty
 
-	@DateTimeFormat(pattern="MM/dd") 
-	private Calendar startDate;
+	private Date startdate;
 	@NotEmpty
 
-    private Calendar endDate;
+	private Date enddate;
 	@NotEmpty
 	@Lob
 	private String description;
@@ -51,21 +47,20 @@ public class Volunteering {
 	}
 
 	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty long category_id,
-			@NotEmpty Calendar startDate, @NotEmpty Calendar endDate, @NotEmpty String description, @NotEmpty String image,
+			@NotEmpty Date startdate, @NotEmpty Date enddate, @NotEmpty String description, @NotEmpty String image,
 			@NotEmpty String city, @NotEmpty String email) {
 		super();
 		this.joined_users = joined_users;
 		this.name = name;
 		this.category_id = category_id;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.startdate = startdate;
+		this.enddate = enddate;
 		this.description = description;
 		this.image = image;
 		this.city = city;
 		this.email = email;
 	}
-	
-	
+
 	public long getId() {
 		return id;
 	}
@@ -90,20 +85,20 @@ public class Volunteering {
 		this.category_id = category;
 	}
 
-	public Calendar getStartDate() {
-		return startDate;
+	public Date getStartdate() {
+		return startdate;
 	}
 
-	public void setStartDate(Calendar startDate) {
-		this.startDate = startDate;
+	public void setStartdate(Date startdate) {
+		this.startdate = startdate;
 	}
 
-	public Calendar getEndDate() {
-		return endDate;
+	public Date getEnddate() {
+		return enddate;
 	}
 
-	public void setEndDate(Calendar endDate) {
-		this.endDate = endDate;
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
 	}
 
 	public String getDescription() {
@@ -138,7 +133,6 @@ public class Volunteering {
 		this.city = city;
 	}
 
-	
 	public String getEmail() {
 		return email;
 	}
@@ -146,13 +140,5 @@ public class Volunteering {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	
-
-
-
-
-
-
 
 }
