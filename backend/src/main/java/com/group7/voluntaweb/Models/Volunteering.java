@@ -3,21 +3,26 @@ package com.group7.voluntaweb.Models;
 import java.sql.Date;
 import java.util.Set;
 
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+
 
 @Entity
 @Table(name = "volunteerings")
 public class Volunteering {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+
+
 
 	@OneToMany(mappedBy = "volunteering")
 	private Set<UsersVolunteerings> joined_users;
@@ -39,7 +44,9 @@ public class Volunteering {
 	@NotEmpty
 	private String image;
 	@NotEmpty
-	private String city;
+	private String city;  
+  @ManyToOne
+	private ONG ong;
 	@NotEmpty
 	private String email;
 
@@ -77,14 +84,6 @@ public class Volunteering {
 		this.name = name;
 	}
 
-	public long getCategory() {
-		return category_id;
-	}
-
-	public void setCategory(long category) {
-		this.category_id = category;
-	}
-
 	public Date getStartdate() {
 		return startdate;
 	}
@@ -117,6 +116,7 @@ public class Volunteering {
 		this.image = image;
 	}
 
+
 	public Set<UsersVolunteerings> getJoined_users() {
 		return joined_users;
 	}
@@ -133,12 +133,27 @@ public class Volunteering {
 		this.city = city;
 	}
 
+
+	public Volunteering() {
+	}
+
+	public Volunteering(String name, Date startdate, Date enddate, String description, String image,
+			String city) {
+		super();
+		this.name = name;
+		this.startdate = startdate;
+		this.enddate = enddate;
+		this.description = description;
+		this.image = image;
+		this.city = city;
+
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+
 	}
 
 }

@@ -10,6 +10,8 @@ import com.group7.voluntaweb.Models.User;
 public interface ONGRepository extends JpaRepository<ONG, Long> {
 	
 	ONG findByName(String name);
+	
+	
 
 	ONG findByid(Long id);
 

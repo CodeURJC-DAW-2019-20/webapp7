@@ -68,14 +68,20 @@ public class ONGController {
 	}
 	
 	@PostMapping("/add-ong") // ONG REGISTER ACTION
-	public String addOng(@RequestParam String name, @RequestParam String email, @RequestParam String responsible_name, @RequestParam String responsible_surname, @RequestParam String address, @RequestParam String telephone, @RequestParam String postal, @RequestParam String password, @RequestParam String description, @RequestParam MultipartFile imagenFile, Map<String, Object> model) throws IOException {
+
+	public String addOng(@RequestParam String name, @RequestParam String email, @RequestParam String responsible_name,
+      @RequestParam String responsible_surname, @RequestParam String address, @RequestParam String telephone,
+      @RequestParam String postal, @RequestParam String password, @RequestParam String description, @RequestParam MultipartFile imagenFile, Map<String, Object> model) throws IOException {
+
 		model.put("title", "Registrar ONG");
 		
 		String enc_password = new BCryptPasswordEncoder().encode(password); // ENCRYPT PASSWORD
 
+
 		ONG ong = new ONG(name, email, responsible_name, responsible_surname, address, telephone, postal, "true", enc_password, description);
 		ong.setImage("/images/ong/image-"+ong.getId()+".jpg");
 		//ong.setImage(true);
+
 		this.ongService.save(ong); // INSERT INTO DATABASE
 		
 		imgService.saveImage("ong", ong.getId(), imagenFile);
