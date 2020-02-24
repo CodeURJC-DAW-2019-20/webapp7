@@ -1,5 +1,6 @@
 package com.group7.voluntaweb.Controllers;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.group7.voluntaweb.Models.ONG;
 import com.group7.voluntaweb.Repositories.ONGRepository;
+import com.group7.voluntaweb.Services.ImageService;
 import com.group7.voluntaweb.Services.ONGService;
 
 @Controller
@@ -25,6 +28,9 @@ public class ONGController {
 
 	@Autowired
 	private ONGService ongService;
+	
+	@Autowired
+	private ImageService imgService;
 
 	@GetMapping("/register-ong") // ONG REGISTER VIEW
 	public String registerONG(Map<String, Object> model) {
@@ -55,15 +61,17 @@ public class ONGController {
 	}
 	
 	@PostMapping("/add-ong") // ONG REGISTER ACTION
-	public String addOng(@RequestParam String name, @RequestParam String email, @RequestParam String responsible_name, @RequestParam String responsible_surname, @RequestParam String address, @RequestParam String telephone, @RequestParam String postal, String image, String password, @RequestParam String description, Map<String, Object> model) {
+	public String addOng(@RequestParam String name, @RequestParam String email, @RequestParam String responsible_name, @RequestParam String responsible_surname, @RequestParam String address, @RequestParam String telephone, @RequestParam String postal, @RequestParam String password, @RequestParam String description, @RequestParam MultipartFile imagenFile, Map<String, Object> model) throws IOException {
 		model.put("title", "Registrar ONG");
-
+		
 		String enc_password = new BCryptPasswordEncoder().encode(password); // ENCRYPT PASSWORD
 
-		ONG ong = new ONG(name, email, responsible_name, responsible_surname, address, telephone, postal, image, enc_password, description);
-
+		ONG ong = new ONG(name, email, responsible_name, responsible_surname, address, telephone, postal, "true", enc_password, description);
+		ong.setImage("/images/ong/image-"+ong.getId()+".jpg");
+		//ong.setImage(true);
 		this.ongService.save(ong); // INSERT INTO DATABASE
-
+		
+		imgService.saveImage("ong", ong.getId(), imagenFile);
 		return "redirect:index"; // REDIRECTS TO INDEX
 
 	}

@@ -102,7 +102,7 @@
 					<div class="col-md-12 m-b30">
 						<div class="p-a30 border-1  max-w500 m-auto">
 							<div class="tab-content nav">
-								<form id="loginONGs" class="tab-pane active col-12 p-a0" action="/add-ong" method="POST">
+								<form id="loginONGs" class="tab-pane active col-12 p-a0" action="/add-ong" method="POST" enctype="multipart/form-data">
 									<h4 class="font-weight-700">INFORMACIÓN DE LA ONG</h4>
 									<p class="font-weight-600">Si tiene una cuenta con nosotros, por favor inicie sesión.</p>
 									<div class="form-group">
@@ -126,10 +126,6 @@
 										<input name="postal" required="" class="form-control" placeholder="Código Postal" type="text">
 									</div>
 									<div class="form-group">
-										<label class="font-weight-700">Ciudad *</label>
-										<input name="city" required="" class="form-control" placeholder="Ciudad" type="text">
-									</div>
-									<div class="form-group">
 										<label class="font-weight-700">E-mail *</label>
 										<input name="email" required="" class="form-control" placeholder="Tu Email" type="email">
 									</div>
@@ -141,8 +137,18 @@
 										<label class="font-weight-700">Contraseña *</label>
 										<input name="password" required="" class="form-control " placeholder="Contraseña" type="password">
 									</div>
+									<div class="form-group">
+										<label class="font-weight-700">Descripción *</label>
+										<input name="description" required="" class="form-control " placeholder="Descripción de la ong" type="text">
+									</div>
+									<div class="form-group">
+										<label class="font-weight-700">Imagen *</label>
+										<input name="imagenFile" required="" class="form-control " placeholder=".jpg" type='file' accept=".jpg">
+									</div>
+									
 									<div class="text-left">
-										<button class="site-button button-lg outline outline-2">CREAR</button>
+										<input type='submit' value='Enviar'/>
+										
 									</div>
 								</form>
 							</div>
