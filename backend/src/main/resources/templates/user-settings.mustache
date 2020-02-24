@@ -1,0 +1,228 @@
+{{>layout/header}}
+
+<body id="bg">
+	<div class="page-wraper">
+		<div id="loading-area"></div>
+		<!-- header -->
+		<header class="site-header mo-left header fullwidth">
+			<!-- main header -->
+			<div class="sticky-header main-bar-wraper navbar-expand-lg">
+				<div class="main-bar clearfix">
+					<div class="container clearfix">
+						<!-- website logo -->
+						<div class="logo-header mostion">
+							<a href="index.html"><img src="images/logo.png" class="logo" alt=""></a>
+						</div>
+						<!-- nav toggle button -->
+						<!-- nav toggle button -->
+						<button class="navbar-toggler collapsed navicon justify-content-end" type="button"
+							data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+							aria-expanded="false" aria-label="Toggle navigation">
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+						<!-- extra nav -->
+						<div class="extra-nav">
+							<ul class="navbar-nav">
+								<li>
+									<div class="container-avatar">
+										<img src="images/user-placeholder.png" class="avatar">
+									</div>
+								</li>
+								<li class="nav-item dropdown">
+									<a id="navbarDropdown" class="nav-link dropdown-toggle reset-color" href="#"
+										role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+										v-pre>
+										Usuario <span class="caret"></span>
+									</a>
+									
+									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item" href="my-volunteerings.html">
+											Mis voluntariados
+										</a>
+										<a class="dropdown-item" href="user-settings.html">
+											Ajustes
+										</a>
+										<a class="dropdown-item" href="#">
+											Cerrar sesión
+										</a>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- Quik search -->
+						<div class="dez-quik-search bg-primary">
+							<form action="#">
+								<input name="search" value="" type="text" class="form-control"
+									placeholder="Escribe algo para buscar">
+								<span id="quik-search-remove"><i class="flaticon-close"></i></span>
+							</form>
+						</div>
+						<!-- main nav -->
+						<div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
+							<ul class="nav navbar-nav">
+								<li>
+									<a href="index.html">Inicio</a>
+								</li>
+								<li>
+									<a href="searches.html">Voluntariados</a>
+								</li>
+								<li><a href="ongs.html">ONGs</a></li>
+								<li class="search-box">
+									<form role="search" method="get" id="searchform" action="">
+										<label for="search-input">
+											<i class="fa fa-search"></i>
+										</label>
+										<input type="text" value="" placeholder="Buscar..." class=""
+											id="search-input" />
+									</form>
+								</li>
+								<li class="ls-mobile">
+									<a href="#">Ajustes <i class="fa fa-user"></i></a>
+								</li>
+								<li class="ls-mobile">
+									<a href="#">Cerrar sesión <i class="fa fa-lock"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- main header END -->
+		</header>
+		<!-- header END -->
+		<!-- Content -->
+		<div class="page-content bg-white">
+			<!-- inner page banner -->
+			<div class="dez-bnr-inr overlay-black-middle"
+				style="background-image:url(images/background/Volunteerswalk.jpg);">
+				<div class="container">
+					<div class="dez-bnr-inr-entry">
+						<h1 class="text-white">Ajustes de usuario</h1>
+						<!-- Breadcrumb row -->
+						<div class="breadcrumb-row">
+							<ul class="list-inline">
+								<li><a href="#">Inicio</a></li>
+								<li>Ajustes de usuario</li>
+							</ul>
+						</div>
+						<!-- Breadcrumb row END -->
+					</div>
+				</div>
+			</div>
+			<!-- inner page banner END -->
+			<!-- panel area -->
+			<div class="py-4">
+
+				<div class="row justify-content-center">
+					<div class="col-md-8">
+
+
+						<div class="card">
+							<div class="card-header">Mi cuenta</div>
+
+							<div class="card-body">
+								<!-- Settings form -->
+								<form method="POST" action="#" enctype="multipart/form-data">
+
+
+									<div class="form-group row">
+										<label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
+
+										<div class="col-md-6">
+											<input id="name" type="text" class="form-control" name="name"
+												placeholder="Nombre" required autocomplete="name" autofocus>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label for="surname"
+											class="col-md-4 col-form-label text-md-right">Apellidos</label>
+
+										<div class="col-md-6">
+											<input id="surname" type="text" class="form-control" name="surname"
+												placeholder="Apellidos" required autocomplete="surname" autofocus>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label for="nick" class="col-md-4 col-form-label text-md-right">Nombre de
+											usuario</label>
+
+										<div class="col-md-6">
+											<input id="nick" type="text" class="form-control" name="nick"
+												placeholder="Nombre de usuario" required autocomplete="nick" autofocus>
+
+
+										</div>
+									</div>
+
+
+									<div class="form-group row">
+										<label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+
+										<div class="col-md-6">
+											<input id="email" type="email" class="form-control" name="email"
+												placeholder="Email" required autocomplete="email">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="image_path" class="col-md-4 col-form-label text-md-right">Foto de
+											perfil</label>
+
+										<div class="col-md-6">
+											<input id="image_path" type="file" class="form-control" name="image_path"
+												autocomplete="image_path">
+										</div>
+									</div>
+
+
+
+									<div class="form-group row mb-0">
+										<div class="col-md-6 offset-md-4">
+											<button type="submit" class="btn btn-primary">
+												Guardar cambios
+											</button>
+											<!-- Button trigger modal -->
+												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+												  Eliminar Cuenta
+												</button>
+												
+												<!-- Modal -->
+												<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												  <div class="modal-dialog" role="document">
+												    <div class="modal-content">
+												      <div class="modal-header">
+												        <h5 class="modal-title" id="exampleModalLabel">Borrar Cuenta</h5>
+												        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												          <span aria-hidden="true">&times;</span>
+												        </button>
+												      </div>
+												      <div class="modal-body">
+												        ¿Realmente quiere eliminar la cuenta?
+												      </div>
+												      <div class="modal-footer">
+												        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+												  
+												         <form action="/delete" method="POST">			                                
+															  	<button type="submit" class="btn btn-primary">Eliminar</button>
+															
+												      </div>
+												    </div>
+												  </div>
+												</div>
+										</div>
+									</div>
+									
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- Content END-->
+		{{>layout/footer}}

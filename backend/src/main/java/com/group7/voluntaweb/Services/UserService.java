@@ -32,6 +32,10 @@ public class UserService {
 		return userRepository.findById(userId);
 	}
 	
+	public void deleteCount(User user) {
+		userRepository.deleteById(user.getId());
+	}
+	
 
 //	public boolean isJoined(long userId, long volunteeringId) {
 //		long searchingUserId = userRepository.findJoinedUser(userId, volunteeringId);
