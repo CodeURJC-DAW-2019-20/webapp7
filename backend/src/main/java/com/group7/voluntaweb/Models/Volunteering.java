@@ -3,11 +3,14 @@ package com.group7.voluntaweb.Models;
 import java.sql.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -16,9 +19,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "volunteerings")
 public class Volunteering {
-	
-	@OneToMany(mappedBy = "volunteering")
-	private Set<VolPerONG> volsPerOng;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,6 +41,8 @@ public class Volunteering {
 	private String description;
 	private String image;
 	private String city;
+	@ManyToOne
+	private ONG ong;
 	
 
 	public Long getId() {

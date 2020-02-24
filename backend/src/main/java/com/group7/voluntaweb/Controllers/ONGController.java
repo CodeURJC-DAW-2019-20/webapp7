@@ -33,12 +33,12 @@ public class ONGController {
 	@PostMapping("/add-ong") // ONG REGISTER ACTION
 	public String addOng(@RequestParam String name, @RequestParam String email, @RequestParam String responsible_name,
 			@RequestParam String responsible_surname, @RequestParam String address, @RequestParam String telephone,
-			@RequestParam String postal, String image, String password, Map<String, Object> model) {
+			@RequestParam String postal, String image, String password,String description, Map<String, Object> model) {
 		model.put("title", "Registrar ONG");
 
 		String enc_password = new BCryptPasswordEncoder().encode(password); // ENCRYPT PASSWORD
 
-		ONG ong = new ONG(name, email, responsible_name, responsible_surname, address, telephone, postal, image,
+		ONG ong = new ONG(name, email, responsible_name, description, responsible_surname, address, telephone, postal, image,
 				enc_password); // CREATE USER
 
 		this.ongService.save(ong); // INSERT INTO DATABASE

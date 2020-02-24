@@ -1,7 +1,6 @@
 package com.group7.voluntaweb.Models;
 
 
-import java.util.Set;
 
 import javax.persistence.Column;
 
@@ -9,8 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 
@@ -18,9 +16,6 @@ import javax.persistence.Table;
 @Table(name="ngos")
 public class ONG {
 	
-	@OneToMany(mappedBy = "ong")
-	private Set<VolPerONG> volsPerOng;
-
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,6 +30,8 @@ public class ONG {
     
     private String responsible_name;
     private String responsible_surname;
+    @Lob
+    private String description;
 	
 	private String address;
 	private String telephone;
@@ -87,6 +84,14 @@ public class ONG {
 		this.responsible_surname = responsible_surname;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -130,12 +135,13 @@ public class ONG {
 	public ONG() {
     }
 
-public ONG(String name, String email, String responsible_name, String responsible_surname, String address,String telephone, String postal, String image, String password) {
+public ONG(String name, String email, String responsible_name, String responsible_surname,String description, String address,String telephone, String postal, String image, String password) {
 
 		this.name = name;
 		this.email = email;
 		this.responsible_name = responsible_name;
 		this.responsible_surname = responsible_surname;
+		this.description = description;
 		this.address = address;
 		this.telephone = telephone;
 		this.postal = postal;
