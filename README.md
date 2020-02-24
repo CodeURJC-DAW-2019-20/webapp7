@@ -114,3 +114,10 @@ This webpage allows Volunteers to create an account in VoluntaWeb.
 #### Description
  “Volunteering” This page is an example of the design of the volunteering offers.
 
+
+## Development environment setup:
+For the development of this application we have used Spring in its latest version. Specifically, we have used the Spring Tools 4 development. This tool is available for different IDEs (Eclipse, visual studio code, Theia).
+* Install Java SE Development Kit 13
+* Instal Eclipse IDE
+* Install Sprint Tools 4 from the Eclipse Marketplace.
+* Import the project: File> Import> Maven> Existing Maven Projects> Browse directory > Select folder of the project and finish.
