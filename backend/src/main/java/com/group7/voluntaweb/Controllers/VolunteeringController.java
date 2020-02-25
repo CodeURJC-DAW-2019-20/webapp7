@@ -56,10 +56,19 @@ public class VolunteeringController {
 
 		model.addAttribute("logged", logged);
 		model.addAttribute("user", user);
+		User row = volunteeringService.findJoinedUser(id,user.getId() );
+		if (row != null) {
+			model.addAttribute("alert", "¡Te has apuntado a este voluntariado!");
+			model.addAttribute("buttonName", "Desapuntarse");
+			model.addAttribute("color-button", "danger");
+		} else {
+			model.addAttribute("color-button", "primary");
+			model.addAttribute("buttonName", "Apuntarse");
+		}
 		model.addAttribute("title", "Voluntariado");
 		Volunteering advert = volunteeringRepo.findById(id);
 		model.addAttribute("advert", advert);
-		model.addAttribute("buttonName", "Apuntarse");
+		
 		model.addAttribute("volunteering", id);
 
 		return "volunteering";
@@ -87,7 +96,9 @@ public class VolunteeringController {
 
 			userService.save(user);
 		} else {
-			System.out.println("Ya está añadido");
+			
+			volunteeringService.deleteJoin(userId, volunteeringId);
+
 		}
 		return "redirect:volunteering/" + volunteeringId;
 	}

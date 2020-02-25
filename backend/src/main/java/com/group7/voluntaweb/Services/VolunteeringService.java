@@ -20,5 +20,9 @@ public class VolunteeringService {
 	public User findJoinedUser(long volunteeringId, long userId) {
 		return volunteeringRepository.findUserVolunteering(volunteeringId, userId);
 	}
+	
+	public void deleteJoin(long user_id, long volunteering_id) {
+		volunteeringRepository.deleteJoin(user_id, volunteering_id);
+	}
 
 }

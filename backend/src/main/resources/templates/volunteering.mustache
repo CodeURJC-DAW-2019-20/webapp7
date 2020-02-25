@@ -73,7 +73,8 @@
                                     <form action="/joinToVolunteering" method="POST">
                                     	<input type="hidden" id="user" name="user" value="{{user.id}}" >
                                     	<input type="hidden" id="volunteering" name="volunteering" value={{volunteering}} >
-									  	<button type="submit" class="site-button">{{buttonName}}</button>
+									  	<button type="submit" class="site-button btn-{{color-button}}">{{buttonName}}</button>
+									  	{{#alert}}<span style="color: green">{{alert}}</span>{{/alert}}
 									</form>
 									
 									                            <div>
