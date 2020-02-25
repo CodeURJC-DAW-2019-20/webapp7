@@ -91,6 +91,11 @@ public class UserController {
 
 	@GetMapping("/settings")
 	public String prueba(Model model) {
+		Boolean logged = userComponent.isLoggedUser();
+		User user = userComponent.getLoggedUser();
+
+		model.addAttribute("logged", logged);
+		model.addAttribute("user", user);
 		model.addAttribute("title", "Ajustes");
 		return "user-settings";
 	}
