@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -58,7 +59,7 @@ public class ONGController {
 	@Autowired
 	private ImageService imgService;
 
-	/*@GetMapping("/register-ong") // ONG REGISTER VIEW
+	@GetMapping("/register-ong") // ONG REGISTER VIEW
 	public String registerONG(Map<String, Object> model) {
 		model.put("title", "Registrar ONG");
 
@@ -113,7 +114,7 @@ public class ONGController {
 		model.put("user", user);
 
 		return "login";
-	}*/
+	}
 	
 	
 	
@@ -177,7 +178,7 @@ public class ONGController {
 	public String subirAnuncio(Model model, @RequestParam String city, @RequestParam String description, @RequestParam String email, @RequestParam Date enddate,
 			@RequestParam String name, @RequestParam Date startdate, @RequestParam long category_id,@RequestParam MultipartFile imagenFile) throws IOException{
 		
-		Volunteering anuncio = new Volunteering(name,category_id, startdate, enddate, description, city, email,"/images/volunteerings");
+		Volunteering anuncio = new Volunteering(name,category_id, startdate, enddate, description, city, email,"/images/volunteerings/");
 		
 		System.out.println(anuncio.toString());
 		

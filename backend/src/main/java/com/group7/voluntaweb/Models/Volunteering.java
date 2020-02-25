@@ -22,7 +22,7 @@ public class Volunteering {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	//@NotEmpty
+	@NotEmpty
 	private String name;
 
 	//@NotEmpty
@@ -62,6 +62,8 @@ public class Volunteering {
 		this.description = description;
 		this.city = city;
 		this.email = email;
+		this.image = image;
+		
 		
 		this.ongs = new ArrayList<>();
 	}
