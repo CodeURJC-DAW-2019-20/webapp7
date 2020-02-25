@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/login").anonymous();
 		http.authorizeRequests().antMatchers("/loginerror").permitAll();
 		// Logout page
-		http.authorizeRequests().antMatchers("/logout").permitAll();
+		http.authorizeRequests().antMatchers("/logout").authenticated();
 		// Register pages and save actions
 		http.authorizeRequests().antMatchers("/register").anonymous();
 		http.authorizeRequests().antMatchers("/register-ong").anonymous();
@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		// Private pages (all other pages)
 		http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN");
-		;
+		
 		http.authorizeRequests().anyRequest().authenticated();
 
 		// Login form

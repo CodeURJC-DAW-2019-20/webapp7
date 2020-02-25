@@ -18,6 +18,9 @@ import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Repositories.UserRepository;
 import com.group7.voluntaweb.Services.UserService;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 @Controller
 public class UserController {
 
@@ -56,7 +59,7 @@ public class UserController {
 
 		roles.add("ROLE_USER");
 
-		User user = new User(name, surname, email, enc_password, city, telephone, null, roles);
+		User user = new User(name, surname, email, enc_password, city, telephone, null, roles, Date.valueOf(LocalDate.now()));
 
 		this.userService.save(user);
 

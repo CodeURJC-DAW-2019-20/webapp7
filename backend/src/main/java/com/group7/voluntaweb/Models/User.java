@@ -1,8 +1,8 @@
 package com.group7.voluntaweb.Models;
 
-
 import java.sql.Timestamp;
 import java.util.Date;
+
 import java.util.List;
 import java.util.Set;
 
@@ -44,6 +44,8 @@ public class User {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 	private String image;
+
+	private Date registered_at;
 
 
 	public Long getId() {
@@ -119,6 +121,21 @@ public class User {
 	}
 
 
+    public Date getRegistered_at() {
+		return registered_at;
+	}
+
+	public void setRegistered_at(Date registered_at) {
+		this.registered_at = registered_at;
+	}
+
+	public User() {
+    }
+
+public User(String name, String surname, String email, String password, String city, String telephone,
+			String image, List<String> roles, Date registered_at) {
+
+
 	public Set<UsersVolunteerings> getRegistrations() {
 		return registrations;
 	}
@@ -127,11 +144,6 @@ public class User {
 		this.registrations = registrations;
 	}
 
-	public User() {
-	}
-
-	public User(String name, String surname, String email, String password, String city, String telephone, String image,
-			List<String> roles) {
 
 		this.name = name;
 		this.surname = surname;
@@ -141,6 +153,7 @@ public class User {
 		this.telephone = telephone;
 		this.image = image;
 		this.roles = roles;
+		this.registered_at = registered_at;
 
 	}
 
