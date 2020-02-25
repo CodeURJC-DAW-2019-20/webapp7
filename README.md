@@ -128,3 +128,5 @@ For the development of this application we have used Spring in its latest versio
 * Instal Eclipse IDE
 * Install Sprint Tools 4 from the Eclipse Marketplace.
 * Import the project: File> Import> Maven> Existing Maven Projects> Browse directory > Select folder of the project and finish.
+
+## Commits list
