@@ -47,11 +47,13 @@ We're implemented graphic charts:
 ### Advanced algorithm
 -The search page has a search filter for volunteerings and NGOs.
 ### Diagrams
-## Navigation diagram
+#### Navigation diagram
 <img src="./diagrams/NavigationDiagram5.svg">
-## Database diagram
+
+#### Database diagram
 <img src="./diagrams/Database diagram.svg"> 
-## Class diagram
+
+#### Class diagram
 <img src="./diagrams/ClassDiagram.svg"> 
 
 ### Screenshots
@@ -95,11 +97,11 @@ This website allows NGOs to change data on their Voluntaweb account such as thei
 #### Description
 This webpage allows users to chose if they want register as NGOs or Volunteers.
 
-![](./screenshots/F2-registro-ong.PNG)
+![](./screenshots/F2-register-ong.PNG)
 #### Description
 This webpage allows NGOs to create an account in VoluntaWeb.
 
-![](./screenshots/F2-registro-user.PNG)
+![](./screenshots/F2-register-user.PNG)
 #### Description
 This webpage allows Volunteers to create an account in VoluntaWeb.
 
