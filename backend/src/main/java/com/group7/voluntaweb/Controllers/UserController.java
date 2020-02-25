@@ -68,11 +68,11 @@ public class UserController {
 
 	}
 
-	@GetMapping("/users")
-	public Iterable<User> listUsers() {
+	//@GetMapping("/users")
+	//public Iterable<User> listUsers() {
 
-		return userRepo.findAll();
-	}
+	//	return userRepo.findAll();
+	//}
 
 	@GetMapping("/login")
 	public String login(Map<String, Object> model, HttpSession sesion) {
