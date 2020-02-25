@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.group7.voluntaweb.Components.ONGComponent;
+import com.group7.voluntaweb.Components.UserComponent;
 import com.group7.voluntaweb.Models.ONG;
 import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Repositories.ONGRepository;
@@ -34,6 +35,9 @@ public class ONGController {
 	private ONGComponent ongComponent;
 
 	@Autowired
+	private UserComponent userComponent;
+
+	@Autowired
 	private ONGService ongService;
 
 	@Autowired
@@ -48,6 +52,12 @@ public class ONGController {
 
 	@GetMapping("/ongs")
 	public String ngos(Model model) {
+		User user = userComponent.getLoggedUser();
+		boolean logged = userComponent.isLoggedUser();
+
+		model.addAttribute("user", user);
+		model.addAttribute("logged", logged);
+		
 		model.addAttribute("title", "ong");
 		Iterable<ONG> ngos = ongService.getAll();
 		model.addAttribute("ngos", ngos);
@@ -56,6 +66,12 @@ public class ONGController {
 
 	@RequestMapping("/ongs/{id}")
 	public String ngo(Map<String, Object> model, @PathVariable Long id) {
+		User user = userComponent.getLoggedUser();
+		boolean logged = userComponent.isLoggedUser();
+
+		model.put("user", user);
+		model.put("logged", logged);
+
 		ONG ngo = ongRepo.findByid(id);
 		model.put("title", ngo.getName());
 		model.put("name", ngo.getName());

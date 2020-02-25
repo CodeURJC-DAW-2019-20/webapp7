@@ -1,5 +1,6 @@
 package com.group7.voluntaweb.Controllers;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.group7.voluntaweb.Components.UserComponent;
+import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Repositories.UserRepository;
 
 @Controller
@@ -15,9 +18,17 @@ public class IndexController {
 
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private UserComponent userComponent;
 
 	@RequestMapping("/")
 	public String index(Model model) {
+		
+		User user = userComponent.getLoggedUser();
+		boolean logged = userComponent.isLoggedUser();
+		
+		model.addAttribute("user", user);
+		model.addAttribute("logged", logged);
 		model.addAttribute("title", "Bienvenido");
 		model.addAttribute("chart", true);
 		model.addAttribute("1", userRepo.usersPerMonth(1));

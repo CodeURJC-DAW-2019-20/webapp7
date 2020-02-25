@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.group7.voluntaweb.Components.UserComponent;
 import com.group7.voluntaweb.Models.Category;
+import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Models.Volunteering;
 import com.group7.voluntaweb.Repositories.CategoryRepository;
 import com.group7.voluntaweb.Repositories.VolunteeringRepository;
@@ -25,6 +27,8 @@ public class SearchController {
 	private CategoryRepository categoryRepo;
 	@Autowired
 	private VolunteeringRepository volRepo;
+	@Autowired
+	private UserComponent userComponent;
 
 //	@GetMapping("/search")
 //	
@@ -43,6 +47,13 @@ public class SearchController {
 	@GetMapping("/search/cat")
 
 	public String search(Model model, @RequestParam(required = false) Long category) {
+
+		User user = userComponent.getLoggedUser();
+		boolean logged = userComponent.isLoggedUser();
+
+		model.addAttribute("user", user);
+		model.addAttribute("logged", logged);
+
 		ArrayList<Category> categories = categoryRepo.findAll();
 		Iterable<Volunteering> volunteerings = volRepo.findByCategory(category);
 		model.addAttribute("volunteeringscat", volunteerings);
@@ -57,6 +68,11 @@ public class SearchController {
 
 	public String search(Model model, @RequestParam(required = false) String search,
 			@RequestParam(required = false) Long category) {
+		User user = userComponent.getLoggedUser();
+		boolean logged = userComponent.isLoggedUser();
+
+		model.addAttribute("user", user);
+		model.addAttribute("logged", logged);
 		if (search != null) {
 			ArrayList<Category> categories = categoryRepo.findAll();
 			Iterable<Volunteering> volunteerings = volRepo.findByQuery(search);
