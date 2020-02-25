@@ -1,0 +1,88 @@
+<body id="bg">
+	<div class="page-wraper">
+		<div id="loading-area"></div>
+		<!-- header -->
+		<header class="site-header mo-left header fullwidth">
+			<!-- main header -->
+			<div class="sticky-header main-bar-wraper navbar-expand-lg">
+				<div class="main-bar clearfix">
+					<div class="container clearfix">
+						<!-- website logo -->
+						<div class="logo-header mostion">
+							<a href="/"><img src="images/logo.png" class="logo" alt=""></a>
+						</div>
+						<!-- nav toggle button -->
+						<!-- nav toggle button -->
+						<button class="navbar-toggler collapsed navicon justify-content-end" type="button"
+							data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+							aria-expanded="false" aria-label="Toggle navigation">
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+						<!-- extra nav -->
+						<div class="extra-nav">
+							<ul class="navbar-nav">
+								<li>
+									<div class="container-avatar">
+										<img src="/images/user-placeholder.png" class="avatar">
+									</div>
+								</li>
+								<li class="nav-item dropdown">
+									<a id="navbarDropdown" class="nav-link dropdown-toggle reset-color" href="#"
+										role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+										v-pre>
+										{{user.name}} <span class="caret"></span>
+									</a>
+									
+									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item" href="/myvolunteerings">
+											Mis voluntariados
+										</a>
+
+										<a class="dropdown-item" href="/settings">
+
+											Ajustes
+										</a>
+										<a class="dropdown-item" href="/logout">
+											Cerrar sesión
+										</a>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- Quik search -->
+						<div class="dez-quik-search bg-primary">
+							<form action="#">
+								<input name="search" value="" type="text" class="form-control"
+									placeholder="Escribe algo para buscar">
+								<span id="quik-search-remove"><i class="flaticon-close"></i></span>
+							</form>
+						</div>
+						<!-- main nav -->
+						<div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
+							<ul class="nav navbar-nav">
+								<li>
+									<a href="/">Inicio</a>
+								</li>
+								<li>
+									<a href="/search">Voluntariados</a>
+								</li>
+								<li><a href="/ongs">ONGs</a></li>
+								<li class="ls-mobile">
+
+									<a href="/settings">Ajustes <i class="fa fa-user"></i></a>
+
+								</li>
+								<li class="ls-mobile">
+									<a href="/logout">Cerrar sesión <i class="fa fa-lock"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- main header END -->
+		</header>
+		<!-- header END -->
