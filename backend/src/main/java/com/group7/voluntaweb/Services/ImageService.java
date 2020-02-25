@@ -29,9 +29,10 @@ public class ImageService implements WebMvcConfigurer {
 		Path newFile = createFilePath(id, folder);
 		image.transferTo(newFile);
 	}
-	
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/images/**").addResourceLocations("file:"+FILES_FOLDER.toAbsolutePath().toString()+ "/");
+		registry.addResourceHandler("/images/**")
+				.addResourceLocations("file:" + FILES_FOLDER.toAbsolutePath().toString() + "/");
 	}
 }

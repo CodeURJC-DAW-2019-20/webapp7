@@ -1,6 +1,7 @@
 package com.group7.voluntaweb.Models;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

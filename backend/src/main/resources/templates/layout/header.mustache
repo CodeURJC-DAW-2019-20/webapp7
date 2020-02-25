@@ -40,4 +40,42 @@
 	<link rel="stylesheet" type="text/css" href="/plugins/revolution/revolution/css/settings.css">
 	<link rel="stylesheet" type="text/css" href="/plugins/revolution/revolution/css/navigation.css">
 	<!-- Revolution Navigation Style -->
+	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	{{#chart}}
+		<script>
+			google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Mes', 'Usuarios'],
+          ['Enero',  {{1}}],
+          ['Febrero',  {{2}}],
+          ['Marzo',  {{3}}],
+          ['Abril',  {{4}}],
+          ['Mayo',  {{5}}],
+          ['Junio',  {{6}}],
+          ['Julio',  {{7}}],
+          ['Agosto',  {{8}}],
+          ['Septiembre',  {{9}}],
+          ['Octubre',  {{10}}],
+          ['Noviembre',  {{11}}],
+          ['Diciembre',  {{12}}]
+        ]);
+
+        var options = {
+          title: '',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+	
+		</script>
+	{{/chart}}
+	
 </head>

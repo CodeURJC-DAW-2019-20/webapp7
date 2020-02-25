@@ -37,9 +37,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/ongs/**").permitAll();
 		// Login pages
 		http.authorizeRequests().antMatchers("/login").anonymous();
-		http.authorizeRequests().antMatchers("/loginerror").permitAll();
+		http.authorizeRequests().antMatchers("/loginerror").anonymous();
 		// Logout page
-		http.authorizeRequests().antMatchers("/logout").permitAll();
+		http.authorizeRequests().antMatchers("/logout").authenticated();
 		// Register pages and save actions
 		http.authorizeRequests().antMatchers("/register").anonymous();
 		http.authorizeRequests().antMatchers("/register-ong").anonymous();
@@ -52,10 +52,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/images/**").permitAll();
 		http.authorizeRequests().antMatchers("/js/**").permitAll();
 		http.authorizeRequests().antMatchers("/plugins/**").permitAll();
+		http.authorizeRequests().antMatchers("/search/**").permitAll();
 
 		// Private pages (all other pages)
 		http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN");
-		;
+		
 		http.authorizeRequests().anyRequest().authenticated();
 
 		// Login form

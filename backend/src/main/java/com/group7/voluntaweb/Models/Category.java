@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+
 @Table(name="categories")
 public class Category {
 	
@@ -27,6 +28,7 @@ public class Category {
 
 	private String name;
 
+
 	public String getName() {
 		return name;
 	}
@@ -34,6 +36,5 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
 }

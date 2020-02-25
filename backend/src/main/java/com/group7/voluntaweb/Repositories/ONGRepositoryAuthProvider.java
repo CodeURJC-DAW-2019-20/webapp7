@@ -42,16 +42,12 @@ public class ONGRepositoryAuthProvider implements AuthenticationProvider {
 
 		ONG ong = ongRepository.findByEmail(username);
 
-
-
 		if (!new BCryptPasswordEncoder().matches(password, ong.getPassword())) {
 
 			throw new BadCredentialsException("Wrong password");
 		} else {
 
 			ongComponent.setLoggedUser(ong);
-
-			
 
 			return new UsernamePasswordAuthenticationToken(username, password);
 		}

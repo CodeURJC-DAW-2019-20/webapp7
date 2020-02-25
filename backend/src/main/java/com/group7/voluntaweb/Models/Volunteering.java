@@ -5,11 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -19,42 +24,45 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "volunteerings")
 public class Volunteering {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 
 	@NotEmpty
 	private String name;
 
-	//@NotEmpty
+
+	@NotEmpty
 	@ManyToOne
 	private Category category;
-	//@NotEmpty
-
+	@NotEmpty
 	private Date startdate;
 	//@NotEmpty
 
 	private Date enddate;
-	//@NotEmpty
-	//@Lob
+	@NotEmpty
+	@Lob
 	private String description;
-	//@NotEmpty
+	@NotEmpty
 	private String image;
-	//@NotEmpty
+	@NotEmpty
 	private String city;
-	//@NotEmpty
+
+	@NotEmpty
+	@ManyToOne
+	private ONG ong;
+	@NotEmpty
 	private String email;
 	
 	
 	@ManyToMany
 	private List<ONG> ongs;
 
-	public Volunteering() {
-	}
 
-	public Volunteering(String name, Category category,
-			 Date startdate, Date enddate, String description,
-			 String city,  String email, String image) {
+	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty Category category_id,
+			@NotEmpty Date startdate, @NotEmpty Date enddate, @NotEmpty String description, @NotEmpty String image,
+			@NotEmpty String city, @NotEmpty String email) {
 		super();
 		
 		this.name = name;
@@ -85,6 +93,7 @@ public class Volunteering {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 
 	public Category getCategory() {
 		return category;
@@ -134,12 +143,26 @@ public class Volunteering {
 		this.city = city;
 	}
 
+	public Volunteering() {
+	}
+
+	public Volunteering(String name, Date startdate, Date enddate, String description, String image, String city) {
+		super();
+		this.name = name;
+		this.startdate = startdate;
+		this.enddate = enddate;
+		this.description = description;
+		this.image = image;
+		this.city = city;
+	}
+
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+
 	}
 	
 	public void setOngs(List<ONG> ongs){

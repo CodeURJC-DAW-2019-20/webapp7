@@ -1,5 +1,7 @@
 package com.group7.voluntaweb.Controllers;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +11,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.group7.voluntaweb.Components.UserComponent;
@@ -56,7 +61,8 @@ public class UserController {
 
 		roles.add("ROLE_USER");
 
-		User user = new User(name, surname, email, enc_password, city, telephone, null, roles);
+		User user = new User(name, surname, email, enc_password, city, telephone, null, roles,
+				Date.valueOf(LocalDate.now()));
 
 		this.userService.save(user);
 
@@ -64,11 +70,11 @@ public class UserController {
 
 	}
 
-	@GetMapping("/users")
-	public Iterable<User> listUsers() {
+	// @GetMapping("/users")
+	// public Iterable<User> listUsers() {
 
-		return userRepo.findAll();
-	}
+	// return userRepo.findAll();
+	// }
 
 	@GetMapping("/login")
 	public String login(Map<String, Object> model, HttpSession sesion) {
@@ -81,6 +87,24 @@ public class UserController {
 		model.put("user", user);
 
 		return "login";
+	}
+
+	@GetMapping("/settings")
+	public String prueba(Model model) {
+		Boolean logged = userComponent.isLoggedUser();
+		User user = userComponent.getLoggedUser();
+
+		model.addAttribute("logged", logged);
+		model.addAttribute("user", user);
+		model.addAttribute("title", "Ajustes");
+		return "user-settings";
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String delete(Model model) {
+		User user = userComponent.getLoggedUser();
+		userService.deleteCount(user);
+		return "redirect:settings";
 	}
 
 }

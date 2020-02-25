@@ -2,9 +2,11 @@ package com.group7.voluntaweb.Controllers;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import com.group7.voluntaweb.Components.UserComponent;
 import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Models.UsersVolunteerings;
 import com.group7.voluntaweb.Models.Volunteering;
+import com.group7.voluntaweb.Repositories.UserRepository;
 import com.group7.voluntaweb.Repositories.VolunteeringRepository;
 import com.group7.voluntaweb.Services.UserService;
 import com.group7.voluntaweb.Services.VolunteeringService;
@@ -39,13 +42,33 @@ public class VolunteeringController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private UserRepository userRepo;
+
 	@GetMapping("/volunteering/{id}")
 	public String prueba(Model model, @PathVariable long id) {
+
+		Boolean logged = userComponent.isLoggedUser();
+		System.out.print(logged);
+
+		String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		User user = userRepo.findByEmail(email);
+
+		model.addAttribute("logged", logged);
+		model.addAttribute("user", user);
+		User row = volunteeringService.findJoinedUser(id,user.getId() );
+		if (row != null) {
+			model.addAttribute("alert", "¡Te has apuntado a este voluntariado!");
+			model.addAttribute("buttonName", "Desapuntarse");
+			model.addAttribute("color-button", "danger");
+		} else {
+			model.addAttribute("color-button", "primary");
+			model.addAttribute("buttonName", "Apuntarse");
+		}
 		model.addAttribute("title", "Voluntariado");
 		Volunteering advert = volunteeringRepo.findById(id);
 		model.addAttribute("advert", advert);
-		model.addAttribute("buttonName", "Apuntarse");
-		model.addAttribute("user", 9);
+		
 		model.addAttribute("volunteering", id);
 
 		return "volunteering";
@@ -54,22 +77,29 @@ public class VolunteeringController {
 	@RequestMapping(value = "/joinToVolunteering", method = RequestMethod.POST)
 	public String join(Model model, @ModelAttribute("volunteering") long volunteeringId,
 			@ModelAttribute("user") long userId) {
-		// User user = userComponent.getLoggedUser();
 		User user = userService.findUser(userId);
 		Volunteering volunteering = volunteeringService.findVolunteering(volunteeringId);
+		if (volunteeringService.findJoinedUser(volunteeringId, userId) == null) {
+			UsersVolunteerings join = new UsersVolunteerings();
+			join.setUser(user);
+			join.setVolunteering(volunteering);
+			join.setDate(new Timestamp(new Date().getTime()));
 
-		UsersVolunteerings join = new UsersVolunteerings();
-		join.setUser(user);
-		join.setVolunteering(volunteering);
-		join.setDate(new Timestamp(new Date().getTime()));
+			
+	
 
-		Set<UsersVolunteerings> x = user.getRegistrations();
-		x.add(join);
 
-		user.setRegistrations(x);
+			Set<UsersVolunteerings> x = user.getRegistrations();
+			x.add(join);
 
-		userService.save(user);
+			user.setRegistrations(x);
 
+			userService.save(user);
+		} else {
+			
+			volunteeringService.deleteJoin(userId, volunteeringId);
+
+		}
 		return "redirect:volunteering/" + volunteeringId;
 	}
 

@@ -9,7 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.ManyToMany;
+
+import javax.persistence.Lob;
+
 import javax.persistence.Table;
 
 @Entity
@@ -25,11 +29,17 @@ public class ONG {
 
 	private String responsible_name;
 	private String responsible_surname;
+
+	@Lob
+	private String description;
+
+
 	private String address;
-	private String description;	
+
 	private String email;
 	private String postal;
 	private String image;
+
 	
 	@ManyToMany(mappedBy="ongs")
 	private List<Volunteering> anuncios;
@@ -58,17 +68,8 @@ public class ONG {
 	private String password;
 	
 
-
 	public Long getId() {
 		return id;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public void setId(Long id) {
@@ -105,6 +106,14 @@ public class ONG {
 
 	public void setResponsible_surname(String responsible_surname) {
 		this.responsible_surname = responsible_surname;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getAddress() {
@@ -150,10 +159,13 @@ public class ONG {
 	public List<Volunteering> getAnuncios(){
 		return this.anuncios;
 	}
+
 	
 	public void setAnuncios(List<Volunteering> anuncios) {
 		this.anuncios = anuncios;
-	}
+
+
+
 
 	public ONG() {
 	}

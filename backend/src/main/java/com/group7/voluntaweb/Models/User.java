@@ -1,8 +1,8 @@
 package com.group7.voluntaweb.Models;
 
-
 import java.sql.Timestamp;
 import java.util.Date;
+
 import java.util.List;
 import java.util.Set;
 
@@ -37,7 +37,6 @@ public class User {
 	@Column(unique = true)
 	private String email;
 
-
 	private String password;
 	private String city;
 	private String telephone;
@@ -45,6 +44,7 @@ public class User {
 	private List<String> roles;
 	private String image;
 
+	private Date registered_at;
 
 	public Long getId() {
 		return id;
@@ -118,20 +118,19 @@ public class User {
 		this.roles = roles;
 	}
 
-
-	public Set<UsersVolunteerings> getRegistrations() {
-		return registrations;
+	public Date getRegistered_at() {
+		return registered_at;
 	}
 
-	public void setRegistrations(Set<UsersVolunteerings> registrations) {
-		this.registrations = registrations;
+	public void setRegistered_at(Date registered_at) {
+		this.registered_at = registered_at;
 	}
 
 	public User() {
 	}
 
 	public User(String name, String surname, String email, String password, String city, String telephone, String image,
-			List<String> roles) {
+			List<String> roles, Date registered_at) {
 
 		this.name = name;
 		this.surname = surname;
@@ -141,9 +140,17 @@ public class User {
 		this.telephone = telephone;
 		this.image = image;
 		this.roles = roles;
+		this.registered_at = registered_at;
 
 	}
 
+	public Set<UsersVolunteerings> getRegistrations() {
+		return registrations;
+	}
+
+	public void setRegistrations(Set<UsersVolunteerings> registrations) {
+		this.registrations = registrations;
+	}
 
 	public User(Set<UsersVolunteerings> registrations, @NotEmpty String name, @NotEmpty String surname,
 			@NotEmpty String email, @NotEmpty String password, @NotEmpty String city, @NotEmpty String telephone,
@@ -179,4 +186,3 @@ public class User {
 	}
 
 }
-
