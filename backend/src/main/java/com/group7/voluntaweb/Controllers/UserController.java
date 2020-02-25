@@ -28,6 +28,9 @@ import com.group7.voluntaweb.Models.Volunteering;
 import com.group7.voluntaweb.Repositories.UserRepository;
 import com.group7.voluntaweb.Services.UserService;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 @Controller
 public class UserController {
 
@@ -66,7 +69,8 @@ public class UserController {
 
 		roles.add("ROLE_USER");
 
-		User user = new User(name, surname, email, enc_password, city, telephone, null, roles);
+		User user = new User(name, surname, email, enc_password, city, telephone, null, roles,
+				Date.valueOf(LocalDate.now()));
 
 		this.userService.save(user);
 
@@ -74,11 +78,11 @@ public class UserController {
 
 	}
 
-	@GetMapping("/users")
-	public Iterable<User> listUsers() {
+	//@GetMapping("/users")
+	//public Iterable<User> listUsers() {
 
-		return userRepo.findAll();
-	}
+	//	return userRepo.findAll();
+	//}
 
 	@GetMapping("/login")
 	public String login(Map<String, Object> model, HttpSession sesion) {

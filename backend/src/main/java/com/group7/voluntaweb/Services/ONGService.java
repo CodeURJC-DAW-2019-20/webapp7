@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.group7.voluntaweb.Models.ONG;
 import com.group7.voluntaweb.Repositories.ONGRepository;
 
-
 @Service
 public class ONGService {
 
@@ -18,8 +17,8 @@ public class ONGService {
 	public void save(ONG user) {
 		ongRepository.save(user);
 	}
-	
-	public Iterable<ONG> getAll(){
+
+	public Iterable<ONG> getAll() {
 		return ongRepository.findAll();
 	}
 
