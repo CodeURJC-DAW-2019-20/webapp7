@@ -1,13 +1,16 @@
 package com.group7.voluntaweb.Models;
 
 import java.sql.Date;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -19,38 +22,39 @@ public class Volunteering {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@OneToMany(mappedBy = "volunteering")
-	private Set<UsersVolunteerings> joined_users;
-
-	@NotEmpty
+	//@NotEmpty
 	private String name;
 
-	@NotEmpty
-	private long category_id;
-	@NotEmpty
+	//@NotEmpty
+	private Long category_id;
+	//@NotEmpty
 
 	private Date startdate;
-	@NotEmpty
+	//@NotEmpty
 
 	private Date enddate;
-	@NotEmpty
-	@Lob
+	//@NotEmpty
+	//@Lob
 	private String description;
-	@NotEmpty
+	//@NotEmpty
 	private String image;
-	@NotEmpty
+	//@NotEmpty
 	private String city;
-	@NotEmpty
+	//@NotEmpty
 	private String email;
+	
+	
+	@ManyToMany
+	private List<ONG> ongs;
 
 	public Volunteering() {
 	}
 
-	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty long category_id,
-			@NotEmpty Date startdate, @NotEmpty Date enddate, @NotEmpty String description, @NotEmpty String image,
-			@NotEmpty String city, @NotEmpty String email) {
+	public Volunteering(String name, Long category_id,
+			 Date startdate, Date enddate, String description, String image,
+			 String city,  String email) {
 		super();
-		this.joined_users = joined_users;
+		
 		this.name = name;
 		this.category_id = category_id;
 		this.startdate = startdate;
@@ -59,6 +63,8 @@ public class Volunteering {
 		this.image = image;
 		this.city = city;
 		this.email = email;
+		
+		this.ongs = new ArrayList<>();
 	}
 
 	public long getId() {
@@ -77,12 +83,12 @@ public class Volunteering {
 		this.name = name;
 	}
 
-	public long getCategory() {
+	public Long getCategory() {
 		return category_id;
 	}
 
-	public void setCategory(long category) {
-		this.category_id = category;
+	public void setCategory(Long category_id) {
+		this.category_id = category_id;
 	}
 
 	public Date getStartdate() {
@@ -117,14 +123,6 @@ public class Volunteering {
 		this.image = image;
 	}
 
-	public Set<UsersVolunteerings> getJoined_users() {
-		return joined_users;
-	}
-
-	public void setJoined_users(Set<UsersVolunteerings> joined_users) {
-		this.joined_users = joined_users;
-	}
-
 	public String getCity() {
 		return city;
 	}
@@ -140,5 +138,14 @@ public class Volunteering {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public void setOngs(List<ONG> ongs){
+		this.ongs = ongs;
+	}
+	
+	public List<ONG> getOngs() {
+		return this.ongs;
+	}
+	
 
 }
