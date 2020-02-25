@@ -51,8 +51,8 @@ public class Volunteering {
 	}
 
 	public Volunteering(String name, Long category_id,
-			 Date startdate, Date enddate, String description, String image,
-			 String city,  String email) {
+			 Date startdate, Date enddate, String description,
+			 String city,  String email, String image) {
 		super();
 		
 		this.name = name;
@@ -60,7 +60,6 @@ public class Volunteering {
 		this.startdate = startdate;
 		this.enddate = enddate;
 		this.description = description;
-		this.image = image;
 		this.city = city;
 		this.email = email;
 		

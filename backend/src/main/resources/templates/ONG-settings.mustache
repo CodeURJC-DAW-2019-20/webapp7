@@ -152,8 +152,7 @@
 
 							<div class="card-body">
 								<!-- Settings form -->
-								<!--<form method="POST" action="ong-settings-form" enctype="multipart/form-data">-->
-								<form method="POST" action="ong-settings-form">
+								<form method="POST" action="ong-settings-form" enctype="multipart/form-data">
 
 									<div class="form-group row">
 										<label for="name" class="col-md-4 col-form-label text-md-right">Nombre ONG</label>
@@ -230,12 +229,12 @@
                                     </div>
 
 									<div class="form-group row">
-										<label for="image_path" class="col-md-4 col-form-label text-md-right">Foto de
+										<label for="imagenFile" class="col-md-4 col-form-label text-md-right">Foto de
 											perfil</label>
 
 										<div class="col-md-6">
-											<input id="image" type="file" class="form-control" name="image"
-												autocomplete="image" value="{{ong.image}}">
+											<input id="imagenFile" type="file" class="form-control" name="imagenFile"
+												autocomplete="image" placeholder=".jpg" accept=".jpg">
 										</div>
 									</div>
 

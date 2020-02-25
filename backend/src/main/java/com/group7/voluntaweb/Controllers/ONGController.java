@@ -135,16 +135,19 @@ public class ONGController {
 	
 	@PostMapping("/ong-settings-form")
 	public String ongSettingsForm(Model model,@RequestParam String name, @RequestParam String responsible_name, @RequestParam String responsible_surname,
-									@RequestParam String address, @RequestParam String description, @RequestParam String email, @RequestParam String image, 
-									@RequestParam String password, @RequestParam String postal, @RequestParam String telephone) {
+									@RequestParam String address, @RequestParam String description, @RequestParam String email, 
+									@RequestParam String password, @RequestParam String postal, @RequestParam String telephone, @RequestParam MultipartFile imagenFile) throws IOException{
 		
-		ONG ong = new ONG(name, responsible_name,responsible_surname,address,description,email, postal , image, telephone, password);
+		ONG ong = new ONG(name, responsible_name,responsible_surname,address,description,email, postal , "/images/ong/", telephone, password);
 		
 		ong.setId(this.id);
 		
 		this.ongRepo.save(ong);
 		
+		imgService.saveImage("ong", ong.getId(), imagenFile);
+		
 		model.addAttribute("ong", ong);
+		
 		
 		return "ong-settings";
 	}
@@ -171,9 +174,10 @@ public class ONGController {
 	
 	
 	@PostMapping("ong-submit-advertisement-form")
-	public String subirAnuncio(Model model, @RequestParam String city, @RequestParam String description, @RequestParam String email, @RequestParam Date enddate,@RequestParam String image,@RequestParam String name, @RequestParam Date startdate, @RequestParam long category_id) {
+	public String subirAnuncio(Model model, @RequestParam String city, @RequestParam String description, @RequestParam String email, @RequestParam Date enddate,
+			@RequestParam String name, @RequestParam Date startdate, @RequestParam long category_id,@RequestParam MultipartFile imagenFile) throws IOException{
 		
-		Volunteering anuncio = new Volunteering(name,category_id, startdate, enddate, description, image, city, email);
+		Volunteering anuncio = new Volunteering(name,category_id, startdate, enddate, description, city, email,"/images/volunteerings");
 		
 		System.out.println(anuncio.toString());
 		
@@ -193,6 +197,7 @@ public class ONGController {
 		this.ongRepo.save(ong);
 		this.volRepo.save(anuncio);
 		
+		imgService.saveImage("volunteerings", anuncio.getId(), imagenFile);
 		
 		model.addAttribute("ong", ong);
 		
