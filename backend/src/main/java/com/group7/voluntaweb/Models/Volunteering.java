@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -26,7 +27,8 @@ public class Volunteering {
 	private String name;
 
 	//@NotEmpty
-	private Long category_id;
+	@ManyToOne
+	private Category category;
 	//@NotEmpty
 
 	private Date startdate;
@@ -50,13 +52,13 @@ public class Volunteering {
 	public Volunteering() {
 	}
 
-	public Volunteering(String name, Long category_id,
+	public Volunteering(String name, Category category,
 			 Date startdate, Date enddate, String description,
 			 String city,  String email, String image) {
 		super();
 		
 		this.name = name;
-		this.category_id = category_id;
+		this.category = category;
 		this.startdate = startdate;
 		this.enddate = enddate;
 		this.description = description;
@@ -84,12 +86,12 @@ public class Volunteering {
 		this.name = name;
 	}
 
-	public Long getCategory() {
-		return category_id;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setCategory(Long category_id) {
-		this.category_id = category_id;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public Date getStartdate() {

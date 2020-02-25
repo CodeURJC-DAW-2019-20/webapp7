@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.group7.voluntaweb.Components.ONGComponent;
-import com.group7.voluntaweb.Models.Categories;
+import com.group7.voluntaweb.Models.Category;
 import com.group7.voluntaweb.Models.ONG;
 import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Models.Volunteering;
@@ -159,10 +159,10 @@ public class ONGController {
 		
 		Date fecha = new Date(System.currentTimeMillis());
 		
-		Volunteering anuncio = new Volunteering("",(long)1,fecha,fecha,"","","","");
+		List<Category> categories = this.catRepo.findAll();
 		
-		
-		List<Categories> categories = this.catRepo.findAll();
+		Volunteering anuncio = new Volunteering("",categories.get(0),fecha,fecha,"","","","");
+	
 		
 		model.addAttribute("anuncio", anuncio);
 		model.addAttribute("categories", categories);
@@ -178,7 +178,9 @@ public class ONGController {
 	public String subirAnuncio(Model model, @RequestParam String city, @RequestParam String description, @RequestParam String email, @RequestParam Date enddate,
 			@RequestParam String name, @RequestParam Date startdate, @RequestParam long category_id,@RequestParam MultipartFile imagenFile) throws IOException{
 		
-		Volunteering anuncio = new Volunteering(name,category_id, startdate, enddate, description, city, email,"/images/volunteerings/");
+		Category cat = this.catRepo.findById(category_id);
+		
+		Volunteering anuncio = new Volunteering(name,cat, startdate, enddate, description, city, email,"/images/volunteerings/");
 		
 		System.out.println(anuncio.toString());
 		
@@ -226,7 +228,7 @@ public class ONGController {
 		
 		Volunteering anuncio = this.volRepo.findById(id);
 		
-		List<Categories> cats = this.catRepo.findAll();
+		List<Category> cats = this.catRepo.findAll();
 		
 		model.addAttribute("anuncio", anuncio);model.addAttribute("anuncio", anuncio);
 		model.addAttribute("categories", cats);

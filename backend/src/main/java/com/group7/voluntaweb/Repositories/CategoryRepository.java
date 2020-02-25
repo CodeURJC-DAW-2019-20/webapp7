@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.group7.voluntaweb.Models.Categories;
+import com.group7.voluntaweb.Models.Category;
 
-public interface CategoryRepository extends JpaRepository <Categories,Long> {
+public interface CategoryRepository extends JpaRepository <Category,Long> {
 
-	List<Categories> findAll();
+	List<Category> findAll();
+	Category  findById(long id);
 	
 }
