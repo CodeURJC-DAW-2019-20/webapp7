@@ -45,13 +45,6 @@ public class ONG {
 		return id;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	public void setId(Long id) {
 		this.id = id;

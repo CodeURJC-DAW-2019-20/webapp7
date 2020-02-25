@@ -18,7 +18,7 @@ import com.group7.voluntaweb.beans.VolAndCat;
 import antlr.collections.List;
 
 
-public interface VolunteeringRepository extends CrudRepository<Volunteering, Long> {
+public interface VolunteeringRepository extends JpaRepository<Volunteering, Long> {
   
   @Query("SELECT user FROM User user JOIN user.registrations r JOIN r.volunteering volunteering WHERE volunteering.id = :volunteeringId AND user.id = :userId")
 	User findUserVolunteering(@Param("volunteeringId") long volunteeringId, @Param("userId") long userId);
@@ -30,7 +30,7 @@ public interface VolunteeringRepository extends CrudRepository<Volunteering, Lon
     @Query("SELECT new com.group7.voluntaweb.beans.VolAndCat(v.id, v.name,v.image, v.city, c.name, o.name) FROM Volunteering v INNER JOIN Category c ON v.category = c.id INNER JOIN ONG o ON v.ong = o.id")
     Iterable<VolAndCat> findAllVols();
 	
-	Optional<Volunteering> findById(Long id);
+	Volunteering findById(long id);
 	
 	@Query("SELECT new com.group7.voluntaweb.beans.VolAndCat(v.id, v.name,v.image, v.city, c.name, o.name) FROM Volunteering v INNER JOIN Category c ON v.category = c.id INNER JOIN ONG o ON v.ong = o.id WHERE v.name LIKE %:search%")
 	Iterable<Volunteering> findByQuery(@Param("search") String search);

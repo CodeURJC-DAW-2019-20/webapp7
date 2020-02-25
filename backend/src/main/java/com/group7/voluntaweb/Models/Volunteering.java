@@ -16,12 +16,16 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 
 @Entity
 @Table(name = "volunteerings")
 public class Volunteering {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
 
 	@OneToMany(mappedBy = "volunteering")
@@ -31,7 +35,7 @@ public class Volunteering {
 	private String name;
 
 	@NotEmpty
-	private long category_id;
+	private Long category_id;
 	@NotEmpty
 
 	private Date startdate;
@@ -50,8 +54,7 @@ public class Volunteering {
 	@NotEmpty
 	private String email;
 
-	public Volunteering() {
-	}
+
 
 	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty long category_id,
 			@NotEmpty Date startdate, @NotEmpty Date enddate, @NotEmpty String description, @NotEmpty String image,
@@ -146,6 +149,7 @@ public class Volunteering {
 		this.description = description;
 		this.image = image;
 		this.city = city;
+	}
 
 	public String getEmail() {
 		return email;
