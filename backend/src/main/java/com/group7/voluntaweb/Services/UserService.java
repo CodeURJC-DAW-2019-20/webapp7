@@ -28,6 +28,24 @@ public class UserService {
 		// TODO Auto-generated method stub
 		return userRepository.findById(userId);
 	}
+	
+	public void deleteCount(User user) {
+		userRepository.deleteById(user.getId());
+	}
+	
+	private boolean existsById(Long id) {
+        return userRepository.existsById(id);
+    }
+	
+	public void deleteById(Long id) throws Exception {
+        if (!existsById(id)) { 
+            throw new Exception("Cannot find User with id: " + id);
+        }
+        else {
+            userRepository.deleteById(id);
+        }
+    }
+	
 
 //	public boolean isJoined(long userId, long volunteeringId) {
 //		long searchingUserId = userRepository.findJoinedUser(userId, volunteeringId);
