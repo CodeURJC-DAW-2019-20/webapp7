@@ -65,7 +65,7 @@ We're implemented graphic charts:
 #### Description
 "About Us" is a page that have some information about VoluntaWeb and it's objectives.  
 
-![](./screenshots/f2-contact.PNG)
+![](./screenshots/F2-contact.PNG)
 #### Description
 The "Contact" page, as her name says, is for contact the administrator of the website in order to make sugerences and questions.  
 
