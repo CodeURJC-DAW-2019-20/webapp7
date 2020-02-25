@@ -27,6 +27,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/ong-edit-advertisement**").permitAll();
 		http.authorizeRequests().antMatchers("/ong-remove-advertisement**").permitAll();
 		http.authorizeRequests().antMatchers("/volunteering-gestion-panel").permitAll();
+		http.authorizeRequests().antMatchers("/volunteering/**").permitAll();
+		
 		//Il viejo truco de saltarte el login
 
 		// Public pages
