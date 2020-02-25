@@ -20,12 +20,12 @@ import antlr.collections.List;
 
 @Controller
 public class SearchController {
-	
+
 	@Autowired
 	private CategoryRepository categoryRepo;
 	@Autowired
 	private VolunteeringRepository volRepo;
-	
+
 //	@GetMapping("/search")
 //	
 //	public String search(Model model) {
@@ -39,54 +39,50 @@ public class SearchController {
 //		
 //		return "search";
 //	}
-	
-@GetMapping("/search/cat")
-	
+
+	@GetMapping("/search/cat")
+
 	public String search(Model model, @RequestParam(required = false) Long category) {
 		ArrayList<Category> categories = categoryRepo.findAll();
 		Iterable<Volunteering> volunteerings = volRepo.findByCategory(category);
 		model.addAttribute("volunteeringscat", volunteerings);
-		
 
 		model.addAttribute("title", "Resultados de búsqueda");
 		model.addAttribute("categories", categories);
-		
-		
+
 		return "search";
 	}
 
-@GetMapping("/search")
+	@GetMapping("/search")
 
-public String search(Model model, @RequestParam(required = false) String search, @RequestParam(required = false) Long category) {
-	if (search != null) {
-		ArrayList<Category> categories = categoryRepo.findAll();
-		Iterable<Volunteering> volunteerings = volRepo.findByQuery(search);
-		model.addAttribute("volunteeringscat", volunteerings);
-		model.addAttribute("search", search);
-		
-
-		model.addAttribute("title", "Resultados de búsqueda");
-		model.addAttribute("categories", categories);
-	} else {
-		if(category == null) {
-		ArrayList<Category> categories = categoryRepo.findAll();
-		Iterable<VolAndCat> volunteerings = volRepo.findAllVols();
-		model.addAttribute("volunteerings", volunteerings);
-		
-		model.addAttribute("title", "Resultados de búsqueda");
-		model.addAttribute("categories", categories);
-		} else {
+	public String search(Model model, @RequestParam(required = false) String search,
+			@RequestParam(required = false) Long category) {
+		if (search != null) {
 			ArrayList<Category> categories = categoryRepo.findAll();
-			Iterable<Volunteering> volunteerings = volRepo.findByCategory(category);
+			Iterable<Volunteering> volunteerings = volRepo.findByQuery(search);
 			model.addAttribute("volunteeringscat", volunteerings);
+			model.addAttribute("search", search);
+
 			model.addAttribute("title", "Resultados de búsqueda");
 			model.addAttribute("categories", categories);
+		} else {
+			if (category == null) {
+				ArrayList<Category> categories = categoryRepo.findAll();
+				Iterable<VolAndCat> volunteerings = volRepo.findAllVols();
+				model.addAttribute("volunteerings", volunteerings);
+
+				model.addAttribute("title", "Resultados de búsqueda");
+				model.addAttribute("categories", categories);
+			} else {
+				ArrayList<Category> categories = categoryRepo.findAll();
+				Iterable<Volunteering> volunteerings = volRepo.findByCategory(category);
+				model.addAttribute("volunteeringscat", volunteerings);
+				model.addAttribute("title", "Resultados de búsqueda");
+				model.addAttribute("categories", categories);
+			}
 		}
+
+		return "search";
 	}
-	
-	
-	
-	return "search";
-}
 
 }

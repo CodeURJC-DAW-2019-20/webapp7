@@ -59,7 +59,8 @@ public class UserController {
 
 		roles.add("ROLE_USER");
 
-		User user = new User(name, surname, email, enc_password, city, telephone, null, roles, Date.valueOf(LocalDate.now()));
+		User user = new User(name, surname, email, enc_password, city, telephone, null, roles,
+				Date.valueOf(LocalDate.now()));
 
 		this.userService.save(user);
 

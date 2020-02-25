@@ -37,7 +37,6 @@ public class User {
 	@Column(unique = true)
 	private String email;
 
-
 	private String password;
 	private String city;
 	private String telephone;
@@ -46,7 +45,6 @@ public class User {
 	private String image;
 
 	private Date registered_at;
-
 
 	public Long getId() {
 		return id;
@@ -120,8 +118,7 @@ public class User {
 		this.roles = roles;
 	}
 
-
-    public Date getRegistered_at() {
+	public Date getRegistered_at() {
 		return registered_at;
 	}
 
@@ -130,20 +127,10 @@ public class User {
 	}
 
 	public User() {
-    }
-
-public User(String name, String surname, String email, String password, String city, String telephone,
-			String image, List<String> roles, Date registered_at) {
-
-
-	public Set<UsersVolunteerings> getRegistrations() {
-		return registrations;
 	}
 
-	public void setRegistrations(Set<UsersVolunteerings> registrations) {
-		this.registrations = registrations;
-	}
-
+	public User(String name, String surname, String email, String password, String city, String telephone, String image,
+			List<String> roles, Date registered_at) {
 
 		this.name = name;
 		this.surname = surname;
@@ -157,6 +144,13 @@ public User(String name, String surname, String email, String password, String c
 
 	}
 
+	public Set<UsersVolunteerings> getRegistrations() {
+		return registrations;
+	}
+
+	public void setRegistrations(Set<UsersVolunteerings> registrations) {
+		this.registrations = registrations;
+	}
 
 	public User(Set<UsersVolunteerings> registrations, @NotEmpty String name, @NotEmpty String surname,
 			@NotEmpty String email, @NotEmpty String password, @NotEmpty String city, @NotEmpty String telephone,
@@ -192,4 +186,3 @@ public User(String name, String surname, String email, String password, String c
 	}
 
 }
-

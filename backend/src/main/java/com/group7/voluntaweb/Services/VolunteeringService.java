@@ -16,7 +16,7 @@ public class VolunteeringService {
 	public Volunteering findVolunteering(long id) {
 		return volunteeringRepository.findById(id);
 	}
-	
+
 	public User findJoinedUser(long volunteeringId, long userId) {
 		return volunteeringRepository.findUserVolunteering(volunteeringId, userId);
 	}

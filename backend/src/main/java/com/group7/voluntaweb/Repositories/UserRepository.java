@@ -20,12 +20,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("SELECT count(*) as number from User where month(registered_at) = :month")
 	int usersPerMonth(@Param("month") int month);
 
-	
-	//@Query("SELECT user FROM User user JOIN user.registrations r JOIN r.volunteering_id volunteering WHERE volunteering_id = :idVolunteering AND user_id =:idUser")
-	//long findJoinedUser(@Param("idUser")long idUser, @Param("idVolunteering")long idVolunteering);
-	
-	
-	void deleteById(long id);
+	// @Query("SELECT user FROM User user JOIN user.registrations r JOIN
+	// r.volunteering_id volunteering WHERE volunteering_id = :idVolunteering AND
+	// user_id =:idUser")
+	// long findJoinedUser(@Param("idUser")long idUser, @Param("idVolunteering")long
+	// idVolunteering);
 
+	void deleteById(long id);
 
 }

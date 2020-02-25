@@ -12,9 +12,8 @@ public class VolAndCat {
 	private String city;
 	private String category;
 	private String ong;
-	
-	public VolAndCat(Long id, String name, String image, String city,
-			String category, String ong) {
+
+	public VolAndCat(Long id, String name, String image, String city, String category, String ong) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -23,6 +22,5 @@ public class VolAndCat {
 		this.category = category;
 		this.ong = ong;
 	}
-	
-	
+
 }

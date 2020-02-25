@@ -41,16 +41,16 @@ public class VolunteeringController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private UserRepository userRepo;
 
 	@GetMapping("/volunteering/{id}")
 	public String prueba(Model model, @PathVariable long id) {
-		
+
 		Boolean logged = userComponent.isLoggedUser();
 		System.out.print(logged);
-		
+
 		String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 		User user = userRepo.findByEmail(email);
 
@@ -60,7 +60,7 @@ public class VolunteeringController {
 		Volunteering advert = volunteeringRepo.findById(id);
 		model.addAttribute("advert", advert);
 		model.addAttribute("buttonName", "Apuntarse");
-		//model.addAttribute("user", 9);
+		// model.addAttribute("user", 9);
 		model.addAttribute("volunteering", id);
 
 		return "volunteering";
@@ -72,20 +72,20 @@ public class VolunteeringController {
 
 		User user = userService.findUser(userId);
 		Volunteering volunteering = volunteeringService.findVolunteering(volunteeringId);
-		
+
 		if (volunteeringService.findJoinedUser(volunteeringId, userId) == null) {
 			UsersVolunteerings join = new UsersVolunteerings();
 			join.setUser(user);
 			join.setVolunteering(volunteering);
 			join.setDate(new Timestamp(new Date().getTime()));
-			
+
 			Set<UsersVolunteerings> x = user.getRegistrations();
 			x.add(join);
-	
+
 			user.setRegistrations(x);
-	
-			userService.save(user);	
-		}else {
+
+			userService.save(user);
+		} else {
 			System.out.println("Ya está añadido");
 		}
 		return "redirect:volunteering/" + volunteeringId;
