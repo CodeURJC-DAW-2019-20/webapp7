@@ -29,6 +29,13 @@ public class Volunteering {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@OneToMany(mappedBy = "volunteering")
+	private Set<UsersVolunteerings> joined_users;
+
+	@OneToMany(mappedBy = "volunteering")
+	private Set<Like> likes;
+	
+
 	@NotEmpty
 	private String name;
 
@@ -141,6 +148,15 @@ public class Volunteering {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+	
+	
+	public Set<Like> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(Set<Like> likes) {
+		this.likes = likes;
 	}
 
 	public Volunteering() {

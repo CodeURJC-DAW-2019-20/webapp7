@@ -27,5 +27,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	// idVolunteering);
 
 	void deleteById(long id);
+	
+	
 
 }

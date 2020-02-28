@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.group7.voluntaweb.Components.UserComponent;
 import com.group7.voluntaweb.Models.User;
+import com.group7.voluntaweb.Models.Volunteering;
 import com.group7.voluntaweb.Repositories.UserRepository;
+import com.group7.voluntaweb.Repositories.VolunteeringRepository;
 import com.group7.voluntaweb.Services.UserService;
 
 @Controller
@@ -28,6 +30,8 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private VolunteeringRepository volRepo;
 
 	@Autowired
 	private UserService userService;
@@ -105,6 +109,20 @@ public class UserController {
 		User user = userComponent.getLoggedUser();
 		userService.deleteCount(user);
 		return "redirect:settings";
+	}
+	
+	@GetMapping("/myvolunteerings")
+	public String myvolunteerings(Model model) {
+		
+		User usuario = userComponent.getLoggedUser();
+		User user = userRepo.findByEmail(usuario.getEmail());
+		Iterable<Volunteering> myvolunteerings =  volRepo.findMyVolunteerings(user);
+		model.addAttribute("title","Mis Voluntariados");
+		model.addAttribute("user",user);
+		model.addAttribute("myvolunteerings",myvolunteerings);
+		
+		
+		return "myvolunteerings";
 	}
 
 }
