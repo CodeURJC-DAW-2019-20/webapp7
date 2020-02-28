@@ -63,6 +63,8 @@
                                         <li><i class="ti-bookmark text-black m-r5"></i><strong>Categoría</strong> ponercategoria</li>
                                         <li><i class="ti-timer text-black m-r5"></i><strong>Fecha límite</strong> {{advert.enddate}}</li>
                                         <li><i class="ti-location-pin text-black m-r5"></i> {{advert.city}} </li>
+                                        <li><i class="fa fa-heart text-black m-r5"></i> {{likesnumber}} <span>Me gusta</span> </li>
+                                    
                                     </ul>
                                     <p class="p-t20"></p>
 
@@ -95,8 +97,12 @@ src="https://www.google.com/maps/embed/v1/place?q={{advert.city}}&key=AIzaSyBRzP
             </div>
             <br>
         </div>
-        <div class="like-button grey2">
-            <i class="fa fa-heart like grey"></i>
+        <div class="like-button {{b-color}}">
+            <i class="fa fa-heart like {{i-color}}">
+ 				<form id="form-like" action="/like" method="POST">
+ 					 <input type="text" name="volunteering" hidden=true value="{{volunteering}}">		
+ 				</form>
+ 			</i>
         </div>
         <!-- Content END-->
 {{>layout/footer}}

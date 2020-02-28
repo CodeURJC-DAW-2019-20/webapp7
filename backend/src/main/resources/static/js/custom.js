@@ -708,17 +708,23 @@ jQuery(window).bind("scroll", function () {
 $(".like-button").click(
 	function () {
 		if ($(".like").hasClass("grey")) {
-			$(".like").removeClass("grey")
-			$(".like").addClass("blue")
-			$(this).removeClass("grey2")
-			$(this).addClass("blue2")
+			$(".like").removeClass("grey");
+			$(".like").addClass("blue");
+			$(this).removeClass("grey2");
+			$(this).addClass("blue2");
+			$("#form-like").submit();
 		}
 		else {
-			$(".like").removeClass("blue")
-			$(".like").addClass("grey")
-			$(this).removeClass("blue2")
-			$(this).addClass("grey2")
+			$(".like").removeClass("blue");
+			$(".like").addClass("grey");
+			$(this).removeClass("blue2");
+			$(this).addClass("grey2");
+			$("#form-like").submit();
 		}
 	}
 )
 /* Search Bar Responsive END */
+
+
+
+
