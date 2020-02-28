@@ -13,13 +13,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.group7.voluntaweb.Components.UserComponent;
+import com.group7.voluntaweb.Models.Like;
 import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Models.UsersVolunteerings;
 import com.group7.voluntaweb.Models.Volunteering;
+import com.group7.voluntaweb.Repositories.LikeRepository;
 import com.group7.voluntaweb.Repositories.UserRepository;
 import com.group7.voluntaweb.Repositories.VolunteeringRepository;
 import com.group7.voluntaweb.Services.UserService;
@@ -45,6 +49,9 @@ public class VolunteeringController {
 	@Autowired
 	private UserRepository userRepo;
 
+	@Autowired
+	private LikeRepository likeRepo;
+	
 	@GetMapping("/volunteering/{id}")
 	public String prueba(Model model, @PathVariable long id) {
 
@@ -70,6 +77,19 @@ public class VolunteeringController {
 		model.addAttribute("advert", advert);
 		
 		model.addAttribute("volunteering", id);
+		
+		if (volunteeringService.findLike(id, user.getId()) == null) {
+			
+			model.addAttribute("b-color", "grey2");
+			model.addAttribute("i-color", "grey");
+		} else {
+			model.addAttribute("b-color", "blue2");
+			model.addAttribute("i-color", "blue");
+		}
+		
+		Long likenumber= likeRepo.countLike(id);
+		model.addAttribute("likesnumber",likenumber);
+		
 
 		return "volunteering";
 	}
@@ -102,5 +122,36 @@ public class VolunteeringController {
 		}
 		return "redirect:volunteering/" + volunteeringId;
 	}
+
+	@PostMapping("/like")
+	public String like(@RequestParam Long volunteering) {
+		User user = userComponent.getLoggedUser();//me da los usuarios logeados
+		User usuario = userRepo.findByEmail(user.getEmail());//en el objeto usuario etemos el usuario encontrado por el email
+		Like like = new Like();//creamos el objeto like
+		Volunteering vol = volunteeringRepo.findOneById(volunteering);//creamos un voluntariado que encontremos con el id que nos han pasado por parametros
 	
+	
+		
+		like.setUser(usuario);//un seter del modelo likes
+		like.setVolunteering(vol);//un seter del modelo likes
+		Set<Like>userLikes=usuario.getLikes();//en el conjunto de likes llamado UserLikes metemos todos los likes del usuario
+		
+		//Condición para que se añada
+		if (volunteeringService.findLike(volunteering, usuario.getId()) == null) {
+		userLikes.add(like);//a ese conjunto le añadimos el likee
+		user.setLikes(userLikes);//en el seter de los likes le pasamos el conjunto de los likes
+		userRepo.save(user);//guardamos el usuario
+		}
+		else
+		{	
+			userLikes.remove(like);//a ese conjunto le añadimos el likee
+			user.setLikes(userLikes);//en el seter de los likes le pasamos el conjunto de los likes
+			userRepo.save(user);//guardamos el usuario
+			likeRepo.deleteLike(volunteering, usuario.getId());
+			
+		}
+		return "redirect:volunteering/" + volunteering;
+		
+	}
+
 }
