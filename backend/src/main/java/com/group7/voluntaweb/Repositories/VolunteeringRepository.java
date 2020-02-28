@@ -1,5 +1,7 @@
 package com.group7.voluntaweb.Repositories;
 
+import java.util.ArrayList;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -33,4 +35,7 @@ public interface VolunteeringRepository extends JpaRepository<Volunteering, Long
 	@Query(value="DELETE FROM users_volunteerings WHERE user_id = :user_id AND volunteering_id = :volunteering_id", nativeQuery = true)
 	void deleteJoin(@Param("user_id") long user_id, @Param("volunteering_id") long volunteering_id);
 
+	
+	@Query("SELECT new com.group7.voluntaweb.beans.VolAndCat(v.id, v.name,v.image, v.city, c.name, o.name) FROM Volunteering v INNER JOIN Category c ON v.category = c.id INNER JOIN ONG o ON v.ong = o.id INNER JOIN UsersVolunteerings uv ON v.id = uv.volunteering WHERE uv.user = :user")
+	Iterable<Volunteering> findMyVolunteerings(@Param("user") User user);
 }

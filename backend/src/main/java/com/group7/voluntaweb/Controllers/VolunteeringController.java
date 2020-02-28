@@ -102,5 +102,5 @@ public class VolunteeringController {
 		}
 		return "redirect:volunteering/" + volunteeringId;
 	}
-
+	
 }
