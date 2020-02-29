@@ -123,7 +123,6 @@ public class VolunteeringController {
 		return "redirect:volunteering/" + volunteeringId;
 	}
 
-	
 	@PostMapping("/like")
 	public String like(@RequestParam Long volunteering) {
 		User user = userComponent.getLoggedUser();//me da los usuarios logeados
