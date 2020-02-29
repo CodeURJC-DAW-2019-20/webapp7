@@ -48,7 +48,7 @@
                                                 <ul>
                                                     <li><i class="ti-location-pin"></i><strong class="font-weight-700 text-black">Ciudad</strong><span class="text-black-light"> {{advert.city}} </span></li>
                                                     <li><i class="ti-email"></i><strong class="font-weight-700 text-black">E-mail</strong>{{advert.email}}</li>
-                                                    <li><i class="ti-bookmark"></i><strong class="font-weight-700 text-black">Categoría</strong>ponercategoria</li>
+                                                    <li><i class="ti-bookmark"></i><strong class="font-weight-700 text-black">Categoría</strong>{{category}}</li>
                                                     <li><i class="ti-timer"></i><strong class="font-weight-700 text-black">Fecha de inicio</strong>{{advert.startdate}}</li>
                                                 </ul>
                                             </div>
@@ -62,7 +62,7 @@
                                         <a href="#" class="text-secondry m-r30">{{advert.name}}</a>
                                     </h3>
                                     <ul class="job-info">
-                                        <li><i class="ti-bookmark text-black m-r5"></i><strong>Categoría</strong> ponercategoria</li>
+                                        <li><i class="ti-bookmark text-black m-r5"></i><strong>Categoría</strong> {{category}}</li>
                                         <li><i class="ti-timer text-black m-r5"></i><strong>Fecha límite</strong> {{advert.enddate}}</li>
                                         <li><i class="ti-location-pin text-black m-r5"></i> {{advert.city}} </li>
                                         <li><i class="fa fa-heart text-black m-r5"></i> {{likesnumber}} <span>Me gusta</span> </li>
@@ -73,13 +73,14 @@
                                     <h5 class="font-weight-600">Descripción</h5>
                                     <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
                                     <p class="p-t20">{{advert.description}}</p>
-
+									{{#logged}}
                                     <form action="/joinToVolunteering" method="POST">
                                     	<input type="hidden" id="user" name="user" value="{{user.id}}" >
                                     	<input type="hidden" id="volunteering" name="volunteering" value={{volunteering}} >
 									  	<button type="submit" class="site-button btn-{{color-button}}">{{buttonName}}</button>
 									  	{{#alert}}<span style="color: green">{{alert}}</span>{{/alert}}
 									</form>
+									{{/logged}}
 									
 									                            <div>
 									                            
@@ -99,6 +100,7 @@ src="https://www.google.com/maps/embed/v1/place?q={{advert.city}}&key=AIzaSyBRzP
             </div>
             <br>
         </div>
+        {{#logged}}
         <div class="like-button {{b-color}}">
             <i class="fa fa-heart like {{i-color}}">
  				<form id="form-like" action="/like" method="POST">
@@ -106,5 +108,6 @@ src="https://www.google.com/maps/embed/v1/place?q={{advert.city}}&key=AIzaSyBRzP
  				</form>
  			</i>
         </div>
+        {{/logged}}
         <!-- Content END-->
 {{>layout/footer}}

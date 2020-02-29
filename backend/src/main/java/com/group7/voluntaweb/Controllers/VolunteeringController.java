@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.group7.voluntaweb.Components.UserComponent;
+import com.group7.voluntaweb.Models.Category;
 import com.group7.voluntaweb.Models.Like;
 import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Models.UsersVolunteerings;
 import com.group7.voluntaweb.Models.Volunteering;
+import com.group7.voluntaweb.Repositories.CategoryRepository;
 import com.group7.voluntaweb.Repositories.LikeRepository;
 import com.group7.voluntaweb.Repositories.UserRepository;
 import com.group7.voluntaweb.Repositories.VolunteeringRepository;
@@ -45,6 +47,9 @@ public class VolunteeringController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CategoryRepository categoryRepo;
 
 	@Autowired
 	private UserRepository userRepo;
@@ -54,38 +59,50 @@ public class VolunteeringController {
 	
 	@GetMapping("/volunteering/{id}")
 	public String prueba(Model model, @PathVariable long id) {
-
+		
 		Boolean logged = userComponent.isLoggedUser();
-		System.out.print(logged);
+		if(logged) {
+			
+			String email = userComponent.getLoggedUser().getEmail();
+			User user = userRepo.findByEmail(email);
 
-		String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-		User user = userRepo.findByEmail(email);
+			model.addAttribute("logged", logged);
+			model.addAttribute("user", user);
 
-		model.addAttribute("logged", logged);
-		model.addAttribute("user", user);
-		User row = volunteeringService.findJoinedUser(id,user.getId() );
-		if (row != null) {
-			model.addAttribute("alert", "¡Te has apuntado a este voluntariado!");
-			model.addAttribute("buttonName", "Desapuntarse");
-			model.addAttribute("color-button", "danger");
-		} else {
-			model.addAttribute("color-button", "primary");
-			model.addAttribute("buttonName", "Apuntarse");
+			User row = volunteeringService.findJoinedUser(id,user.getId() );
+			if (row != null) {
+				model.addAttribute("alert", "¡Te has apuntado a este voluntariado!");
+				model.addAttribute("buttonName", "Desapuntarse");
+				model.addAttribute("color-button", "danger");
+			} else {
+				model.addAttribute("color-button", "primary");
+				model.addAttribute("buttonName", "Apuntarse");
+			}
+
+			
+			if (volunteeringService.findLike(id, user.getId()) == null) {
+				
+				model.addAttribute("b-color", "grey2");
+				model.addAttribute("i-color", "grey");
+			} else {
+				model.addAttribute("b-color", "blue2");
+				model.addAttribute("i-color", "blue");
+			}
+			
+
+			
+			
 		}
-		model.addAttribute("title", "Voluntariado");
+
 		Volunteering advert = volunteeringRepo.findById(id);
+		model.addAttribute("title", advert.getName());
+		
+		String category = advert.getCategory().getName();
+		model.addAttribute("category", category);
 		model.addAttribute("advert", advert);
 		
 		model.addAttribute("volunteering", id);
-		
-		if (volunteeringService.findLike(id, user.getId()) == null) {
-			
-			model.addAttribute("b-color", "grey2");
-			model.addAttribute("i-color", "grey");
-		} else {
-			model.addAttribute("b-color", "blue2");
-			model.addAttribute("i-color", "blue");
-		}
+
 		
 		Long likenumber= likeRepo.countLike(id);
 		model.addAttribute("likesnumber",likenumber);

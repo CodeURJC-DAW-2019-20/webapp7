@@ -13,16 +13,10 @@ import com.group7.voluntaweb.Models.Category;
 
 public interface CategoryRepository extends JpaRepository <Category,Long> {
 
-	List<Category> findAll();
+	ArrayList<Category> findAll();
 	Category  findById(long id);
 	
 }
 
-import antlr.collections.List;
 
-public interface CategoryRepository extends JpaRepository<Category, Long> {
-
-	ArrayList<Category> findAll();
-
-}
 

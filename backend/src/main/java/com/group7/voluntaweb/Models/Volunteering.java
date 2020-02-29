@@ -3,7 +3,7 @@ package com.group7.voluntaweb.Models;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

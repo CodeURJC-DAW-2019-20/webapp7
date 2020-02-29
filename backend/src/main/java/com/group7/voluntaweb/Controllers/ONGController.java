@@ -184,7 +184,7 @@ public class ONGController {
 		
 		List<Category> categories = this.catRepo.findAll();
 		
-		Volunteering anuncio = new Volunteering("",categories.get(0),fecha,fecha,"","","","");
+		Volunteering anuncio = new Volunteering(null ,"",categories.get(0),fecha,fecha,"","","","");
 	
 		
 		model.addAttribute("anuncio", anuncio);
@@ -203,7 +203,7 @@ public class ONGController {
 		
 		Category cat = this.catRepo.findById(category_id);
 		
-		Volunteering anuncio = new Volunteering(name,cat, startdate, enddate, description, city, email,"/images/volunteerings/");
+		Volunteering anuncio = new Volunteering(null ,name,cat, startdate, enddate, description, city, email,"/images/volunteerings/");
 		
 		System.out.println(anuncio.toString());
 		

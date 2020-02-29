@@ -163,7 +163,7 @@ public class ONG {
 	
 	public void setAnuncios(List<Volunteering> anuncios) {
 		this.anuncios = anuncios;
-
+	}
 
 
 
