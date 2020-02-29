@@ -1,6 +1,8 @@
 package com.group7.voluntaweb.Controllers;
 
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.group7.voluntaweb.Components.UserComponent;
+import com.group7.voluntaweb.Models.Category;
 import com.group7.voluntaweb.Models.User;
+import com.group7.voluntaweb.Repositories.CategoryRepository;
 import com.group7.voluntaweb.Repositories.UserRepository;
 
 @Controller
@@ -20,6 +24,9 @@ public class IndexController {
 	private UserRepository userRepo;
 	@Autowired
 	private UserComponent userComponent;
+	@Autowired
+	private CategoryRepository categoryRepo;
+	
 
 	@RequestMapping("/")
 	public String index(Model model) {
@@ -43,6 +50,14 @@ public class IndexController {
 		model.addAttribute("10", userRepo.usersPerMonth(10));
 		model.addAttribute("11", userRepo.usersPerMonth(11));
 		model.addAttribute("12", userRepo.usersPerMonth(12));
+		
+		ArrayList<Category> categories = categoryRepo.findByQuantity(8);
+		
+		model.addAttribute("categories", categories);
+		
+		
+		
+		
 		return "index";
 	}
 	

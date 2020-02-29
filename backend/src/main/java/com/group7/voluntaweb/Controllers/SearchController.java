@@ -66,18 +66,18 @@ public class SearchController {
 
 	@GetMapping("/search")
 
-	public String search(Model model, @RequestParam(required = false) String search,
+	public String search(Model model, @RequestParam(required = false) String s,
 			@RequestParam(required = false) Long category) {
 		User user = userComponent.getLoggedUser();
 		boolean logged = userComponent.isLoggedUser();
 
 		model.addAttribute("user", user);
 		model.addAttribute("logged", logged);
-		if (search != null) {
+		if (s != null) {
 			ArrayList<Category> categories = categoryRepo.findAll();
-			Iterable<Volunteering> volunteerings = volRepo.findByQuery(search);
+			Iterable<Volunteering> volunteerings = volRepo.findByQuery(s);
 			model.addAttribute("volunteeringscat", volunteerings);
-			model.addAttribute("search", search);
+			model.addAttribute("search", s);
 
 			model.addAttribute("title", "Resultados de búsqueda");
 			model.addAttribute("categories", categories);

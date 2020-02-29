@@ -106,13 +106,13 @@
                                     <form action="/search" method="GET">
                                         <h5 class="widget-title font-weight-700 text-uppercase">Palabras clave</h5>
                                         	{{#search}}
-                                            <input type="text" name="search" class="form-control" placeholder="Buscar" value="{{search}}">
+                                            <input type="text" name="s" class="form-control" placeholder="Buscar" value="{{search}}">
                                             {{/search}}
                                             {{^search}}
-                                            <input type="text" name="search" class="form-control" placeholder="Buscar">
+                                            <input type="text" name="s" class="form-control" placeholder="Buscar">
                                             {{/search}}
                                             <br>
-                                            <input type="submit" class="btn btn-primary" value="Buscar">
+                                            <input type="submit" class="site-button btn-block" value="Buscar">
                                     </form>
                                     </div>
                                     
@@ -126,7 +126,7 @@
 											{{/categories}}
 										</select>
 										<br>
-										<input type="submit" class="btn btn-primary" value="Buscar">
+										<input type="submit" class="site-button btn-block" value="Buscar">
 										</form>
                                     </div>
                                 </div>
