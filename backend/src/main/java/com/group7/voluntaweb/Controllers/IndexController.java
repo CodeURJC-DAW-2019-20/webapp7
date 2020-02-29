@@ -45,5 +45,11 @@ public class IndexController {
 		model.addAttribute("12", userRepo.usersPerMonth(12));
 		return "index";
 	}
+	
+	@RequestMapping("/index")
+	public String index2(Model model) {
+		return "redirect:/";
+	}
+
 
 }

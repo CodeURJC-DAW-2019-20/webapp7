@@ -114,9 +114,8 @@ public class ONGController {
 
 		String enc_password = new BCryptPasswordEncoder().encode(password); // ENCRYPT PASSWORD
 
-		ONG ong = new ONG(name, email, responsible_name, responsible_surname, address, telephone, postal, "true",
-				enc_password, description);
-		ong.setImage("/images/ong/image-" + ong.getId() + ".jpg");
+		ONG ong = new ONG(name, responsible_name, responsible_surname, address, description, email, postal, "true", telephone, enc_password);
+		//ong.setImage("/images/ong/image-" + ong.getId() + ".jpg");
 		// ong.setImage(true);
 
 		this.ongService.save(ong); // INSERT INTO DATABASE
@@ -162,7 +161,9 @@ public class ONGController {
 									@RequestParam String address, @RequestParam String description, @RequestParam String email, 
 									@RequestParam String password, @RequestParam String postal, @RequestParam String telephone, @RequestParam MultipartFile imagenFile) throws IOException{
 		
-		ONG ong = new ONG(name, responsible_name,responsible_surname,address,description,email, postal , "/images/ong/", telephone, password);
+		String enc_password = new BCryptPasswordEncoder().encode(password); // ENCRYPT PASSWORD
+		
+		ONG ong = new ONG(name, responsible_name, responsible_surname, address, description, email, postal, "true", telephone, enc_password);
 		
 		ong.setId(this.id);
 		
