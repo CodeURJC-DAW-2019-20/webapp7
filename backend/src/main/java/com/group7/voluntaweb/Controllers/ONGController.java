@@ -1,7 +1,9 @@
 package com.group7.voluntaweb.Controllers;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -16,21 +18,39 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.group7.voluntaweb.Components.ONGComponent;
+import com.group7.voluntaweb.Models.Category;
 import com.group7.voluntaweb.Components.UserComponent;
 import com.group7.voluntaweb.Models.ONG;
 import com.group7.voluntaweb.Models.User;
+import com.group7.voluntaweb.Models.Volunteering;
+import com.group7.voluntaweb.Repositories.CategoryRepository;
 import com.group7.voluntaweb.Repositories.ONGRepository;
+import com.group7.voluntaweb.Repositories.VolunteeringRepository;
 import com.group7.voluntaweb.Services.ImageService;
 import com.group7.voluntaweb.Services.ONGService;
 
 @Controller
 public class ONGController {
+	
+	//We have to change this by the ong logged
+	
+	private final long id=2;
+	
+	//We have to change this by the ong logged
+	
 
 	@Autowired
 	private ONGRepository ongRepo;
 
+	@Autowired
+	private VolunteeringRepository volRepo;
+	
+	@Autowired
+	private CategoryRepository catRepo;
+	
 	@Autowired
 	private ONGComponent ongComponent;
 
@@ -118,5 +138,142 @@ public class ONGController {
 
 		return "login";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping("/ong-settings")
+	public String ongSettings(Model model) {
+		
+		ONG ong = this.ongRepo.findByid(this.id);
+		
+		model.addAttribute("ong", ong);
+		
+		
+		return "ONG-settings";
+	}
+	
+	@PostMapping("/ong-settings-form")
+	public String ongSettingsForm(Model model,@RequestParam String name, @RequestParam String responsible_name, @RequestParam String responsible_surname,
+									@RequestParam String address, @RequestParam String description, @RequestParam String email, 
+									@RequestParam String password, @RequestParam String postal, @RequestParam String telephone, @RequestParam MultipartFile imagenFile) throws IOException{
+		
+		ONG ong = new ONG(name, responsible_name,responsible_surname,address,description,email, postal , "/images/ong/", telephone, password);
+		
+		ong.setId(this.id);
+		
+		this.ongRepo.save(ong);
+		
+		imgService.saveImage("ong", ong.getId(), imagenFile);
+		
+		model.addAttribute("ong", ong);
+		
+		
+		return "ong-settings";
+	}
+	
+	
+	@RequestMapping("/ong-submit-advertisement")
+	public String crearAnuncio(Model model) {
+		
+		Date fecha = new Date(System.currentTimeMillis());
+		
+		List<Category> categories = this.catRepo.findAll();
+		
+		Volunteering anuncio = new Volunteering("",categories.get(0),fecha,fecha,"","","","");
+	
+		
+		model.addAttribute("anuncio", anuncio);
+		model.addAttribute("categories", categories);
+		
+		
+		
+		
+		return "ong-submit-advertisement";
+	}
+	
+	
+	@PostMapping("ong-submit-advertisement-form")
+	public String subirAnuncio(Model model, @RequestParam String city, @RequestParam String description, @RequestParam String email, @RequestParam Date enddate,
+			@RequestParam String name, @RequestParam Date startdate, @RequestParam long category_id,@RequestParam MultipartFile imagenFile) throws IOException{
+		
+		Category cat = this.catRepo.findById(category_id);
+		
+		Volunteering anuncio = new Volunteering(name,cat, startdate, enddate, description, city, email,"/images/volunteerings/");
+		
+		System.out.println(anuncio.toString());
+		
+		ONG ong = this.ongRepo.findByid(this.id);
+		
+		List<Volunteering> anuncios = ong.getAnuncios();
+		anuncios.add(anuncio);
+		ong.setAnuncios(anuncios);
+		
+		
+		List<ONG> ongs = anuncio.getOngs();
+		ongs.add(ong);
+		anuncio.setOngs(ongs);
+		
+		
+		
+		this.ongRepo.save(ong);
+		this.volRepo.save(anuncio);
+		
+		imgService.saveImage("volunteerings", anuncio.getId(), imagenFile);
+		
+		model.addAttribute("ong", ong);
+		
+		return "ONG-settings";
+	}
+	
+	
+	@RequestMapping("/volunteering-gestion-panel")
+	public String accessVolunteerings(Model model) {
+		
+			ONG ong = this.ongRepo.findByid(this.id);
+			
+			List<Volunteering> anuncios = ong.getAnuncios();
+		
+			//List<Volunteering> anuncios = this.volRepo.findAll();//we have to change this
+			
+			model.addAttribute("anuncios", anuncios);
+		
+		return "volunteering-gestion-panel";
+	}
+	
+	
+	@RequestMapping("/ong-edit-advertisement-{id}")
+	public String editVolunteerings(Model model,@PathVariable long id) {
+		
+		Volunteering anuncio = this.volRepo.findById(id);
+		
+		List<Category> cats = this.catRepo.findAll();
+		
+		model.addAttribute("anuncio", anuncio);model.addAttribute("anuncio", anuncio);
+		model.addAttribute("categories", cats);
+		
+		return "ong-submit-advertisement";
+	}
+	
+	
+	@RequestMapping("/ong-remove-advertisement-{id}")
+	public String removeVolunteerings(Model model,@PathVariable long id) {
+		
+		/*ONG ong = this.ongRepo.findByid(this.id);
+		
+		List<Volunteering> anuncios = ong.getAnuncios();*/
+		
+		this.volRepo.deleteById(id);
+		
+		ONG ong = this.ongRepo.findByid(this.id);
+		model.addAttribute("ong", ong);
+		
+		return "ONG-settings";
+	}
+	
 
 }

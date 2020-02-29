@@ -1,7 +1,9 @@
 package com.group7.voluntaweb.Models;
 
 import java.sql.Date;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -31,16 +35,17 @@ public class Volunteering {
 	@OneToMany(mappedBy = "volunteering")
 	private Set<Like> likes;
 	
+
 	@NotEmpty
 	private String name;
+
 
 	@NotEmpty
 	@ManyToOne
 	private Category category;
 	@NotEmpty
-
 	private Date startdate;
-	@NotEmpty
+	//@NotEmpty
 
 	private Date enddate;
 	@NotEmpty
@@ -50,24 +55,34 @@ public class Volunteering {
 	private String image;
 	@NotEmpty
 	private String city;
+
+	@NotEmpty
 	@ManyToOne
 	private ONG ong;
 	@NotEmpty
 	private String email;
+	
+	
+	@ManyToMany
+	private List<ONG> ongs;
+
 
 	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty Category category_id,
 			@NotEmpty Date startdate, @NotEmpty Date enddate, @NotEmpty String description, @NotEmpty String image,
 			@NotEmpty String city, @NotEmpty String email) {
 		super();
-		this.joined_users = joined_users;
+		
 		this.name = name;
 		this.category = category;
 		this.startdate = startdate;
 		this.enddate = enddate;
 		this.description = description;
-		this.image = image;
 		this.city = city;
 		this.email = email;
+		this.image = image;
+		
+		
+		this.ongs = new ArrayList<>();
 	}
 
 	public long getId() {
@@ -84,6 +99,15 @@ public class Volunteering {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public Date getStartdate() {
@@ -116,14 +140,6 @@ public class Volunteering {
 
 	public void setImage(String image) {
 		this.image = image;
-	}
-
-	public Set<UsersVolunteerings> getJoined_users() {
-		return joined_users;
-	}
-
-	public void setJoined_users(Set<UsersVolunteerings> joined_users) {
-		this.joined_users = joined_users;
 	}
 
 	public String getCity() {
@@ -164,5 +180,14 @@ public class Volunteering {
 		this.email = email;
 
 	}
+	
+	public void setOngs(List<ONG> ongs){
+		this.ongs = ongs;
+	}
+	
+	public List<ONG> getOngs() {
+		return this.ongs;
+	}
+	
 
 }

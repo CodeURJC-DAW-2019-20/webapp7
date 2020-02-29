@@ -18,6 +18,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
+		//Il viejo truco de saltarte el login
+		http.authorizeRequests().antMatchers("/ong-settings").permitAll();
+		http.authorizeRequests().antMatchers("/ong-settings-form").permitAll();
+		http.authorizeRequests().antMatchers("/ong-submit-advertisement").permitAll();
+		http.authorizeRequests().antMatchers("/ong-submit-advertisement-form").permitAll();
+		http.authorizeRequests().antMatchers("/ong-edit-advertisement**").permitAll();
+		http.authorizeRequests().antMatchers("/ong-remove-advertisement**").permitAll();
+		http.authorizeRequests().antMatchers("/volunteering-gestion-panel").permitAll();
+		http.authorizeRequests().antMatchers("/volunteering/**").permitAll();
+		
+		//Il viejo truco de saltarte el login
 
 		// Public pages
 		http.authorizeRequests().antMatchers("/").permitAll();
