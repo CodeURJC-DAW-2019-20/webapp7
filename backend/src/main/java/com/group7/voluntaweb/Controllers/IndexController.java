@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.group7.voluntaweb.Components.UserComponent;
 import com.group7.voluntaweb.Models.Category;
+import com.group7.voluntaweb.Models.ONG;
 import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Repositories.CategoryRepository;
 import com.group7.voluntaweb.Repositories.UserRepository;
@@ -66,5 +67,11 @@ public class IndexController {
 		return "redirect:/";
 	}
 
+	@GetMapping("/about-us")
+	public String about(Model model) {
 
+		model.addAttribute("title", "¿Quienes somos?");
+
+		return "aboutUs";
+	}
 }
