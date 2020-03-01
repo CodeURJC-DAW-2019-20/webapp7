@@ -35,22 +35,15 @@ import com.group7.voluntaweb.Services.ONGService;
 @Controller
 public class ONGController {
 	
-	//We have to change this by the ong logged
-	
-	private final long id=2;
-	
-	//We have to change this by the ong logged
-	
-
 	@Autowired
 	private ONGRepository ongRepo;
 
 	@Autowired
 	private VolunteeringRepository volRepo;
-	
+
 	@Autowired
 	private CategoryRepository catRepo;
-	
+
 	@Autowired
 	private ONGComponent ongComponent;
 
@@ -77,7 +70,7 @@ public class ONGController {
 
 		model.addAttribute("user", user);
 		model.addAttribute("logged", logged);
-		
+
 		model.addAttribute("title", "ong");
 		Iterable<ONG> ngos = ongService.getAll();
 		model.addAttribute("ngos", ngos);
@@ -114,9 +107,8 @@ public class ONGController {
 
 		String enc_password = new BCryptPasswordEncoder().encode(password); // ENCRYPT PASSWORD
 
-		ONG ong = new ONG(name, responsible_name, responsible_surname, address, description, email, postal, "true", telephone, enc_password);
-		//ong.setImage("/images/ong/image-" + ong.getId() + ".jpg");
-		// ong.setImage(true);
+		ONG ong = new ONG(name, responsible_name, responsible_surname, address, description, email, postal, "true",
+				telephone, enc_password);
 
 		this.ongService.save(ong); // INSERT INTO DATABASE
 
@@ -137,144 +129,138 @@ public class ONGController {
 
 		return "login";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping("/ong-settings")
+
+	@GetMapping("/ong-settings")
 	public String ongSettings(Model model) {
-		
-		ONG ong = this.ongRepo.findByid(this.id);
-		
+
+		ONG ong = ongComponent.getLoggedUser();
+		ong = ongRepo.findByEmail(ong.getEmail());
+
 		model.addAttribute("ong", ong);
-		
-		
+
 		return "ONG-settings";
 	}
-	
+
 	@PostMapping("/ong-settings-form")
-	public String ongSettingsForm(Model model,@RequestParam String name, @RequestParam String responsible_name, @RequestParam String responsible_surname,
-									@RequestParam String address, @RequestParam String description, @RequestParam String email, 
-									@RequestParam String password, @RequestParam String postal, @RequestParam String telephone, @RequestParam MultipartFile imagenFile) throws IOException{
-		
-		String enc_password = new BCryptPasswordEncoder().encode(password); // ENCRYPT PASSWORD
-		
-		ONG ong = new ONG(name, responsible_name, responsible_surname, address, description, email, postal, "true", telephone, enc_password);
-		
-		ong.setId(this.id);
-		
+	public String ongSettingsForm(Model model, @RequestParam String name, @RequestParam String responsible_name,
+			@RequestParam String responsible_surname, @RequestParam String address, @RequestParam String description,
+			@RequestParam String email, @RequestParam String postal, @RequestParam String telephone,
+			@RequestParam MultipartFile imagenFile) throws IOException {
+		ONG ong = ongComponent.getLoggedUser();
+		ong = ongRepo.findByEmail(ong.getEmail());
+		ong.setName(name);
+		ong.setResponsible_name(responsible_name);
+		ong.setResponsible_surname(responsible_surname);
+		ong.setAddress(address);
+		ong.setDescription(description);
+		ong.setDescription(description);
+		ong.setEmail(email);
+		ong.setPostal(postal);
+		ong.setTelephone(telephone);
+
 		this.ongRepo.save(ong);
-		
-		imgService.saveImage("ong", ong.getId(), imagenFile);
-		
+		if (imagenFile.getSize() > 5) {
+			imgService.saveImage("ong", ong.getId(), imagenFile);
+		}
 		model.addAttribute("ong", ong);
-		
-		
+
 		return "ong-settings";
 	}
-	
-	
+
 	@RequestMapping("/ong-submit-advertisement")
 	public String crearAnuncio(Model model) {
-		
+
 		Date fecha = new Date(System.currentTimeMillis());
-		
+
 		List<Category> categories = this.catRepo.findAll();
-		
-		Volunteering anuncio = new Volunteering(null ,"",categories.get(0),fecha,fecha,"","","","");
-	
-		
+
+		Volunteering anuncio = new Volunteering(null, "", categories.get(0), fecha, fecha, "", "", "", "");
+
 		model.addAttribute("anuncio", anuncio);
 		model.addAttribute("categories", categories);
-		
-		
-		
-		
+
 		return "ong-submit-advertisement";
 	}
-	
-	
+
 	@PostMapping("ong-submit-advertisement-form")
-	public String subirAnuncio(Model model, @RequestParam String city, @RequestParam String description, @RequestParam String email, @RequestParam Date enddate,
-			@RequestParam String name, @RequestParam Date startdate, @RequestParam long category_id,@RequestParam MultipartFile imagenFile) throws IOException{
-		
+	public String subirAnuncio(Model model, @RequestParam String city, @RequestParam String description,
+			@RequestParam String email, @RequestParam Date enddate, @RequestParam String name,
+			@RequestParam Date startdate, @RequestParam long category_id, @RequestParam MultipartFile imagenFile)
+			throws IOException {
+
 		Category cat = this.catRepo.findById(category_id);
-		
-		Volunteering anuncio = new Volunteering(null ,name,cat, startdate, enddate, description, city, email,"/images/volunteerings/");
-		
+
+		Volunteering anuncio = new Volunteering(null, name, cat, startdate, enddate, description, city, email,
+				"/images/volunteerings/");
+
 		System.out.println(anuncio.toString());
-		
-		ONG ong = this.ongRepo.findByid(this.id);
-		
+
+		ONG ong = ongComponent.getLoggedUser();
+		ong = ongRepo.findByEmail(ong.getEmail());
+
 		List<Volunteering> anuncios = ong.getAnuncios();
 		anuncios.add(anuncio);
 		ong.setAnuncios(anuncios);
-		
-		
+
 		List<ONG> ongs = anuncio.getOngs();
 		ongs.add(ong);
 		anuncio.setOngs(ongs);
-		
-		
-		
+
 		this.ongRepo.save(ong);
 		this.volRepo.save(anuncio);
-		
+
 		imgService.saveImage("volunteerings", anuncio.getId(), imagenFile);
-		
+
 		model.addAttribute("ong", ong);
-		
+
 		return "ONG-settings";
 	}
-	
-	
+
 	@RequestMapping("/volunteering-gestion-panel")
 	public String accessVolunteerings(Model model) {
-		
-			ONG ong = this.ongRepo.findByid(this.id);
-			
-			List<Volunteering> anuncios = ong.getAnuncios();
-		
-			//List<Volunteering> anuncios = this.volRepo.findAll();//we have to change this
-			
-			model.addAttribute("anuncios", anuncios);
-		
+
+		ONG ong = ongComponent.getLoggedUser();
+		ong = ongRepo.findByEmail(ong.getEmail());
+
+		List<Volunteering> anuncios = ong.getAnuncios();
+
+		// List<Volunteering> anuncios = this.volRepo.findAll();//we have to change this
+
+		model.addAttribute("anuncios", anuncios);
+
 		return "volunteering-gestion-panel";
 	}
-	
-	
+
 	@RequestMapping("/ong-edit-advertisement-{id}")
-	public String editVolunteerings(Model model,@PathVariable long id) {
-		
+	public String editVolunteerings(Model model, @PathVariable long id) {
+
 		Volunteering anuncio = this.volRepo.findById(id);
-		
+
 		List<Category> cats = this.catRepo.findAll();
-		
-		model.addAttribute("anuncio", anuncio);model.addAttribute("anuncio", anuncio);
+
+		model.addAttribute("anuncio", anuncio);
+		model.addAttribute("anuncio", anuncio);
 		model.addAttribute("categories", cats);
-		
+
 		return "ong-submit-advertisement";
 	}
-	
-	
+
 	@RequestMapping("/ong-remove-advertisement-{id}")
-	public String removeVolunteerings(Model model,@PathVariable long id) {
-		
-		/*ONG ong = this.ongRepo.findByid(this.id);
-		
-		List<Volunteering> anuncios = ong.getAnuncios();*/
-		
+	public String removeVolunteerings(Model model, @PathVariable long id) {
+
+		/*
+		 * ONG ong = this.ongRepo.findByid(this.id);
+		 * 
+		 * List<Volunteering> anuncios = ong.getAnuncios();
+		 */
+
 		this.volRepo.deleteById(id);
-		
-		ONG ong = this.ongRepo.findByid(this.id);
+
+		ONG ong = ongComponent.getLoggedUser();
+		ong = ongRepo.findByEmail(ong.getEmail());
 		model.addAttribute("ong", ong);
-		
+
 		return "ONG-settings";
 	}
-	
 
 }

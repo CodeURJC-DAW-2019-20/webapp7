@@ -32,52 +32,53 @@
 
 				<div class="row justify-content-center">
 					<div class="col-md-8">
-
-
 						<div class="card">
 							<div class="card-header">Mi cuenta</div>
-
 							<div class="card-body">
 								<!-- Settings form -->
-								<form method="POST" action="#" enctype="multipart/form-data">
-
-
+								<form method="POST" action="user-settings-form" enctype="multipart/form-data">
 									<div class="form-group row">
 										<label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
-
 										<div class="col-md-6">
 											<input id="name" type="text" class="form-control" name="name"
 												placeholder="Nombre" required autocomplete="name" autofocus value="{{user.name}}">
 										</div>
 									</div>
-
 									<div class="form-group row">
-										<label for="surname"
-											class="col-md-4 col-form-label text-md-right">Apellidos</label>
-
+										<label for="surname" class="col-md-4 col-form-label text-md-right">Apellidos</label>
 										<div class="col-md-6">
 											<input id="surname" type="text" class="form-control" name="surname"
-												placeholder="Apellidos" required autocomplete="surname" autofocus value="{{user.username}}">
+												placeholder="Apellidos" required autocomplete="surname" value="{{user.surname}}">
 										</div>
 									</div>
-
-
-
+									<div class="form-group row">
+										<label for="surname" class="col-md-4 col-form-label text-md-right">Ciudad</label>
+										<div class="col-md-6">
+											<input id="city" type="text" class="form-control" name="city"
+												placeholder="Ciudad" required autocomplete="city" autofocus value="{{user.city}}">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="surname" class="col-md-4 col-form-label text-md-right">Teléfono</label>
+										<div class="col-md-6">
+											<input id="telephone" type="text" class="form-control" name="telephone"
+												placeholder="Teléfono" required autocomplete="Teléfono" autofocus value="{{user.telephone}}">
+										</div>
+									</div>
 									<div class="form-group row">
 										<label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
-
 										<div class="col-md-6">
 											<input id="email" type="email" class="form-control" name="email"
 												placeholder="Email" required autocomplete="email" value="{{user.email}}">
 										</div>
 									</div>
 									<div class="form-group row">
-										<label for="image_path" class="col-md-4 col-form-label text-md-right">Foto de
+										<label for="imagenFile" class="col-md-4 col-form-label text-md-right">Foto de
 											perfil</label>
 
 										<div class="col-md-6">
-											<input id="image_path" type="file" class="form-control" name="image_path"
-												autocomplete="image_path">
+											<input id="imagenFile" type="file" class="form-control" name="imagenFile"
+												autocomplete="image" placeholder=".jpg" accept=".jpg">
 										</div>
 									</div>
 									<div class="form-group row mb-0">
@@ -87,8 +88,8 @@
 											</button>
 										</div>
 									</div>
-</form>
-<br>
+							</form>
+							<br>
 
 									<div class="form-group row mb-0">
 										<div class="col-md-6 offset-md-4">

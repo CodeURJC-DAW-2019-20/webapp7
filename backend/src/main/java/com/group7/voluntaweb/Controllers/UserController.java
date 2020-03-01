@@ -1,5 +1,6 @@
 package com.group7.voluntaweb.Controllers;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,12 +18,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.group7.voluntaweb.Components.UserComponent;
+import com.group7.voluntaweb.Models.ONG;
 import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Models.Volunteering;
 import com.group7.voluntaweb.Repositories.UserRepository;
 import com.group7.voluntaweb.Repositories.VolunteeringRepository;
+import com.group7.voluntaweb.Services.ImageService;
 import com.group7.voluntaweb.Services.UserService;
 
 @Controller
@@ -32,6 +36,9 @@ public class UserController {
 	private UserRepository userRepo;
 	@Autowired
 	private VolunteeringRepository volRepo;
+
+	@Autowired
+	private ImageService imgService;
 
 	@Autowired
 	private UserService userService;
@@ -71,14 +78,7 @@ public class UserController {
 		this.userService.save(user);
 
 		return "redirect:register";
-
 	}
-
-	// @GetMapping("/users")
-	// public Iterable<User> listUsers() {
-
-	// return userRepo.findAll();
-	// }
 
 	@GetMapping("/login")
 	public String login(Map<String, Object> model, HttpSession sesion) {
@@ -97,6 +97,7 @@ public class UserController {
 	public String prueba(Model model) {
 		Boolean logged = userComponent.isLoggedUser();
 		User user = userComponent.getLoggedUser();
+		user = userRepo.findByEmail(user.getEmail());
 
 		model.addAttribute("logged", logged);
 		model.addAttribute("user", user);
@@ -104,24 +105,43 @@ public class UserController {
 		return "user-settings";
 	}
 
+	@PostMapping("/user-settings-form")
+	public String userSettingsForm(Model model, @RequestParam String name, @RequestParam String surname,
+			@RequestParam String city, @RequestParam String telephone, @RequestParam String email,
+			@RequestParam MultipartFile imagenFile) throws IOException {
+		User user = userComponent.getLoggedUser();
+		user = userRepo.findByEmail(user.getEmail());
+		user.setName(name);
+		user.setSurname(surname);
+		user.setCity(city);
+		user.setTelephone(telephone);
+		user.setEmail(email);
+
+		this.userRepo.save(user);
+		if (imagenFile.getSize() > 5) {
+			imgService.saveImage("user", user.getId(), imagenFile);
+		}
+			model.addAttribute("user", user);
+		return "redirect:settings";
+	}
+
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(Model model) {
 		User user = userComponent.getLoggedUser();
 		userService.deleteCount(user);
-		return "redirect:settings";
+		return "redirect/settings";
 	}
-	
+
 	@GetMapping("/myvolunteerings")
 	public String myvolunteerings(Model model) {
-		
+
 		User usuario = userComponent.getLoggedUser();
 		User user = userRepo.findByEmail(usuario.getEmail());
-		Iterable<Volunteering> myvolunteerings =  volRepo.findMyVolunteerings(user);
-		model.addAttribute("title","Mis Voluntariados");
-		model.addAttribute("user",user);
-		model.addAttribute("myvolunteerings",myvolunteerings);
-		
-		
+		Iterable<Volunteering> myvolunteerings = volRepo.findMyVolunteerings(user);
+		model.addAttribute("title", "Mis Voluntariados");
+		model.addAttribute("user", user);
+		model.addAttribute("myvolunteerings", myvolunteerings);
+
 		return "myvolunteerings";
 	}
 
