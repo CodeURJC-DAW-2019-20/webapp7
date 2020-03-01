@@ -65,6 +65,8 @@ public class VolunteeringController {
 			
 			String email = userComponent.getLoggedUser().getEmail();
 			User user = userRepo.findByEmail(email);
+			
+			Volunteering vol = volunteeringRepo.findById(id);
 
 			model.addAttribute("logged", logged);
 			model.addAttribute("user", user);
@@ -80,7 +82,7 @@ public class VolunteeringController {
 			}
 
 			
-			if (volunteeringService.findLike(id, user.getId()) == null) {
+			if (volunteeringService.findLike(vol, user) == null) {
 				
 				model.addAttribute("b-color", "grey2");
 				model.addAttribute("i-color", "grey");
@@ -154,7 +156,7 @@ public class VolunteeringController {
 		Set<Like>userLikes=usuario.getLikes();//en el conjunto de likes llamado UserLikes metemos todos los likes del usuario
 		
 		//Condición para que se añada
-		if (volunteeringService.findLike(volunteering, usuario.getId()) == null) {
+		if (volunteeringService.findLike(vol, usuario) == null) {
 		userLikes.add(like);//a ese conjunto le añadimos el likee
 		user.setLikes(userLikes);//en el seter de los likes le pasamos el conjunto de los likes
 		userRepo.save(user);//guardamos el usuario
@@ -164,7 +166,7 @@ public class VolunteeringController {
 			userLikes.remove(like);//a ese conjunto le añadimos el likee
 			user.setLikes(userLikes);//en el seter de los likes le pasamos el conjunto de los likes
 			userRepo.save(user);//guardamos el usuario
-			likeRepo.deleteLike(volunteering, usuario.getId());
+			likeRepo.deleteLike(vol, usuario);
 			
 		}
 		return "redirect:volunteering/" + volunteering;

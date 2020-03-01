@@ -28,8 +28,8 @@ public class VolunteeringService {
 	public void deleteJoin(long user_id, long volunteering_id) {
 		volunteeringRepository.deleteJoin(user_id, volunteering_id);
 	}
-	public Like findLike(long volunteering_id, long user_id) {
-		return likeRepository.findLike(user_id,volunteering_id);
+	public Like findLike(Volunteering volunteering_id, User user_id) {
+		return likeRepository.findLike(volunteering_id,user_id);
 	}
 	/*
 	public void addLike(long volunteeringId, long userId) {
