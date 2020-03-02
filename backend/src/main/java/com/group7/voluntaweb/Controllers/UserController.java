@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +45,7 @@ public class UserController {
 
 	@Autowired
 	private ONGRepository ongRepo;
-	
+
 	@Autowired
 	private CommentRepository commentRepo;
 
@@ -52,7 +54,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ONGService ongService;
 
@@ -97,23 +99,28 @@ public class UserController {
 	public String login(Map<String, Object> model, HttpSession sesion) {
 		model.put("title", "Iniciar sesión");
 
-		Boolean logged = userComponent.isLoggedUser();
-		User user = userComponent.getLoggedUser();
-
-		model.put("logged", logged);
-		model.put("user", user);
-
 		return "login";
 	}
 
 	@GetMapping("/settings")
 	public String prueba(Model model) {
-		Boolean logged = userComponent.isLoggedUser();
-		User user = userComponent.getLoggedUser();
-		user = userRepo.findByEmail(user.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
 
-		model.addAttribute("logged", logged);
-		model.addAttribute("user", user);
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("logged_user", true);
+			model.addAttribute("logged", true);
+		} else if (ong != null) {
+			model.addAttribute("user", ong);
+			model.addAttribute("logged_ong", true);
+			model.addAttribute("logged", true);
+		} else {
+			model.addAttribute("logged", false);
+		}
 		model.addAttribute("title", "Ajustes");
 		return "user-settings";
 	}
@@ -122,8 +129,10 @@ public class UserController {
 	public String userSettingsForm(Model model, @RequestParam String name, @RequestParam String surname,
 			@RequestParam String city, @RequestParam String telephone, @RequestParam String email,
 			@RequestParam MultipartFile imagenFile) throws IOException {
-		User user = userComponent.getLoggedUser();
-		user = userRepo.findByEmail(user.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
 		user.setName(name);
 		user.setSurname(surname);
 		user.setCity(city);
@@ -134,21 +143,52 @@ public class UserController {
 		if (imagenFile.getSize() > 5) {
 			imgService.saveImage("user", user.getId(), imagenFile);
 		}
-			model.addAttribute("user", user);
+		model.addAttribute("user", user);
 		return "redirect:settings";
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(Model model) {
-		User user = userComponent.getLoggedUser();
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("logged_user", true);
+			model.addAttribute("logged", true);
+		} else if (ong != null) {
+			model.addAttribute("user", ong);
+			model.addAttribute("logged_ong", true);
+			model.addAttribute("logged", true);
+		} else {
+			model.addAttribute("logged", false);
+		}
 		userService.deleteCount(user);
 		return "redirect:logout";
 	}
 
 	@GetMapping("/myvolunteerings")
 	public String myvolunteerings(Model model) {
-		User usuario = userComponent.getLoggedUser();
-		User user = userRepo.findByEmail(usuario.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("logged_user", true);
+			model.addAttribute("logged", true);
+		} else if (ong != null) {
+			model.addAttribute("user", ong);
+			model.addAttribute("logged_ong", true);
+			model.addAttribute("logged", true);
+		} else {
+			model.addAttribute("logged", false);
+		}
 		Iterable<Volunteering> myvolunteerings = volRepo.findMyVolunteerings(user);
 		model.addAttribute("title", "Mis Voluntariados");
 		model.addAttribute("user", user);
@@ -156,51 +196,93 @@ public class UserController {
 
 		return "myvolunteerings";
 	}
-	
+
 	@GetMapping("/admin/volunteerings")
 	public String volunteerings(Model model) {
-		User usuario = userComponent.getLoggedUser();
-		User user = userRepo.findByEmail(usuario.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("logged_user", true);
+			model.addAttribute("logged", true);
+		} else if (ong != null) {
+			model.addAttribute("user", ong);
+			model.addAttribute("logged_ong", true);
+			model.addAttribute("logged", true);
+		} else {
+			model.addAttribute("logged", false);
+		}
 		Iterable<Volunteering> volunteerings = volRepo.findAll();
 		model.addAttribute("title", "Voluntariados");
-		model.addAttribute("user", user);
 		model.addAttribute("volunteerings", volunteerings);
 
 		return "adminVolunteerings";
 	}
-	
+
 	@RequestMapping(value = "/admin/deleteVolunteering", method = RequestMethod.POST)
 	public String deleteVolunteering(Model model, @RequestParam long id) {
 		volRepo.deleteById(id);
 		return "redirect:/admin/volunteerings";
 	}
-	
+
 	@GetMapping("/admin/users")
 	public String adminVolunteerings(Model model) {
-		User usuario = userComponent.getLoggedUser();
-		User user = userRepo.findByEmail(usuario.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("logged_user", true);
+			model.addAttribute("logged", true);
+		} else if (ong != null) {
+			model.addAttribute("user", ong);
+			model.addAttribute("logged_ong", true);
+			model.addAttribute("logged", true);
+		} else {
+			model.addAttribute("logged", false);
+		}
 		Iterable<User> users = userRepo.findAll();
 		model.addAttribute("title", "Usuarios");
-		model.addAttribute("user", user);
 		model.addAttribute("users", users);
 
 		return "adminUsers";
 	}
-	
+
 	@RequestMapping(value = "/admin/deleteUser", method = RequestMethod.POST)
 	public String deleteUser(Model model, @RequestParam long id) {
 		User user = userRepo.findById(id);
 		userService.deleteCount(user);
 		return "redirect:/admin/users";
 	}
-		
+
 	@GetMapping("/admin/ngos")
 	public String adminNgos(Model model) {
-		User usuario = userComponent.getLoggedUser();
-		User user = userRepo.findByEmail(usuario.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("logged_user", true);
+			model.addAttribute("logged", true);
+		} else if (ong != null) {
+			model.addAttribute("user", ong);
+			model.addAttribute("logged_ong", true);
+			model.addAttribute("logged", true);
+		} else {
+			model.addAttribute("logged", false);
+		}
 		Iterable<ONG> ngos = ongRepo.findAll();
 		model.addAttribute("title", "ONGs");
-		model.addAttribute("user", user);
 		model.addAttribute("ngos", ngos);
 
 		return "adminNGOS";
@@ -211,14 +293,29 @@ public class UserController {
 		ongService.deleteCount(id);
 		return "redirect:/admin/ngos";
 	}
-	
+
 	@GetMapping("/admin/comments")
 	public String adminComments(Model model) {
-		User usuario = userComponent.getLoggedUser();
-		User user = userRepo.findByEmail(usuario.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("logged_user", true);
+			model.addAttribute("logged", true);
+		} else if (ong != null) {
+			model.addAttribute("user", ong);
+			model.addAttribute("logged_ong", true);
+			model.addAttribute("logged", true);
+		} else {
+			model.addAttribute("logged", false);
+		}
 		Iterable<Comment> comments = commentRepo.findAll();
 		model.addAttribute("title", "Comments");
-		model.addAttribute("user", user);
+
 		model.addAttribute("comments", comments);
 
 		return "adminComments";

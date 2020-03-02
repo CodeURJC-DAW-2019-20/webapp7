@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +37,7 @@ import com.group7.voluntaweb.Services.ONGService;
 
 @Controller
 public class ONGController {
-	
+
 	@Autowired
 	private ONGRepository ongRepo;
 
@@ -44,7 +46,7 @@ public class ONGController {
 
 	@Autowired
 	private CategoryRepository catRepo;
-	
+
 	@Autowired
 	private UserRepository userRepo;
 
@@ -69,14 +71,23 @@ public class ONGController {
 
 	@GetMapping("/ongs")
 	public String ngos(Model model) {
-		User user = userComponent.getLoggedUser();
-		//ONG ong = ongComponent.getLoggedUser();
-		boolean logged = userComponent.isLoggedUser();
-		if(logged) {
-			user = userRepo.findByEmail(user.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("logged_user", true);
+			model.addAttribute("logged", true);
+		} else if (ong != null) {
+			model.addAttribute("user", ong);
+			model.addAttribute("logged_ong", true);
+			model.addAttribute("logged", true);
+		} else {
+			model.addAttribute("logged", false);
 		}
-		model.addAttribute("user", user);
-		model.addAttribute("logged", logged);
 
 		model.addAttribute("title", "ong");
 		Iterable<ONG> ngos = ongService.getAll();
@@ -86,16 +97,26 @@ public class ONGController {
 
 	@RequestMapping("/ongs/{id}")
 	public String ngo(Map<String, Object> model, @PathVariable Long id) {
-		User user = userComponent.getLoggedUser();
-		boolean logged = userComponent.isLoggedUser();
-		if(logged) {
-			user = userRepo.findByEmail(user.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+		if (user != null) {
+			model.put("user", user);
+			model.put("logged_user", true);
+			model.put("logged", true);
+		} else if (ong != null) {
+			model.put("user", ong);
+			model.put("logged_ong", true);
+			model.put("logged", true);
+		} else {
+			model.put("logged", false);
 		}
-		model.put("user", user);
-		model.put("logged", logged);
-		
+
 		ONG ngo = ongRepo.findByid(id);
-		model.put("id",ngo.getId());
+		model.put("id", ngo.getId());
 		model.put("title", "ONG");
 		model.put("name", ngo.getName());
 		model.put("email", ngo.getEmail());
@@ -126,24 +147,39 @@ public class ONGController {
 
 	}
 
-	@GetMapping("/login-ong")
-	public String login(Map<String, Object> model, HttpSession sesion) {
-		model.put("title", "Iniciar sesión");
-
-		Boolean logged = ongComponent.isLoggedUser();
-		ONG user = ongComponent.getLoggedUser();
-
-		model.put("logged", logged);
-		model.put("user", user);
-
-		return "login";
-	}
+//	@GetMapping("/login-ong")
+//	public String login(Map<String, Object> model, HttpSession sesion) {
+//		model.put("title", "Iniciar sesión");
+//
+//		Boolean logged = ongComponent.isLoggedUser();
+//		ONG user = ongComponent.getLoggedUser();
+//
+//		model.put("logged", logged);
+//		model.put("user", user);
+//
+//		return "login";
+//	}
 
 	@GetMapping("/ong-settings")
 	public String ongSettings(Model model) {
 
-		ONG ong = ongComponent.getLoggedUser();
-		ong = ongRepo.findByEmail(ong.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("logged_user", true);
+			model.addAttribute("logged", true);
+		} else if (ong != null) {
+			model.addAttribute("user", ong);
+			model.addAttribute("logged_ong", true);
+			model.addAttribute("logged", true);
+		} else {
+			model.addAttribute("logged", false);
+		}
 
 		model.addAttribute("ong", ong);
 
@@ -155,8 +191,11 @@ public class ONGController {
 			@RequestParam String responsible_surname, @RequestParam String address, @RequestParam String description,
 			@RequestParam String email, @RequestParam String postal, @RequestParam String telephone,
 			@RequestParam MultipartFile imagenFile) throws IOException {
-		ONG ong = ongComponent.getLoggedUser();
-		ong = ongRepo.findByEmail(ong.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
 		ong.setName(name);
 		ong.setResponsible_name(responsible_name);
 		ong.setResponsible_surname(responsible_surname);
@@ -208,9 +247,9 @@ public class ONGController {
 		ong = ongRepo.findByEmail(ong.getEmail());
 
 		anuncio.setOng(ong);
-		
+
 		List<Volunteering> volunteerings = ong.getVolunteerings();
-		
+
 		volunteerings.add(anuncio);
 		ong.setVolunteerings(volunteerings);
 
@@ -227,8 +266,23 @@ public class ONGController {
 	@RequestMapping("/volunteering-gestion-panel")
 	public String accessVolunteerings(Model model) {
 
-		ONG ong = ongComponent.getLoggedUser();
-		ong = ongRepo.findByEmail(ong.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("logged_user", true);
+			model.addAttribute("logged", true);
+		} else if (ong != null) {
+			model.addAttribute("user", ong);
+			model.addAttribute("logged_ong", true);
+			model.addAttribute("logged", true);
+		} else {
+			model.addAttribute("logged", false);
+		}
 
 		List<Volunteering> anuncios = ong.getVolunteerings();
 
@@ -264,8 +318,11 @@ public class ONGController {
 
 		this.volRepo.deleteById(id);
 
-		ONG ong = ongComponent.getLoggedUser();
-		ong = ongRepo.findByEmail(ong.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
 		model.addAttribute("ong", ong);
 
 		return "ONG-settings";

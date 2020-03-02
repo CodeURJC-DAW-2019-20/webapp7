@@ -4,9 +4,13 @@
 {{>layout/navbar-anonymous}}
 {{/logged}}
 
-{{#logged}}
+{{#logged_user}}
 {{>layout/navbar-user}}
-{{/logged}}
+{{/logged_user}}
+
+{{#logged_ong}}
+{{>layout/navbar-ong}}
+{{/logged_ong}}
         <!-- Content -->
         <div class="page-content">
             <!-- Section Banner -->

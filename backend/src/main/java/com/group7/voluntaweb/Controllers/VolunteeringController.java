@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.group7.voluntaweb.Components.UserComponent;
 import com.group7.voluntaweb.Models.Like;
+import com.group7.voluntaweb.Models.ONG;
 import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Models.UsersVolunteerings;
 import com.group7.voluntaweb.Models.Volunteering;
 import com.group7.voluntaweb.Repositories.CategoryRepository;
 import com.group7.voluntaweb.Repositories.LikeRepository;
+import com.group7.voluntaweb.Repositories.ONGRepository;
 import com.group7.voluntaweb.Repositories.UserRepository;
 import com.group7.voluntaweb.Repositories.VolunteeringRepository;
 import com.group7.voluntaweb.Services.UserService;
@@ -50,6 +54,8 @@ public class VolunteeringController {
 
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private ONGRepository ongRepo;
 
 	@Autowired
 	private LikeRepository likeRepo;
@@ -57,16 +63,29 @@ public class VolunteeringController {
 	@GetMapping("/volunteering/{id}")
 	public String prueba(Model model, @PathVariable long id) {
 
-		Boolean logged = userComponent.isLoggedUser();
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+		Boolean logged = false;
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("logged_user", true);
+			model.addAttribute("logged", true);
+			logged = true;
+		} else if (ong != null) {
+			model.addAttribute("user", ong);
+			model.addAttribute("logged_ong", true);
+			model.addAttribute("logged", true);
+			logged = true;
+		} else {
+			model.addAttribute("logged", false);
+		}
+
 		if (logged) {
 
-			String email = userComponent.getLoggedUser().getEmail();
-			User user = userRepo.findByEmail(email);
-
 			Volunteering vol = volunteeringRepo.findById(id);
-
-			model.addAttribute("logged", logged);
-			model.addAttribute("user", user);
 
 			User row = volunteeringService.findJoinedUser(id, user.getId());
 			if (row != null) {
@@ -131,17 +150,22 @@ public class VolunteeringController {
 
 	@PostMapping("/like")
 	public String like(@RequestParam Long volunteering) {
-		User user = userComponent.getLoggedUser();
-		User usuario = userRepo.findByEmail(user.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+
 		Like like = new Like();
 		Volunteering vol = volunteeringRepo.findOneById(volunteering);
 
-		like.setUser(usuario);
+		like.setUser(user);
 		like.setVolunteering(vol);
-		Set<Like> userLikes = usuario.getLikes();
+		Set<Like> userLikes = user.getLikes();
 
 		// Adding condition
-		if (volunteeringService.findLike(vol, usuario) == null) {
+		if (volunteeringService.findLike(vol, user) == null) {
 			userLikes.add(like);
 			user.setLikes(userLikes);
 			userRepo.save(user);
@@ -149,7 +173,7 @@ public class VolunteeringController {
 			userLikes.remove(like);
 			user.setLikes(userLikes);
 			userRepo.save(user);
-			likeRepo.deleteLike(vol, usuario);
+			likeRepo.deleteLike(vol, user);
 
 		}
 		return "redirect:volunteering/" + volunteering;
