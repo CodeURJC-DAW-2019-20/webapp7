@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.group7.voluntaweb.Components.UserComponent;
+import com.group7.voluntaweb.Models.Comment;
 import com.group7.voluntaweb.Models.ONG;
 import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Models.Volunteering;
+import com.group7.voluntaweb.Repositories.CommentRepository;
 import com.group7.voluntaweb.Repositories.ONGRepository;
 import com.group7.voluntaweb.Repositories.UserRepository;
 import com.group7.voluntaweb.Repositories.VolunteeringRepository;
@@ -41,6 +43,9 @@ public class UserController {
 
 	@Autowired
 	private ONGRepository ongRepo;
+	
+	@Autowired
+	private CommentRepository commentRepo;
 
 	@Autowired
 	private ImageService imgService;
@@ -205,5 +210,17 @@ public class UserController {
 	public String deleteNGO(Model model, @RequestParam long id) {
 		ongService.deleteCount(id);
 		return "redirect:/admin/ngos";
+	}
+	
+	@GetMapping("/admin/comments")
+	public String adminComments(Model model) {
+		User usuario = userComponent.getLoggedUser();
+		User user = userRepo.findByEmail(usuario.getEmail());
+		Iterable<Comment> comments = commentRepo.findAll();
+		model.addAttribute("title", "Comments");
+		model.addAttribute("user", user);
+		model.addAttribute("comments", comments);
+
+		return "adminComments";
 	}
 }
