@@ -28,6 +28,7 @@ import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Models.Volunteering;
 import com.group7.voluntaweb.Repositories.CategoryRepository;
 import com.group7.voluntaweb.Repositories.ONGRepository;
+import com.group7.voluntaweb.Repositories.UserRepository;
 import com.group7.voluntaweb.Repositories.VolunteeringRepository;
 import com.group7.voluntaweb.Services.ImageService;
 import com.group7.voluntaweb.Services.ONGService;
@@ -43,6 +44,9 @@ public class ONGController {
 
 	@Autowired
 	private CategoryRepository catRepo;
+	
+	@Autowired
+	private UserRepository userRepo;
 
 	@Autowired
 	private ONGComponent ongComponent;
@@ -66,8 +70,11 @@ public class ONGController {
 	@GetMapping("/ongs")
 	public String ngos(Model model) {
 		User user = userComponent.getLoggedUser();
+		//ONG ong = ongComponent.getLoggedUser();
 		boolean logged = userComponent.isLoggedUser();
-
+		if(logged) {
+			user = userRepo.findByEmail(user.getEmail());
+		}
 		model.addAttribute("user", user);
 		model.addAttribute("logged", logged);
 
@@ -81,12 +88,15 @@ public class ONGController {
 	public String ngo(Map<String, Object> model, @PathVariable Long id) {
 		User user = userComponent.getLoggedUser();
 		boolean logged = userComponent.isLoggedUser();
-
+		if(logged) {
+			user = userRepo.findByEmail(user.getEmail());
+		}
 		model.put("user", user);
 		model.put("logged", logged);
 		
 		ONG ngo = ongRepo.findByid(id);
-		model.put("title", ngo.getName());
+		model.put("id",ngo.getId());
+		model.put("title", "ONG");
 		model.put("name", ngo.getName());
 		model.put("email", ngo.getEmail());
 		model.put("telephone", ngo.getTelephone());
@@ -97,7 +107,6 @@ public class ONGController {
 	}
 
 	@PostMapping("/add-ong") // ONG REGISTER ACTION
-
 	public String addOng(@RequestParam String name, @RequestParam String email, @RequestParam String responsible_name,
 			@RequestParam String responsible_surname, @RequestParam String address, @RequestParam String telephone,
 			@RequestParam String postal, @RequestParam String password, @RequestParam String description,

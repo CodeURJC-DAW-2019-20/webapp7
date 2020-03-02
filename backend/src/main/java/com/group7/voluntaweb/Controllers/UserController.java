@@ -21,12 +21,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.group7.voluntaweb.Components.UserComponent;
+import com.group7.voluntaweb.Models.Comment;
 import com.group7.voluntaweb.Models.ONG;
 import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Models.Volunteering;
+import com.group7.voluntaweb.Repositories.CommentRepository;
+import com.group7.voluntaweb.Repositories.ONGRepository;
 import com.group7.voluntaweb.Repositories.UserRepository;
 import com.group7.voluntaweb.Repositories.VolunteeringRepository;
 import com.group7.voluntaweb.Services.ImageService;
+import com.group7.voluntaweb.Services.ONGService;
 import com.group7.voluntaweb.Services.UserService;
 
 @Controller
@@ -38,10 +42,19 @@ public class UserController {
 	private VolunteeringRepository volRepo;
 
 	@Autowired
+	private ONGRepository ongRepo;
+	
+	@Autowired
+	private CommentRepository commentRepo;
+
+	@Autowired
 	private ImageService imgService;
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ONGService ongService;
 
 	@Autowired
 	private UserComponent userComponent;
@@ -134,7 +147,6 @@ public class UserController {
 
 	@GetMapping("/myvolunteerings")
 	public String myvolunteerings(Model model) {
-
 		User usuario = userComponent.getLoggedUser();
 		User user = userRepo.findByEmail(usuario.getEmail());
 		Iterable<Volunteering> myvolunteerings = volRepo.findMyVolunteerings(user);
@@ -144,5 +156,71 @@ public class UserController {
 
 		return "myvolunteerings";
 	}
+	
+	@GetMapping("/admin/volunteerings")
+	public String volunteerings(Model model) {
+		User usuario = userComponent.getLoggedUser();
+		User user = userRepo.findByEmail(usuario.getEmail());
+		Iterable<Volunteering> volunteerings = volRepo.findAll();
+		model.addAttribute("title", "Voluntariados");
+		model.addAttribute("user", user);
+		model.addAttribute("volunteerings", volunteerings);
 
+		return "adminVolunteerings";
+	}
+	
+	@RequestMapping(value = "/admin/deleteVolunteering", method = RequestMethod.POST)
+	public String deleteVolunteering(Model model, @RequestParam long id) {
+		volRepo.deleteById(id);
+		return "redirect:/admin/volunteerings";
+	}
+	
+	@GetMapping("/admin/users")
+	public String adminVolunteerings(Model model) {
+		User usuario = userComponent.getLoggedUser();
+		User user = userRepo.findByEmail(usuario.getEmail());
+		Iterable<User> users = userRepo.findAll();
+		model.addAttribute("title", "Usuarios");
+		model.addAttribute("user", user);
+		model.addAttribute("users", users);
+
+		return "adminUsers";
+	}
+	
+	@RequestMapping(value = "/admin/deleteUser", method = RequestMethod.POST)
+	public String deleteUser(Model model, @RequestParam long id) {
+		User user = userRepo.findById(id);
+		userService.deleteCount(user);
+		return "redirect:/admin/users";
+	}
+		
+	@GetMapping("/admin/ngos")
+	public String adminNgos(Model model) {
+		User usuario = userComponent.getLoggedUser();
+		User user = userRepo.findByEmail(usuario.getEmail());
+		Iterable<ONG> ngos = ongRepo.findAll();
+		model.addAttribute("title", "ONGs");
+		model.addAttribute("user", user);
+		model.addAttribute("ngos", ngos);
+
+		return "adminNGOS";
+	}
+
+	@RequestMapping(value = "/admin/deleteNGO", method = RequestMethod.POST)
+	public String deleteNGO(Model model, @RequestParam long id) {
+		ongService.deleteCount(id);
+		return "redirect:/admin/ngos";
+	}
+	
+	@GetMapping("/admin/comments")
+	public String adminComments(Model model) {
+		User usuario = userComponent.getLoggedUser();
+		User user = userRepo.findByEmail(usuario.getEmail());
+		Iterable<Comment> comments = commentRepo.findAll();
+		model.addAttribute("title", "Comments");
+		model.addAttribute("user", user);
+		model.addAttribute("comments", comments);
+
+		return "adminComments";
+	}
 }
