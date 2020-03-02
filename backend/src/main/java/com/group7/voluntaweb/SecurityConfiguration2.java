@@ -1,20 +1,25 @@
 package com.group7.voluntaweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.group7.voluntaweb.Repositories.ONGRepositoryAuthProvider;
+
+import com.group7.voluntaweb.Services.ONGDetailsService;
 
 @Configuration
-@Order(2)
+@Order(1)
 public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	public ONGRepositoryAuthProvider userRepoAuthProvider;
+//	@Autowired
+//	public ONGRepositoryAuthProvider userRepoAuthProvider;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -24,7 +29,7 @@ public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/ongs").permitAll();
 		http.authorizeRequests().antMatchers("/ongs/**").permitAll();
 		// Login pages
-		http.authorizeRequests().antMatchers("/login-ong").anonymous();
+		http.authorizeRequests().antMatchers("/login").anonymous();
 		http.authorizeRequests().antMatchers("/loginerror").permitAll();
 		// Logout page
 		http.authorizeRequests().antMatchers("/logout").permitAll();
@@ -61,11 +66,22 @@ public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authProvider());
+    }
 
-		// Database authentication provider
-		auth.authenticationProvider(userRepoAuthProvider);
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new ONGDetailsService();
+    }
 
-	}
+    @Bean
+    public DaoAuthenticationProvider authProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+
+        authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
+        return authProvider;
+    }
 
 }

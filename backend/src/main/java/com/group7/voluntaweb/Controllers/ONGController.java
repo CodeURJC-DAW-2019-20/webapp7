@@ -113,7 +113,7 @@ public class ONGController {
 		this.ongService.save(ong); // INSERT INTO DATABASE
 
 		imgService.saveImage("ong", ong.getId(), imagenFile);
-		return "redirect:index"; // REDIRECTS TO INDEX
+		return "redirect:/index"; // REDIRECTS TO INDEX
 
 	}
 
@@ -198,13 +198,12 @@ public class ONGController {
 		ONG ong = ongComponent.getLoggedUser();
 		ong = ongRepo.findByEmail(ong.getEmail());
 
-		List<Volunteering> anuncios = ong.getAnuncios();
-		anuncios.add(anuncio);
-		ong.setAnuncios(anuncios);
-
-		List<ONG> ongs = anuncio.getOngs();
-		ongs.add(ong);
-		anuncio.setOngs(ongs);
+		anuncio.setOng(ong);
+		
+		List<Volunteering> volunteerings = ong.getVolunteerings();
+		
+		volunteerings.add(anuncio);
+		ong.setVolunteerings(volunteerings);
 
 		this.ongRepo.save(ong);
 		this.volRepo.save(anuncio);
@@ -222,7 +221,7 @@ public class ONGController {
 		ONG ong = ongComponent.getLoggedUser();
 		ong = ongRepo.findByEmail(ong.getEmail());
 
-		List<Volunteering> anuncios = ong.getAnuncios();
+		List<Volunteering> anuncios = ong.getVolunteerings();
 
 		// List<Volunteering> anuncios = this.volRepo.findAll();//we have to change this
 

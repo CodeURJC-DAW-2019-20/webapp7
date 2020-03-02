@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import javax.persistence.ManyToMany;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Lob;
 
 import javax.persistence.Table;
@@ -41,7 +41,7 @@ public class ONG {
 	private String image;
 
 	
-	@ManyToMany(mappedBy="ongs")
+	@OneToMany(mappedBy="ong")
 	private List<Volunteering> anuncios;
 	
 
@@ -156,12 +156,12 @@ public class ONG {
 		this.image = image;
 	}
 	
-	public List<Volunteering> getAnuncios(){
+	public List<Volunteering> getVolunteerings(){
 		return this.anuncios;
 	}
 
 	
-	public void setAnuncios(List<Volunteering> anuncios) {
+	public void setVolunteerings(List<Volunteering> anuncios) {
 		this.anuncios = anuncios;
 	}
 

@@ -55,10 +55,8 @@ public class Volunteering {
 	@NotEmpty
 	private String email;
 
-	@ManyToMany
-	private List<ONG> ongs;
 
-	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty Category category_id,
+	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty Category category,
 			@NotEmpty Date startdate, @NotEmpty Date enddate, @NotEmpty String description, @NotEmpty String image,
 			@NotEmpty String city, @NotEmpty String email) {
 		super();
@@ -71,8 +69,6 @@ public class Volunteering {
 		this.city = city;
 		this.email = email;
 		this.image = image;
-
-		this.ongs = new ArrayList<>();
 	}
 
 	public long getId() {
@@ -169,12 +165,13 @@ public class Volunteering {
 
 	}
 
-	public void setOngs(List<ONG> ongs) {
-		this.ongs = ongs;
+	public ONG getOng() {
+		return ong;
 	}
 
-	public List<ONG> getOngs() {
-		return this.ongs;
+	public void setOng(ONG ong) {
+		this.ong = ong;
 	}
+
 
 }
