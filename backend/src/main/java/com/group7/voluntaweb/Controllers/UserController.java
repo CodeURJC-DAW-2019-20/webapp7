@@ -129,7 +129,7 @@ public class UserController {
 	public String delete(Model model) {
 		User user = userComponent.getLoggedUser();
 		userService.deleteCount(user);
-		return "redirect/settings";
+		return "redirect:logout";
 	}
 
 	@GetMapping("/myvolunteerings")

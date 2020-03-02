@@ -5,16 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -34,18 +29,16 @@ public class Volunteering {
 
 	@OneToMany(mappedBy = "volunteering")
 	private Set<Like> likes;
-	
 
 	@NotEmpty
 	private String name;
-
 
 	@NotEmpty
 	@ManyToOne
 	private Category category;
 	@NotEmpty
 	private Date startdate;
-	//@NotEmpty
+	// @NotEmpty
 
 	private Date enddate;
 	@NotEmpty
@@ -61,17 +54,15 @@ public class Volunteering {
 	private ONG ong;
 	@NotEmpty
 	private String email;
-	
-	
+
 	@ManyToMany
 	private List<ONG> ongs;
-
 
 	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty Category category_id,
 			@NotEmpty Date startdate, @NotEmpty Date enddate, @NotEmpty String description, @NotEmpty String image,
 			@NotEmpty String city, @NotEmpty String email) {
 		super();
-		
+
 		this.name = name;
 		this.category = category;
 		this.startdate = startdate;
@@ -80,8 +71,7 @@ public class Volunteering {
 		this.city = city;
 		this.email = email;
 		this.image = image;
-		
-		
+
 		this.ongs = new ArrayList<>();
 	}
 
@@ -100,7 +90,6 @@ public class Volunteering {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public Category getCategory() {
 		return category;
@@ -149,8 +138,7 @@ public class Volunteering {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
-	
+
 	public Set<Like> getLikes() {
 		return likes;
 	}
@@ -180,14 +168,13 @@ public class Volunteering {
 		this.email = email;
 
 	}
-	
-	public void setOngs(List<ONG> ongs){
+
+	public void setOngs(List<ONG> ongs) {
 		this.ongs = ongs;
 	}
-	
+
 	public List<ONG> getOngs() {
 		return this.ongs;
 	}
-	
 
 }
