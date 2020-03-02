@@ -110,6 +110,8 @@ public class UserController {
 
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 
+		Boolean admin_logged = userComponent.isLoggedUser();
+
 		if (user != null) {
 			model.addAttribute("user", user);
 			model.addAttribute("logged_user", true);
@@ -118,8 +120,11 @@ public class UserController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
+		} else if(admin_logged) {
+			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
+			
 		}
 		model.addAttribute("title", "Ajustes");
 		return "user-settings";
@@ -155,6 +160,8 @@ public class UserController {
 
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 
+		Boolean admin_logged = userComponent.isLoggedUser();
+
 		if (user != null) {
 			model.addAttribute("user", user);
 			model.addAttribute("logged_user", true);
@@ -163,8 +170,11 @@ public class UserController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
+		} else if(admin_logged) {
+			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
+			
 		}
 		userService.deleteCount(user);
 		return "redirect:logout";
@@ -178,6 +188,8 @@ public class UserController {
 
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 
+		Boolean admin_logged = userComponent.isLoggedUser();
+
 		if (user != null) {
 			model.addAttribute("user", user);
 			model.addAttribute("logged_user", true);
@@ -186,8 +198,11 @@ public class UserController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
+		} else if(admin_logged) {
+			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
+			
 		}
 		Iterable<Volunteering> myvolunteerings = volRepo.findMyVolunteerings(user);
 		model.addAttribute("title", "Mis Voluntariados");
@@ -205,6 +220,8 @@ public class UserController {
 
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 
+		Boolean admin_logged = userComponent.isLoggedUser();
+
 		if (user != null) {
 			model.addAttribute("user", user);
 			model.addAttribute("logged_user", true);
@@ -213,8 +230,11 @@ public class UserController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
+		} else if(admin_logged) {
+			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
+			
 		}
 		Iterable<Volunteering> volunteerings = volRepo.findAll();
 		model.addAttribute("title", "Voluntariados");
@@ -237,6 +257,8 @@ public class UserController {
 
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 
+		Boolean admin_logged = userComponent.isLoggedUser();
+
 		if (user != null) {
 			model.addAttribute("user", user);
 			model.addAttribute("logged_user", true);
@@ -245,8 +267,11 @@ public class UserController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
+		} else if(admin_logged) {
+			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
+			
 		}
 		Iterable<User> users = userRepo.findAll();
 		model.addAttribute("title", "Usuarios");
@@ -269,6 +294,8 @@ public class UserController {
 		User user = userRepo.findByEmail(currentPrincipalName);
 
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+		
+		Boolean admin_logged = userComponent.isLoggedUser();
 
 		if (user != null) {
 			model.addAttribute("user", user);
@@ -278,8 +305,11 @@ public class UserController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
+		} else if(admin_logged) {
+			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
+			
 		}
 		Iterable<ONG> ngos = ongRepo.findAll();
 		model.addAttribute("title", "ONGs");

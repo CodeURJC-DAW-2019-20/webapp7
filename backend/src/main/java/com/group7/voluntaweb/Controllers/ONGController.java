@@ -77,6 +77,8 @@ public class ONGController {
 
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 
+		Boolean admin_logged = userComponent.isLoggedUser();
+
 		if (user != null) {
 			model.addAttribute("user", user);
 			model.addAttribute("logged_user", true);
@@ -85,8 +87,11 @@ public class ONGController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
+		} else if(admin_logged) {
+			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
+			
 		}
 
 		model.addAttribute("title", "ong");
@@ -103,6 +108,8 @@ public class ONGController {
 
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 
+		Boolean admin_logged = userComponent.isLoggedUser();
+
 		if (user != null) {
 			model.put("user", user);
 			model.put("logged_user", true);
@@ -111,8 +118,11 @@ public class ONGController {
 			model.put("user", ong);
 			model.put("logged_ong", true);
 			model.put("logged", true);
+		} else if(admin_logged) {
+			model.put("admin_logged", true);
 		} else {
 			model.put("logged", false);
+			
 		}
 
 		ONG ngo = ongRepo.findByid(id);
@@ -169,6 +179,8 @@ public class ONGController {
 
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 
+		Boolean admin_logged = userComponent.isLoggedUser();
+
 		if (user != null) {
 			model.addAttribute("user", user);
 			model.addAttribute("logged_user", true);
@@ -177,8 +189,11 @@ public class ONGController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
+		} else if(admin_logged) {
+			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
+			
 		}
 
 		model.addAttribute("ong", ong);
@@ -243,8 +258,9 @@ public class ONGController {
 
 		System.out.println(anuncio.toString());
 
-		ONG ong = ongComponent.getLoggedUser();
-		ong = ongRepo.findByEmail(ong.getEmail());
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 
 		anuncio.setOng(ong);
 
@@ -272,6 +288,8 @@ public class ONGController {
 
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 
+		Boolean admin_logged = userComponent.isLoggedUser();
+
 		if (user != null) {
 			model.addAttribute("user", user);
 			model.addAttribute("logged_user", true);
@@ -280,8 +298,11 @@ public class ONGController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
+		} else if(admin_logged) {
+			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
+			
 		}
 
 		List<Volunteering> anuncios = ong.getVolunteerings();

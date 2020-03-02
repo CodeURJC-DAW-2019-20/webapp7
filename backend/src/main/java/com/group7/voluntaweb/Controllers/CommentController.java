@@ -38,6 +38,8 @@ public class CommentController {
 
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 
+		Boolean admin_logged = userComponent.isLoggedUser();
+
 		if (user != null) {
 			model.addAttribute("user", user);
 			model.addAttribute("logged_user", true);
@@ -46,8 +48,11 @@ public class CommentController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
+		} else if(admin_logged) {
+			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
+			
 		}
 
 		model.addAttribute("title", "Contacta con nosotros");
