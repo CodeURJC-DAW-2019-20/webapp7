@@ -93,7 +93,7 @@ public class ONGController {
 		}
 		model.put("user", user);
 		model.put("logged", logged);
-
+		
 		ONG ngo = ongRepo.findByid(id);
 		model.put("id",ngo.getId());
 		model.put("title", "ONG");

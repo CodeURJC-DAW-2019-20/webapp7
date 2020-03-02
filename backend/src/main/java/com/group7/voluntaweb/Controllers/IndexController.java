@@ -69,7 +69,11 @@ public class IndexController {
 
 	@GetMapping("/about-us")
 	public String about(Model model) {
-
+		User user = userComponent.getLoggedUser();
+		boolean logged = userComponent.isLoggedUser();
+		
+		model.addAttribute("user", user);
+		model.addAttribute("logged", logged);
 		model.addAttribute("title", "¿Quienes somos?");
 
 		return "aboutUs";
