@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -317,8 +318,8 @@ public class UserController {
 		return "adminNGOS";
 	}
 
-	@RequestMapping(value = "/admin/deleteNGO", method = RequestMethod.POST)
-	public String deleteNGO(Model model, @RequestParam long id) {
+	@RequestMapping(value = "/admin/deleteNGO/{id}", method = RequestMethod.POST)
+	public String deleteNGO(Model model, @PathVariable long id) {
 		ongService.deleteCount(id);
 		return "redirect:/admin/ngos";
 	}
