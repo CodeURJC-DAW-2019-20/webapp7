@@ -145,11 +145,11 @@ Alicia Merino (aliholi44):
   * 03/03 - Master: DatabaseDiagram
   
 Pablo Atahonero (PabloAtahoneroGB)
-  * 27/02 - Develop: Like any volunteering
-  * 27/02 - Develop: Delete a like from a volunteering
-  * 27/02 - Develop: Knowing if i liked a volunteering by the style of like button
-  * 27/03 - Develop: Number of likes in total of the volunteerings
-  * 29/02 - Develop: Page my volunteerings
+  * 27/02 - Develop: Like any volunteering - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/4ce8a55ea9e4b14da6e2c33d2861688bad108eeb
+  * 27/02 - Develop: Delete a like from a volunteering - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/4ce8a55ea9e4b14da6e2c33d2861688bad108eeb
+  * 27/02 - Develop: Knowing if i liked a volunteering by the style of like button - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/4ce8a55ea9e4b14da6e2c33d2861688bad108eeb
+  * 27/03 - Develop: Number of likes in total of the volunteerings - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/4ce8a55ea9e4b14da6e2c33d2861688bad108eeb
+  * 29/02 - Develop: Page my volunteerings - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/76362269727bb112cff14df6f5cfd16f3418bef7
 
 Daniel Fuente (dfuente2017)
   * Creadion, edicion y borrado de anuncios y edición de ong funcionando - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/33a3d94cd3ca9662ee2e71835ef7b4c3d179ae6c
