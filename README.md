@@ -54,7 +54,7 @@ We're implemented graphic charts:
 <img src="./diagrams/Database diagram.svg"> 
 
 #### Class diagram
-<img src="./diagrams/ClassDiagram.svg"> 
+<img src="./diagrams/UpdatedClassDiagram.svg"> 
 
 ### Screenshots
 ![](./screenshots/F2-index.PNG)
