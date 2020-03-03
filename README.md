@@ -131,14 +131,9 @@ For the development of this application we have used Spring in its latest versio
 
 ## Commits list
 Samuel Severiche (sbsam):
-  23/02
-    Develop: ONG and ONG detail pages
-  24/02
-    Develop: Register ong with images
-  25/02-03/03
-    Master: documentation related commits (diagrams, Development environment setup, screenshots and readme)
-  01/03
-    Develop: User and ONG settings
-  02/03
-    Develop: Admin pages and minor fixes (admin pages: ngos, volunteerings, users, comments and delete functionality).
+  * 23/02 - Develop: ONG and ONG detail pages
+  * 24/02 - Develop: Register ong with images
+  * 25/02-03/03 - Master: documentation related commits (diagrams, Development environment setup, screenshots and readme)
+  * 01/03 - Develop: User and ONG settings
+  * 02/03 - Develop: Admin pages and minor fixes (admin pages: ngos, volunteerings, users, comments and delete functionality).
 
