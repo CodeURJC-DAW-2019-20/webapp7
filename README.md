@@ -136,6 +136,7 @@ Samuel Severiche (sbsam):
   * Develop: User and ONG settings - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/096279ec03e3b45181bf7cf30eff13238b3ad365
   * Develop: Admin pages and minor fixes (admin pages: ngos, volunteerings, users, comments and delete functionality). - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/68c4c9f041207f7693c6de17da0f071b596d4f1c
   * Develop: admin comments section and aboutus navbar - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/0b04bed303adcda43580a4189fe8d4205f7abbc4
+
 Alicia Merino (aliholi44):
   * 23/02 - Develop: Volunteering's View
   * 23/02 - Develop: Join button
