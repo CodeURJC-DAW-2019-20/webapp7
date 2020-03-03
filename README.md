@@ -150,3 +150,10 @@ Pablo Atahonero (PabloAtahoneroGB)
   * 27/02 - Develop: Knowing if i liked a volunteering by the style of like button
   * 27/03 - Develop: Number of likes in total of the volunteerings
   * 29/02 - Develop: Page my volunteerings
+
+Daniel Fuente (dfuente2017)
+  * Creadion, edicion y borrado de anuncios y edición de ong funcionando - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/33a3d94cd3ca9662ee2e71835ef7b4c3d179ae6c
+  * Implementado subida de imágenes y consumo en la lista de voluntariado… - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/e82f5e1c1b204327b342771d2f9916c18d7b738c
+  * Rama lista para implementar el usuario. - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/fa0b71e60828bce18d3294e81b0b0970e18dae90
+  * Cambiado category a como esta en develop. - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/f95f745c45ac44a289edae1ca883fc0cb551a4e6
+  * Actualizados navbar de la parte de ongs -https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/fb34ded98c95e401dd7adf6373c892f4b697fd76
