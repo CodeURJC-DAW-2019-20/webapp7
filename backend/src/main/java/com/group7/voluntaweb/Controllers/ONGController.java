@@ -317,6 +317,7 @@ public class ONGController {
 		// List<Volunteering> anuncios = this.volRepo.findAll();//we have to change this
 
 		model.addAttribute("anuncios", anuncios);
+		model.addAttribute("title", "Mi panel de gestión");
 
 		return "volunteering-gestion-panel";
 	}
