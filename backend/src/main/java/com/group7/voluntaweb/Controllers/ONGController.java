@@ -250,9 +250,9 @@ public class ONGController {
 	}
 
 	@PostMapping("ong-submit-advertisement-form")
-	public String subirAnuncio(Model model, @RequestParam String city, @RequestParam String description,
-			@RequestParam String email, @RequestParam Date enddate, @RequestParam String name,
-			@RequestParam Date startdate, @RequestParam long category_id, @RequestParam MultipartFile imagenFile)
+	public String subirAnuncio(Model model, @RequestParam String name,@RequestParam String city, 
+			@RequestParam long category_id, @RequestParam Date startdate, @RequestParam Date enddate,
+			@RequestParam String description,  @RequestParam MultipartFile imagenFile, @RequestParam String email)
 			throws IOException {
 
 		Category cat = this.catRepo.findById(category_id);
