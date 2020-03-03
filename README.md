@@ -143,8 +143,9 @@ Alicia Merino (aliholi44):
   * 24/02 - Develop: deleteCount and delete an account
   * 02/03 - Develop: fixed some pages
   * 03/03 - Master: DatabaseDiagram
+  
 Pablo Atahonero (PabloAtahoneroGB)
- * 23/02 - Develop: Like any volunteering
+  * 23/02 - Develop: Like any volunteering
   * 23/02 - Develop: Delete a like from a volunteering
   * 24/02 - Develop: Knowing if i liked a volunteering by the style of like button
   * 02/03 - Develop: Number of likes in total of the volunteerings
