@@ -2,11 +2,8 @@ package com.group7.voluntaweb.Controllers;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,14 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.group7.voluntaweb.Components.ONGComponent;
-import com.group7.voluntaweb.Models.Category;
 import com.group7.voluntaweb.Components.UserComponent;
+import com.group7.voluntaweb.Models.Category;
 import com.group7.voluntaweb.Models.ONG;
 import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Models.Volunteering;
@@ -59,7 +55,7 @@ public class ONGController {
 
 	@Autowired
 	private ONGService ongService;
-	
+
 	@Autowired
 	private VolunteeringService volService;
 
@@ -91,11 +87,11 @@ public class ONGController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
-		} else if(admin_logged) {
+		} else if (admin_logged) {
 			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
-			
+
 		}
 
 		model.addAttribute("title", "ong");
@@ -122,11 +118,11 @@ public class ONGController {
 			model.put("user", ong);
 			model.put("logged_ong", true);
 			model.put("logged", true);
-		} else if(admin_logged) {
+		} else if (admin_logged) {
 			model.put("admin_logged", true);
 		} else {
 			model.put("logged", false);
-			
+
 		}
 
 		ONG ngo = ongRepo.findByid(id);
@@ -193,11 +189,11 @@ public class ONGController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
-		} else if(admin_logged) {
+		} else if (admin_logged) {
 			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
-			
+
 		}
 
 		model.addAttribute("ong", ong);
@@ -237,7 +233,7 @@ public class ONGController {
 
 	@RequestMapping("/ong-submit-advertisement")
 	public String crearAnuncio(Model model) {
-		
+
 		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = principal.getName();
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
@@ -256,14 +252,15 @@ public class ONGController {
 	}
 
 	@PostMapping("ong-submit-advertisement-form")
-	public String subirAnuncio(Model model, @RequestParam String name,@RequestParam String city, 
+	public String subirAnuncio(Model model, @RequestParam String name, @RequestParam String city,
 			@RequestParam long category_id, @RequestParam Date startdate, @RequestParam Date enddate,
-			@RequestParam String description,  @RequestParam MultipartFile imagenFile, @RequestParam String email)
+			@RequestParam String description, @RequestParam MultipartFile imagenFile, @RequestParam String email)
 			throws IOException {
 
 		Category cat = this.catRepo.findById(category_id);
 
-		Volunteering anuncio = new Volunteering(null, name, cat, startdate, enddate, description, "/images/volunteerings/", city, email);
+		Volunteering anuncio = new Volunteering(null, name, cat, startdate, enddate, description,
+				"/images/volunteerings/", city, email);
 
 		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = principal.getName();
@@ -271,9 +268,9 @@ public class ONGController {
 		anuncio.setOng(ong);
 		try {
 			volService.save(anuncio);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			// TODO: handle exception
-			
+
 		}
 		List<Volunteering> volunteerings = ong.getVolunteerings();
 
@@ -281,7 +278,7 @@ public class ONGController {
 		ong.setVolunteerings(volunteerings);
 		ongService.save(ong);
 		imgService.saveImage("volunteerings", anuncio.getId(), imagenFile);
-		
+
 		model.addAttribute("ong", ong);
 
 		return "redirect:/";
@@ -306,11 +303,11 @@ public class ONGController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
-		} else if(admin_logged) {
+		} else if (admin_logged) {
 			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
-			
+
 		}
 
 		List<Volunteering> anuncios = ong.getVolunteerings();
@@ -341,21 +338,24 @@ public class ONGController {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
-		} else if(admin_logged) {
+		} else if (admin_logged) {
 			model.addAttribute("admin_logged", true);
 		} else {
 			model.addAttribute("logged", false);
-			
+
 		}
 		Volunteering anuncio = this.volRepo.findById(id);
+		if (anuncio.getOng().getId() != ong.getId()) {
+			return "redirect:/volunteering-gestion-panel";
+		}
 
 		List<Category> cats = this.catRepo.findAll();
 
 		model.addAttribute("anuncio", anuncio);
 		model.addAttribute("anuncio", anuncio);
 		model.addAttribute("categories", cats);
-		model.addAttribute("title","Editar voluntariado");
-		model.addAttribute("user",ong);
+		model.addAttribute("title", "Editar voluntariado");
+		model.addAttribute("user", ong);
 
 		return "ong-submit-advertisement";
 	}
