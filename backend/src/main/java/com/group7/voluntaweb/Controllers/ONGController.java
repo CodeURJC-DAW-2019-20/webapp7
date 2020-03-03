@@ -201,6 +201,7 @@ public class ONGController {
 		}
 
 		model.addAttribute("ong", ong);
+		model.addAttribute("title", "Configuración");
 
 		return "ONG-settings";
 	}
@@ -250,7 +251,7 @@ public class ONGController {
 		model.addAttribute("anuncio", anuncio);
 		model.addAttribute("categories", categories);
 		model.addAttribute("user", ong);
-
+		model.addAttribute("title", "Añadir voluntariado");
 		return "ong-submit-advertisement";
 	}
 
