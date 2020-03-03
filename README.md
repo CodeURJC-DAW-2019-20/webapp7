@@ -138,11 +138,11 @@ Samuel Severiche (sbsam):
   * Develop: admin comments section and aboutus navbar - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/0b04bed303adcda43580a4189fe8d4205f7abbc4
 
 Alicia Merino (aliholi44):
-  * 23/02 - Develop: Volunteering's View
-  * 23/02 - Develop: Join button
-  * 24/02 - Develop: deleteCount and delete an account
-  * 02/03 - Develop: fixed some pages
-  * 03/03 - Master: DatabaseDiagram
+  * Develop: Volunteering's View - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/645c8c4ed416fc3ad7adcdf7f717d4bc3ff165d8
+  * Develop: Join button - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/bd4371dafed99d1d00701c9d9616fca13c7acc64
+  * Develop: deleteCount and delete an account - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/db5bd38de804813d0e016b84129d07dec338c7ee
+  * Develop: fixed some pages - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/896e6d77e04293f2478c1beb34cf3685d499134c
+  * Master: DatabaseDiagram - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/f3c7509e9a3ad65ebf69bb20b5e2a47d349c52cd
   
 Pablo Atahonero (PabloAtahoneroGB)
   * 27/02 - Develop: Like any volunteering - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/4ce8a55ea9e4b14da6e2c33d2861688bad108eeb
