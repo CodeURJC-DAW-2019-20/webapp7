@@ -1,5 +1,4 @@
 {{>layout/header}}
-
 {{^logged}}
 {{>layout/navbar-anonymous}}
 {{/logged}}
@@ -7,6 +6,15 @@
 {{#logged}}
 {{>layout/navbar-user}}
 {{/logged}}
+
+{{#logged_admin}}
+{{>layout/navbar-admin}}
+{{/logged_admin}}
+
+{{#logged_ong}}
+{{>layout/navbar-ong}}
+{{/logged_ong}}
+
     <!-- Content -->
     <div class="page-content bg-white">
 		<!-- inner page banner -->

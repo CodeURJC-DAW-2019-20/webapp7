@@ -1,12 +1,15 @@
 {{>layout/header}}
-
 {{^logged}}
 {{>layout/navbar-anonymous}}
 {{/logged}}
 
-{{#logged_user}}
+{{#logged}}
 {{>layout/navbar-user}}
-{{/logged_user}}
+{{/logged}}
+
+{{#logged_admin}}
+{{>layout/navbar-admin}}
+{{/logged_admin}}
 
 {{#logged_ong}}
 {{>layout/navbar-ong}}
