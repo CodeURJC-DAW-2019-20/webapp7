@@ -325,7 +325,28 @@ public class ONGController {
 
 	@RequestMapping("/ong-edit-advertisement-{id}")
 	public String editVolunteerings(Model model, @PathVariable long id) {
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
 
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+		Boolean admin_logged = userComponent.isLoggedUser();
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("logged_user", true);
+			model.addAttribute("logged", true);
+		} else if (ong != null) {
+			model.addAttribute("user", ong);
+			model.addAttribute("logged_ong", true);
+			model.addAttribute("logged", true);
+		} else if(admin_logged) {
+			model.addAttribute("admin_logged", true);
+		} else {
+			model.addAttribute("logged", false);
+			
+		}
 		Volunteering anuncio = this.volRepo.findById(id);
 
 		List<Category> cats = this.catRepo.findAll();
@@ -333,6 +354,8 @@ public class ONGController {
 		model.addAttribute("anuncio", anuncio);
 		model.addAttribute("anuncio", anuncio);
 		model.addAttribute("categories", cats);
+		model.addAttribute("title","Editar voluntariado");
+		model.addAttribute("user",ong);
 
 		return "ong-submit-advertisement";
 	}
