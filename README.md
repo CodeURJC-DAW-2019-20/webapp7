@@ -142,7 +142,7 @@ Alicia Merino (aliholi44):
   * Develop: Join button - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/bd4371dafed99d1d00701c9d9616fca13c7acc64
   * Develop: deleteCount and delete an account - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/db5bd38de804813d0e016b84129d07dec338c7ee
   * Develop: fixed some pages - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/896e6d77e04293f2478c1beb34cf3685d499134c
-  * Master: DatabaseDiagram - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/f3c7509e9a3ad65ebf69bb20b5e2a47d349c52cd
+  * Develop: aboutUs page - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/cbf9fd1af161a578851e299316cc33a1d159f52b
   
 Pablo Atahonero (PabloAtahoneroGB)
   * 27/02 - Develop: Like any volunteering - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/4ce8a55ea9e4b14da6e2c33d2861688bad108eeb
