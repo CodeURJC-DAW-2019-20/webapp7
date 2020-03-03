@@ -157,3 +157,12 @@ Daniel Fuente (dfuente2017)
   * Rama lista para implementar el usuario. - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/fa0b71e60828bce18d3294e81b0b0970e18dae90
   * Cambiado category a como esta en develop. - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/f95f745c45ac44a289edae1ca883fc0cb551a4e6
   * Actualizados navbar de la parte de ongs -https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/fb34ded98c95e401dd7adf6373c892f4b697fd76
+  
+  
+  Daniel Serrano Cobos (theroxd4n)
+  * Merge pull request #4 from CodeURJC-DAW-2019-20/feature/search - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/6473753ca43fac44c5df06df7935bb919624ce2c
+  * Merge pull request #5 from CodeURJC-DAW-2019-20/feature/charts
+  * Merge pull request #4 from CodeURJC-DAW-2019-20/feature/search - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/6473753ca43fac44c5df06df7935bb919624ce2c
+  * The Great Commit - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/3e19774a18789f96d0c22ce31b3a3d4f7b8ad89d
+  * Merge pull request #17 from CodeURJC-DAW-2019-20/feature/comments - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/49a82bdbaecf6782659d0f0ad24e11db15ff601c
+  * login bug - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/03dd7f6b6d526e9549ee44a650b73ca0d7741835
