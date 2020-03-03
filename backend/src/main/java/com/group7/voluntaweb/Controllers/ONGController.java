@@ -34,6 +34,7 @@ import com.group7.voluntaweb.Repositories.UserRepository;
 import com.group7.voluntaweb.Repositories.VolunteeringRepository;
 import com.group7.voluntaweb.Services.ImageService;
 import com.group7.voluntaweb.Services.ONGService;
+import com.group7.voluntaweb.Services.VolunteeringService;
 
 @Controller
 public class ONGController {
@@ -58,6 +59,9 @@ public class ONGController {
 
 	@Autowired
 	private ONGService ongService;
+	
+	@Autowired
+	private VolunteeringService volService;
 
 	@Autowired
 	private ImageService imgService;
@@ -253,27 +257,25 @@ public class ONGController {
 
 		Category cat = this.catRepo.findById(category_id);
 
-		Volunteering anuncio = new Volunteering(null, name, cat, startdate, enddate, description, city, email,
-				"/images/volunteerings/");
-
-		System.out.println(anuncio.toString());
+		Volunteering anuncio = new Volunteering(null, name, cat, startdate, enddate, description, "/images/volunteerings/", city, email);
 
 		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = principal.getName();
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
-
 		anuncio.setOng(ong);
-
+		try {
+			anuncio.setId(10);
+			volService.save(anuncio);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 		List<Volunteering> volunteerings = ong.getVolunteerings();
 
 		volunteerings.add(anuncio);
 		ong.setVolunteerings(volunteerings);
-
-		this.ongRepo.save(ong);
-		this.volRepo.save(anuncio);
-
+		ongService.save(ong);
 		imgService.saveImage("volunteerings", anuncio.getId(), imagenFile);
-
+		
 		model.addAttribute("ong", ong);
 
 		return "ONG-settings";

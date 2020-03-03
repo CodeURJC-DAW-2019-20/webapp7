@@ -28,6 +28,8 @@ public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/").permitAll();
 		http.authorizeRequests().antMatchers("/ongs").permitAll();
 		http.authorizeRequests().antMatchers("/ongs/**").permitAll();
+		http.authorizeRequests().antMatchers("/search").permitAll();
+		http.authorizeRequests().antMatchers("/search/**").permitAll();
 		// Login pages
 		http.authorizeRequests().antMatchers("/login").anonymous();
 		http.authorizeRequests().antMatchers("/loginerror").permitAll();

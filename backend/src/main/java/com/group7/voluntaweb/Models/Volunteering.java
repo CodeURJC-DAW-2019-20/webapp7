@@ -30,29 +30,29 @@ public class Volunteering {
 	@OneToMany(mappedBy = "volunteering")
 	private Set<Like> likes;
 
-	@NotEmpty
+	//@NotEmpty
 	private String name;
 
-	@NotEmpty
+	//@NotEmpty
 	@ManyToOne
 	private Category category;
-	@NotEmpty
+	//@NotEmpty
 	private Date startdate;
 	// @NotEmpty
 
 	private Date enddate;
-	@NotEmpty
+	//@NotEmpty
 	@Lob
 	private String description;
-	@NotEmpty
+	//@NotEmpty
 	private String image;
-	@NotEmpty
+	//@NotEmpty
 	private String city;
 
-	@NotEmpty
+	//@NotEmpty
 	@ManyToOne
 	private ONG ong;
-	@NotEmpty
+	//@NotEmpty
 	private String email;
 
 
@@ -69,6 +69,10 @@ public class Volunteering {
 		this.city = city;
 		this.email = email;
 		this.image = image;
+		this.joined_users = null;
+		this.likes = null;
+		
+		
 	}
 
 	public long getId() {
