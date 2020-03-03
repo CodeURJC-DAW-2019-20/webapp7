@@ -145,8 +145,8 @@ Alicia Merino (aliholi44):
   * 03/03 - Master: DatabaseDiagram
   
 Pablo Atahonero (PabloAtahoneroGB)
-  * 23/02 - Develop: Like any volunteering
-  * 23/02 - Develop: Delete a like from a volunteering
-  * 24/02 - Develop: Knowing if i liked a volunteering by the style of like button
-  * 02/03 - Develop: Number of likes in total of the volunteerings
-  * 03/03 - Develop: Page my volunteerings
+  * 27/02 - Develop: Like any volunteering
+  * 27/02 - Develop: Delete a like from a volunteering
+  * 27/02 - Develop: Knowing if i liked a volunteering by the style of like button
+  * 27/03 - Develop: Number of likes in total of the volunteerings
+  * 29/02 - Develop: Page my volunteerings
