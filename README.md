@@ -161,7 +161,7 @@ Daniel Fuente (dfuente2017)
   
   Daniel Serrano Cobos (theroxd4n)
   * fixed join volunteerings - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/d84cfb6285188fd243d8c913b13af9e36f21692e
-  * Merge pull request #5 from CodeURJC-DAW-2019-20/feature/charts
+  * Merge pull request #5 from CodeURJC-DAW-2019-20/feature/charts - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/099c943f340b0c15f5e7fea96c526e725c31a919
   * Merge pull request #4 from CodeURJC-DAW-2019-20/feature/search - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/6473753ca43fac44c5df06df7935bb919624ce2c
   * The Great Commit - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/3e19774a18789f96d0c22ce31b3a3d4f7b8ad89d
   * Merge pull request #17 from CodeURJC-DAW-2019-20/feature/comments - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/49a82bdbaecf6782659d0f0ad24e11db15ff601c
