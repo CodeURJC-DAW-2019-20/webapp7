@@ -48,7 +48,7 @@ We're implemented graphic charts:
 -The search page has a search filter for volunteerings and NGOs.
 ### Diagrams
 #### Navigation diagram
-<img src="./diagrams/NavigationDiagram5.svg">
+<img src="./diagrams/navDiagram.svg">
 
 #### Database diagram
 <img src="./diagrams/Database diagram.svg"> 
@@ -130,3 +130,15 @@ For the development of this application we have used Spring in its latest versio
 * Import the project: File> Import> Maven> Existing Maven Projects> Browse directory > Select folder of the project and finish.
 
 ## Commits list
+Samuel Severiche (sbsam):
+  23/02
+    Develop: ONG and ONG detail pages
+  24/02
+    Develop: Register ong with images
+  25/02-03/03
+    Master: documentation related commits (diagrams, Development environment setup, screenshots and readme)
+  01/03
+    Develop: User and ONG settings
+  02/03
+    Develop: Admin pages and minor fixes (admin pages: ngos, volunteerings, users, comments and delete functionality).
+
