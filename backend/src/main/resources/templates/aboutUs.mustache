@@ -1,0 +1,104 @@
+{{>layout/header}}
+{{^logged}}
+{{>layout/navbar-anonymous}}
+{{/logged}}
+
+{{#logged}}
+{{#logged_user}}
+{{>layout/navbar-user}}
+{{/logged_user}}
+
+{{#logged_admin}}
+{{>layout/navbar-admin}}
+{{/logged_admin}}
+
+{{#logged_ong}}
+{{>layout/navbar-ong}}
+{{/logged_ong}}
+{{/logged}}
+
+
+    <!-- Content -->
+    <div class="page-content bg-white">
+        <!-- inner page banner -->
+        <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(images/background/Volunteerswalk.jpg);">
+            <div class="container">
+                <div class="dez-bnr-inr-entry">
+                    <h1 class="text-white">¿Quiénes somos?</h1>
+					<!-- Breadcrumb row -->
+					<div class="breadcrumb-row">
+						<ul class="list-inline">
+							<li><a href="/">Inicio</a></li>
+							<li>¿Quiénes somos?</li>
+						</ul>
+					</div>
+					<!-- Breadcrumb row END -->
+                </div>
+            </div>
+        </div>
+        <!-- inner page banner END -->
+		<div class="content-block">
+            <div class="section-full content-inner overlay-white-middle">
+				<div class="container">
+					<div class="row align-items-center m-b50">
+						<div class="col-md-12 col-lg-6 m-b20">
+							<h2 class="m-b5">¿Quiénes somos?</h2>
+							<h3 class="fw4">Te ayudamos a ayudar</h3>
+							<p class="m-b15">Voluntaweb es una web que creamos para facilitar y promover el voluntariado. Esta web facilita la comunicación entre organizaciones no lucrativas y personas que desean ayudar.</p>
+							<p class="m-b15">Para llevar acabo nuestro cometido ponemos en contacto a personas que deseen colaborar en actos de voluntariado con organizaciones no lucrativas, aportando asi su tiempo y talento en distintas acciones sociales.</p>
+						</div>
+						<div class="col-md-12 col-lg-6">
+							<img src="images/our-work/aboutus.jpg" alt=""/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-md-4 col-sm-12 m-b30">
+							<div class="icon-bx-wraper p-a30 center bg-gray radius-sm">
+								<div class="icon-md text-primary m-b20"> <a href="#" class="icon-cell text-primary"><i class="ti-desktop"></i></a> </div>
+								<div class="icon-content">
+									<h5 class="dlab-tilte text-uppercase">Para las ONGs</h5>
+									<p>Te ayudamos a publicitar las campañas en las que necesites colaboración.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-12 m-b30">
+							<div class="icon-bx-wraper p-a30 center bg-gray radius-sm">
+								<div class="icon-md text-primary m-b20"> <a href="#" class="icon-cell text-primary"><i class="ti-image"></i></a> </div>
+								<div class="icon-content">
+									<h5 class="dlab-tilte text-uppercase">Para voluntarios</h5>
+									<p>Te ayudamos en la busqueda de un voluntariado en el que puedas ayudar y se adecue a ti.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-12 m-b30">
+							<div class="icon-bx-wraper p-a30 center bg-gray radius-sm">
+								<div class="icon-md text-primary m-b20"> <a href="#" class="icon-cell text-primary"><i class="ti-cup"></i></a> </div>
+								<div class="icon-content">
+									<h5 class="dlab-tilte text-uppercase">Siempre a tu disposición</h5>
+									<p>Si no sabes como colaborar, estamos aqui para guiarte.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Why Chose Us -->
+			<!-- Call To Action -->
+			<div class="section-full content-inner-2 call-to-action overlay-black-dark text-white text-center bg-img-fix" 
+			style="background-image: url('images/background/volunteer.png');">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<h2 class="m-b10">Encuentra el voluntariado adecuado para ti</h2>
+							<p class="m-b0">Podrás buscar voluntariados adecuados para ti y comunicarte directamente con las ONG con las que desees colaborar.</p>
+							<a href="/register" class="site-button m-t20 outline outline-2 radius-xl">Crear una cuenta</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Call To Action END -->
+        </div>
+		<!-- contact area END -->
+    </div>
+    <!-- Content END-->
+{{>layout/footer}}

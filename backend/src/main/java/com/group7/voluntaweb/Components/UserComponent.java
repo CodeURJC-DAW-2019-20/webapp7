@@ -27,6 +27,7 @@ public class UserComponent {
 	public User getLoggedUser() {
 		return user;
 	}
+	
 
 	public void setLoggedUser(User user) {
 		this.user = user;

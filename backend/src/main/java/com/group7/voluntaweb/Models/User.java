@@ -29,6 +29,10 @@ public class User {
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<UsersVolunteerings> registrations;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Like> likes;
+	
 
 	private String name;
 
@@ -124,6 +128,15 @@ public class User {
 
 	public void setRegistered_at(Date registered_at) {
 		this.registered_at = registered_at;
+	}
+	
+
+	public Set<Like> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(Set<Like> likes) {
+		this.likes = likes;
 	}
 
 	public User() {

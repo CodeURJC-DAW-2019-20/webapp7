@@ -1,0 +1,36 @@
+{{>layout/header}}
+{{^logged}}
+{{>layout/navbar-anonymous}}
+{{/logged}}
+
+{{#logged}}
+{{#logged_user}}
+{{>layout/navbar-user}}
+{{/logged_user}}
+
+{{#logged_admin}}
+{{>layout/navbar-admin}}
+{{/logged_admin}}
+
+{{#logged_ong}}
+{{>layout/navbar-ong}}
+{{/logged_ong}}
+{{/logged}}
+
+
+			{{#anuncios}}
+			<div class="col-lg-4 offset-4 mt-4">
+			<div class="card ml-4"><a href="/volunteering/{{id}}">
+                <img class="card-img-top" src="/images/volunteerings/image-{{id}}.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{name}}</h5>
+                    <div class="text-center">
+                        <a href="ong-edit-advertisement-{{id}}" class="btn btn-primary mr-2">Editar</a>
+                        <a href="ong-remove-advertisement-{{id}}" class="btn btn-danger ml-2">Retirar</a>
+                    </div>
+                </div>
+            </div></a>
+            </div class=".col-lg-6">
+			{{/anuncios}}
+
+{{>layout/footer}}

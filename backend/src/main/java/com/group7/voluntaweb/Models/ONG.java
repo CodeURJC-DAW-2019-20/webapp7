@@ -1,5 +1,6 @@
 package com.group7.voluntaweb.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,7 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Lob;
+
 import javax.persistence.Table;
 
 @Entity
@@ -18,22 +23,50 @@ public class ONG {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	
+	//@Column(unique = true)
 	private String name;
-
-	@Column(unique = true)
-	private String email;
 
 	private String responsible_name;
 	private String responsible_surname;
+
 	@Lob
 	private String description;
 
+
 	private String address;
-	private String telephone;
+
+	private String email;
 	private String postal;
-	private String password;
 	private String image;
+
+	
+	@OneToMany(mappedBy="ong")
+	private List<Volunteering> anuncios;
+	
+
+	
+	public ONG(String name, String responsible_name, String responsible_surname, String address, String description,
+			String email, String postal, String image, String telephone, String password) {
+		super();
+		this.name = name;
+		this.responsible_name = responsible_name;
+		this.responsible_surname = responsible_surname;
+		this.address = address;
+		this.description = description;
+		this.email = email;
+		this.postal = postal;
+		this.image = image;
+		this.telephone = telephone;
+		this.password = password;
+		
+		this.anuncios = new ArrayList<>();
+	}
+
+	private String telephone;
+	
+	private String password;
+	
 
 	public Long getId() {
 		return id;
@@ -122,25 +155,18 @@ public class ONG {
 	public void setImage(String image) {
 		this.image = image;
 	}
+	
+	public List<Volunteering> getVolunteerings(){
+		return this.anuncios;
+	}
+
+	
+	public void setVolunteerings(List<Volunteering> anuncios) {
+		this.anuncios = anuncios;
+	}
+
+
 
 	public ONG() {
 	}
-
-	public ONG(String name, String email, String responsible_name, String responsible_surname, String description,
-			String address, String telephone, String postal, String image, String password) {
-
-		this.name = name;
-		this.email = email;
-		this.responsible_name = responsible_name;
-		this.responsible_surname = responsible_surname;
-		this.description = description;
-		this.address = address;
-		this.telephone = telephone;
-		this.postal = postal;
-		this.image = image;
-		this.password = password;
-		this.description = description;
-
-	}
-
 }

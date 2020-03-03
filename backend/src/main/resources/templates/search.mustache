@@ -1,12 +1,22 @@
 {{>layout/header}}
-
 {{^logged}}
 {{>layout/navbar-anonymous}}
 {{/logged}}
 
 {{#logged}}
+{{#logged_user}}
 {{>layout/navbar-user}}
+{{/logged_user}}
+
+{{#logged_admin}}
+{{>layout/navbar-admin}}
+{{/logged_admin}}
+
+{{#logged_ong}}
+{{>layout/navbar-ong}}
+{{/logged_ong}}
 {{/logged}}
+
         <!-- Content -->
         <div class="page-content bg-white">
             <!-- inner page banner -->
@@ -34,8 +44,8 @@
                         <div class="row">
                             <div class="col-xl-9 col-lg-8">
                                 <ul class="post-job-bx">
+                                {{#volunteerings}}
                                     <li>
-                                    {{#volunteerings}}
                                         <a href="/volunteering/{{id}}">
                                             <div class="d-flex m-b30">
                                                 <div class="job-post-company">
@@ -57,7 +67,7 @@
                                                     <span>{{ong}}</span>
                                                 </div>
                                             </div>
-                                            <span class="post-like fa fa-heart-o"></span>
+                                           
                                         </a>
                                     </li>
                                     {{/volunteerings}}
@@ -106,13 +116,13 @@
                                     <form action="/search" method="GET">
                                         <h5 class="widget-title font-weight-700 text-uppercase">Palabras clave</h5>
                                         	{{#search}}
-                                            <input type="text" name="search" class="form-control" placeholder="Buscar" value="{{search}}">
+                                            <input type="text" name="s" class="form-control" placeholder="Buscar" value="{{search}}">
                                             {{/search}}
                                             {{^search}}
-                                            <input type="text" name="search" class="form-control" placeholder="Buscar">
+                                            <input type="text" name="s" class="form-control" placeholder="Buscar">
                                             {{/search}}
                                             <br>
-                                            <input type="submit" class="btn btn-primary" value="Buscar">
+                                            <input type="submit" class="site-button btn-block" value="Buscar">
                                     </form>
                                     </div>
                                     
@@ -126,7 +136,7 @@
 											{{/categories}}
 										</select>
 										<br>
-										<input type="submit" class="btn btn-primary" value="Buscar">
+										<input type="submit" class="site-button btn-block" value="Buscar">
 										</form>
                                     </div>
                                 </div>

@@ -1,0 +1,161 @@
+{{>layout/header}}
+{{^logged}}
+{{>layout/navbar-anonymous}}
+{{/logged}}
+
+{{#logged}}
+{{#logged_user}}
+{{>layout/navbar-user}}
+{{/logged_user}}
+
+{{#logged_admin}}
+{{>layout/navbar-admin}}
+{{/logged_admin}}
+
+{{#logged_ong}}
+{{>layout/navbar-ong}}
+{{/logged_ong}}
+{{/logged}}
+
+		<!-- Content -->
+		<div class="page-content bg-white">
+			<!-- inner page banner -->
+			<div class="dez-bnr-inr overlay-black-middle"
+				style="background-image:url(images/background/Volunteerswalk.jpg);">
+				<div class="container">
+					<div class="dez-bnr-inr-entry">
+						<h1 class="text-white">Ajustes de ONG</h1>
+						<!-- Breadcrumb row -->
+						<div class="breadcrumb-row">
+							<ul class="list-inline">
+								<li><a href="#">Inicio</a></li>
+								<li>Ajustes de ONG</li>
+							</ul>
+						</div>
+						<!-- Breadcrumb row END -->
+					</div>
+				</div>
+			</div>
+			<!-- inner page banner END -->
+			<!-- panel area -->
+			<div class="py-4">
+
+				<div class="row justify-content-center">
+					<div class="col-md-8">
+						
+						<div class ="card mb-2">
+							<div class="card-header"><a href="ong-submit-advertisement">Crear Anuncio</a></div>
+						</div>
+						
+						<div class ="card mb-2">
+							<div class="card-header"><a href="volunteering-gestion-panel">Editar Anuncio</a></div>
+						</div>
+
+						<div class="card">
+							<div class="card-header">Mi cuenta</div>
+
+							<div class="card-body">
+								<!-- Settings form -->
+								<form method="POST" action="ong-settings-form" enctype="multipart/form-data">
+
+									<div class="form-group row">
+										<label for="name" class="col-md-4 col-form-label text-md-right">Nombre ONG</label>
+
+										<div class="col-md-6">
+											<input id="name" type="text" class="form-control" name="name"
+												placeholder="Nombre ONG" value="{{ong.name}}" required autocomplete="name" autofocus>
+										</div>
+									</div>
+									
+									<div class="form-group row">
+										<label for="responsible_name" class="col-md-4 col-form-label text-md-right">Nombre Responsable</label>
+
+										<div class="col-md-6">
+											<input id="responsible_name" type="text" class="form-control" name="responsible_name"
+												placeholder="Nombre Responsable" value="{{ong.responsible_name}}" required autocomplete="responsible_name" autofocus>
+										</div>
+									</div>
+									
+									<div class="form-group row">
+										<label for="responsible_surname" class="col-md-4 col-form-label text-md-right">Apellidos Responsable</label>
+
+										<div class="col-md-6">
+											<input id="responsible_surname" type="text" class="form-control" name="responsible_surname"
+												placeholder="Apellidos Responsable" value="{{ong.responsible_surname}}" required autocomplete="responsible_surname" autofocus>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label for="address"
+											class="col-md-4 col-form-label text-md-right">Dirección</label>
+
+										<div class="col-md-6">
+											<input id="address" type="text" class="form-control" name="address"
+												placeholder="Dirección" value="{{ong.address}}" required autocomplete="address" autofocus>
+										</div>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+										<label for="postal" class="col-md-4 col-form-label text-md-right">Código Postal</label>
+
+										<div class="col-md-6">
+											<input id="postal" rows="4" class="form-control" name="postal"
+												placeholder="Código Postal" value="{{ong.postal}}" required autocomplete="postal" autofocus>
+										</div>
+									</div>
+                                    
+                                    <div class="form-group row">
+										<label for="description"
+											class="col-md-4 col-form-label text-md-right">Descripción</label>
+
+										<div class="col-md-6">
+											<input id="description" type="text" class="form-control" name="description"
+												placeholder="Descripción" value="{{ong.description}}" required autocomplete="description" autofocus>
+										</div>
+                                    </div>
+
+									<div class="form-group row">
+										<label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+
+										<div class="col-md-6">
+											<input id="email" type="email" class="form-control" name="email"
+												placeholder="Email" value="{{ong.email}}" required autocomplete="email">
+										</div>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+										<label for="telephone" class="col-md-4 col-form-label text-md-right">Teléfono</label>
+
+										<div class="col-md-6">
+											<input id="email" type="telephone" class="form-control" name="telephone"
+												placeholder="Teléfono" value="{{ong.telephone}}" required autocomplete="telephone">
+										</div>
+                                    </div>
+
+									<div class="form-group row">
+										<label for="imagenFile" class="col-md-4 col-form-label text-md-right">Foto de
+											perfil</label>
+
+										<div class="col-md-6">
+											<input id="imagenFile" type="file" class="form-control" name="imagenFile"
+												autocomplete="image" placeholder=".jpg" accept=".jpg">
+										</div>
+									</div>
+
+									<div class="form-group row mb-0">
+										<div class="col-md-6 offset-md-4">
+											<button type="submit" class="btn btn-primary">
+												Guardar cambios
+											</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- Content END-->
+{{>layout/footer}}

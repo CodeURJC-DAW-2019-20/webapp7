@@ -1,0 +1,153 @@
+{{>layout/header}}
+{{^logged}}
+{{>layout/navbar-anonymous}}
+{{/logged}}
+
+{{#logged}}
+{{#logged_user}}
+{{>layout/navbar-user}}
+{{/logged_user}}
+
+{{#logged_admin}}
+{{>layout/navbar-admin}}
+{{/logged_admin}}
+
+{{#logged_ong}}
+{{>layout/navbar-ong}}
+{{/logged_ong}}
+{{/logged}}
+
+		<!-- Content -->
+		<div class="page-content bg-white">
+			<!-- inner page banner -->
+			<div class="dez-bnr-inr overlay-black-middle"
+				style="background-image:url(images/background/Volunteerswalk.jpg);">
+				<div class="container">
+					<div class="dez-bnr-inr-entry">
+						<h1 class="text-white">Crear anuncio</h1>
+						<!-- Breadcrumb row -->
+						<div class="breadcrumb-row">
+							<ul class="list-inline">
+								<li><a href="index.html">Inicio</a></li>
+								<li>Crear anuncio</li>
+							</ul>
+						</div>
+						<!-- Breadcrumb row END -->
+					</div>
+				</div>
+			</div>
+			<!-- inner page banner END -->
+			<!-- panel area -->
+			<div class="py-4">
+
+				<div class="row justify-content-center">
+					<div class="col-md-8">
+
+
+						<div class="card">
+							<div class="card-header">Anuncio</div>
+
+							<div class="card-body">
+								<!-- Settings form -->
+								<form method="POST" action="ong-submit-advertisement-form" enctype="multipart/form-data">
+
+									<div class="form-group row">
+										<label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
+
+										<div class="col-md-6">
+											<input id="name" type="text" class="form-control" name="name"
+												placeholder="Nombre" value="{{anuncio.name}}" autocomplete="name" autofocus>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label for="city"
+											class="col-md-4 col-form-label text-md-right">Ciudad</label>
+
+										<div class="col-md-6">
+											<input id="city" type="text" class="form-control" name="city"
+												placeholder="Ciudad" value="{{anuncio.city}}" autocomplete="city" autofocus>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label for="category_id" class="col-md-4 col-form-label text-md-right">Categoría</label>
+                                        
+                                        <div class="col-md-6">
+                                            <select name="category_id">
+												{{#categories}}
+													<option value="{{id}}">{{name}}</option>
+												{{/categories}}
+											</select>
+                                        </div>
+
+                                    </div>
+                                    
+
+                                    <div class="form-group row">
+										<label for="startdate"
+											class="col-md-4 col-form-label text-md-right">Fecha de inicio</label>
+
+										<div class="col-md-6">
+											<input id="startdate" type="date" class="form-control" name="startdate"
+												placeholder="Fecha de inicio"  value="{{anuncio.startdate}}" autocomplete="startdate" autofocus>
+										</div>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+										<label for="enddate"
+											class="col-md-4 col-form-label text-md-right">Fecha de finalización</label>
+
+										<div class="col-md-6">
+											<input id="enddate" type="date" class="form-control" name="enddate"
+												placeholder="Fecha de finalización"  value="{{anuncio.enddate}}" autocomplete="enddate" autofocus>
+										</div>
+                                    </div>
+
+
+
+									<div class="form-group row">
+										<label for="description" class="col-md-4 col-form-label  text-md-right">Descripción</label>
+
+										<div class="col-md-6">
+                                                 <input class="form-control" name="description" placeholder="Descripción"  value="{{anuncio.description}}">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="imagenFile" class="col-md-4 col-form-label text-md-right">Foto del
+											anuncio</label>
+
+										<div class="col-md-6">
+											<input id="imagenFile" placeholder=".jpg" type='file' accept=".jpg" class="form-control" name="imagenFile"
+												autocomplete="image">
+										</div>
+									</div>
+																		
+									<div class="form-group row">
+										<label for="email"
+											class="col-md-4 col-form-label text-md-right">Email</label>
+
+										<div class="col-md-6">
+											<input id="email" type="text" class="form-control" name="email"
+												placeholder="Email" value="{{anuncio.email}}" autocomplete="email" autofocus>
+										</div>
+									</div>
+
+
+									<div class="form-group row mb-0">
+										<div class="col-md-6 offset-md-4">
+											<button type="submit" class="btn btn-primary">
+												Guardar cambios
+											</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- Content END-->
+{{>layout/footer}}

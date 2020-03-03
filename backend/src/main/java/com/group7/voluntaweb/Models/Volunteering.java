@@ -1,17 +1,16 @@
 package com.group7.voluntaweb.Models;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,50 +27,59 @@ public class Volunteering {
 	@OneToMany(mappedBy = "volunteering")
 	private Set<UsersVolunteerings> joined_users;
 
-	@NotEmpty
+	@OneToMany(mappedBy = "volunteering")
+	private Set<Like> likes;
+
+	//@NotEmpty
 	private String name;
 
-	@NotEmpty
+	//@NotEmpty
 	@ManyToOne
 	private Category category;
-	@NotEmpty
-
+	//@NotEmpty
 	private Date startdate;
-	@NotEmpty
+	// @NotEmpty
 
 	private Date enddate;
-	@NotEmpty
+	//@NotEmpty
 	@Lob
 	private String description;
-	@NotEmpty
+	//@NotEmpty
 	private String image;
-	@NotEmpty
+	//@NotEmpty
 	private String city;
+
+	//@NotEmpty
 	@ManyToOne
 	private ONG ong;
-	@NotEmpty
+	//@NotEmpty
 	private String email;
 
-	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty Category category_id,
+
+	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty Category category,
 			@NotEmpty Date startdate, @NotEmpty Date enddate, @NotEmpty String description, @NotEmpty String image,
 			@NotEmpty String city, @NotEmpty String email) {
 		super();
-		this.joined_users = joined_users;
+
 		this.name = name;
 		this.category = category;
 		this.startdate = startdate;
 		this.enddate = enddate;
 		this.description = description;
-		this.image = image;
 		this.city = city;
 		this.email = email;
+		this.image = image;
+		this.joined_users = null;
+		this.likes = null;
+		
+		
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -81,6 +89,14 @@ public class Volunteering {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public Date getStartdate() {
@@ -115,20 +131,20 @@ public class Volunteering {
 		this.image = image;
 	}
 
-	public Set<UsersVolunteerings> getJoined_users() {
-		return joined_users;
-	}
-
-	public void setJoined_users(Set<UsersVolunteerings> joined_users) {
-		this.joined_users = joined_users;
-	}
-
 	public String getCity() {
 		return city;
 	}
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public Set<Like> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(Set<Like> likes) {
+		this.likes = likes;
 	}
 
 	public Volunteering() {
@@ -152,5 +168,14 @@ public class Volunteering {
 		this.email = email;
 
 	}
+
+	public ONG getOng() {
+		return ong;
+	}
+
+	public void setOng(ONG ong) {
+		this.ong = ong;
+	}
+
 
 }

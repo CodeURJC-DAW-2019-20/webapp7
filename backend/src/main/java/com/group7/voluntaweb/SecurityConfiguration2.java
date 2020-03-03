@@ -1,20 +1,25 @@
 package com.group7.voluntaweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.group7.voluntaweb.Repositories.ONGRepositoryAuthProvider;
+import com.group7.voluntaweb.Services.ONGDetailsService;
 
 @Configuration
-@Order(2)
+@Order(1)
 public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	public ONGRepositoryAuthProvider userRepoAuthProvider;
+//	@Autowired
+//	public ONGRepositoryAuthProvider userRepoAuthProvider;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -23,8 +28,11 @@ public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/").permitAll();
 		http.authorizeRequests().antMatchers("/ongs").permitAll();
 		http.authorizeRequests().antMatchers("/ongs/**").permitAll();
+		http.authorizeRequests().antMatchers("/search").permitAll();
+		http.authorizeRequests().antMatchers("/search/**").permitAll();
+		http.authorizeRequests().antMatchers("/volunteering/**").permitAll();
 		// Login pages
-		http.authorizeRequests().antMatchers("/login-ong").anonymous();
+		http.authorizeRequests().antMatchers("/login").anonymous();
 		http.authorizeRequests().antMatchers("/loginerror").permitAll();
 		// Logout page
 		http.authorizeRequests().antMatchers("/logout").permitAll();
@@ -41,7 +49,7 @@ public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/plugins/**").permitAll();
 
 		// Private pages (all other pages)
-		http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN");
+		http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ADMIN");
 		;
 		http.authorizeRequests().anyRequest().authenticated();
 
@@ -59,13 +67,35 @@ public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
 		// Disable CSRF at the moment
 		http.csrf().disable();
 	}
+	
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		// Users
+		 auth.inMemoryAuthentication().withUser("user").password("pass")
+		 .roles("USER");
 
-		// Database authentication provider
-		auth.authenticationProvider(userRepoAuthProvider);
+		 auth.inMemoryAuthentication().withUser("admin@admin.com").password("{noop}password")
+		 .roles("USER", "ADMIN");
+		 
+        auth.authenticationProvider(authProvider());
+    }
 
-	}
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new ONGDetailsService();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+
+        authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
+        return authProvider;
+    }
 
 }

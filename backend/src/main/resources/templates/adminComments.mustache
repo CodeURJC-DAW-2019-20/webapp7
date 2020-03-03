@@ -1,0 +1,45 @@
+{{>layout/header}}
+{{>layout/navbar-admin}}
+        <!-- Content -->
+        <div class="page-content bg-white">
+            <!-- contact area -->
+            <div class="content-block">
+                <!-- Browse Jobs -->
+                <div class="section-full bg-white browse-job content-inner-2">
+                    <div class="container">
+                        <!--<div class="row">-->
+                        <div class="class=" col-md-12 text-center "">
+                            <h5 class="widget-title font-weight-700 text-uppercase">Comentarios</h5>
+                            <ul class="post-job-bx">
+                            {{#comments}}
+                                <li>
+	                                <a>
+                                        <div class="d-flex m-b30">
+                                            <div class="job-post-info">
+                                                <h4>{{name}}</h4>
+                                                <ul>
+                                                    <li>Email: {{email}}</li>
+                                                    <li><span>ID mensaje: {{id}}</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="job-time mr-auto">
+                                                <p>{{message}}</p>
+                                            </div>
+                                        </div>
+	                                </a>
+                                </li>
+                              {{/comments}}  
+                            </ul>
+                         
+                        </div>
+
+                        <!--</div>-->
+                    </div>
+                </div>
+                <!-- Browse Jobs END -->
+            </div>
+        </div>
+        <!-- Content END-->
+{{>layout/footer}}
