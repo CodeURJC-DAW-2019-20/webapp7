@@ -69,7 +69,7 @@ We're implemented graphic charts:
 #### Description
 The "Contact" page, as her name says, is for contact the administrator of the website in order to make sugerences and questions.  
 
-![](./screenshots/gestion-voluntariados.PNG)
+![](./screenshots/F2-volunteerings.PNG)
 #### Description
 "Volunteering-gestion-panel" is a page that have, mainly, two options: edit and delete. Also appears the last modification.
 
@@ -81,7 +81,7 @@ The "Contact" page, as her name says, is for contact the administrator of the we
 #### Description
 "Login" is a page where users, such as volunteers and ONGs, can login and browse the website.
 
-![](./screenshots/my-volunteerings.PNG)
+![](./screenshots/F2-my-volunteerings.PNG)
 #### Description
 This webpage shows all the volunteers to whom a user of the web has subscribed, with their title, their location, the email of the corresponding NGO and more information about the activity by clicking on it.
  
@@ -89,7 +89,7 @@ This webpage shows all the volunteers to whom a user of the web has subscribed, 
 #### Description
 This webpage shows information about a specific NGO, with its name, its data and also a short description. Also below shows recent volunteers from that NGO.
 
-![](./screenshots/ong-settings.PNG)
+![](./screenshots/F2-ong-settings.PNG)
 #### Description
 This website allows NGOs to change data on their Voluntaweb account such as their name, address, email, category, profile picture etc.
   
@@ -109,11 +109,11 @@ This webpage allows Volunteers to create an account in VoluntaWeb.
 #### Description
 “Searches” This page display the results of a search and allow the user to change the parameters of the search.
 
-![](./screenshots/submit-ad.PNG)
+![](./screenshots/F2-ong-submit-advertisement.PNG)
 #### Description
 “Ong submit advertisement” This page will allow the NGOs to submit a volunteering offer.
 
-![](./screenshots/user-settings.PNG)
+![](./screenshots/F2-user-settings.PNG)
 #### Description
 “User settings” This page will allow the user to change the settings of his account.
 
