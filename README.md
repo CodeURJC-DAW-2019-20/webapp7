@@ -51,7 +51,7 @@ We're implemented graphic charts:
 <img src="./diagrams/navDiagram.svg">
 
 #### Database diagram
-<img src="./diagrams/Database diagram.svg"> 
+<img src="./diagrams/DatabaseDiagram.svg"> 
 
 #### Class diagram
 <img src="./diagrams/UpdatedClassDiagram.svg"> 
@@ -137,3 +137,9 @@ Samuel Severiche (sbsam):
   * 01/03 - Develop: User and ONG settings
   * 02/03 - Develop: Admin pages and minor fixes (admin pages: ngos, volunteerings, users, comments and delete functionality).
 
+Alicia Merino (aliholi44):
+  * 23/02 - Develop: Volunteering's View
+  * 23/02 - Develop: Join button
+  * 24/02 - Develop: deleteCount and delete an account
+  * 02/03 - Develop: fixed some pages
+  * 03/03 - Master: DatabaseDiagram
