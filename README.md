@@ -131,12 +131,11 @@ For the development of this application we have used Spring in its latest versio
 
 ## Commits list
 Samuel Severiche (sbsam):
-  * 23/02 - Develop: ONG and ONG detail pages
-  * 24/02 - Develop: Register ong with images
-  * 25/02-03/03 - Master: documentation related commits (diagrams, Development environment setup, screenshots and readme)
-  * 01/03 - Develop: User and ONG settings
-  * 02/03 - Develop: Admin pages and minor fixes (admin pages: ngos, volunteerings, users, comments and delete functionality).
-
+  * Develop: ONG and ONG detail pages - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/d03b6925d0180e26073c256db742148e9630ca52
+  * Develop: Register ong with images - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/9dc0e565dc08f194a5fb35668cc43c18049379f9
+  * Develop: User and ONG settings - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/096279ec03e3b45181bf7cf30eff13238b3ad365
+  * Develop: Admin pages and minor fixes (admin pages: ngos, volunteerings, users, comments and delete functionality). - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/68c4c9f041207f7693c6de17da0f071b596d4f1c
+  * Develop: admin comments section and aboutus navbar - https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/0b04bed303adcda43580a4189fe8d4205f7abbc4
 Alicia Merino (aliholi44):
   * 23/02 - Develop: Volunteering's View
   * 23/02 - Develop: Join button
