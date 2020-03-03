@@ -73,26 +73,20 @@
                                     <h5 class="font-weight-600">Descripción</h5>
                                     <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
                                     <p class="p-t20">{{advert.description}}</p>
-									{{#logged}}
-                                    <form action="/joinToVolunteering" method="POST">
-                                    	<input type="hidden" id="user" name="user" value="{{user.id}}" >
-                                    	<input type="hidden" id="volunteering" name="volunteering" value={{volunteering}} >
-									  	{{#color-button}}<button type="submit" class="site-button btn-{{color-button}}">{{buttonName}}</button>{{/color-button}}
-									  	{{#alert}}<span style="color: green">{{alert}}</span>{{/alert}}
-									</form>
-									{{/logged}}
-									
-									                            <div>
-									                            
-									                            <br>
-                            
-                            <iframe width="600" height="450" frameborder="0" style="border:0"
-src="https://www.google.com/maps/embed/v1/place?q={{advert.city}}&key=AIzaSyBRzPLTqGSEnouc5sMpfk6cYbVKVX42c5s" allowfullscreen></iframe>
-                        </div>
+										{{#logged}}
+	                                    <form action="/joinToVolunteering" method="POST">
+	                                    	<input type="hidden" id="user" name="user" value="{{user.id}}" >
+	                                    	<input type="hidden" id="volunteering" name="volunteering" value={{volunteering}} >
+										  	{{#color-button}}<button type="submit" class="site-button btn-{{color-button}}">{{buttonName}}</button>{{/color-button}}
+										  	{{#alert}}<span style="color: green">{{alert}}</span>{{/alert}}
+										</form>
+										{{/logged}}
+									<div>
+									<br>
+                            <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{advert.city}}&key=AIzaSyBRzPLTqGSEnouc5sMpfk6cYbVKVX42c5s" allowfullscreen></iframe>
+                        			</div>
                                 </div>
                             </div>
-                            
-
                         </div>
                     </div>
                 </div>
@@ -101,6 +95,7 @@ src="https://www.google.com/maps/embed/v1/place?q={{advert.city}}&key=AIzaSyBRzP
             <br>
         </div>
         {{#logged}}
+        {{#b-color}}
         <div class="like-button {{b-color}}">
             <i class="fa fa-heart like {{i-color}}">
  				<form id="form-like" action="/like" method="POST">
@@ -108,6 +103,7 @@ src="https://www.google.com/maps/embed/v1/place?q={{advert.city}}&key=AIzaSyBRzP
  				</form>
  			</i>
         </div>
+        {{/b-color}}
         {{/logged}}
         <!-- Content END-->
 {{>layout/footer}}

@@ -75,6 +75,7 @@ public class VolunteeringController {
 			model.addAttribute("user", user);
 			model.addAttribute("logged_user", true);
 			model.addAttribute("logged", true);
+			logged = true;
 		} else if (ong != null) {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
