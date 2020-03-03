@@ -236,6 +236,10 @@ public class ONGController {
 
 	@RequestMapping("/ong-submit-advertisement")
 	public String crearAnuncio(Model model) {
+		
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 
 		Date fecha = new Date(System.currentTimeMillis());
 
@@ -245,6 +249,7 @@ public class ONGController {
 
 		model.addAttribute("anuncio", anuncio);
 		model.addAttribute("categories", categories);
+		model.addAttribute("user", ong);
 
 		return "ong-submit-advertisement";
 	}
@@ -264,10 +269,10 @@ public class ONGController {
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 		anuncio.setOng(ong);
 		try {
-			anuncio.setId(10);
 			volService.save(anuncio);
 		}catch (Exception e) {
 			// TODO: handle exception
+			
 		}
 		List<Volunteering> volunteerings = ong.getVolunteerings();
 
@@ -278,7 +283,7 @@ public class ONGController {
 		
 		model.addAttribute("ong", ong);
 
-		return "ONG-settings";
+		return "redirect:/";
 	}
 
 	@RequestMapping("/volunteering-gestion-panel")
