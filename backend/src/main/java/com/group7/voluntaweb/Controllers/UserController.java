@@ -24,10 +24,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.group7.voluntaweb.Components.UserComponent;
+import com.group7.voluntaweb.Models.Category;
 import com.group7.voluntaweb.Models.Comment;
 import com.group7.voluntaweb.Models.ONG;
 import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Models.Volunteering;
+import com.group7.voluntaweb.Repositories.CategoryRepository;
 import com.group7.voluntaweb.Repositories.CommentRepository;
 import com.group7.voluntaweb.Repositories.ONGRepository;
 import com.group7.voluntaweb.Repositories.UserRepository;
@@ -43,6 +45,8 @@ public class UserController {
 	private UserRepository userRepo;
 	@Autowired
 	private VolunteeringRepository volRepo;
+	@Autowired
+	private CategoryRepository categoryRepo;
 
 	@Autowired
 	private ONGRepository ongRepo;
@@ -212,6 +216,61 @@ public class UserController {
 
 		return "myvolunteerings";
 	}
+	
+	/*
+	 * Esto hay que refactorizarlo. Hay una clase igual en indexController
+	 */
+	
+	
+	@GetMapping("/admin")
+	public String admin(Model model) {
+		
+		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = principal.getName();
+		User user = userRepo.findByEmail(currentPrincipalName);
+
+		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+
+		Boolean admin_logged = userComponent.isLoggedUser();
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("logged_user", true);
+			model.addAttribute("logged", true);
+		} else if (ong != null) {
+			model.addAttribute("user", ong);
+			model.addAttribute("logged_ong", true);
+			model.addAttribute("logged", true);
+		} else if (admin_logged) {
+			model.addAttribute("admin_logged", true);
+			model.addAttribute("logged", true);
+		} else {
+			model.addAttribute("logged", false);
+
+		}
+
+		model.addAttribute("title", "Bienvenido");
+		model.addAttribute("chart", true);
+		model.addAttribute("1", userRepo.usersPerMonth(1));
+		model.addAttribute("2", userRepo.usersPerMonth(2));
+		model.addAttribute("3", userRepo.usersPerMonth(3));
+		model.addAttribute("4", userRepo.usersPerMonth(4));
+		model.addAttribute("5", userRepo.usersPerMonth(5));
+		model.addAttribute("6", userRepo.usersPerMonth(6));
+		model.addAttribute("7", userRepo.usersPerMonth(7));
+		model.addAttribute("8", userRepo.usersPerMonth(8));
+		model.addAttribute("9", userRepo.usersPerMonth(9));
+		model.addAttribute("10", userRepo.usersPerMonth(10));
+		model.addAttribute("11", userRepo.usersPerMonth(11));
+		model.addAttribute("12", userRepo.usersPerMonth(12));
+
+		ArrayList<Category> categories = categoryRepo.findByQuantity(8);
+
+		model.addAttribute("categories", categories);
+
+		return "index";
+	}
+	
 
 	@GetMapping("/admin/volunteerings")
 	public String volunteerings(Model model) {
@@ -244,8 +303,8 @@ public class UserController {
 		return "adminVolunteerings";
 	}
 
-	@RequestMapping(value = "/admin/deleteVolunteering", method = RequestMethod.POST)
-	public String deleteVolunteering(Model model, @RequestParam long id) {
+	@RequestMapping(value = "/admin/deleteVolunteering/{id}", method = RequestMethod.POST)
+	public String deleteVolunteering(Model model, @PathVariable long id) {
 		volRepo.deleteById(id);
 		return "redirect:/admin/volunteerings";
 	}
@@ -281,8 +340,8 @@ public class UserController {
 		return "adminUsers";
 	}
 
-	@RequestMapping(value = "/admin/deleteUser", method = RequestMethod.POST)
-	public String deleteUser(Model model, @RequestParam long id) {
+	@RequestMapping(value = "/admin/deleteUser/{id}", method = RequestMethod.POST)
+	public String deleteUser(Model model, @PathVariable long id) {
 		User user = userRepo.findById(id);
 		userService.deleteCount(user);
 		return "redirect:/admin/users";
