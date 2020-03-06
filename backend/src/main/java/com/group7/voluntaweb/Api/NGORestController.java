@@ -1,4 +1,4 @@
-package com.group7.voluntaweb.Controllers;
+package com.group7.voluntaweb.Api;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,14 @@ import com.group7.voluntaweb.Repositories.ONGRepository;
 import com.group7.voluntaweb.Repositories.VolunteeringRepository;
 
 
+/*
+ * 
+ * Listar ong, conseguir ong, crear ong, actualizar ong y borrar ong.
+ */
+
+
 @RestController
+@RequestMapping(value = "/api/ong")
 public class NGORestController{
 	
 	@Autowired
@@ -29,14 +36,7 @@ public class NGORestController{
 	private VolunteeringRepository volRepo;
 	
 	
-	/*@RequestMapping(value = "/register-ong", method = RequestMethod.GET) // ONG REGISTER VIEW
-	public String registerONG() {
-		model.put("title", "Registrar ONG");
-
-		return "registerONG"; // RETURNS registerONG.mustache
-	}*/
-	
-	@RequestMapping(value = "/ongs", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<ONG>> getNGOS(){
 		
 		List<ONG> ngos = this.ongRepo.findAll();
@@ -50,7 +50,7 @@ public class NGORestController{
 	}
 	
 	
-	@RequestMapping(value = "/ongs/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<ONG> getNGO(@PathVariable Long id){
 		
 		ONG ngo = this.ongRepo.findByid(id);
@@ -65,25 +65,30 @@ public class NGORestController{
 	}
 	
 	
-	@RequestMapping(value = "/add-ong", method = RequestMethod.POST)
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public ONG createNGO(@RequestBody ONG ngo) {
+	public ONG createNGO(@RequestBody String name, @RequestBody String responsibleName,
+			@RequestBody String responsibleSurname,@RequestBody String address,
+			@RequestBody String description, @RequestBody String email, @RequestBody String postal, 
+			@RequestBody String image, @RequestBody String telephone, @RequestBody String password) {
 		
+		ONG ngo = new ONG(name, responsibleName, responsibleSurname, address,description,email,postal,image,telephone,password);
+				
 		this.ongRepo.save(ngo);
 		
 		return ngo;
 	}
 	
 	
-	/*@RequestMapping(value = "/ong-settings" method = RequestMethod.GET)
-	public ResponseEntity<ONG> getNGOSettings(){
+	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
+	public ResponseEntity<ONG> getNGOSettings(@RequestBody Long id,@RequestBody String name, @RequestBody String responsibleName,
+			@RequestBody String responsibleSurname,@RequestBody String address,
+			@RequestBody String description, @RequestBody String email, @RequestBody String postal, 
+			@RequestBody String image, @RequestBody String telephone, @RequestBody String password) {
 		
-	}*/
-	
-	
-	@RequestMapping(value = "/ong-settings-form", method = RequestMethod.PUT)
-	public ResponseEntity<ONG> getNGOSettings(@RequestBody ONG ngo) {
-		
+		ONG ngo = new ONG(name, responsibleName, responsibleSurname, address,description,email,postal,image,telephone,password);
+		ngo.setId(id);
+				
 		if(this.ongRepo.findByid(ngo.getId())!= null) {
 			
 			this.ongRepo.save(ngo);
@@ -93,29 +98,25 @@ public class NGORestController{
 		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-	}
+	}	
 	
 	
-	//@RequestMapping(value = "/ong-submit-advertisement", method = RequestMethod.GET)
-	
-	
-	@RequestMapping(value = "/ong-submit-advertisement-form", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public Volunteering createVolunteering(@RequestBody Volunteering volunteering) {
+	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	public ResponseEntity<ONG> deleteNGO(@RequestBody Long id){
 		
-		this.volRepo.save(volunteering);
+		ONG ngo = this.ongRepo.findByid(id);
 		
-		return volunteering;
+		if(ngo != null) {
+			
+			this.ongRepo.delete(ngo);
+			
+			return new ResponseEntity<>(ngo, HttpStatus.OK);
+			
+		}
+		else {
+			
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			
+		}
 	}
-	
-	//	@RequestMapping("/volunteering-gestion-panel")
-	
-	
-	/*
-	 * 
-	 * Faltan dos metodos
-	 * 
-	 */
-	
-	
 }
