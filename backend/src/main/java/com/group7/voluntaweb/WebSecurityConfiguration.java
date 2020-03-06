@@ -16,7 +16,7 @@ import com.group7.voluntaweb.services.ONGDetailsService;
 
 @Configuration
 @Order(1)
-public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 //	@Autowired
 //	public ONGRepositoryAuthProvider userRepoAuthProvider;
