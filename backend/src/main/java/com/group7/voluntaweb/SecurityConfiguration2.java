@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.group7.voluntaweb.Services.ONGDetailsService;
+import com.group7.voluntaweb.services.ONGDetailsService;
 
 @Configuration
 @Order(1)

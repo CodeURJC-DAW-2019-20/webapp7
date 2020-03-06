@@ -8,10 +8,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 
-import com.group7.voluntaweb.Components.ONGComponent;
-import com.group7.voluntaweb.Components.UserComponent;
-import com.group7.voluntaweb.Models.ONG;
-import com.group7.voluntaweb.Models.User;
+import com.group7.voluntaweb.components.ONGComponent;
+import com.group7.voluntaweb.components.UserComponent;
+import com.group7.voluntaweb.models.ONG;
+import com.group7.voluntaweb.models.User;
 
 public class Helpers {
 	
