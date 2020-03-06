@@ -84,12 +84,14 @@
                                     <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
                                     <p class="p-t20">{{advert.description}}</p>
 										{{#logged}}
+										{{^logged_admin}}
 	                                    <form action="/joinToVolunteering" method="POST">
 	                                    	<input type="hidden" id="user" name="user" value="{{user.id}}" >
 	                                    	<input type="hidden" id="volunteering" name="volunteering" value={{volunteering}} >
 										  	{{#color-button}}<button type="submit" class="site-button btn-{{color-button}}">{{buttonName}}</button>{{/color-button}}
 										  	{{#alert}}<span style="color: green">{{alert}}</span>{{/alert}}
 										</form>
+										{{/logged_admin}}
 										{{/logged}}
 									<div>
 									<br>

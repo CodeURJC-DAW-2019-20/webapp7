@@ -1,15 +1,19 @@
 package com.group7.voluntaweb.Controllers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.group7.voluntaweb.Components.ONGComponent;
 import com.group7.voluntaweb.Components.UserComponent;
 import com.group7.voluntaweb.Models.Category;
 import com.group7.voluntaweb.Models.ONG;
@@ -17,6 +21,7 @@ import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Repositories.CategoryRepository;
 import com.group7.voluntaweb.Repositories.ONGRepository;
 import com.group7.voluntaweb.Repositories.UserRepository;
+import com.group7.voluntaweb.helpers.Helpers;
 
 @Controller
 public class IndexController {
@@ -28,34 +33,28 @@ public class IndexController {
 	@Autowired
 	private UserComponent userComponent;
 	@Autowired
+	private ONGComponent ongComponent;
+	@Autowired
 	private CategoryRepository categoryRepo;
 
 	@RequestMapping("/")
 	public String index(Model model) {
+//
+//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+//		String currentPrincipalName = principal.getName();
+//		User user = userRepo.findByEmail(currentPrincipalName);
+		User user = userComponent.getLoggedUser();
 
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-		User user = userRepo.findByEmail(currentPrincipalName);
+		ONG ong = ongComponent.getLoggedUser();
 
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
 
-		Boolean admin_logged = userComponent.isLoggedUser();
+		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
+				.getAuthorities();
+		Boolean isAdmin = roles.contains(roleAdmin);
 
-		if (user != null) {
-			model.addAttribute("user", user);
-			model.addAttribute("logged_user", true);
-			model.addAttribute("logged", true);
-		} else if (ong != null) {
-			model.addAttribute("user", ong);
-			model.addAttribute("logged_ong", true);
-			model.addAttribute("logged", true);
-		} else if (admin_logged) {
-			model.addAttribute("admin_logged", true);
-			model.addAttribute("logged", true);
-		} else {
-			model.addAttribute("logged", false);
-
-		}
+		Helpers helper = new Helpers();
+		helper.setNavbar(model, user, ong, isAdmin);
 
 		model.addAttribute("title", "Bienvenido");
 		model.addAttribute("chart", true);
@@ -86,29 +85,22 @@ public class IndexController {
 
 	@GetMapping("/about-us")
 	public String about(Model model) {
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-		User user = userRepo.findByEmail(currentPrincipalName);
+//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+//		String currentPrincipalName = principal.getName();
+//		User user = userRepo.findByEmail(currentPrincipalName);
 
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+		User user = userComponent.getLoggedUser();
 
-		Boolean admin_logged = userComponent.isLoggedUser();
+		ONG ong = ongComponent.getLoggedUser();
 
-		if (user != null) {
-			model.addAttribute("user", user);
-			model.addAttribute("logged_user", true);
-			model.addAttribute("logged", true);
-		} else if (ong != null) {
-			model.addAttribute("user", ong);
-			model.addAttribute("logged_ong", true);
-			model.addAttribute("logged", true);
-		} else if (admin_logged) {
-			model.addAttribute("admin_logged", true);
-			model.addAttribute("logged", true);
-		} else {
-			model.addAttribute("logged", false);
+		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
 
-		}
+		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
+				.getAuthorities();
+		Boolean isAdmin = roles.contains(roleAdmin);
+
+		Helpers helper = new Helpers();
+		helper.setNavbar(model, user, ong, isAdmin);
 		model.addAttribute("title", "¿Quienes somos?");
 
 		return "aboutUs";

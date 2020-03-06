@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.group7.voluntaweb.Components.ONGComponent;
+import com.group7.voluntaweb.Components.UserComponent;
 import com.group7.voluntaweb.Models.ONG;
 import com.group7.voluntaweb.Models.User;
 import com.group7.voluntaweb.Repositories.ONGRepository;
@@ -21,82 +23,88 @@ import antlr.collections.List;
 @Service
 public class ONGDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ONGRepository ongRepository;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private ONGRepository ongRepository;
+	@Autowired
+	private UserComponent userComponent;
+	@Autowired
+	private ONGComponent ongComponent;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // first try loading from User table
-        User user = userRepository.findByEmail(username);
-        if (user != null) {
-            return new CustomUserDetails(user.getEmail(), user.getPassword(), user.getName());
-        } else {
-            // Not found in user table, so check ong
-            ONG admin = ongRepository.findByEmail(username);
-            if (admin != null) {
-                return new CustomUserDetails(admin.getEmail(), admin.getPassword(), null);
-            }
-        }
-        throw new UsernameNotFoundException("User '" + username + "' not found");
-    }
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// first try loading from User table
+		User user = userRepository.findByEmail(username);
+		if (user != null) {
+			userComponent.setLoggedUser(user);
+			return new CustomUserDetails(user.getEmail(), user.getPassword(), user.getName());
+		} else {
+			// Not found in user table, so check ong
+			ONG ong = ongRepository.findByEmail(username);
+			if (ong != null) {
+				ongComponent.setLoggedUser(ong);
+				return new CustomUserDetails(ong.getEmail(), ong.getPassword(), null);
+			}
+		}
+		throw new UsernameNotFoundException("User '" + username + "' not found");
+	}
 
-    public class CustomUserDetails implements UserDetails {
+	public class CustomUserDetails implements UserDetails {
 
-        private String username;
-        private String password;
-        private Collection<? extends GrantedAuthority> authorities;
+		private String username;
+		private String password;
+		private Collection<? extends GrantedAuthority> authorities;
 
-        public CustomUserDetails() {
-            super();
-        }
+		public CustomUserDetails() {
+			super();
+		}
 
-        public CustomUserDetails(String username, String password, String role) {
-            this.username = username;
-            this.password = password;
-            if (role != null) {
-            	ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            	grantedAuthorities.add(new SimpleGrantedAuthority(role));
-            	this.authorities = grantedAuthorities;            	
-            }
-        }
+		public CustomUserDetails(String username, String password, String role) {
+			this.username = username;
+			this.password = password;
+			if (role != null) {
+				ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+				grantedAuthorities.add(new SimpleGrantedAuthority(role));
+				this.authorities = grantedAuthorities;
+			}
+		}
 
-        @Override
-        public Collection<? extends GrantedAuthority> getAuthorities() {
-            return authorities;
-        }
+		@Override
+		public Collection<? extends GrantedAuthority> getAuthorities() {
+			return authorities;
+		}
 
-        @Override
-        public String getPassword() {
-            return password;
-        }
+		@Override
+		public String getPassword() {
+			return password;
+		}
 
-        @Override
-        public String getUsername() {
-            return username;
-        }
+		@Override
+		public String getUsername() {
+			return username;
+		}
 
-        @Override
-        public boolean isAccountNonExpired() {
-            return true;
-        }
+		@Override
+		public boolean isAccountNonExpired() {
+			return true;
+		}
 
-        @Override
-        public boolean isAccountNonLocked() {
-            return true;
-        }
+		@Override
+		public boolean isAccountNonLocked() {
+			return true;
+		}
 
-        @Override
-        public boolean isCredentialsNonExpired() {
-            return true;
-        }
+		@Override
+		public boolean isCredentialsNonExpired() {
+			return true;
+		}
 
-        @Override
-        public boolean isEnabled() {
-            return true;
-        }
+		@Override
+		public boolean isEnabled() {
+			return true;
+		}
 
-    }
+	}
 
 }

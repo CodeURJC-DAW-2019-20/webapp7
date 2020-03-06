@@ -1,11 +1,14 @@
 package com.group7.voluntaweb.Controllers;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.group7.voluntaweb.Components.ONGComponent;
 import com.group7.voluntaweb.Components.UserComponent;
 import com.group7.voluntaweb.Models.Like;
 import com.group7.voluntaweb.Models.ONG;
@@ -31,6 +35,7 @@ import com.group7.voluntaweb.Repositories.UserRepository;
 import com.group7.voluntaweb.Repositories.VolunteeringRepository;
 import com.group7.voluntaweb.Services.UserService;
 import com.group7.voluntaweb.Services.VolunteeringService;
+import com.group7.voluntaweb.helpers.Helpers;
 
 @Controller
 
@@ -45,6 +50,8 @@ public class VolunteeringController {
 
 	@Autowired
 	private UserComponent userComponent;
+	@Autowired
+	private ONGComponent ongComponent;
 
 	@Autowired
 	private UserService userService;
@@ -63,31 +70,24 @@ public class VolunteeringController {
 	@GetMapping("/volunteering/{id}")
 	public String prueba(Model model, @PathVariable long id) {
 
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-		User user = userRepo.findByEmail(currentPrincipalName);
+//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+//		String currentPrincipalName = principal.getName();
+//		User user = userRepo.findByEmail(currentPrincipalName);
 
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
-		Boolean logged = false;
-		Boolean admin_logged = userComponent.isLoggedUser();
+		User user = userComponent.getLoggedUser();
+
+		ONG ong = ongComponent.getLoggedUser();
+
+		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
+
+		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
+				.getAuthorities();
+		Boolean isAdmin = roles.contains(roleAdmin);
+
+		Helpers helper = new Helpers();
+		helper.setNavbar(model, user, ong, isAdmin);
 
 		if (user != null) {
-			model.addAttribute("user", user);
-			model.addAttribute("logged_user", true);
-			model.addAttribute("logged", true);
-			logged = true;
-		} else if (ong != null) {
-			model.addAttribute("user", ong);
-			model.addAttribute("logged_ong", true);
-			model.addAttribute("logged", true);
-		} else if(admin_logged) {
-			model.addAttribute("admin_logged", true);
-		} else {
-			model.addAttribute("logged", false);
-			
-		}
-
-		if (logged) {
 
 			Volunteering vol = volunteeringRepo.findById(id);
 

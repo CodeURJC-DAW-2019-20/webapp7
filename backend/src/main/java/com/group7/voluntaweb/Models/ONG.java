@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,8 +24,8 @@ public class ONG {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	//@Column(unique = true)
+
+	// @Column(unique = true)
 	private String name;
 
 	private String responsible_name;
@@ -33,19 +34,15 @@ public class ONG {
 	@Lob
 	private String description;
 
-
 	private String address;
 
 	private String email;
 	private String postal;
 	private String image;
 
-	
-	@OneToMany(mappedBy="ong")
+	@OneToMany(mappedBy = "ong", fetch = FetchType.EAGER)
 	private List<Volunteering> anuncios;
-	
 
-	
 	public ONG(String name, String responsible_name, String responsible_surname, String address, String description,
 			String email, String postal, String image, String telephone, String password) {
 		super();
@@ -59,14 +56,13 @@ public class ONG {
 		this.image = image;
 		this.telephone = telephone;
 		this.password = password;
-		
+
 		this.anuncios = new ArrayList<>();
 	}
 
 	private String telephone;
-	
+
 	private String password;
-	
 
 	public Long getId() {
 		return id;
@@ -155,17 +151,14 @@ public class ONG {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
-	public List<Volunteering> getVolunteerings(){
+
+	public List<Volunteering> getVolunteerings() {
 		return this.anuncios;
 	}
 
-	
 	public void setVolunteerings(List<Volunteering> anuncios) {
 		this.anuncios = anuncios;
 	}
-
-
 
 	public ONG() {
 	}

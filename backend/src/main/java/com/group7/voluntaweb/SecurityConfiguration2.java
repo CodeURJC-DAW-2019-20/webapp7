@@ -67,35 +67,32 @@ public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
 		// Disable CSRF at the moment
 		http.csrf().disable();
 	}
-	
 
 	@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
-		
+
 		// Users
-		 auth.inMemoryAuthentication().withUser("user").password("pass")
-		 .roles("USER");
+		auth.inMemoryAuthentication().withUser("user").password("pass").roles("USER");
 
-		 auth.inMemoryAuthentication().withUser("admin@admin.com").password("{noop}password")
-		 .roles("USER", "ADMIN");
-		 
-        auth.authenticationProvider(authProvider());
-    }
+		auth.inMemoryAuthentication().withUser("admin@admin.com").password("{noop}password").roles("USER", "ADMIN");
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new ONGDetailsService();
-    }
+		auth.authenticationProvider(authProvider());
+	}
 
-    @Bean
-    public DaoAuthenticationProvider authProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new ONGDetailsService();
+	}
 
-        authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
-        return authProvider;
-    }
+	@Bean
+	public DaoAuthenticationProvider authProvider() {
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+		authProvider.setUserDetailsService(userDetailsService());
+
+		authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
+		return authProvider;
+	}
 
 }

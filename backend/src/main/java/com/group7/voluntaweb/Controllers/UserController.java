@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.group7.voluntaweb.Components.ONGComponent;
 import com.group7.voluntaweb.Components.UserComponent;
 import com.group7.voluntaweb.Models.Category;
 import com.group7.voluntaweb.Models.Comment;
@@ -37,6 +41,7 @@ import com.group7.voluntaweb.Repositories.VolunteeringRepository;
 import com.group7.voluntaweb.Services.ImageService;
 import com.group7.voluntaweb.Services.ONGService;
 import com.group7.voluntaweb.Services.UserService;
+import com.group7.voluntaweb.helpers.Helpers;
 
 @Controller
 public class UserController {
@@ -62,6 +67,9 @@ public class UserController {
 
 	@Autowired
 	private ONGService ongService;
+
+	@Autowired
+	private ONGComponent ongComponent;
 
 	@Autowired
 	private UserComponent userComponent;
@@ -109,28 +117,22 @@ public class UserController {
 
 	@GetMapping("/settings")
 	public String prueba(Model model) {
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-		User user = userRepo.findByEmail(currentPrincipalName);
+//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+//		String currentPrincipalName = principal.getName();
+//		User user = userRepo.findByEmail(currentPrincipalName);
 
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+		User user = userComponent.getLoggedUser();
 
-		Boolean admin_logged = userComponent.isLoggedUser();
+		ONG ong = ongComponent.getLoggedUser();
 
-		if (user != null) {
-			model.addAttribute("user", user);
-			model.addAttribute("logged_user", true);
-			model.addAttribute("logged", true);
-		} else if (ong != null) {
-			model.addAttribute("user", ong);
-			model.addAttribute("logged_ong", true);
-			model.addAttribute("logged", true);
-		} else if(admin_logged) {
-			model.addAttribute("admin_logged", true);
-		} else {
-			model.addAttribute("logged", false);
-			
-		}
+		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
+
+		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
+				.getAuthorities();
+		Boolean isAdmin = roles.contains(roleAdmin);
+
+		Helpers helper = new Helpers();
+		helper.setNavbar(model, user, ong, isAdmin);
 		model.addAttribute("title", "Ajustes");
 		return "user-settings";
 	}
@@ -159,56 +161,44 @@ public class UserController {
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(Model model) {
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-		User user = userRepo.findByEmail(currentPrincipalName);
+//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+//		String currentPrincipalName = principal.getName();
+//		User user = userRepo.findByEmail(currentPrincipalName);
 
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+		User user = userComponent.getLoggedUser();
 
-		Boolean admin_logged = userComponent.isLoggedUser();
+		ONG ong = ongComponent.getLoggedUser();
 
-		if (user != null) {
-			model.addAttribute("user", user);
-			model.addAttribute("logged_user", true);
-			model.addAttribute("logged", true);
-		} else if (ong != null) {
-			model.addAttribute("user", ong);
-			model.addAttribute("logged_ong", true);
-			model.addAttribute("logged", true);
-		} else if(admin_logged) {
-			model.addAttribute("admin_logged", true);
-		} else {
-			model.addAttribute("logged", false);
-			
-		}
+		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
+
+		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
+				.getAuthorities();
+		Boolean isAdmin = roles.contains(roleAdmin);
+
+		Helpers helper = new Helpers();
+		helper.setNavbar(model, user, ong, isAdmin);
 		userService.deleteCount(user);
 		return "redirect:logout";
 	}
 
 	@GetMapping("/myvolunteerings")
 	public String myvolunteerings(Model model) {
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-		User user = userRepo.findByEmail(currentPrincipalName);
+//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+//		String currentPrincipalName = principal.getName();
+//		User user = userRepo.findByEmail(currentPrincipalName);
 
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+		User user = userComponent.getLoggedUser();
 
-		Boolean admin_logged = userComponent.isLoggedUser();
+		ONG ong = ongComponent.getLoggedUser();
 
-		if (user != null) {
-			model.addAttribute("user", user);
-			model.addAttribute("logged_user", true);
-			model.addAttribute("logged", true);
-		} else if (ong != null) {
-			model.addAttribute("user", ong);
-			model.addAttribute("logged_ong", true);
-			model.addAttribute("logged", true);
-		} else if(admin_logged) {
-			model.addAttribute("admin_logged", true);
-		} else {
-			model.addAttribute("logged", false);
-			
-		}
+		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
+
+		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
+				.getAuthorities();
+		Boolean isAdmin = roles.contains(roleAdmin);
+
+		Helpers helper = new Helpers();
+		helper.setNavbar(model, user, ong, isAdmin);
 		Iterable<Volunteering> myvolunteerings = volRepo.findMyVolunteerings(user);
 		model.addAttribute("title", "Mis Voluntariados");
 		model.addAttribute("user", user);
@@ -216,39 +206,30 @@ public class UserController {
 
 		return "myvolunteerings";
 	}
-	
+
 	/*
 	 * Esto hay que refactorizarlo. Hay una clase igual en indexController
 	 */
-	
-	
+
 	@GetMapping("/admin")
 	public String admin(Model model) {
-		
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-		User user = userRepo.findByEmail(currentPrincipalName);
 
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+//		String currentPrincipalName = principal.getName();
+//		User user = userRepo.findByEmail(currentPrincipalName);
 
-		Boolean admin_logged = userComponent.isLoggedUser();
+		User user = userComponent.getLoggedUser();
 
-		if (user != null) {
-			model.addAttribute("user", user);
-			model.addAttribute("logged_user", true);
-			model.addAttribute("logged", true);
-		} else if (ong != null) {
-			model.addAttribute("user", ong);
-			model.addAttribute("logged_ong", true);
-			model.addAttribute("logged", true);
-		} else if (admin_logged) {
-			model.addAttribute("admin_logged", true);
-			model.addAttribute("logged", true);
-		} else {
-			model.addAttribute("logged", false);
+		ONG ong = ongComponent.getLoggedUser();
 
-		}
+		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
 
+		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
+				.getAuthorities();
+		Boolean isAdmin = roles.contains(roleAdmin);
+
+		Helpers helper = new Helpers();
+		helper.setNavbar(model, user, ong, isAdmin);
 		model.addAttribute("title", "Bienvenido");
 		model.addAttribute("chart", true);
 		model.addAttribute("1", userRepo.usersPerMonth(1));
@@ -270,32 +251,25 @@ public class UserController {
 
 		return "index";
 	}
-	
 
 	@GetMapping("/admin/volunteerings")
 	public String volunteerings(Model model) {
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-		User user = userRepo.findByEmail(currentPrincipalName);
+//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+//		String currentPrincipalName = principal.getName();
+//		User user = userRepo.findByEmail(currentPrincipalName);
 
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+		User user = userComponent.getLoggedUser();
 
-		Boolean admin_logged = userComponent.isLoggedUser();
+		ONG ong = ongComponent.getLoggedUser();
 
-		if (user != null) {
-			model.addAttribute("user", user);
-			model.addAttribute("logged_user", true);
-			model.addAttribute("logged", true);
-		} else if (ong != null) {
-			model.addAttribute("user", ong);
-			model.addAttribute("logged_ong", true);
-			model.addAttribute("logged", true);
-		} else if(admin_logged) {
-			model.addAttribute("admin_logged", true);
-		} else {
-			model.addAttribute("logged", false);
-			
-		}
+		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
+
+		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
+				.getAuthorities();
+		Boolean isAdmin = roles.contains(roleAdmin);
+
+		Helpers helper = new Helpers();
+		helper.setNavbar(model, user, ong, isAdmin);
 		Iterable<Volunteering> volunteerings = volRepo.findAll();
 		model.addAttribute("title", "Voluntariados");
 		model.addAttribute("volunteerings", volunteerings);
@@ -311,28 +285,22 @@ public class UserController {
 
 	@GetMapping("/admin/users")
 	public String adminVolunteerings(Model model) {
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-		User user = userRepo.findByEmail(currentPrincipalName);
+//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+//		String currentPrincipalName = principal.getName();
+//		User user = userRepo.findByEmail(currentPrincipalName);
 
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+		User user = userComponent.getLoggedUser();
 
-		Boolean admin_logged = userComponent.isLoggedUser();
+		ONG ong = ongComponent.getLoggedUser();
 
-		if (user != null) {
-			model.addAttribute("user", user);
-			model.addAttribute("logged_user", true);
-			model.addAttribute("logged", true);
-		} else if (ong != null) {
-			model.addAttribute("user", ong);
-			model.addAttribute("logged_ong", true);
-			model.addAttribute("logged", true);
-		} else if(admin_logged) {
-			model.addAttribute("admin_logged", true);
-		} else {
-			model.addAttribute("logged", false);
-			
-		}
+		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
+
+		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
+				.getAuthorities();
+		Boolean isAdmin = roles.contains(roleAdmin);
+
+		Helpers helper = new Helpers();
+		helper.setNavbar(model, user, ong, isAdmin);
 		Iterable<User> users = userRepo.findAll();
 		model.addAttribute("title", "Usuarios");
 		model.addAttribute("users", users);
@@ -349,27 +317,22 @@ public class UserController {
 
 	@GetMapping("/admin/ngos")
 	public String adminNgos(Model model) {
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-		User user = userRepo.findByEmail(currentPrincipalName);
+//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+//		String currentPrincipalName = principal.getName();
+//		User user = userRepo.findByEmail(currentPrincipalName);
 
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
-		
-		Boolean admin_logged = userComponent.isLoggedUser();
+		User user = userComponent.getLoggedUser();
 
-		if (user != null) {
-			model.addAttribute("user", user);
-			model.addAttribute("logged_user", true);
-			model.addAttribute("logged", true);
-		} else if (ong != null) {
-			model.addAttribute("user", ong);
-			model.addAttribute("logged_ong", true);
-			model.addAttribute("logged", true);
-		} else if(admin_logged) {
-			model.addAttribute("admin_logged", true);
-		} else {
-			model.addAttribute("logged", false);
-		}
+		ONG ong = ongComponent.getLoggedUser();
+
+		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
+
+		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
+				.getAuthorities();
+		Boolean isAdmin = roles.contains(roleAdmin);
+
+		Helpers helper = new Helpers();
+		helper.setNavbar(model, user, ong, isAdmin);
 		Iterable<ONG> ngos = ongRepo.findAll();
 		model.addAttribute("title", "ONGs");
 		model.addAttribute("ngos", ngos);
@@ -385,27 +348,22 @@ public class UserController {
 
 	@GetMapping("/admin/comments")
 	public String adminComments(Model model) {
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-		User user = userRepo.findByEmail(currentPrincipalName);
+//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+//		String currentPrincipalName = principal.getName();
+//		User user = userRepo.findByEmail(currentPrincipalName);
 
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+		User user = userComponent.getLoggedUser();
 
-		Boolean admin_logged = userComponent.isLoggedUser();
+		ONG ong = ongComponent.getLoggedUser();
 
-		if (user != null) {
-			model.addAttribute("user", user);
-			model.addAttribute("logged_user", true);
-			model.addAttribute("logged", true);
-		} else if (ong != null) {
-			model.addAttribute("user", ong);
-			model.addAttribute("logged_ong", true);
-			model.addAttribute("logged", true);
-		} else if(admin_logged) {
-			model.addAttribute("admin_logged", true);
-		} else {
-			model.addAttribute("logged", false);
-		}
+		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
+
+		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
+				.getAuthorities();
+		Boolean isAdmin = roles.contains(roleAdmin);
+
+		Helpers helper = new Helpers();
+		helper.setNavbar(model, user, ong, isAdmin);
 		Iterable<Comment> comments = commentRepo.findAll();
 		model.addAttribute("title", "Comments");
 
