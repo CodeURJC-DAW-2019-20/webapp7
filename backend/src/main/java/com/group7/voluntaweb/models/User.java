@@ -27,10 +27,10 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<UsersVolunteerings> registrations;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<Like> likes;
 	
 
@@ -49,6 +49,10 @@ public class User {
 	private String image;
 
 	private Date registeredAt;
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;
