@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +37,7 @@ public class LoginRestController {
 	
 
 
-	@RequestMapping("/api/user/login")
+	@RequestMapping(value = "/api/user/login", produces = "application/json;charset=UTF-8")
 	public ResponseEntity<User> userLogin() {
 		
 		if (!userComponent.isLoggedUser()) {
@@ -49,7 +50,7 @@ public class LoginRestController {
 		}
 	}
 
-	@RequestMapping("/api/user/logout")
+	@RequestMapping(value = "/api/user/logout", produces = "application/json;charset=UTF-8")
 	public ResponseEntity<Boolean> userLogout(HttpSession session) {
 
 		if (!userComponent.isLoggedUser()) {
@@ -66,7 +67,7 @@ public class LoginRestController {
 	}
 	
 	@JsonView(ONGDetalle.class)
-	@RequestMapping("/api/ong/login")
+	@RequestMapping(value = "/api/ong/login", produces = "application/json;charset=UTF-8")
 	public ResponseEntity<ONG> ongLogin() {
 		
 		if (!ongComponent.isLoggedUser()) {
@@ -79,7 +80,7 @@ public class LoginRestController {
 		}
 	}
 
-	@RequestMapping("/api/ong/logout")
+	@RequestMapping(value = "/api/ong/logout", produces = "application/json;charset=UTF-8")
 	public ResponseEntity<Boolean> logOut(HttpSession session) {
 
 		if (!ongComponent.isLoggedUser()) {
