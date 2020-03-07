@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.group7.voluntaweb.services.ONGDetailsService;
 
 @Configuration
-@Order(1)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 //	@Autowired
