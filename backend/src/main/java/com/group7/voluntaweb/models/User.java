@@ -50,6 +50,10 @@ public class User {
 
 	private Date registeredAt;
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}

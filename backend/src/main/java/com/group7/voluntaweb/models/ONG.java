@@ -17,31 +17,52 @@ import javax.persistence.Lob;
 
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.group7.voluntaweb.models.Volunteering.Basico;
+
 @Entity
 @Table(name = "ngos")
 public class ONG {
+	
+	public interface Basico {
+	}
 
+	public interface Ads {
+	}
+
+	@JsonView(Basico.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@JsonView(Basico.class)
 	// @Column(unique = true)
 	private String name;
 
+	@JsonView(Basico.class)
 	private String responsibleName;
+	@JsonView(Basico.class)
 	private String responsibleSurname;
 
+	@JsonView(Basico.class)
 	@Lob
 	private String description;
 
+	@JsonView(Basico.class)
 	private String address;
 
+	@JsonView(Basico.class)
 	private String email;
+	@JsonView(Basico.class)
 	private String postal;
+	@JsonView(Basico.class)
 	private String image;
 
+	//@JsonIgnore
+	@JsonView(Ads.class)
 	@OneToMany(mappedBy = "ong", fetch = FetchType.EAGER)
-	private List<Volunteering> anuncios;
+	private List<Volunteering> volunteerings;
 
 	public ONG(String name, String responsibleName, String responsibleSurname, String address, String description,
 			String email, String postal, String image, String telephone, String password) {
@@ -57,7 +78,7 @@ public class ONG {
 		this.telephone = telephone;
 		this.password = password;
 
-		this.anuncios = new ArrayList<>();
+		this.volunteerings = new ArrayList<>();
 	}
 
 	private String telephone;
@@ -153,11 +174,11 @@ public class ONG {
 	}
 
 	public List<Volunteering> getVolunteerings() {
-		return this.anuncios;
+		return this.volunteerings;
 	}
 
 	public void setVolunteerings(List<Volunteering> anuncios) {
-		this.anuncios = anuncios;
+		this.volunteerings = anuncios;
 	}
 
 	public ONG() {

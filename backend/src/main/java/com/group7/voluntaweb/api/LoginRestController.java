@@ -10,9 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.group7.voluntaweb.components.ONGComponent;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.models.ONG;
+import com.group7.voluntaweb.models.Volunteering;
 import com.group7.voluntaweb.models.User;
 
 /**
@@ -31,6 +33,8 @@ public class LoginRestController {
 	
 	@Autowired
 	private ONGComponent ongComponent;
+	
+
 
 	@RequestMapping("/api/user/login")
 	public ResponseEntity<User> userLogin() {
@@ -58,6 +62,10 @@ public class LoginRestController {
 		}
 	}
 	
+	interface ONGDetalle extends ONG.Basico, ONG.Ads, Volunteering.Basico {
+	}
+	
+	@JsonView(ONGDetalle.class)
 	@RequestMapping("/api/ong/login")
 	public ResponseEntity<ONG> ongLogin() {
 		
