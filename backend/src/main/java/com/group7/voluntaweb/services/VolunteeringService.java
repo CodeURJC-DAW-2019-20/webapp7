@@ -40,9 +40,6 @@ public class VolunteeringService {
 		return volunteeringRepository.findByQuery(search);
 	}
 
-	public List<Volunteering> findAll() {
-		return volunteeringRepository.findAll();
-	}
 
 	public User findJoinedUser(long volunteeringId, long userId) {
 		return volunteeringRepository.findUserVolunteering(volunteeringId, userId);

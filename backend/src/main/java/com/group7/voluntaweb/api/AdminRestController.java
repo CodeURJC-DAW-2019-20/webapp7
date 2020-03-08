@@ -41,7 +41,7 @@ public class AdminRestController {
 	interface VolunteeringDetail extends Volunteering.Basico {
 	}
 
-	interface UserDetail extends User.Basic {
+	interface UserDetail extends User.Basico {
 	}
 
 	@JsonView(VolunteeringDetail.class)
