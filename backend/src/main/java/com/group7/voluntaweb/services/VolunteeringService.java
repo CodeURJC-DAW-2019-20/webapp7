@@ -1,5 +1,7 @@
 package com.group7.voluntaweb.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,18 @@ public class VolunteeringService {
 	
 	public void save(Volunteering anuncio) {
 		volunteeringRepository.save(anuncio);
+	}
+	
+	public List<Volunteering> findAll() {
+		return volunteeringRepository.findAll();
+	}
+
+	public Iterable<Volunteering> findByCategory(long cid) {
+		return volunteeringRepository.findByCategory(cid);
+	}
+	
+	public Iterable<Volunteering> findByQuery(String search) {
+		return volunteeringRepository.findByQuery(search);
 	}
 
 	public User findJoinedUser(long volunteeringId, long userId) {
