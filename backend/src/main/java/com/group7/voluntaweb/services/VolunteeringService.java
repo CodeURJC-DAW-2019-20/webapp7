@@ -27,6 +27,18 @@ public class VolunteeringService {
 	public void save(Volunteering anuncio) {
 		volunteeringRepository.save(anuncio);
 	}
+	
+	public List<Volunteering> findAll() {
+		return volunteeringRepository.findAll();
+	}
+
+	public Iterable<Volunteering> findByCategory(long cid) {
+		return volunteeringRepository.findByCategory(cid);
+	}
+	
+	public Iterable<Volunteering> findByQuery(String search) {
+		return volunteeringRepository.findByQuery(search);
+	}
 
 	public List<Volunteering> findAll() {
 		return volunteeringRepository.findAll();

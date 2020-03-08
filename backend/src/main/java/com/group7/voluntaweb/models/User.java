@@ -20,9 +20,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "users")
 public class User {
+	
+	public interface Basico {
+	}
+	
+	@JsonView(Basico.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -33,19 +40,27 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<Like> likes;
 	
-
+	@JsonView(Basico.class)
 	private String name;
 
+	@JsonView(Basico.class)
 	private String surname;
 
+	@JsonView(Basico.class)
 	@Column(unique = true)
 	private String email;
 
 	private String password;
+	
+	@JsonView(Basico.class)
 	private String city;
+	
+	@JsonView(Basico.class)
 	private String telephone;
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
+	
+	@JsonView(Basico.class)
 	private String image;
 
 	private Date registeredAt;
