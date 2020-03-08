@@ -89,12 +89,6 @@ public class ONGRestController{
 		return ngo;
 	}
 	
-	/*
-	 * 
-	 * A partir de aquí no funciona
-	 * 
-	 */
-	
 	
 	//Only logged ngo
 	@JsonView(ONGDetalle.class)
@@ -102,15 +96,8 @@ public class ONGRestController{
 	public ResponseEntity<ONG> updateNGO(@RequestBody ONG ngo){	
 		
 		
-		//ONG ngo = new ONG(name, responsibleName, responsibleSurname, address,description,email,postal,image,telephone,password);
-		
 		ngo.setId(this.ongCompo.getLoggedUser().getId());
 		
-		//ngo.setPassword(new BCryptPasswordEncoder().encode(ngo.getPassword()));
-		
-		//System.out.println(ngo.getPassword());
-		
-		this.ongRepo.save(ngo);
 		
 		if(this.ongRepo.findByid(ngo.getId())!= null) {
 			
