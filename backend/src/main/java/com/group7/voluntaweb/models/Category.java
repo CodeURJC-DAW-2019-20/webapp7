@@ -6,15 +6,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.group7.voluntaweb.models.Volunteering.Basico;
+
 @Entity
 
 @Table(name="categories")
 public class Category {
 	
+	public interface Basico {
+	}
+	@JsonView(Basico.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@JsonView(Basico.class)
+	private String name;
 	                
 	public Category(Long id, String name) {
 		this.id = id;
@@ -25,10 +33,7 @@ public class Category {
 	public Category() {
 		
 	}
-
-	private String name;
-
-
+	
 	public long getId() {
 		return id;
 	}
