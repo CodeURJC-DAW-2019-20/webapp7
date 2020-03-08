@@ -140,7 +140,7 @@ public class VolunteeringRestController {
 	}
 
 	// joining to a volunteering
-	@PostMapping("/{id}")
+	@PostMapping("join/{id}")
 	@JsonView(CompleteVolunteering2.class)
 	public ResponseEntity<Volunteering> joiningVolunteering(@PathVariable long id) {
 
@@ -166,5 +166,32 @@ public class VolunteeringRestController {
 		return new ResponseEntity<Volunteering>(vol, HttpStatus.OK);
 	}
 
-	
+	// like volunteering
+	@PostMapping("/like/{id}")
+	@JsonView(CompleteVolunteering2.class)
+	public ResponseEntity<Volunteering> likeVolunteering(@PathVariable long id) {
+
+		Volunteering vol = volunteeringService.findVolunteering(id);
+		User user = userService.findUser(userComponent.getLoggedUser().getId());
+		
+		Like like = new Like();
+		
+		like.setUser(user);
+		like.setVolunteering(vol);
+		Set<Like> userLikes = user.getLikes();
+		
+		if (volunteeringService.findLike(vol, user) == null) {
+			userLikes.add(like);
+			user.setLikes(userLikes);
+			userService.save(user);
+		} else {
+			userLikes.remove(like);
+			user.setLikes(userLikes);
+			userRepo.save(user);
+			likeRepo.deleteLike(vol, user);
+
+		}
+
+		return new ResponseEntity<Volunteering>(vol, HttpStatus.OK);
+	}
 }
