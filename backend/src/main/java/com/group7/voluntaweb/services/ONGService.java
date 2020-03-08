@@ -26,5 +26,9 @@ public class ONGService {
 	public Iterable<ONG> getAll() {
 		return ongRepository.findAll();
 	}
+	
+	public List<ONG> findAll(){
+		return ongRepository.findAll();
+	}
 
 }

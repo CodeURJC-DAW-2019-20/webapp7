@@ -1,6 +1,5 @@
 package com.group7.voluntaweb.models;
 
-import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,17 +10,34 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+
 @Entity
 @Table(name="likes")
 public class Like{
+	
+	public interface Basico{
+	}
+	
+	public interface Users{
+	}
+	
+	public interface Volunteerings{
+	}
+	
+	
+	@JsonView(Basico.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@JsonView(Users.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	@JsonView(Volunteerings.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="volunteering_id")
 	private Volunteering volunteering;
