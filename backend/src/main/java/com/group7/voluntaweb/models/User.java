@@ -26,10 +26,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Table(name = "users")
 public class User {
 	
-	public interface Basic {
+	public interface Basico {
 	}
 	
-	@JsonView(Basic.class)
+	@JsonView(Basico.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -40,27 +40,27 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<Like> likes;
 	
-	@JsonView(Basic.class)
+	@JsonView(Basico.class)
 	private String name;
 
-	@JsonView(Basic.class)
+	@JsonView(Basico.class)
 	private String surname;
 
-	@JsonView(Basic.class)
+	@JsonView(Basico.class)
 	@Column(unique = true)
 	private String email;
 
 	private String password;
 	
-	@JsonView(Basic.class)
+	@JsonView(Basico.class)
 	private String city;
 	
-	@JsonView(Basic.class)
+	@JsonView(Basico.class)
 	private String telephone;
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 	
-	@JsonView(Basic.class)
+	@JsonView(Basico.class)
 	private String image;
 
 	private Date registeredAt;
