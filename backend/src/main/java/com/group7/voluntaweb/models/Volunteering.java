@@ -1,8 +1,6 @@
 package com.group7.voluntaweb.models;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -11,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,13 +20,12 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 @Table(name = "volunteerings")
 public class Volunteering {
-	
+
 	public interface Basico {
 	}
 
 	public interface NGO {
 	}
-
 
 	@JsonView(Basico.class)
 	@Id
@@ -43,39 +39,38 @@ public class Volunteering {
 	@OneToMany(mappedBy = "volunteering", fetch = FetchType.EAGER)
 	private Set<Like> likes;
 
-	//@NotEmpty
+	// @NotEmpty
 	@JsonView(Basico.class)
 	private String name;
 
-	//@NotEmpty
-
+	// @NotEmpty
+	@JsonView(Basico.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Category category;
-	//@NotEmpty
+	// @NotEmpty
 	@JsonView(Basico.class)
 	private Date startdate;
 	// @NotEmpty
 	@JsonView(Basico.class)
 	private Date enddate;
-	//@NotEmpty
+	// @NotEmpty
 	@JsonView(Basico.class)
 	@Lob
 	private String description;
-	//@NotEmpty
+	// @NotEmpty
 	@JsonView(Basico.class)
 	private String image;
-	//@NotEmpty
+	// @NotEmpty
 	@JsonView(Basico.class)
 	private String city;
 
-	//@NotEmpty
+	// @NotEmpty
 	@JsonView(NGO.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	private ONG ong;
-	//@NotEmpty
+	// @NotEmpty
 	@JsonView(Basico.class)
 	private String email;
-
 
 	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty Category category,
 			@NotEmpty Date startdate, @NotEmpty Date enddate, @NotEmpty String description, @NotEmpty String image,
@@ -92,8 +87,7 @@ public class Volunteering {
 		this.image = image;
 		this.joined_users = null;
 		this.likes = null;
-		
-		
+
 	}
 
 	public Long getId() {
@@ -205,6 +199,5 @@ public class Volunteering {
 	public void setOng(ONG ong) {
 		this.ong = ong;
 	}
-
 
 }
