@@ -103,5 +103,38 @@ public class VolunteeringRestController {
         volunteeringService.save(ad);
         return ad;
     }
-		
+	
+  //delete volunteering
+  	@DeleteMapping("/{id}")
+  	@JsonView(CompleteVolunteering.class)
+  	public ResponseEntity<Volunteering> deleteVolunteering(@PathVariable long id) {
+
+  		Volunteering deletedVolunteering = volunteeringService.findVolunteering(id); //.get()
+  		if(deletedVolunteering != null) {
+  			volunteeringService.delete(id);
+  			return new ResponseEntity<Volunteering>(deletedVolunteering,HttpStatus.OK);
+  		}
+  		else {
+  			return new ResponseEntity<Volunteering>(HttpStatus.NOT_FOUND);
+  		}
+
+  	}
+
+  //update a volunteering
+  	@PutMapping("/{id}")
+  	@JsonView(CompleteVolunteering2.class)
+  	public ResponseEntity<Volunteering> deleteVolunteering(@PathVariable long id, @RequestBody Volunteering updatedVolunteering) {
+
+  		if(volunteeringService.findVolunteering(id) != null) {
+  			updatedVolunteering.setId(id);
+  			ONG ngo = ongComponent.getLoggedUser();
+  			updatedVolunteering.setOng(ngo);
+  			volunteeringService.save(updatedVolunteering);
+  			return new ResponseEntity<Volunteering>(updatedVolunteering,HttpStatus.OK);
+  		}
+  		else {
+  			return new ResponseEntity<Volunteering>(HttpStatus.NOT_FOUND);
+  		}
+
+  	}
 }
