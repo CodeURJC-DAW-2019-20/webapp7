@@ -44,9 +44,15 @@ import com.group7.voluntaweb.services.VolunteeringService;
 @RequestMapping("/api/volunteering")
 
 public class VolunteeringRestController {
-	interface CompleteVolunteering extends Volunteering.Basico, Category.Basico {}
-	interface CompleteVolunteering2 extends Volunteering.Basico, Volunteering.NGO, ONG.Basico, Category.Basico {}
-	interface CompleteVolunteering3 extends Volunteering.Basico{}
+	interface CompleteVolunteering extends Volunteering.Basico, Category.Basico {
+	}
+
+	interface CompleteVolunteering2 extends Volunteering.Basico, Volunteering.NGO, ONG.Basico, Category.Basico {
+	}
+
+	interface CompleteVolunteering3 extends Volunteering.Basico {
+	}
+
 	Date date = new Date();
 
 	@Autowired
@@ -71,70 +77,109 @@ public class VolunteeringRestController {
 	@Autowired
 	private LikeRepository likeRepo;
 
-	
-	//volunteering's list
+	// volunteering's list
 	@GetMapping("/")
 	@JsonView(CompleteVolunteering.class)
 	public Collection<Volunteering> getVolunteerings() {
 		return volunteeringService.findAll();
 	}
 
-	//obtain a volunteering
+	// obtain a volunteering
 	@GetMapping("/{id}")
 	@JsonView(CompleteVolunteering2.class)
 	public ResponseEntity<Volunteering> getVolunteeringId(@PathVariable long id) {
 		Volunteering volunteering = volunteeringService.findVolunteering(id);
-		if(volunteering != null) {
-			return new ResponseEntity<Volunteering>(volunteering,HttpStatus.OK);
-		}
-		else {
+		if (volunteering != null) {
+			return new ResponseEntity<Volunteering>(volunteering, HttpStatus.OK);
+		} else {
 			return new ResponseEntity<Volunteering>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	//create a new volunteering
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    @JsonView(CompleteVolunteering2.class)
-    @ResponseStatus(HttpStatus.CREATED)
-    public Volunteering createVolunteering(@RequestBody Volunteering ad) {
- 
-    	ONG ngo = ongComponent.getLoggedUser();
-    	ad.setOng(ngo);
-        volunteeringService.save(ad);
-        return ad;
-    }
-	
-  //delete volunteering
-  	@DeleteMapping("/{id}")
-  	@JsonView(CompleteVolunteering.class)
-  	public ResponseEntity<Volunteering> deleteVolunteering(@PathVariable long id) {
 
-  		Volunteering deletedVolunteering = volunteeringService.findVolunteering(id); //.get()
-  		if(deletedVolunteering != null) {
-  			volunteeringService.delete(id);
-  			return new ResponseEntity<Volunteering>(deletedVolunteering,HttpStatus.OK);
-  		}
-  		else {
-  			return new ResponseEntity<Volunteering>(HttpStatus.NOT_FOUND);
-  		}
+	// create a new volunteering
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@JsonView(CompleteVolunteering2.class)
+	@ResponseStatus(HttpStatus.CREATED)
+	public Volunteering createVolunteering(@RequestBody Volunteering ad) {
 
-  	}
+		ONG ngo = ongComponent.getLoggedUser();
+		ad.setOng(ngo);
+		volunteeringService.save(ad);
+		return ad;
+	}
 
-  //update a volunteering
-  	@PutMapping("/{id}")
-  	@JsonView(CompleteVolunteering2.class)
-  	public ResponseEntity<Volunteering> deleteVolunteering(@PathVariable long id, @RequestBody Volunteering updatedVolunteering) {
+	// delete volunteering
+	@DeleteMapping("/{id}")
+	@JsonView(CompleteVolunteering.class)
+	public ResponseEntity<Volunteering> deleteVolunteering(@PathVariable long id) {
 
-  		if(volunteeringService.findVolunteering(id) != null) {
-  			updatedVolunteering.setId(id);
-  			ONG ngo = ongComponent.getLoggedUser();
-  			updatedVolunteering.setOng(ngo);
-  			volunteeringService.save(updatedVolunteering);
-  			return new ResponseEntity<Volunteering>(updatedVolunteering,HttpStatus.OK);
-  		}
-  		else {
-  			return new ResponseEntity<Volunteering>(HttpStatus.NOT_FOUND);
-  		}
+		Volunteering deletedVolunteering = volunteeringService.findVolunteering(id); // .get()
+		if (deletedVolunteering != null) {
+			volunteeringService.delete(id);
+			return new ResponseEntity<Volunteering>(deletedVolunteering, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Volunteering>(HttpStatus.NOT_FOUND);
+		}
 
-  	}
+	}
+
+	// update a volunteering
+	@PutMapping("/{id}")
+	@JsonView(CompleteVolunteering2.class)
+	public ResponseEntity<Volunteering> deleteVolunteering(@PathVariable long id,
+			@RequestBody Volunteering updatedVolunteering) {
+
+		if (volunteeringService.findVolunteering(id) != null) {
+			updatedVolunteering.setId(id);
+			ONG ngo = ongComponent.getLoggedUser();
+			updatedVolunteering.setOng(ngo);
+			volunteeringService.save(updatedVolunteering);
+			return new ResponseEntity<Volunteering>(updatedVolunteering, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Volunteering>(HttpStatus.NOT_FOUND);
+		}
+
+	}
+
+	// joining to a volunteering
+	@PostMapping("/{id}")
+	@JsonView(CompleteVolunteering2.class)
+	public ResponseEntity<User> joiningVolunteering(@PathVariable long id) {
+
+		Volunteering vol = volunteeringService.findVolunteering(id);
+		User user = userComponent.getLoggedUser();
+
+		Set<UsersVolunteerings> registrationsSet = user.getRegistrations();
+
+		User userFound = volunteeringService.findJoinedUser(vol.getId(), user.getId());
+		if (userFound == null) {
+			UsersVolunteerings connect = new UsersVolunteerings();
+			connect.setUser(user);
+			connect.setVolunteering(vol);
+			connect.setDate(new Timestamp(new Date().getTime()));
+			registrationsSet.add(connect);
+			user.setRegistrations(registrationsSet);
+			userService.save(user);
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		} else {
+			registrationsSet.remove(userFound);
+			user.setRegistrations(registrationsSet);
+			volunteeringService.deleteJoin(user.getId(), vol.getId());
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		}
+	}
+
+	// like
+//  	@PostMapping("/like/{id}")
+//  	@JsonView(CompleteVolunteering2.class)
+//  	public ResponseEntity<User> likeVolunteering(@PathVariable long id) {
+//  		if(userFound == null) {
+//
+//  			return new ResponseEntity<User>(user,HttpStatus.OK);
+//  		}
+//  		else {
+//
+//  			return new ResponseEntity<User>(user,HttpStatus.OK);
+//  		}
+//  	}
 }
