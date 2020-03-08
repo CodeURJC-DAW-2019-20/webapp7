@@ -26,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Table(name = "users")
 public class User {
 	
+
 	public interface Basico{
 	}
 	
@@ -35,7 +36,7 @@ public class User {
 	public interface Likes{ 
 	}
 	
-	
+
 	@JsonView(Basico.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,6 +50,7 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<Like> likes;
 	
+
 
 	@JsonView(Basico.class)
 	private String name;

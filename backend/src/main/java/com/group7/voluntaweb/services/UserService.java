@@ -23,6 +23,10 @@ public class UserService {
 	public Iterable<User> getAll() {
 		return userRepository.findAll();
 	}
+	
+	public List<User> findAll(){
+		return userRepository.findAll();
+	}
 
 	public User findUser(long userId) {
 		// TODO Auto-generated method stub
