@@ -1,10 +1,7 @@
 package com.group7.voluntaweb.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-
 import org.springframework.data.repository.query.Param;
 
 import com.group7.voluntaweb.models.User;
@@ -20,6 +17,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("SELECT count(*) as number from User where month(registered_at) = :month")
 	int usersPerMonth(@Param("month") int month);
 
+	@Query("SELECT user FROM User user JOIN user.registrations r JOIN r.volunteering volunteering WHERE volunteering.id = :volunteeringId AND user.id = :userId")
+	User findUserVolunteering(@Param("volunteeringId") long volunteeringId, @Param("userId") long userId);
+
 	// @Query("SELECT user FROM User user JOIN user.registrations r JOIN
 	// r.volunteering_id volunteering WHERE volunteering_id = :idVolunteering AND
 	// user_id =:idUser")
@@ -27,7 +27,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	// idVolunteering);
 
 	void deleteById(long id);
-	
-	
 
 }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.group7.voluntaweb.models.Like;
-import com.group7.voluntaweb.models.ONG;
 import com.group7.voluntaweb.models.User;
 import com.group7.voluntaweb.models.Volunteering;
 import com.group7.voluntaweb.repositories.LikeRepository;
@@ -30,10 +29,6 @@ public class VolunteeringService {
 
 	public List<Volunteering> findAll() {
 		return volunteeringRepository.findAll();
-	}
-
-	public User findJoinedUser(long volunteeringId, long userId) {
-		return volunteeringRepository.findUserVolunteering(volunteeringId, userId);
 	}
 
 	public void deleteJoin(long user_id, long volunteering_id) {
