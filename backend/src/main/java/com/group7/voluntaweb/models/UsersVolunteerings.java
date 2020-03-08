@@ -14,21 +14,38 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "users_volunteerings")
 public class UsersVolunteerings {
+	
+	public interface Basico{
+	}
+	
+	public interface Volunteerings{
+	}
+	
+	public interface Users{
+	}
+	
+	
+	@JsonView(Basico.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@JsonView(Users.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	@JsonView(Volunteerings.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "volunteering_id")
 	private Volunteering volunteering;
 
+	@JsonView(Basico.class)
 	@Column(nullable = false)
 	private Timestamp date;
 

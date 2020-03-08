@@ -30,7 +30,7 @@ public class UserService {
 
 	public User findUser(long userId) {
 		// TODO Auto-generated method stub
-		return userRepository.findById(userId);
+		return userRepository.findByid(userId);
 	}
 	
 	public void deleteCount(User user) {

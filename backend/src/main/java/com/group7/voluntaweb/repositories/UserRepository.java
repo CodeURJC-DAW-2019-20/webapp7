@@ -11,7 +11,7 @@ import com.group7.voluntaweb.models.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	User findById(long id);
+	User findByid(long id);
 
 	User findByName(String name);
 
