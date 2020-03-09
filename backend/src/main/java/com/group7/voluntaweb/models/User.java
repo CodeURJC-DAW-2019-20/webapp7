@@ -62,7 +62,6 @@ public class User {
 	@Column(unique = true)
 	private String email;
 
-	@JsonView(Basico.class)
 	private String password;
 	
 	@JsonView(Basico.class)
