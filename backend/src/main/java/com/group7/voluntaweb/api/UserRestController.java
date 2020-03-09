@@ -2,6 +2,8 @@ package com.group7.voluntaweb.api;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +92,8 @@ public class UserRestController {
 	public User createUser(@RequestBody User user) {
 
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+		
+		user.setRegisteredAt(Date.valueOf(LocalDate.now()));
 
 		this.userRepo.save(user);
 
