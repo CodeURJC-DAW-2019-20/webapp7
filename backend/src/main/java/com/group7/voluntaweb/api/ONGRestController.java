@@ -143,22 +143,20 @@ public class ONGRestController {
 		User user = this.userCompo.getLoggedUser();
 		
 		
-		if (!user.getRoles().contains("ROLE_USER")) {
+		if (ngo != null || !user.getRoles().contains("ROLE_USER")) {
 			if (ngo != null && ngo.getId().equals(id)) {
 				
-				System.out.println("1");
-				
+
 				this.ongRepo.deleteById(id);
 				
 				return new ResponseEntity<>(ngo, HttpStatus.OK);
 				
 			} else if(userCompo.getLoggedUser().getRoles().contains("ROLE_ADMIN")) {
-				System.out.println("2");
+
 				this.ongRepo.deleteById(id);
 				
 				return new ResponseEntity<>(ngo, HttpStatus.OK);
 			} else {
-				System.out.println("3");
 				
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 				

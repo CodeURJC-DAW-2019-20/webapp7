@@ -189,7 +189,7 @@ public class VolunteeringRestController {
 	}
 
 	// joining to a volunteering
-	@PostMapping("join/{id}")
+	@PostMapping("/join/{id}")
 	@JsonView(CompleteVolunteering2.class)
 	public ResponseEntity<Volunteering> joiningVolunteering(@PathVariable Long id) {
 
