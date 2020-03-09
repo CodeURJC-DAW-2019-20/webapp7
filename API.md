@@ -683,12 +683,12 @@ The following queries will be preceded by /user.
 * ##### Request Body:
 ```
 {
-    "name": "Paula",
-    "surname": "Fernandez",
-    "email": "paulamm99@gmail.com",
-    "password": "$2a$10$Oc5FpHS1/jAOGOuNS0Ym0uItL0rY0hRBcXne6ChvxaP3PXU36TjRS",
-    "city": "Sevilla",
-    "telephone": "256256256",
+    "name": "Pepe",
+    "surname": "Merino",
+    "email": "pepe99@gmail.com",
+    "password": "12345",
+    "city": "Lugo",
+    "telephone": "677777777",
     "roles": [
         "ROLE_USER"
     ],
@@ -698,15 +698,15 @@ The following queries will be preceded by /user.
 * ##### Success response:
 ```
 {
-    "id": 259,
+    "id": 254,
     "registrations": [],
     "likes": [],
-    "name": "Paula",
-    "surname": "Fernandez",
-    "email": "paulamm99@gmail.com",
-    "password": "$2a$10$Q6a30OYoySA.bLC7jC4Oy.sj4I08RXQF7i9bE9Lyi/X7uC5Xpo4le",
-    "city": "Sevilla",
-    "telephone": "256256256",
+    "name": "Pepe",
+    "surname": "Merino",
+    "email": "pepe99@gmail.com",
+    "password": "12345",
+    "city": "Lugo",
+    "telephone": "677777777",
     "roles": [
         "ROLE_USER"
     ],
@@ -746,7 +746,7 @@ The following queries will be preceded by /user.
 
 **Code**: 
 
-#### Guardar una imagen(?) 
+#### Guardar una imagen 
 
 * ##### URL
 
@@ -758,16 +758,22 @@ The following queries will be preceded by /user.
  
 * ##### Request Body:
 ```
-
+MultipartFile
 ```
 * ##### Success response:
 ```
-
+{
+        "id": 212,
+        "name": "Raul",
+        "surname": "Martínez",
+        "email": "d.fuente.2017@alumnos.urjc.es",
+        "city": "Madrid",
+        "telephone": "666666666",
+        "roles": [],
+        "image": "true",
+        "registeredAt": null
+}
 ```
-* ##### Error response:
-
-**Code**: 
-
 #### Otro metodo de imagenes 
 
 * ##### URL
@@ -778,17 +784,17 @@ The following queries will be preceded by /user.
 
 `GET`
  
-* ##### Request Body:
+* ##### Path Variable:
 ```
-
+`id=[long]`
 ```
 * ##### Success response:
 ```
-
+MultipartFile
 ```
 * ##### Error response:
 
-**Code**:
+**Code**: 404 NOT FOUND
 
 ## Comment
 The following queries will be preceded by /comments.
@@ -1061,52 +1067,6 @@ The following queries will be preceded by /ong.
 * ##### Request Body:
 
 ```
-{
-    "name": "prueba",
-    "password":"prueba",
-    "responsiblename": "Pilar",
-    "responsiblesurname": "Diez",
-    "description": "prueba",
-    "address": "Calle Centro Comercial Mocha Chica, 0 S/N, Villanueva de la cañada",
-    "email": "prueba@prueba.org",
-    "postal": "28691",
-    "image": "true",
-    "volunteerings": [],
-    "telephone": "918152334"
-}
-```
-
-* ##### Success response:
-
-```
-{
-    "id": 262,
-    "name": "prueba",
-    "responsiblename": "Pilar",
-    "responsiblesurname": "Diez",
-    "description": "prueba",
-    "address": "Calle Centro Comercial Mocha Chica, 0 S/N, Villanueva de la cañada",
-    "email": "prueba@prueba.org",
-    "postal": "28691",
-    "image": "true",
-    "volunteerings": [],
-    "telephone": "918152334"
-}
-```
-
-#### Edit a NGO
-
-* ##### URL:
-
-< / >
-
-* ##### Method:
-
-`POST`
-
-* ##### Request Body:
-
-```
 
 ```
 
@@ -1120,102 +1080,3 @@ The following queries will be preceded by /ong.
 
 **Code:** 404 NOT FOUND
 
-#### Delete a NGO
-
-* ##### URL:
-
-< / >
-
-* ##### Method:
-
-`DELETE`
-
-* ##### Request Body:
-
-```
-{
-    "name": "Cruz Roja",
-    "responsiblename": "Pedro Hernandez",
-    "password": "test",
-    "responsiblesurname": "Hernandez",
-    "description": "Médicos",
-    "email": "cruroja@croja.es",
-    "postal": "28007",
-    "image": "true",
-    "telephone": "915411375"
-}
-```
-
-* ##### Success response:
-
-```
-{
-    "id": 267,
-    "name": "Cruz Roja",
-    "responsiblename": "Pedro Hernandez",
-    "responsiblesurname": "Hernandez",
-    "description": "Médicos",
-    "address": null,
-    "email": "cruroja@croja.es",
-    "postal": "28007",
-    "image": "true",
-    "volunteerings": [],
-    "telephone": "915411375"
-}
-```
-
-* ##### Error response:
-
-**Code:** 404 NOT FOUND
-
-#### imagenes
-
-* ##### URL:
-
-< / >
-
-* ##### Method:
-
-`POST`
-
-* ##### Request Body:
-
-```
-
-```
-
-* ##### Success response:
-
-```
-
-```
-
-* ##### Error response:
-
-**Code:** 404 NOT FOUND
-
-#### imagenes2
-
-* ##### URL:
-
-< / >
-
-* ##### Method:
-
-`GET`
-
-* ##### Request Body:
-
-```
-
-```
-
-* ##### Success response:
-
-```
-
-```
-
-* ##### Error response:
-
-**Code:** 404 NOT FOUND
