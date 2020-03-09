@@ -22,14 +22,14 @@ Allows a user to log in.
 
 * ##### URL:
 
-      < /user/login >
+< /user/login >
 
 * ##### Method:
 
-      `GET`
+`GET`
 
 * ##### Success Response:
-    ```
+```
         {
           "id": 65,
           "registrations": [
@@ -52,7 +52,7 @@ Allows a user to log in.
           "password":"cambiarlo en develop"
         }
 
-    ```
+```
  
  
 * ##### Error response:
@@ -64,16 +64,16 @@ Allows a user to log out.
 
 * ##### URL:
 
-     < /user/logout >
+< /user/logout >
 
 * ##### Method:
-   `GET`
+`GET`
 
 * ##### Success Response:
 
-        ```
-          true
-        ```
+```
+   true
+```
 
   * ##### Error Response:
 
@@ -138,7 +138,7 @@ Allows a ngo to log out.
 * ##### Success Response:
 
 ```
-  true
+   true
 ```
 
   * ##### Error Response:
@@ -161,7 +161,7 @@ Resource to show all volunteerings with their data.
 
 * ##### Success Response:
 
-  ```
+```
     [
     {
         "id": 4,
@@ -218,8 +218,8 @@ Resource to show all volunteerings with their data.
         "city": "Alcalá de Henares",
         "email": "informa@cruzroja.es"
     }
-   ]
-   ```
+    ]
+```
  
 * ##### Error Response:
 
@@ -939,7 +939,7 @@ The following queries will be preceded by /ong.
 * ##### Success response:
 
 ```
- [
+  [
     {
         "id": 15,
         "name": "Fundación de Ayuda a los Animales",
@@ -1006,7 +1006,7 @@ The following queries will be preceded by /ong.
 
 **Code:** 404 NOT FOUND
 
-### Find a NGO
+#### Find a NGO
 
 * ##### URL:
 
@@ -1048,7 +1048,7 @@ The following queries will be preceded by /ong.
 
 **Code:** 404 NOT FOUND
 
-### Create a new NGO
+#### Create a new NGO
 
 * ##### URL:
 
