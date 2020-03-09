@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -91,8 +93,15 @@ public class VolunteeringRestController {
 	// volunteering's list
 	@GetMapping("/")
 	@JsonView(CompleteVolunteering.class)
-	public Collection<Volunteering> getVolunteerings() {
-		return volunteeringService.findAll();
+	public Collection<Volunteering> getVolunteerings(@RequestParam(value = "page", required = false) Integer page) {
+		Iterable<Volunteering> volunteerings;
+		if (page != null) {
+			volunteerings = volunteeringService.volunteeringByPage(page, 5);
+		} else {
+			volunteerings = volunteeringService.volunteeringByPage(0, 5);
+		}
+		List<Volunteering> list = StreamSupport.stream(volunteerings.spliterator(), false).collect(Collectors.toList());
+		return list;
 	}
 
 	// obtain a volunteering
@@ -136,7 +145,7 @@ public class VolunteeringRestController {
 
 		Volunteering deletedVolunteering = volunteeringService.findVolunteering(id); // .get()
 		if (isONG) {
-			if (ong.getId() == deletedVolunteering.getOng().getId()) {
+			if (ong.getId().equals(deletedVolunteering.getOng().getId())) {
 				if (deletedVolunteering != null) {
 					volunteeringService.delete(id);
 					return new ResponseEntity<Volunteering>(deletedVolunteering, HttpStatus.OK);
@@ -165,7 +174,7 @@ public class VolunteeringRestController {
 		if (volunteeringService.findVolunteering(id) != null) {
 			updatedVolunteering.setId(id);
 			ONG ngo = ongComponent.getLoggedUser();
-			if (ngo != null && volunteeringService.findVolunteering(id).getOng().getId() == ngo.getId()) {
+			if (ngo != null && volunteeringService.findVolunteering(id).getOng().getId().equals(ngo.getId())) {
 				updatedVolunteering.setOng(ngo);
 				volunteeringService.save(updatedVolunteering);
 				return new ResponseEntity<Volunteering>(updatedVolunteering, HttpStatus.OK);

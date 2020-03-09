@@ -3,6 +3,8 @@ package com.group7.voluntaweb.api;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,7 @@ import com.group7.voluntaweb.models.User;
 import com.group7.voluntaweb.models.Volunteering;
 import com.group7.voluntaweb.repositories.ONGRepository;
 import com.group7.voluntaweb.services.ImageService;
+import com.group7.voluntaweb.services.ONGService;
 
 /*
  * Listar ong, conseguir ong, crear ong, actualizar ong y borrar ong.
@@ -43,7 +46,10 @@ public class ONGRestController {
 	private ONGComponent ongCompo;
 	@Autowired
 	private UserComponent userCompo;
-
+	
+	@Autowired
+	private ONGService service;
+	
 	@Autowired
 	private ImageService imgService;
 
@@ -56,12 +62,17 @@ public class ONGRestController {
 	// All ussers
 	@JsonView(ONGSDetalle.class)
 	@RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	public ResponseEntity<List<ONG>> getNGOS() {
+	public ResponseEntity<List<ONG>> getNGOS(@RequestParam(value = "page", required = false) Integer page) {
 
-		List<ONG> ngos = this.ongRepo.findAll();
-
-		if (ngos != null) {
-			return new ResponseEntity<>(ngos, HttpStatus.OK);
+		Iterable<ONG> ngos;
+		if (page != null) {
+			ngos = service.ongByPage(page, 5);
+		} else {
+			ngos = service.ongByPage(0, 5);
+		}
+		List<ONG> list = StreamSupport.stream(ngos.spliterator(), false).collect(Collectors.toList());
+		if (!list.isEmpty()) {
+			return new ResponseEntity<>(list, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

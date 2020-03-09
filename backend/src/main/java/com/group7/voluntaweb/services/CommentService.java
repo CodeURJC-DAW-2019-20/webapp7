@@ -3,6 +3,8 @@ package com.group7.voluntaweb.services;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.group7.voluntaweb.models.Comment;
@@ -34,4 +36,10 @@ public class CommentService {
 
 	}
 
+	public Iterable<Comment> commentByPage(int pageNumber, int pageSize){
+		PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.unsorted());
+		Iterable<Comment> list = comRepo.findAll(pageRequest);
+		return list;
+	}
+	
 }

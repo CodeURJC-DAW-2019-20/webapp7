@@ -29,10 +29,16 @@ public class SearchRestController {
 	interface VolunteeringSDetalle extends Volunteering.Basico {
 	}
 
-	@JsonView(VolunteeringSDetalle.class)
 	@GetMapping(value = "/search", produces = "application/json;charset=UTF-8")
-	public ResponseEntity<List<Volunteering>> search() {
-		List<Volunteering> list = service.findAll();
+	@JsonView(VolunteeringSDetalle.class)
+	public ResponseEntity<List<Volunteering>> search(@RequestParam(value = "page", required = false) Integer page) {
+		Iterable<Volunteering> volunteerings;
+		if (page != null) {
+			volunteerings = service.volunteeringByPage(page, 5);
+		} else {
+			volunteerings = service.volunteeringByPage(0, 5);
+		}
+		List<Volunteering> list = StreamSupport.stream(volunteerings.spliterator(), false).collect(Collectors.toList());
 		if (!list.isEmpty()) {
 			return new ResponseEntity<>(list, HttpStatus.OK);
 		} else {

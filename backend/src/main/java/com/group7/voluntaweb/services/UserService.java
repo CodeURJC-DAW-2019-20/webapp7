@@ -3,6 +3,8 @@ package com.group7.voluntaweb.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.group7.voluntaweb.models.User;
@@ -49,6 +51,12 @@ public class UserService {
 
 	public User findJoinedUser(Long volunteeringId, Long userId) {
 		return userRepository.findUserVolunteering(volunteeringId, userId);
+	}
+	
+	public Iterable<User> userByPage(int pageNumber, int pageSize){
+		PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.unsorted());
+		Iterable<User> list = userRepository.findAll(pageRequest);
+		return list;
 	}
 
 //	public boolean isJoined(long userId, long volunteeringId) {
