@@ -114,7 +114,12 @@ public class UserRestController {
 
 				user.setRegistrations(this.userRepo.findByid(this.userCompo.getLoggedUser().getId()).getRegistrations());
 				
-				user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+				if(user.getPassword() != null) {
+					user.setPassword(this.userRepo.findByid(this.userCompo.getLoggedUser().getId()).getPassword());
+				}
+				else {
+					user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+				}
 
 				this.userRepo.save(user);
 

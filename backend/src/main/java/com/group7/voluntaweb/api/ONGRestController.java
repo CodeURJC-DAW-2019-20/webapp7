@@ -99,7 +99,14 @@ public class ONGRestController {
 		ngo.setId(this.ongCompo.getLoggedUser().getId());
 
 		if (this.ongRepo.findByid(ngo.getId()) != null) {
-
+			
+			if(ngo.getPassword() != null) {
+				ngo.setPassword(this.ongRepo.findByid(this.ongCompo.getLoggedUser().getId()).getPassword());
+			}
+			else {
+				ngo.setPassword(new BCryptPasswordEncoder().encode(ngo.getPassword()));
+			}
+			
 			this.ongRepo.save(ngo);
 
 			return new ResponseEntity<>(ngo, HttpStatus.OK);
