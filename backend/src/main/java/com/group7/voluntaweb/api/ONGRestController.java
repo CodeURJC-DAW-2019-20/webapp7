@@ -33,7 +33,7 @@ import com.group7.voluntaweb.services.ImageService;
  */
 
 @RestController
-@RequestMapping(value = "/api/ong")
+@RequestMapping(value = "/api/ongs")
 public class ONGRestController {
 
 	@Autowired
@@ -129,22 +129,27 @@ public class ONGRestController {
 	public ResponseEntity<ONG> deleteNGO(@PathVariable Long id) {
 
 		ONG ngo = this.ongCompo.getLoggedUser();
+		User user = this.userCompo.getLoggedUser();
 		
 		
-		if (!userCompo.getLoggedUser().getRoles().contains("ROLE_USER")) {
+		if (!user.getRoles().contains("ROLE_USER")) {
 			if (ngo != null && ngo.getId().equals(id)) {
+				
+				System.out.println("1");
 				
 				this.ongRepo.deleteById(id);
 				
 				return new ResponseEntity<>(ngo, HttpStatus.OK);
 				
 			} else if(userCompo.getLoggedUser().getRoles().contains("ROLE_ADMIN")) {
+				System.out.println("2");
 				this.ongRepo.deleteById(id);
 				
 				return new ResponseEntity<>(ngo, HttpStatus.OK);
 			} else {
+				System.out.println("3");
 				
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 				
 			}
 			

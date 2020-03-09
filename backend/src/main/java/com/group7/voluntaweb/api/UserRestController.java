@@ -38,7 +38,7 @@ import com.group7.voluntaweb.models.Volunteering;
  */
 
 @RestController
-@RequestMapping(value = "/api/user")
+@RequestMapping(value = "/api/users")
 public class UserRestController {
 
 	@Autowired

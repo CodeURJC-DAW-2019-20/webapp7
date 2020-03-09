@@ -47,7 +47,7 @@ import com.group7.voluntaweb.services.UserService;
 import com.group7.voluntaweb.services.VolunteeringService;
 
 @RestController
-@RequestMapping("/api/volunteering")
+@RequestMapping("/api/volunteerings")
 
 public class VolunteeringRestController {
 	interface CompleteVolunteering extends Volunteering.Basico, Category.Basico {

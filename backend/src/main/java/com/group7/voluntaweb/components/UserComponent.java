@@ -36,5 +36,13 @@ public class UserComponent {
 	public boolean isLoggedUser() {
 		return this.user != null;
 	}
+	
+	public boolean isUser() {
+		return true;
+	}
+	
+	public boolean isONG() {
+		return false;
+	}
 
 }

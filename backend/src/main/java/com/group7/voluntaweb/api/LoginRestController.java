@@ -40,7 +40,7 @@ public class LoginRestController {
 	}
 
 	@JsonView(UserDetalle.class)
-	@RequestMapping(value = "/api/user/login", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/api/users/login", produces = "application/json;charset=UTF-8")
 	public ResponseEntity<User> userLogin() {
 		
 		if (!userComponent.isLoggedUser()) {
@@ -53,7 +53,7 @@ public class LoginRestController {
 		}
 	}
 
-	@RequestMapping(value = "/api/user/logout", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/api/users/logout", produces = "application/json;charset=UTF-8")
 	public ResponseEntity<Boolean> userLogout(HttpSession session) {
 
 		if (!userComponent.isLoggedUser()) {
@@ -70,7 +70,7 @@ public class LoginRestController {
 	}
 	
 	@JsonView(ONGDetalle.class)
-	@RequestMapping(value = "/api/ong/login", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/api/ongs/login", produces = "application/json;charset=UTF-8")
 	public ResponseEntity<ONG> ongLogin() {
 		
 		if (!ongComponent.isLoggedUser()) {
@@ -83,7 +83,7 @@ public class LoginRestController {
 		}
 	}
 
-	@RequestMapping(value = "/api/ong/logout", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/api/ongs/logout", produces = "application/json;charset=UTF-8")
 	public ResponseEntity<Boolean> logOut(HttpSession session) {
 
 		if (!ongComponent.isLoggedUser()) {

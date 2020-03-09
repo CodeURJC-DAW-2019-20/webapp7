@@ -35,5 +35,13 @@ public class ONGComponent {
 	public boolean isLoggedUser() {
 		return this.ong != null;
 	}
+	
+	public boolean isONG() {
+		return true;
+	}
+	
+	public boolean isUser() {
+		return false;
+	}
 
 }
