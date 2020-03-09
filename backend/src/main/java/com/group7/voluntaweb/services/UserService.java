@@ -1,9 +1,5 @@
 package com.group7.voluntaweb.services;
 
-import java.util.List;
-
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,24 +28,26 @@ public class UserService {
 		// TODO Auto-generated method stub
 		return userRepository.findByid(userId);
 	}
-	
+
 	public void deleteCount(User user) {
 		userRepository.deleteById(user.getId());
 	}
-	
+
 	private boolean existsById(Long id) {
-        return userRepository.existsById(id);
-    }
-	
+		return userRepository.existsById(id);
+	}
+
 	public void deleteById(Long id) throws Exception {
-        if (!existsById(id)) { 
-            throw new Exception("Cannot find User with id: " + id);
-        }
-        else {
-            userRepository.deleteById(id);
-        }
-    }
-	
+		if (!existsById(id)) {
+			throw new Exception("Cannot find User with id: " + id);
+		} else {
+			userRepository.deleteById(id);
+		}
+	}
+
+	public User findJoinedUser(Long volunteeringId, Long userId) {
+		return userRepository.findUserVolunteering(volunteeringId, userId);
+	}
 
 //	public boolean isJoined(long userId, long volunteeringId) {
 //		long searchingUserId = userRepository.findJoinedUser(userId, volunteeringId);

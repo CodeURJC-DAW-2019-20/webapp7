@@ -91,7 +91,7 @@ public class VolunteeringController {
 
 			Volunteering vol = volunteeringRepo.findById(id);
 
-			User row = volunteeringService.findJoinedUser(id, user.getId());
+			User row = userService.findJoinedUser(id, user.getId());
 			if (row != null) {
 				model.addAttribute("alert", "¡Te has apuntado a este voluntariado!");
 				model.addAttribute("buttonName", "Desapuntarse");
@@ -132,7 +132,7 @@ public class VolunteeringController {
 			@ModelAttribute("user") long userId) {
 		User user = userService.findUser(userId);
 		Volunteering volunteering = volunteeringService.findVolunteering(volunteeringId);
-		if (volunteeringService.findJoinedUser(volunteeringId, userId) == null) {
+		if (userService.findJoinedUser(volunteeringId, userId) == null) {
 			UsersVolunteerings join = new UsersVolunteerings();
 			join.setUser(user);
 			join.setVolunteering(volunteering);

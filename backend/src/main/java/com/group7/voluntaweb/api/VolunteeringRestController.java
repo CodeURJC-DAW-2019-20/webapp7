@@ -1,14 +1,12 @@
 package com.group7.voluntaweb.api;
 
-import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
-import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotEmpty;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.group7.voluntaweb.components.ONGComponent;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.models.Category;
+import com.group7.voluntaweb.models.Like;
 import com.group7.voluntaweb.models.ONG;
 import com.group7.voluntaweb.models.User;
 import com.group7.voluntaweb.models.UsersVolunteerings;
@@ -36,7 +35,6 @@ import com.group7.voluntaweb.repositories.CategoryRepository;
 import com.group7.voluntaweb.repositories.LikeRepository;
 import com.group7.voluntaweb.repositories.ONGRepository;
 import com.group7.voluntaweb.repositories.UserRepository;
-import com.group7.voluntaweb.repositories.VolunteeringRepository;
 import com.group7.voluntaweb.services.UserService;
 import com.group7.voluntaweb.services.VolunteeringService;
 
@@ -142,16 +140,16 @@ public class VolunteeringRestController {
 	}
 
 	// joining to a volunteering
-	@PostMapping("/{id}")
+	@PostMapping("join/{id}")
 	@JsonView(CompleteVolunteering2.class)
-	public ResponseEntity<User> joiningVolunteering(@PathVariable long id) {
+	public ResponseEntity<Volunteering> joiningVolunteering(@PathVariable long id) {
 
 		Volunteering vol = volunteeringService.findVolunteering(id);
-		User user = userComponent.getLoggedUser();
-
+		User user = userService.findUser(userComponent.getLoggedUser().getId());
+		
 		Set<UsersVolunteerings> registrationsSet = user.getRegistrations();
 
-		User userFound = volunteeringService.findJoinedUser(vol.getId(), user.getId());
+		User userFound = userService.findJoinedUser(vol.getId(), user.getId());
 		if (userFound == null) {
 			UsersVolunteerings connect = new UsersVolunteerings();
 			connect.setUser(user);
@@ -160,26 +158,40 @@ public class VolunteeringRestController {
 			registrationsSet.add(connect);
 			user.setRegistrations(registrationsSet);
 			userService.save(user);
-			return new ResponseEntity<User>(user, HttpStatus.OK);
 		} else {
-			registrationsSet.remove(userFound);
-			user.setRegistrations(registrationsSet);
 			volunteeringService.deleteJoin(user.getId(), vol.getId());
-			return new ResponseEntity<User>(user, HttpStatus.OK);
+
 		}
+
+		return new ResponseEntity<Volunteering>(vol, HttpStatus.OK);
 	}
 
-	// like
-//  	@PostMapping("/like/{id}")
-//  	@JsonView(CompleteVolunteering2.class)
-//  	public ResponseEntity<User> likeVolunteering(@PathVariable long id) {
-//  		if(userFound == null) {
-//
-//  			return new ResponseEntity<User>(user,HttpStatus.OK);
-//  		}
-//  		else {
-//
-//  			return new ResponseEntity<User>(user,HttpStatus.OK);
-//  		}
-//  	}
+	// like volunteering
+	@PostMapping("/like/{id}")
+	@JsonView(CompleteVolunteering2.class)
+	public ResponseEntity<Volunteering> likeVolunteering(@PathVariable long id) {
+
+		Volunteering vol = volunteeringService.findVolunteering(id);
+		User user = userService.findUser(userComponent.getLoggedUser().getId());
+		
+		Like like = new Like();
+		
+		like.setUser(user);
+		like.setVolunteering(vol);
+		Set<Like> userLikes = user.getLikes();
+		
+		if (volunteeringService.findLike(vol, user) == null) {
+			userLikes.add(like);
+			user.setLikes(userLikes);
+			userService.save(user);
+		} else {
+			userLikes.remove(like);
+			user.setLikes(userLikes);
+			userRepo.save(user);
+			likeRepo.deleteLike(vol, user);
+
+		}
+
+		return new ResponseEntity<Volunteering>(vol, HttpStatus.OK);
+	}
 }
