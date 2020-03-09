@@ -109,6 +109,8 @@ public class UserRestController {
 				user.setLikes(this.userRepo.findByid(this.userCompo.getLoggedUser().getId()).getLikes());
 
 				user.setRegistrations(this.userRepo.findByid(this.userCompo.getLoggedUser().getId()).getRegistrations());
+				
+				user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
 				this.userRepo.save(user);
 
