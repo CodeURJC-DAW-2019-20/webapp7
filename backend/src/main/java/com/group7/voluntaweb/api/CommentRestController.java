@@ -18,7 +18,7 @@ import com.group7.voluntaweb.models.Comment;
 import com.group7.voluntaweb.services.CommentService;
 
 @RestController
-@RequestMapping("/api/comment")
+@RequestMapping("/api/comments")
 public class CommentRestController {
 	@Autowired
 	private CommentService comService;
