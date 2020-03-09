@@ -1,19 +1,26 @@
 package com.group7.voluntaweb.api;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.group7.voluntaweb.repositories.UserRepository;
+import com.group7.voluntaweb.services.ImageService;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.models.Like;
@@ -37,6 +44,9 @@ public class UserRestController {
 
 	@Autowired
 	UserComponent userCompo;
+	
+	@Autowired
+	ImageService imgService;
 
 	interface UserBasico extends com.group7.voluntaweb.models.User.Basico {
 	}
@@ -135,5 +145,37 @@ public class UserRestController {
 			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
 		}
 	}
+	
+	
+	//Only logged users
+		@JsonView(UserBasico.class)
+		@PostMapping(value = "/image")
+		public ResponseEntity<com.group7.voluntaweb.models.User> uploadImage(@RequestParam MultipartFile imageFile) throws IOException{
+			
+			com.group7.voluntaweb.models.User user = this.userCompo.getLoggedUser();
+			
+			user.setImage("true");
+			
+			this.imgService.saveImage("user",user.getId(), imageFile);
+			
+			return new ResponseEntity<>(user,HttpStatus.OK);
+		}
+		
+		
+		//Anonymous
+		@JsonView(UserBasico.class)
+		@GetMapping(value = "/{id}/image")
+		public ResponseEntity<Object> downloadImage(@PathVariable Long id) throws MalformedURLException{
+
+			com.group7.voluntaweb.models.User user = this.userRepo.findByid(id);
+			
+			if((user != null) && (user.getImage().equals("true"))) {
+								
+				return this.imgService.createResponseFromImage("user", user.getId());
+			}
+			else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}
 
 }
