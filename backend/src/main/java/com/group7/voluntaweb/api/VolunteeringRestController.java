@@ -1,5 +1,7 @@
 package com.group7.voluntaweb.api;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,8 +22,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.group7.voluntaweb.components.ONGComponent;
@@ -37,6 +41,8 @@ import com.group7.voluntaweb.repositories.CategoryRepository;
 import com.group7.voluntaweb.repositories.LikeRepository;
 import com.group7.voluntaweb.repositories.ONGRepository;
 import com.group7.voluntaweb.repositories.UserRepository;
+import com.group7.voluntaweb.repositories.VolunteeringRepository;
+import com.group7.voluntaweb.services.ImageService;
 import com.group7.voluntaweb.services.UserService;
 import com.group7.voluntaweb.services.VolunteeringService;
 
@@ -73,9 +79,14 @@ public class VolunteeringRestController {
 	private UserRepository userRepo;
 	@Autowired
 	private ONGRepository ongRepo;
-
+	@Autowired
+	private VolunteeringRepository volRepo;
+	
 	@Autowired
 	private LikeRepository likeRepo;
+	
+	@Autowired
+	private ImageService imgService;
 
 	// volunteering's list
 	@GetMapping("/")
@@ -215,7 +226,7 @@ public class VolunteeringRestController {
 		User user = userComponent.getLoggedUser();
 
 		if (isUser && !user.getRoles().contains("ROLE_ADMIN")) {
-			
+
 			Like like = new Like();
 
 			like.setUser(user);
@@ -243,6 +254,49 @@ public class VolunteeringRestController {
 			return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
 		}
 
+	}
+
+	// Only logged users
+	@JsonView(CompleteVolunteering3.class)
+	@PostMapping(value = "/image/{id}")
+	public ResponseEntity<Volunteering> uploadImage(@PathVariable Long id, @RequestParam MultipartFile imageFile)
+			throws IOException {
+
+		ONG ngo = this.ongComponent.getLoggedUser();
 		
+		Volunteering volunteering = this.volRepo.findById((long)id);
+		
+		if(ngo.getEmail().equals(volunteering.getEmail())) {
+			
+			volunteering.setImage("true");
+			
+			this.volRepo.save(volunteering);
+			
+			this.imgService.saveImage("volunteerings", id, imageFile);
+			
+			return new ResponseEntity<>(volunteering,HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	// Anonymous
+	@JsonView(CompleteVolunteering3.class)
+	@GetMapping(value = "/image/{id}")
+	public ResponseEntity<Object> downloadImage(@PathVariable Long id) throws MalformedURLException {
+
+		Volunteering volunteering = this.volRepo.findById((long)id);
+		
+		if(volunteering != null && volunteering.getImage().equals("true")) {
+			
+			return this.imgService.createResponseFromImage("volunteerings", volunteering.getId());
+			
+		}
+		else {
+			
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			
+		}
 	}
 }
