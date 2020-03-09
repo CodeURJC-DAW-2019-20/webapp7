@@ -114,7 +114,7 @@ public class UserRestController {
 
 				user.setRegistrations(this.userRepo.findByid(this.userCompo.getLoggedUser().getId()).getRegistrations());
 				
-				if(user.getPassword() != null) {
+				if(user.getPassword() == null) {
 					user.setPassword(this.userRepo.findByid(this.userCompo.getLoggedUser().getId()).getPassword());
 				}
 				else {

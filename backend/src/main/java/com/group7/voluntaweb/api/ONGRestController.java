@@ -100,7 +100,7 @@ public class ONGRestController {
 
 		if (this.ongRepo.findByid(ngo.getId()) != null) {
 			
-			if(ngo.getPassword() != null) {
+			if(ngo.getPassword() == null) {
 				ngo.setPassword(this.ongRepo.findByid(this.ongCompo.getLoggedUser().getId()).getPassword());
 			}
 			else {
