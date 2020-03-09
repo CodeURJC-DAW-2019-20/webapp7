@@ -144,15 +144,17 @@ public class UserRestController {
 		User user = userCompo.getLoggedUser();
 		User deletedUser = userRepo.findByid(id);
 		if (isUser) {
-			if ((user.getRoles().contains("ROLE_USER") && user.getId() == id)
-					|| user.getRoles().contains("ROLE_ADMIN")) {
+			if ((user.getRoles().contains("ROLE_USER") && user.getId().equals(id)) || user.getRoles().contains("ROLE_ADMIN")) {
 				userRepo.delete(deletedUser);
-				return new ResponseEntity<User>(user, HttpStatus.OK);
+				return new ResponseEntity<User>(deletedUser, HttpStatus.OK);
 			} else {
+
+				
 				return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
 			}
 
 		} else {
+			System.out.println("2");
 			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
 		}
 	}
