@@ -21,7 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.group7.voluntaweb.components.ONGComponent;
+import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.models.ONG;
+import com.group7.voluntaweb.models.User;
 import com.group7.voluntaweb.models.Volunteering;
 import com.group7.voluntaweb.repositories.ONGRepository;
 import com.group7.voluntaweb.services.ImageService;
@@ -39,6 +41,8 @@ public class ONGRestController {
 
 	@Autowired
 	private ONGComponent ongCompo;
+	@Autowired
+	private UserComponent userCompo;
 
 	@Autowired
 	private ImageService imgService;
@@ -96,43 +100,58 @@ public class ONGRestController {
 	@RequestMapping(value = "/", method = RequestMethod.PUT /* , produces = "application/json;charset=UTF-8" */)
 	public ResponseEntity<ONG> updateNGO(@RequestBody ONG ngo) {
 
-		ngo.setId(this.ongCompo.getLoggedUser().getId());
+		if (!userCompo.getLoggedUser().getRoles().contains("ROLE_USER")) {
 
-		if (this.ongRepo.findByid(ngo.getId()) != null) {
-			
-			if(ngo.getPassword() == null) {
-				ngo.setPassword(this.ongRepo.findByid(this.ongCompo.getLoggedUser().getId()).getPassword());
-			}
-			else {
-				ngo.setPassword(new BCryptPasswordEncoder().encode(ngo.getPassword()));
-			}
-			
-			this.ongRepo.save(ngo);
+			ngo.setId(this.ongCompo.getLoggedUser().getId());
 
-			return new ResponseEntity<>(ngo, HttpStatus.OK);
+			if (this.ongRepo.findByid(ngo.getId()) != null) {
+
+				if (ngo.getPassword() == null) {
+					ngo.setPassword(this.ongRepo.findByid(this.ongCompo.getLoggedUser().getId()).getPassword());
+				} else {
+					ngo.setPassword(new BCryptPasswordEncoder().encode(ngo.getPassword()));
+				}
+
+				this.ongRepo.save(ngo);
+
+				return new ResponseEntity<>(ngo, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}	
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
 
 	// Only logged ngo
 	@JsonView(ONGDetalle.class)
-	@RequestMapping(value = "/", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
-	public ResponseEntity<ONG> deleteNGO() {
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
+	public ResponseEntity<ONG> deleteNGO(@PathVariable Long id) {
 
 		ONG ngo = this.ongCompo.getLoggedUser();
-
-		if (ngo != null) {
-
-			this.ongRepo.delete(ngo);
-
-			return new ResponseEntity<>(ngo, HttpStatus.OK);
-
+		
+		
+		if (!userCompo.getLoggedUser().getRoles().contains("ROLE_USER")) {
+			if (ngo != null && ngo.getId().equals(id)) {
+				
+				this.ongRepo.deleteById(id);
+				
+				return new ResponseEntity<>(ngo, HttpStatus.OK);
+				
+			} else if(userCompo.getLoggedUser().getRoles().contains("ROLE_ADMIN")) {
+				this.ongRepo.deleteById(id);
+				
+				return new ResponseEntity<>(ngo, HttpStatus.OK);
+			} else {
+				
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				
+			}
+			
 		} else {
-
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
+
 	}
 
 	// Only logged users
