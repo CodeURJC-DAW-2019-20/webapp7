@@ -1084,7 +1084,7 @@ The following queries will be preceded by /ong.
 
 * ##### URL:
 
-< / >
+< /image/{id} >
 
 * ##### Method:
 
@@ -1093,13 +1093,24 @@ The following queries will be preceded by /ong.
 * ##### Request Body:
 
 ```
-
+MultipartFile
 ```
 
 * ##### Success response:
 
 ```
-
+{
+        "id": 29,
+        "name": "Médicos Sin Fronteras",
+        "responsiblename": "Ramón",
+        "responsiblesurname": "Ramirez",
+        "description": "Médicos Sin Fronteras es una organización de acción médico-humanitaria: asistimos a personas amenazadas por             conflictos armados, violencia, epidemias o enfermedades olvidadas, desastres naturales y exclusión de la atención médica.               Nuestros equipos están formados por miles de profesionales de la salud, especialistas en logística y personal administrativo,           unidos y regidos por nuestra carta magna en pos de brindar asistencia humanitaria. La acción humanitaria es un gesto solidario         de sociedad civil a sociedad civil, de persona a persona, cuya finalidad es preservar la vida y aliviar el sufrimiento de               otros seres humanos: esta es nuestra razón de ser. Nuestro accionar está guiado por la ética médica y los principios de                 imparcialidad, independencia y neutralidad, que se encuentran plasmados en nuestra carta magna.",
+        "address": "Calle de Cavanilles, 33, Madrid",
+        "email": "info@msf.es",
+        "postal": "28007",
+        "image": "true",
+        "telephone": "915411375"
+    }
 ```
 
 * ##### Error response:
@@ -1110,22 +1121,22 @@ The following queries will be preceded by /ong.
 
 * ##### URL:
 
-< / >
+< /image/{id} >
 
 * ##### Method:
 
-`POST`
+`GET`
 
-* ##### Request Body:
+* ##### Path Variable:
 
 ```
-
+`id=[long]`
 ```
 
 * ##### Success response:
 
 ```
-
+MultipartFile
 ```
 
 * ##### Error response:
@@ -1134,3 +1145,68 @@ The following queries will be preceded by /ong.
 
 ## Volunteering
 The following queries will be preceded by /volunteering.
+
+#### images
+
+* ##### URL:
+
+< /image/{id} >
+
+* ##### Method:
+
+`POST`
+
+* ##### Request Body, Path Variable:
+
+```
+MultipartFile, `id=[long]`
+```
+
+* ##### Success response:
+
+```
+{
+        "id": 4,
+        "name": "Agente de desarrollo local",
+        "category": {
+            "id": 9,
+            "name": "Protección de animales"
+        },
+        "startdate": "2020-03-08",
+        "enddate": "2020-08-09",
+        "description": "Este proyecto plantea, como objetivo fundamental, desarrollar y fortalecer las capacidades de respuesta de las          Asambleas Locales, Comarcales e Insulares. Tiene como actores principales del mismo a los miembros de Órganos de Gobierno y            personas con responsabilidad en el ámbito de la gestión de Cruz Roja Española en la red local. Decimos que dichas personas              (presidentes/as, vicepresidentes/as, referentes de las distintas áreas/planes, etc.) serán los actores principales ya que a            ellos y ellas corresponderá incorporar e implementar, en sus ámbitos correspondientes, las líneas de trabajo marcadas en este          proyecto, con el apoyo de las estructuras de soporte de otros ámbitos de Cruz Roja, fundamentalmente provinciales o                    autonómicos uniprovinciales. El proyecto quiere incidir sobre los ámbitos clave que afectan a la realidad local: - las                  personas (sus capacidades y relaciones) - los procesos y metodologías - la gestión de los recursos. Para todo esto, por una            parte, se plantea la mejora de las competencias de los Órganos de Gobierno y estructuras de gestión para, entre otros                  aspectos, asegurar el adecuado liderazgo que les corresponde. Asimismo, pretende articular mecanismos efectivos de relación y          coordinación interna (dentro de la propia asamblea) y externa (con otros ámbitos de Cruz Roja, así como con agentes externos).          Y todo ello, además, desarrollando estrategias para garantizar una gestión adecuada con las personas que componen nuestra base          social, fomentando la participación a todos los niveles. Por otra parte, se plantea la adecuada implementación de procesos y            metodologías, adecuadas a la realidad local, que mejoren la eficacia y eficiencia en nuestras respuestas. Siendo uno de los            procesos clave la planificación anual del trabajo de la asamblea local/comarcal/insular, ajustada a la realidad y necesidades          de su entorno y a la estrategia de la propia Organización; apostando, de forma decidida, por la evaluación y la mejora                  continua. Por último, el proyecto persigue propiciar las condiciones para una adecuada y eficiente gestión de los recursos               (económicos, materiales, infraestructuras, humanos, etc.) con que la asamblea cuenta para lograr el cumplimiento de su misión. ",
+        "image": "true",
+        "city": "Alcalá de Henares",
+        "email": "informa@cruzroja.es"
+    }
+```
+
+* ##### Error response:
+
+**Code:** 404 NOT FOUND
+
+#### imagenes2
+
+* ##### URL:
+
+< /image/{id} >
+
+* ##### Method:
+
+`GET`
+
+* ##### Path Variable:
+
+```
+`id=[long]`
+```
+
+* ##### Success response:
+
+```
+MultipartFile
+```
+
+* ##### Error response:
+
+**Code:** 404 NOT FOUND
