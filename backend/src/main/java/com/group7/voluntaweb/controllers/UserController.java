@@ -310,7 +310,7 @@ public class UserController {
 
 	@RequestMapping(value = "/admin/deleteUser/{id}", method = RequestMethod.POST)
 	public String deleteUser(Model model, @PathVariable long id) {
-		User user = userRepo.findById(id);
+		User user = userRepo.findByid(id);
 		userService.deleteCount(user);
 		return "redirect:/admin/users";
 	}

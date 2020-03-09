@@ -41,9 +41,9 @@ public class ONG {
 	private String name;
 
 	@JsonView(Basico.class)
-	private String responsibleName;
+	private String responsiblename;
 	@JsonView(Basico.class)
-	private String responsibleSurname;
+	private String responsiblesurname;
 
 	@JsonView(Basico.class)
 	@Lob
@@ -64,12 +64,12 @@ public class ONG {
 	@OneToMany(mappedBy = "ong", fetch = FetchType.EAGER)
 	private List<Volunteering> volunteerings;
 
-	public ONG(String name, String responsibleName, String responsibleSurname, String address, String description,
+	public ONG(String name, String responsiblename, String responsiblesurname, String address, String description,
 			String email, String postal, String image, String telephone, String password) {
 		super();
 		this.name = name;
-		this.responsibleName = responsibleName;
-		this.responsibleSurname = responsibleSurname;
+		this.responsiblename = responsiblename;
+		this.responsiblesurname = responsiblesurname;
 		this.address = address;
 		this.description = description;
 		this.email = email;
@@ -81,6 +81,8 @@ public class ONG {
 		this.volunteerings = new ArrayList<>();
 	}
 
+	
+	@JsonView(Basico.class)
 	private String telephone;
 
 	private String password;
@@ -110,18 +112,18 @@ public class ONG {
 	}
 
 	public String getResponsibleName() {
-		return responsibleName;
+		return responsiblename;
 	}
 	public void setResponsibleName(String responsibleName) {
-		this.responsibleName = responsibleName;
+		this.responsiblename = responsibleName;
 	}
 
 	public void setResponsibleSurname(String responsibleName) {
-		this.responsibleName = responsibleName;
+		this.responsiblename = responsibleName;
 	}
 
 	public String getResponsibleSurname() {
-		return responsibleSurname;
+		return responsiblesurname;
 	}
 
 

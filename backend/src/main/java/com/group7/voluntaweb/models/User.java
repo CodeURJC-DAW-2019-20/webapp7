@@ -20,34 +20,65 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "users")
 public class User {
+	
+
+	public interface Basico{
+	}
+	
+	public interface UsersVol{
+	}
+	
+	public interface Likes{ 
+	}
+	
+
+	@JsonView(Basico.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	@JsonView(UsersVol.class)
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<UsersVolunteerings> registrations;
 	
+	@JsonView(Likes.class)
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<Like> likes;
 	
 
-	private String name;
 
+	@JsonView(Basico.class)
+	private String name;
+	
+	@JsonView(Basico.class)
 	private String surname;
 
+	@JsonView(Basico.class)
 	@Column(unique = true)
 	private String email;
 
+	@JsonView(Basico.class)
 	private String password;
+	
+	@JsonView(Basico.class)
 	private String city;
+	
+	@JsonView(Basico.class)
 	private String telephone;
+	
+	@JsonView(Basico.class)
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
+	
+	@JsonView(Basico.class)
 	private String image;
 
+	@JsonView(Basico.class)
 	private Date registeredAt;
 
 	public void setId(long id) {
