@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -91,8 +93,15 @@ public class VolunteeringRestController {
 	// volunteering's list
 	@GetMapping("/")
 	@JsonView(CompleteVolunteering.class)
-	public Collection<Volunteering> getVolunteerings() {
-		return volunteeringService.findAll();
+	public Collection<Volunteering> getVolunteerings(@RequestParam(value = "page", required = false) Integer page) {
+		Iterable<Volunteering> volunteerings;
+		if (page != null) {
+			volunteerings = volunteeringService.volunteeringByPage(page, 5);
+		} else {
+			volunteerings = volunteeringService.volunteeringByPage(0, 5);
+		}
+		List<Volunteering> list = StreamSupport.stream(volunteerings.spliterator(), false).collect(Collectors.toList());
+		return list;
 	}
 
 	// obtain a volunteering

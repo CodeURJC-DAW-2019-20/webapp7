@@ -3,6 +3,8 @@ package com.group7.voluntaweb.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.group7.voluntaweb.models.Like;
@@ -51,6 +53,12 @@ public class VolunteeringService {
 
 	public void delete(long id) {
 		volunteeringRepository.deleteById(id);
+	}
+	
+	public Iterable<Volunteering> volunteeringByPage(int pageNumber, int pageSize){
+		PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.unsorted());
+		Iterable<Volunteering> list = volunteeringRepository.findAll(pageRequest);
+		return list;
 	}
 
 	/*

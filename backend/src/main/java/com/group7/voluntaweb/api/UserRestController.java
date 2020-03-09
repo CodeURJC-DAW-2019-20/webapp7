@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.group7.voluntaweb.repositories.UserRepository;
 import com.group7.voluntaweb.services.ImageService;
+import com.group7.voluntaweb.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.models.Like;
@@ -48,6 +51,9 @@ public class UserRestController {
 	UserComponent userCompo;
 	
 	@Autowired
+	UserService service;
+	
+	@Autowired
 	ImageService imgService;
 
 	interface UserBasico extends com.group7.voluntaweb.models.User.Basico {
@@ -60,12 +66,16 @@ public class UserRestController {
 	// AllUsers
 	@JsonView(UserBasico.class)
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ResponseEntity<List<User>> getUsers() {
-
-		List<com.group7.voluntaweb.models.User> users = this.userRepo.findAll();
-
-		if (users != null) {
-			return new ResponseEntity<>(users, HttpStatus.OK);
+	public ResponseEntity<List<User>> getUsers(@RequestParam(value = "page", required = false) Integer page) {
+		Iterable<User> users;
+		if (page != null) {
+			users = service.userByPage(page, 5);
+		} else {
+			users = service.userByPage(0, 5);
+		}
+		List<User> list = StreamSupport.stream(users.spliterator(), false).collect(Collectors.toList());
+		if (!list.isEmpty()) {
+			return new ResponseEntity<>(list, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
