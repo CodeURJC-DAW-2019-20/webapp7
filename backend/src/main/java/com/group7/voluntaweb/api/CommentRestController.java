@@ -14,14 +14,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.models.Comment;
 import com.group7.voluntaweb.services.CommentService;
+import com.group7.voluntaweb.services.UserService;
 
 @RestController
 @RequestMapping("/api/comments")
 public class CommentRestController {
 	@Autowired
 	private CommentService comService;
+	
+	@Autowired
+	private UserComponent userComponent;
+	
+	@Autowired
+	private UserService userService;
 
 	@GetMapping("/")
 	public Collection<Comment> getAll() {
@@ -49,12 +57,17 @@ public class CommentRestController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Comment> deleteComment(@PathVariable Long id) {
-		Comment commentToDelete = comService.findComment(id);
-		if (commentToDelete != null) {
-			comService.deleteComment(id);
-			return new ResponseEntity<>(commentToDelete, HttpStatus.OK);
+		if (userComponent.getLoggedUser().getRoles().contains("ROLE_ADMIN")) {
+			Comment commentToDelete = comService.findComment(id);
+			if (commentToDelete != null) {
+				comService.deleteComment(id);
+				return new ResponseEntity<>(commentToDelete, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
 
