@@ -1080,3 +1080,57 @@ The following queries will be preceded by /ong.
 
 **Code:** 404 NOT FOUND
 
+#### images
+
+* ##### URL:
+
+< / >
+
+* ##### Method:
+
+`POST`
+
+* ##### Request Body:
+
+```
+
+```
+
+* ##### Success response:
+
+```
+
+```
+
+* ##### Error response:
+
+**Code:** 404 NOT FOUND
+
+#### imagenes2
+
+* ##### URL:
+
+< / >
+
+* ##### Method:
+
+`POST`
+
+* ##### Request Body:
+
+```
+
+```
+
+* ##### Success response:
+
+```
+
+```
+
+* ##### Error response:
+
+**Code:** 404 NOT FOUND
+
+## Volunteering
+The following queries will be preceded by /volunteering.
