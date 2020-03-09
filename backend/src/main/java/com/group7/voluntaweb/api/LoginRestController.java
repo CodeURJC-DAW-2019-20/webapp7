@@ -36,7 +36,10 @@ public class LoginRestController {
 	private ONGComponent ongComponent;
 	
 
+	interface UserDetalle extends User.Basico, User.UsersVol, Volunteering.Basico {
+	}
 
+	@JsonView(UserDetalle.class)
 	@RequestMapping(value = "/api/user/login", produces = "application/json;charset=UTF-8")
 	public ResponseEntity<User> userLogin() {
 		

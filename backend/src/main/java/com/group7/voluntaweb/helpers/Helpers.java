@@ -3,6 +3,8 @@ package com.group7.voluntaweb.helpers;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,5 +44,6 @@ public class Helpers {
 		}
 		
 	}
+	
 
 }

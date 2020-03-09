@@ -11,6 +11,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.group7.voluntaweb.components.ONGComponent;
 import com.group7.voluntaweb.components.UserComponent;
+import com.group7.voluntaweb.helpers.Helpers;
 import com.group7.voluntaweb.models.Category;
 import com.group7.voluntaweb.models.Like;
 import com.group7.voluntaweb.models.ONG;
@@ -86,6 +88,7 @@ public class VolunteeringRestController {
 	@GetMapping("/{id}")
 	@JsonView(CompleteVolunteering2.class)
 	public ResponseEntity<Volunteering> getVolunteeringId(@PathVariable long id) {
+
 		Volunteering volunteering = volunteeringService.findVolunteering(id);
 		if (volunteering != null) {
 			return new ResponseEntity<Volunteering>(volunteering, HttpStatus.OK);
@@ -98,25 +101,46 @@ public class VolunteeringRestController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@JsonView(CompleteVolunteering2.class)
 	@ResponseStatus(HttpStatus.CREATED)
-	public Volunteering createVolunteering(@RequestBody Volunteering ad) {
+	public ResponseEntity<Volunteering> createVolunteering(@RequestBody Volunteering ad) {
 
-		ONG ngo = ongComponent.getLoggedUser();
-		ad.setOng(ngo);
-		volunteeringService.save(ad);
-		return ad;
+		if (ongComponent.isLoggedUser() && ongComponent.getLoggedUser().getResponsibleName() != null) {
+			ONG ngo = ongComponent.getLoggedUser();
+			ad.setOng(ngo);
+			Volunteering saved = volunteeringService.save(ad);
+			return new ResponseEntity<Volunteering>(saved, HttpStatus.CREATED);
+
+		}
+
+		return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
+
 	}
 
 	// delete volunteering
 	@DeleteMapping("/{id}")
 	@JsonView(CompleteVolunteering.class)
-	public ResponseEntity<Volunteering> deleteVolunteering(@PathVariable long id) {
+	public ResponseEntity<Volunteering> deleteVolunteering(@PathVariable Long id) {
+		Boolean isONG = ongComponent.getLoggedUser() != null;
+		ONG ong = ongComponent.getLoggedUser();
+		User user = userComponent.getLoggedUser();
 
 		Volunteering deletedVolunteering = volunteeringService.findVolunteering(id); // .get()
-		if (deletedVolunteering != null) {
+		if (isONG) {
+			if (ong.getId() == deletedVolunteering.getOng().getId()) {
+				if (deletedVolunteering != null) {
+					volunteeringService.delete(id);
+					return new ResponseEntity<Volunteering>(deletedVolunteering, HttpStatus.OK);
+				} else {
+					return new ResponseEntity<Volunteering>(HttpStatus.NOT_FOUND);
+				}
+			} else {
+				return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
+			}
+
+		} else if (user.getRoles().contains("ROLE_ADMIN")) {
 			volunteeringService.delete(id);
 			return new ResponseEntity<Volunteering>(deletedVolunteering, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Volunteering>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
 		}
 
 	}
@@ -130,9 +154,14 @@ public class VolunteeringRestController {
 		if (volunteeringService.findVolunteering(id) != null) {
 			updatedVolunteering.setId(id);
 			ONG ngo = ongComponent.getLoggedUser();
-			updatedVolunteering.setOng(ngo);
-			volunteeringService.save(updatedVolunteering);
-			return new ResponseEntity<Volunteering>(updatedVolunteering, HttpStatus.OK);
+			if (ngo != null && volunteeringService.findVolunteering(id).getOng().getId() == ngo.getId()) {
+				updatedVolunteering.setOng(ngo);
+				volunteeringService.save(updatedVolunteering);
+				return new ResponseEntity<Volunteering>(updatedVolunteering, HttpStatus.OK);
+
+			} else {
+				return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
+			}
 		} else {
 			return new ResponseEntity<Volunteering>(HttpStatus.NOT_FOUND);
 		}
@@ -142,28 +171,38 @@ public class VolunteeringRestController {
 	// joining to a volunteering
 	@PostMapping("join/{id}")
 	@JsonView(CompleteVolunteering2.class)
-	public ResponseEntity<Volunteering> joiningVolunteering(@PathVariable long id) {
+	public ResponseEntity<Volunteering> joiningVolunteering(@PathVariable Long id) {
 
+		Boolean isUser = userComponent.getLoggedUser() != null;
 		Volunteering vol = volunteeringService.findVolunteering(id);
-		User user = userService.findUser(userComponent.getLoggedUser().getId());
-		
-		Set<UsersVolunteerings> registrationsSet = user.getRegistrations();
+		User user = userComponent.getLoggedUser();
 
-		User userFound = userService.findJoinedUser(vol.getId(), user.getId());
-		if (userFound == null) {
-			UsersVolunteerings connect = new UsersVolunteerings();
-			connect.setUser(user);
-			connect.setVolunteering(vol);
-			connect.setDate(new Timestamp(new Date().getTime()));
-			registrationsSet.add(connect);
-			user.setRegistrations(registrationsSet);
-			userService.save(user);
+		if (isUser && !user.getRoles().contains("ROLE_ADMIN")) {
+			Set<UsersVolunteerings> registrationsSet = user.getRegistrations();
+
+			User userFound = userService.findJoinedUser(vol.getId(), user.getId());
+			if (userFound == null) {
+				UsersVolunteerings connect = new UsersVolunteerings();
+				connect.setUser(user);
+				connect.setVolunteering(vol);
+				connect.setDate(new Timestamp(new Date().getTime()));
+				registrationsSet.add(connect);
+				user.setRegistrations(registrationsSet);
+				userService.save(user);
+			} else {
+				volunteeringService.deleteJoin(user.getId(), vol.getId());
+
+			}
+
+			return new ResponseEntity<Volunteering>(vol, HttpStatus.OK);
+
+		} else if (!isUser || user.getRoles().contains("ROLE_ADMIN")) {
+
+			return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
 		} else {
-			volunteeringService.deleteJoin(user.getId(), vol.getId());
-
+			return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
 		}
 
-		return new ResponseEntity<Volunteering>(vol, HttpStatus.OK);
 	}
 
 	// like volunteering
@@ -171,27 +210,39 @@ public class VolunteeringRestController {
 	@JsonView(CompleteVolunteering2.class)
 	public ResponseEntity<Volunteering> likeVolunteering(@PathVariable long id) {
 
+		Boolean isUser = userComponent.getLoggedUser() != null;
 		Volunteering vol = volunteeringService.findVolunteering(id);
-		User user = userService.findUser(userComponent.getLoggedUser().getId());
-		
-		Like like = new Like();
-		
-		like.setUser(user);
-		like.setVolunteering(vol);
-		Set<Like> userLikes = user.getLikes();
-		
-		if (volunteeringService.findLike(vol, user) == null) {
-			userLikes.add(like);
-			user.setLikes(userLikes);
-			userService.save(user);
-		} else {
-			userLikes.remove(like);
-			user.setLikes(userLikes);
-			userRepo.save(user);
-			likeRepo.deleteLike(vol, user);
+		User user = userComponent.getLoggedUser();
 
+		if (isUser && !user.getRoles().contains("ROLE_ADMIN")) {
+			
+			Like like = new Like();
+
+			like.setUser(user);
+			like.setVolunteering(vol);
+			Set<Like> userLikes = user.getLikes();
+
+			if (volunteeringService.findLike(vol, user) == null) {
+				userLikes.add(like);
+				user.setLikes(userLikes);
+				userService.save(user);
+			} else {
+				userLikes.remove(like);
+				user.setLikes(userLikes);
+				userRepo.save(user);
+				likeRepo.deleteLike(vol, user);
+
+			}
+
+			return new ResponseEntity<Volunteering>(vol, HttpStatus.OK);
+
+		} else if (!isUser || user.getRoles().contains("ROLE_ADMIN")) {
+
+			return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
+		} else {
+			return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
 		}
 
-		return new ResponseEntity<Volunteering>(vol, HttpStatus.OK);
+		
 	}
 }

@@ -23,8 +23,8 @@ public class VolunteeringService {
 		return volunteeringRepository.findById(id);
 	}
 
-	public void save(Volunteering anuncio) {
-		volunteeringRepository.save(anuncio);
+	public Volunteering save(Volunteering anuncio) {
+		return volunteeringRepository.save(anuncio);
 	}
 	
 	public List<Volunteering> findAll() {

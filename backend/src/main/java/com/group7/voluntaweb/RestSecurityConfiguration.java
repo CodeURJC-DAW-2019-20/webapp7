@@ -28,12 +28,30 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/user/login").authenticated();
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/ong/login").authenticated();
 		
-		// URLs that need authentication to access to it
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/books/").hasRole("USER");
-		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/books/**").hasRole("ADMIN");
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/books/**").hasRole("ADMIN");
-		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN");		
+		//Volunteerings
+//		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/volunteering/").permitAll();
+//		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/volunteering/").hasRole("ADMIN");
+//		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/volunteering/").not().hasAnyRole("USER", "ADMIN");
+//		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/volunteering/").not().hasAnyRole("USER");
+//		
+//		//ONGs
+//		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/ong/").permitAll();
+//		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/ong/").permitAll();
+//		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/ong/").not().hasAnyRole("USER", "ADMIN");
+//		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/ong/").not().hasAnyRole("USER");
+//		
+//		//Comments
+//		
+//		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/comment/").hasAnyRole("ADMIN");
+//		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/comment/").permitAll();
+//		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/comment/").hasRole("ADMIN");
+//		
+//		// Search
+//		
+//		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/search/**").permitAll();
+//		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/search**").permitAll();
 		
+
 		// Other URLs can be accessed without authentication
 		http.authorizeRequests().anyRequest().permitAll();
 
