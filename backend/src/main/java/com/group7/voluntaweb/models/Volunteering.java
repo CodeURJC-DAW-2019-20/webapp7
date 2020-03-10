@@ -39,28 +39,28 @@ public class Volunteering {
 	@OneToMany(mappedBy = "volunteering", fetch = FetchType.EAGER)
 	private Set<Like> likes;
 
-	// @NotEmpty
+	@NotEmpty
 	@JsonView(Basico.class)
 	private String name;
 
-	// @NotEmpty
+	@NotEmpty
 	@JsonView(Basico.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Category category;
-	// @NotEmpty
+	@NotEmpty
 	@JsonView(Basico.class)
 	private Date startdate;
-	// @NotEmpty
+	@NotEmpty
 	@JsonView(Basico.class)
 	private Date enddate;
-	// @NotEmpty
+	@NotEmpty
 	@JsonView(Basico.class)
 	@Lob
 	private String description;
 	// @NotEmpty
 	@JsonView(Basico.class)
 	private String image;
-	// @NotEmpty
+	@NotEmpty
 	@JsonView(Basico.class)
 	private String city;
 
@@ -68,7 +68,7 @@ public class Volunteering {
 	@JsonView(NGO.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	private ONG ong;
-	// @NotEmpty
+	@NotEmpty
 	@JsonView(Basico.class)
 	private String email;
 

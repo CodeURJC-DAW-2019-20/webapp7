@@ -53,21 +53,26 @@ public class User {
 
 
 	@JsonView(Basico.class)
+	@NotEmpty
 	private String name;
 	
 	@JsonView(Basico.class)
+	@NotEmpty
 	private String surname;
 
 	@JsonView(Basico.class)
 	@Column(unique = true)
 	private String email;
 
+	@NotEmpty
 	private String password;
 	
 	@JsonView(Basico.class)
+	@NotEmpty
 	private String city;
 	
 	@JsonView(Basico.class)
+	@NotEmpty
 	private String telephone;
 	
 	@JsonView(Basico.class)
@@ -78,6 +83,7 @@ public class User {
 	private String image;
 
 	@JsonView(Basico.class)
+	@NotEmpty
 	private Date registeredAt;
 
 	public void setId(long id) {

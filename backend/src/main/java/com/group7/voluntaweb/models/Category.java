@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.group7.voluntaweb.models.Volunteering.Basico;
@@ -22,13 +23,13 @@ public class Category {
 	private long id;
 	
 	@JsonView(Basico.class)
+	@NotEmpty
 	private String name;
 	                
 	public Category(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}
-	
 	
 	public Category() {
 		

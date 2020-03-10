@@ -129,8 +129,8 @@ public class ONGController {
 	}
 
 	@PostMapping("/add-ong") // ONG REGISTER ACTION
-	public String addOng(@RequestParam String name, @RequestParam String email, @RequestParam String responsibleName,
-			@RequestParam String responsibleSurname, @RequestParam String address, @RequestParam String telephone,
+	public String addOng(@RequestParam String name, @RequestParam String email, @RequestParam String responsiblename,
+			@RequestParam String responsiblesurname, @RequestParam String address, @RequestParam String telephone,
 			@RequestParam String postal, @RequestParam String password, @RequestParam String description,
 			@RequestParam MultipartFile imagenFile, Map<String, Object> model) throws IOException {
 
@@ -138,7 +138,7 @@ public class ONGController {
 
 		String encPassword = new BCryptPasswordEncoder().encode(password); // ENCRYPT PASSWORD
 
-		ONG ong = new ONG(name, responsibleName, responsibleSurname, address, description, email, postal, "true",
+		ONG ong = new ONG(name, responsiblename, responsiblesurname, address, description, email, postal, "true",
 				telephone, encPassword);
 
 		this.ongService.save(ong); // INSERT INTO DATABASE

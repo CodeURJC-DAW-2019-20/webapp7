@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Lob;
 
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -37,24 +38,31 @@ public class ONG {
 	private Long id;
 
 	@JsonView(Basico.class)
+	@NotEmpty
 	// @Column(unique = true)
 	private String name;
 
 	@JsonView(Basico.class)
+	@NotEmpty
 	private String responsiblename;
 	@JsonView(Basico.class)
+	@NotEmpty
 	private String responsiblesurname;
 
 	@JsonView(Basico.class)
+	@NotEmpty
 	@Lob
 	private String description;
 
 	@JsonView(Basico.class)
+	@NotEmpty
 	private String address;
 
 	@JsonView(Basico.class)
+	@NotEmpty
 	private String email;
 	@JsonView(Basico.class)
+	@NotEmpty
 	private String postal;
 	@JsonView(Basico.class)
 	private String image;
@@ -83,8 +91,9 @@ public class ONG {
 
 	
 	@JsonView(Basico.class)
+	@NotEmpty
 	private String telephone;
-
+	@NotEmpty
 	private String password;
 
 	public Long getId() {
