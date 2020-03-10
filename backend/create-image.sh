@@ -3,7 +3,7 @@
 
 path_docker=$(pwd)
 path_project=$(pwd)
-path_jar=$path_project/target
+path_jar=$path_project
 
 
 cd $path_docker
