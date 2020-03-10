@@ -98,11 +98,11 @@ Allows a ngo to log in.
      "responsiblename": "Juan Pablo",
      "responsiblesurname": "Ramirez",
      "description": "Médicos Sin Fronteras es una organización de acción médico-     humanitaria: asistimos a personas amenazadas por conflictos armados, violencia, epidemias o enfermedades olvidadas, desastres naturales y exclusión de la atención médica.  Nuestros equipos están formados por miles de profesionales de la salud, especialistas en logística y personal administrativo, unidos y regidos por nuestra carta magna en pos de brindar asistencia humanitaria. La acción humanitaria es un gesto solidario de sociedad civil a sociedad civil, de persona a persona, cuya finalidad es preservar la vida y aliviar el sufrimiento de otros seres humanos: esta es nuestra razón de ser. Nuestro accionar está guiado por la ética médica y los principios de imparcialidad, independencia y neutralidad, que se encuentran plasmados en nuestra carta magna.",
-       "address": "Calle de Cavanilles, 33, Madrid",
-       "email": "info@msf.es",
-       "postal": "28007",
-       "image": "true",
-       "volunteerings": [
+     "address": "Calle de Cavanilles, 33, Madrid",
+     "email": "info@msf.es",
+     "postal": "28007",
+     "image": "true",
+     "volunteerings": [
                         {
                          "id": 232,
                          "name": "Agente de desarrollo local 3",
@@ -110,13 +110,13 @@ Allows a ngo to log in.
                          "startdate": "2020-03-08",
                          "enddate": "2020-08-09",
                           "description": "Este proyecto plantea, como objetivo fundamental, desarrollar y fortalecer las capacidades de respuesta de las Asambleas Locales, Comarcales e Insulares. Tiene como actores principales del mismo a los miembros de Órganos de Gobierno y personas con responsabilidad en el ámbito de la gestión de Cruz Roja Española en la red local. Decimos que dichas personas (presidentes/as, vicepresidentes/as, referentes de las distintas áreas/planes, etc.) serán los actores principales ya que a ellos y ellas corresponderá incorporar e implementar, en sus ámbitos correspondientes, las líneas de trabajo marcadas en este proyecto, con el apoyo de las estructuras de soporte de otros ámbitos de Cruz Roja, fundamentalmente provinciales o autonómicos uniprovinciales. El proyecto quiere incidir sobre los ámbitos clave que afectan a la realidad local: - las personas (sus capacidades y relaciones) - los procesos y metodologías - la gestión de los recursos. Para todo esto, por una parte, se plantea la mejora de las competencias de los Órganos de Gobierno y estructuras de gestión para, entre otros aspectos, asegurar el adecuado liderazgo que les corresponde. Asimismo, pretende articular mecanismos efectivos de relación y coordinación interna (dentro de la propia asamblea) y externa (con otros ámbitos de Cruz Roja, así como con agentes externos). Y todo ello, además, desarrollando estrategias para garantizar una gestión adecuada con las personas que componen nuestra base social, fomentando la participación a todos los niveles. Por otra parte, se plantea la adecuada implementación de procesos y metodologías, adecuadas a la realidad local, que mejoren la eficacia y eficiencia en nuestras respuestas. Siendo uno de los procesos clave la planificación anual del trabajo de la asamblea local/comarcal/insular, ajustada a la realidad y necesidades de su entorno y a la estrategia de la propia Organización; apostando, de forma decidida, por la evaluación y la mejora continua. Por último, el proyecto persigue propiciar las condiciones para una adecuada y eficiente gestión de los recursos (económicos, materiales, infraestructuras, humanos, etc.) con que la asamblea cuenta para lograr el cumplimiento de su misión. ",
-                          "image": "true",
-                          "city": "Alcalá de Henares",
-                          "email": "informa@cruzroja.es"
+                         "image": "true",
+                         "city": "Alcalá de Henares",
+                         "email": "informa@cruzroja.es"
                         }
                         ],
-       "telephone": "915411375"
-          }
+     "telephone": "915411375"
+    }
 ```
 
   * ##### Error Response:
@@ -1374,6 +1374,164 @@ MultipartFile, `id=[long]`
 
 ```
 MultipartFile
+```
+
+* ##### Error response:
+
+**Code:** 404 NOT FOUND
+
+## Volunteering
+The following queries will be preceded by /volunteering.
+
+#### Search volunteerings
+
+* ##### URL:
+
+< /search >
+
+* ##### Method:
+
+`GET`
+
+* ##### Success response:
+
+```
+ [
+    {
+        "id": 4,
+        "name": "Agente de desarrollo local",
+        "category": {},
+        "startdate": "2020-03-08",
+        "enddate": "2020-08-09",
+        "description": "Este proyecto plantea, como objetivo fundamental, desarrollar y fortalecer las capacidades de respuesta de las Asambleas Locales, Comarcales e Insulares. Tiene como actores principales del mismo a los miembros de Órganos de Gobierno y personas con responsabilidad en el ámbito de la gestión de Cruz Roja Española en la red local. Decimos que dichas personas (presidentes/as, vicepresidentes/as, referentes de las distintas áreas/planes, etc.) serán los actores principales ya que a ellos y ellas corresponderá incorporar e implementar, en sus ámbitos correspondientes, las líneas de trabajo marcadas en este proyecto, con el apoyo de las estructuras de soporte de otros ámbitos de Cruz Roja, fundamentalmente provinciales o autonómicos uniprovinciales. El proyecto quiere incidir sobre los ámbitos clave que afectan a la realidad local: - las personas (sus capacidades y relaciones) - los procesos y metodologías - la gestión de los recursos. Para todo esto, por una parte, se plantea la mejora de las competencias de los Órganos de Gobierno y estructuras de gestión para, entre otros aspectos, asegurar el adecuado liderazgo que les corresponde. Asimismo, pretende articular mecanismos efectivos de relación y coordinación interna (dentro de la propia asamblea) y externa (con otros ámbitos de Cruz Roja, así como con agentes externos). Y todo ello, además, desarrollando estrategias para garantizar una gestión adecuada con las personas que componen nuestra base social, fomentando la participación a todos los niveles. Por otra parte, se plantea la adecuada implementación de procesos y metodologías, adecuadas a la realidad local, que mejoren la eficacia y eficiencia en nuestras respuestas. Siendo uno de los procesos clave la planificación anual del trabajo de la asamblea local/comarcal/insular, ajustada a la realidad y necesidades de su entorno y a la estrategia de la propia Organización; apostando, de forma decidida, por la evaluación y la mejora continua. Por último, el proyecto persigue propiciar las condiciones para una adecuada y eficiente gestión de los recursos (económicos, materiales, infraestructuras, humanos, etc.) con que la asamblea cuenta para lograr el cumplimiento de su misión. ",
+        "image": "true",
+        "city": "Alcalá de Henares",
+        "email": "informa@cruzroja.es"
+    },
+    {
+        "id": 97,
+        "name": "Concierto solidario contra la pobreza y la marginación",
+        "category": {},
+        "startdate": "2021-03-04",
+        "enddate": "2021-03-05",
+        "description": "¡Por un poco de música en nuestras vidas! Además de fomentar valores positivos y contar con múltiples beneficios, la música refuerza capacidades y aptitudes en los más pequeños. Desde Ayuda en Acción te invitamos a participar en nuestro concierto solidario Acordes con Solidaridad el próximo 4 de Marzo de 2021 en el Teatro Real de Madrid. Además de disfrutar de la mano del director Pablo Heras-Casado y la Orquesta Sinfónica de Madrid, estarás contribuyendo a una buena causa: luchar contra la pobreza infantil en España.  Todos los fondos recaudados serán destinados a nuestro programa Aquí también, que apoya a la infancia y familias en riesgo de pobreza y exclusión en nuestro país. ¿Quieres disfrutar de una de las actividades solidarias para niños más esperadas del año? ¡Te esperamos!",
+        "image": "true",
+        "city": "Buenos Aires",
+        "email": "informacion@ayudaenaccion.org"
+    },
+    {
+        "id": 98,
+        "name": "Cuidado infantil",
+        "category": {},
+        "startdate": "2020-05-05",
+        "enddate": "2020-07-18",
+        "description": "El Programa de Voluntariado de Cuidado Infantil con sede en Pamplona, en una casa de acogida para niños. La casa tiene alrededor de 6-8 niños en el grupo de edad de hasta 3 años en un momento dado. Si bien la mayoría de los niños son adoptados cuando cruzan tres, hay otros niños que necesitan atención y cuidado continuos. Los viajeros en su año sabático que buscan oportunidades para trabajar para niños pueden optar por ser voluntarios para este proyecto. Esta puede ser una gran experiencia de aprendizaje para los voluntarios, ya que pueden pasar tiempo con los niños pequeños y probar su propio nivel de paciencia y resistencia. Este programa es muy adecuado para aquellos que aman estar cerca de los niños y pueden manejarlos realmente bien.",
+        "image": "true",
+        "city": "Pamplona",
+        "email": "informa@aventura.org"
+    },
+    {
+        "id": 128,
+        "name": "Ayudar a los de tercera edad",
+        "category": {},
+        "startdate": "2020-03-27",
+        "enddate": "2020-05-30",
+        "description": "Prueba de editar",
+        "image": "false",
+        "city": "Valencia",
+        "email": "valencia@aventura.org"
+    },
+    {
+        "id": 129,
+        "name": "Ayudar a los de tercera edad",
+        "category": {},
+        "startdate": "2020-03-29",
+        "enddate": "2020-05-18",
+        "description": "Comprobando que lo haga bien",
+        "image": "false",
+        "city": "Valencia",
+        "email": "valencia@aventura.org"
+    }
+ ]
+```
+
+* ##### Error response:
+
+**Code:** 404 NOT FOUND
+
+#### Look for category or a concreted word
+
+* ##### URL:
+
+< /search/?keyword=word>
+< /search/?category=category-number>
+
+* ##### Method:
+
+`GET`
+
+* ##### Example of query:
+
+* URL
+
+`/search/`
+
+| KEY | VALUE |
+| ------------- | ------------- |
+| keyword  | desarrollo  |
+
+| KEY | VALUE |
+| ------------- | ------------- |
+| category  | 1  |
+
+* ##### Query Params:
+
+```
+`key = keyword, value = "word"`
+`key = category, value = "category-number"`
+```
+
+* ##### Success response with keyword:
+
+```
+[
+    {
+        "id": 4,
+        "name": "Agente de desarrollo local",
+        "image": "true",
+        "city": "Alcalá de Henares",
+        "category": "Protección de animales",
+        "ong": "Fundación de Ayuda a los Animales"
+    },
+    {
+        "id": 232,
+        "name": "Agente de desarrollo local 3",
+        "image": "true",
+        "city": "Alcalá de Henares",
+        "category": "Protección de animales",
+        "ong": "Médicos Sin Fronteras"
+    }
+]
+```
+
+* ##### Success response with category:
+
+```
+
+| Category's number | Category |
+| ------------- | ------------- |
+| 1  | Ayuda Humanitaria |
+
+[
+    {
+        "id": 98,
+        "name": "Cuidado infantil",
+        "image": "true",
+        "city": "Pamplona",
+        "category": "Ayuda Humanitaria",
+        "ong": "Fundación de Ayuda a los Animales"
+    }
+]
 ```
 
 * ##### Error response:
