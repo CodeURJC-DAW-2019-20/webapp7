@@ -192,6 +192,8 @@ public class UserRestController {
 
 			com.group7.voluntaweb.models.User user = this.userRepo.findByid(id);
 			
+			System.out.println(user.getName());
+			
 			if((user != null) && (user.getImage().equals("true"))) {
 								
 				return this.imgService.createResponseFromImage("user", user.getId());
