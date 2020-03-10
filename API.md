@@ -22,7 +22,7 @@ Allows a user to log in.
 
 * ##### URL:
 
-< /user/login >
+< /users/login >
 
 * ##### Method:
 
@@ -63,7 +63,7 @@ Allows a user to log out.
 
 * ##### URL:
 
-< /user/logout >
+< /users/logout >
 
 * ##### Method:
 `GET`
@@ -82,12 +82,10 @@ Allows a user to log out.
 Allows a ngo to log in.
 
 * ##### URL:
-
-     < /ong/login >
+< /ongs/login >
 
 * ##### Method:
-
-     `GET`
+`GET`
 
 * ##### Success Response:
 
@@ -114,7 +112,7 @@ Allows a ngo to log in.
                          "city": "Alcalá de Henares",
                          "email": "informa@cruzroja.es"
                         }
-                        ],
+                     ],
      "telephone": "915411375"
     }
 ```
@@ -128,7 +126,7 @@ Allows a ngo to log out.
 
 * ##### URL:
 
-< /ong/logout >
+< /ongs/logout >
 
 * ##### Method:
 
@@ -262,7 +260,7 @@ The following queries will be preceded by /user.
 
 * ##### URL
 
-< /{id}>
+< /{id} >
 
 * ##### Método:
 
@@ -302,7 +300,7 @@ The following queries will be preceded by /user.
 
 * ##### URL
 
-< />
+< / >
 
 * ##### Method:
 
@@ -340,9 +338,6 @@ The following queries will be preceded by /user.
     "registeredAt": null
 }
 ```
-* ##### Error response:
-
-**Code**: hay que ponerlo
 
 #### Edit an user 
 
@@ -470,7 +465,7 @@ The following queries will be preceded by /user.
 
 `POST`
  
-* ##### Request Body:
+* ##### Request Param:
 ```
 MultipartFile
 ```
@@ -523,6 +518,12 @@ The following queries will be preceded by /comments.
 
 `GET`
 
+* ##### Request Param:
+```
+Integer
+
+```
+
 * ##### Success response:
 
 ```
@@ -552,7 +553,7 @@ The following queries will be preceded by /comments.
 
 `GET`
 
-* ##### URL Params:
+* ##### Path Variable:
 
 `id=[long]`
 
@@ -641,7 +642,7 @@ The following queries will be preceded by /comments.
 
 * ##### Error response:
 
-**Code:** 404 NOT FOUND
+**Code:** 404 NOT FOUND AND 401 UNAUTHORIZED
 
 ## NGO
 The following queries will be preceded by /ong.
@@ -655,6 +656,12 @@ The following queries will be preceded by /ong.
 * ##### Method:
 
 `GET`
+
+* ##### Request Param:
+```
+Integer
+
+```
 
 * ##### Success response:
 
@@ -831,12 +838,75 @@ The following queries will be preceded by /ong.
 * ##### Success response:
 
 ```
-
+{
+    "id": 298,
+    "name": "Save the children 4",
+    "responsiblename": "Arcones",
+    "responsiblesurname": "García",
+    "description": "Todos los niños tienen derecho a un futuro. En España y en todo el mundo, trabajamos cada día para asegurar que todos los niños sobreviven, aprenden y están protegidos frente a la violencia. Cuando se produce una emergencia, y los niños son más vulnerables, somos siempre los primeros en llegar y los últimos en marcharnos. Atendemos las necesidades de los niños y nos aseguramos de que sus voces son escuchadas. Conseguimos cambios duraderos en la vida de millones de niños, incluso en aquellos a los que cuesta más llegar.  Hacemos todo lo que sea necesario para lograr que todos los niños, cada día y cuando ocurre una emergencia, puedan cambiar sus vidas y el futuro que estamos construyendo juntos.",
+    "address": "Calle del Dr. Esquerdo, 138, Madrid",
+    "email": "recep.central@savethechildren.org",
+    "postal": "28007",
+    "image": null,
+    "volunteerings": [],
+    "telephone": "999999999"
+}
 ```
 
 * ##### Error response:
 
-**Code:** 404 NOT FOUND
+**Code:** 401 UNAUTHORIZED
+
+#### Update a NGO
+
+* ##### URL:
+
+< / >
+
+* ##### Method:
+
+`PUT`
+
+* ##### Request Body:
+
+```
+{
+    "id": 56,
+    "name": "Cuidar de los más pequeños",
+    "responsiblename": "Jose",
+    "responsiblesurname": "Perez",
+    "description": "Tenemos el placer de darle la bienvenida a la Fundación de Ayuda a los Animales (F.A.A.).En donde el respeto a los animales, al amor y el cariño que sentimos hacia ellos es lo que mueve a nuestra Fundación a luchar día a día por todos aquellos animales que sufren el comportamiento inhumano con el que algunas personas premian su ayuda y fidelidad. Por eso desde la Fundación de Ayuda a los Animales luchamos para que todos los animales puedan tener una vida digna y para que animales abandonados puedan recibir el amor, la amistad y lealtad que merecen. Desde la FAA apoyamos a Organizaciones y Albergues dedicados a esta difícil lucha que es la Defensa de los Animales. Por otro lado, consideramos que colaborar en la lucha por un mundo más justo con los animales es colaborar por un mundo más solidario y menos violento en general",
+    "address": "Calle Centro Comercial Mocha Chica",
+    "email": "joseperez@coronavirus.org",
+    "postal": "28691",
+    "image": "true",
+    "volunteerings": null,
+    "telephone": "8989898"
+}
+```
+
+* ##### Success response:
+
+```
+{
+    "id": 56,
+    "name": "Cuidar de los más pequeños",
+    "responsiblename": "Jose",
+    "responsiblesurname": "Perez",
+    "description": "Tenemos el placer de darle la bienvenida a la Fundación de Ayuda a los Animales (F.A.A.).En donde el respeto a los animales, al amor y el cariño que sentimos hacia ellos es lo que mueve a nuestra Fundación a luchar día a día por todos aquellos animales que sufren el comportamiento inhumano con el que algunas personas premian su ayuda y fidelidad. Por eso desde la Fundación de Ayuda a los Animales luchamos para que todos los animales puedan tener una vida digna y para que animales abandonados puedan recibir el amor, la amistad y lealtad que merecen. Desde la FAA apoyamos a Organizaciones y Albergues dedicados a esta difícil lucha que es la Defensa de los Animales. Por otro lado, consideramos que colaborar en la lucha por un mundo más justo con los animales es colaborar por un mundo más solidario y menos violento en general",
+    "address": "Calle Centro Comercial Mocha Chica",
+    "email": "joseperez@coronavirus.org",
+    "postal": "28691",
+    "image": "true",
+    "volunteerings": null,
+    "telephone": "8989898"
+}
+```
+
+* ##### Error response:
+
+**Code:** 401 UNAUTHORIZED AND 404 NOT FOUND
+
 
 #### Upload an image
 
@@ -903,6 +973,7 @@ MultipartFile
 
 ## Volunteering
 The following queries will be preceded by /volunteering.
+
 #### Volunteering's List
 
 * ##### URL:
@@ -912,6 +983,12 @@ The following queries will be preceded by /volunteering.
 * ##### Method:
 
 `GET`
+
+* ##### Request Param:
+```
+Integer
+
+```
 
 * ##### Success response:
 
@@ -1319,16 +1396,22 @@ The following queries will be preceded by /volunteering.
 
 * ##### URL:
 
-< /image >
+< /image/{id} >
 
 * ##### Method:
 
 `POST`
 
-* ##### Request Body, Path Variable:
+* ##### Request Body:
 
 ```
-MultipartFile, `id=[long]`
+`MultipartFile`
+```
+
+* ##### Path Variable:
+
+```
+`id=[long]`
 ```
 
 * ##### Success response:
@@ -1358,7 +1441,7 @@ MultipartFile, `id=[long]`
 
 * ##### URL:
 
-< /{id}/image >
+< /image/{id} >
 
 * ##### Method:
 
@@ -1380,7 +1463,7 @@ MultipartFile
 
 **Code:** 404 NOT FOUND
 
-## Volunteering
+## Search
 The following queries will be preceded by /volunteering.
 
 #### Search volunteerings
@@ -1392,6 +1475,10 @@ The following queries will be preceded by /volunteering.
 * ##### Method:
 
 `GET`
+
+* ##### Request Param:
+
+`Integer`
 
 * ##### Success response:
 
@@ -1516,12 +1603,11 @@ The following queries will be preceded by /volunteering.
 
 * ##### Success response with category:
 
-```
-
 | Category's number | Category |
 | ------------- | ------------- |
 | 1  | Ayuda Humanitaria |
 
+```
 [
     {
         "id": 98,
