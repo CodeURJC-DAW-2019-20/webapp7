@@ -1217,7 +1217,7 @@ Integer
 
 ```
 {
-	"id": "279",
+    "id": "279",
     "name": "Agente de desarrollo",
     "category": {
         "id": 9,
