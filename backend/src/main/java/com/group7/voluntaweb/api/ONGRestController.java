@@ -176,6 +176,8 @@ public class ONGRestController {
 		ONG ngo = this.ongCompo.getLoggedUser();
 
 		ngo.setImage("true");
+		
+		this.ongRepo.save(ngo);
 
 		this.imgService.saveImage("ong", ngo.getId(), imageFile);
 
