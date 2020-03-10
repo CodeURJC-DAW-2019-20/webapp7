@@ -56,6 +56,10 @@ We're implemented graphic charts:
 #### Class diagram
 <img src="./diagrams/UpdatedClassDiagram.svg"> 
 
+#### Class diagram phase 4 (with rest controllers)
+<img src="./diagrams/ClassDiagramF4.svg">
+
+
 ### Screenshots
 ![](./screenshots/F2-index.PNG)
 #### Description
@@ -129,6 +133,7 @@ For the development of this application we have used Spring in its latest versio
 * Install Sprint Tools 4 from the Eclipse Marketplace.
 * Import the project: File> Import> Maven> Existing Maven Projects> Browse directory > Select folder of the project and finish.
 
+
 ## Commits list Part 2
 | Miembro | 5 Commits más relevantes | 
 | ------------- | ------------- |
@@ -147,3 +152,5 @@ For the development of this application we have used Spring in its latest versio
 | Pablo Atahonero  | Contenido de la celda  | Contenido de la celda  |
 | Daniel Fuente  | Contenido de la celda  | Contenido de la celda  |
 | Daniel Serrano  | Contenido de la celda  | Contenido de la celda  |
+
+
