@@ -56,6 +56,9 @@ We're implemented graphic charts:
 #### Class diagram
 <img src="./diagrams/UpdatedClassDiagram.svg"> 
 
+#### Class diagram phase 4 (with rest controllers)
+<img src="./diagrams/ClassDiagramF4.svg">
+
 ### Screenshots
 ![](./screenshots/F2-index.PNG)
 #### Description
