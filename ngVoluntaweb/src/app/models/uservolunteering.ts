@@ -1,9 +1,12 @@
+import { User } from './user';
+import { Volunteering } from './volunteering';
+
 export class UserVolunteering{
     constructor(
         public id:number,
-        public userId:number,
-        public volunteeringId:number,
-        public timeStamp: Date
+        public user:User,
+        public volunteering:Volunteering,
+        public Timestamp: Date
     ){
 
     }
