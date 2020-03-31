@@ -1,7 +1,7 @@
-export class ONG{
+export class NGO{
     constructor(
         public id:number,
-        public nombre:string,
+        public name:string,
         public responsibleName:string,
         public responsibleSurname:string,
         public description:string,
