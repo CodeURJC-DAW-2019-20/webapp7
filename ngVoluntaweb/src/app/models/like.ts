@@ -1,7 +1,10 @@
+import { User } from './user';
+import { Volunteering } from './volunteering';
+
 export class Like{
     constructor(
         public id: number,
-        public user_id: number,
-        public volunteering_id: number
+        public user: User,
+        public volunteering: Volunteering
     ){}
 }
