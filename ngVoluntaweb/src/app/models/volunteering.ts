@@ -1,8 +1,10 @@
+import { Category } from './category';
+
 export class Volunteering{
     constructor(
         public id:number,
         public name:string,
-        public categoryId:number,
+        public category:Category,
         public startDate:Date,
         public endDate:Date,
         public description:string,
