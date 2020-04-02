@@ -24,6 +24,9 @@
               "src/assets"
             ],
             "styles": [
+              "src/assets/css/plugins.css",
+              "src/assets/css/style.css",
+              "src/assets/css/templete.css",
               "src/styles.css"
             ],
             "scripts": []
