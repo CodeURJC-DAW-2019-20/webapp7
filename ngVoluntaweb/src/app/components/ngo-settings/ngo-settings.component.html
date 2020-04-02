@@ -1,0 +1,137 @@
+<div class="page-content bg-white">
+    <!-- inner page banner -->
+    <div class="dez-bnr-inr overlay-black-middle"
+        style = "background-image:url(/assets/images/background/Volunteerswalk.jpg);">
+        <div class="container">
+            <div class="dez-bnr-inr-entry">
+                <h1 class="text-white">Ajustes de ONG</h1>
+                <!-- Breadcrumb row -->
+                <div class="breadcrumb-row">
+                    <ul class="list-inline">
+                        <li><a href="#">Inicio</a></li>
+                        <li>Ajustes de ONG</li>
+                    </ul>
+                </div>
+                <!-- Breadcrumb row END -->
+            </div>
+        </div>
+    </div>
+    <!-- inner page banner END -->
+    <!-- panel area -->
+    <div class="py-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                
+                <div class ="card mb-2">
+                    <div class="card-header"><a href="#">Crear Anuncio</a></div>
+                </div>
+                
+                <div class ="card mb-2">
+                    <div class="card-header"><a href="#">Editar Anuncio</a></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Mi cuenta</div>
+
+                    <div class="card-body">
+                        <!-- Settings form -->
+                        <!--<form method="POST" action="ong-settings-form" enctype="multipart/form-data">-->
+                        <form #ngoSettings = "ngForm" (ngSubmit) = "onSubmit(formNgo)">
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">Nombre ONG</label>
+
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control" name="name" #name = "ngModel" [(ngModel)] = "ngo.name"
+                                        placeholder="Nombre ONG" required autocomplete="name" autofocus>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label for="responsible_name" class="col-md-4 col-form-label text-md-right">Nombre Responsable</label>
+
+                                <div class="col-md-6">
+                                    <input id="responsible_name" type="text" class="form-control" name="responsible_name" #responsiblename = "ngModel" [(ngModel)] = "ngo.responsiblename"
+                                        placeholder="Nombre Responsable" required autocomplete="responsible_name" autofocus>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label for="responsible_surname" class="col-md-4 col-form-label text-md-right">Apellidos Responsable</label>
+
+                                <div class="col-md-6">
+                                    <input id="responsible_surname" type="text" class="form-control" name="responsible_surname" #responsiblesurname = "ngModel" [(ngModel)] = "ngo.responsiblesurname"
+                                        placeholder="Apellidos Responsable" required autocomplete="responsible_surname" autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="address"
+                                    class="col-md-4 col-form-label text-md-right">Dirección</label>
+
+                                <div class="col-md-6">
+                                    <input id="address" type="text" class="form-control" name="address" #address = "ngModel" [(ngModel)] = "ngo.address"
+                                        placeholder="Dirección" required autocomplete="address" autofocus>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label for="postal" class="col-md-4 col-form-label text-md-right">Código Postal</label>
+
+                                <div class="col-md-6">
+                                    <input id="postal" rows="4" class="form-control" name="postal" #postal = "ngModel" [(ngModel)] = "ngo.postal"
+                                        placeholder="Código Postal" required autocomplete="postal" autofocus>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label for="description"
+                                    class="col-md-4 col-form-label text-md-right">Descripción</label>
+
+                                <div class="col-md-6">
+                                    <input id="description" type="text" class="form-control" name="description" #description = "ngModel" [(ngModel)] = "ngo.description"
+                                        placeholder="Descripción" required autocomplete="description" autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control" name="email" #email = "ngModel" [(ngModel)] = "ngo.email"
+                                        placeholder="Email" required autocomplete="email">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label for="telephone" class="col-md-4 col-form-label text-md-right">Teléfono</label>
+
+                                <div class="col-md-6">
+                                    <input id="email" type="telephone" class="form-control" name="telephone" #telephone = "ngModel" [(ngModel)] = "ngo.telephone"
+                                        placeholder="Teléfono" required autocomplete="telephone">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="imagenFile" class="col-md-4 col-form-label text-md-right">Foto de
+                                    perfil</label>
+
+                                <div class="col-md-6">
+                                    <input id="imagenFile" type="file" class="form-control" name="imagenFile"
+                                        autocomplete="image" placeholder=".jpg" accept=".jpg">
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Guardar cambios
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
