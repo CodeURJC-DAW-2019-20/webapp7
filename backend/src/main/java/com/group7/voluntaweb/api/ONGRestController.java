@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.components.ONGComponent;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.models.ONG;
@@ -52,6 +53,9 @@ public class ONGRestController {
 	
 	@Autowired
 	private ImageService imgService;
+	
+	@Autowired
+	private GenericComponent genCompo ;
 
 	interface ONGDetalle extends ONG.Basico, ONG.Ads, Volunteering.Basico {
 	}
@@ -110,15 +114,17 @@ public class ONGRestController {
 	@JsonView(ONGDetalle.class)
 	@RequestMapping(value = "/", method = RequestMethod.PUT /* , produces = "application/json;charset=UTF-8" */)
 	public ResponseEntity<ONG> updateNGO(@RequestBody ONG ngo) {
-
-		if (!userCompo.getLoggedUser().getRoles().contains("ROLE_USER")) {
-
-			ngo.setId(this.ongCompo.getLoggedUser().getId());
+		
+		if (genCompo.getLoggedUser() instanceof ONG) {
+			
+			ONG loggedNgo = (ONG) this.genCompo.getLoggedUser();
+			
+			ngo.setId(loggedNgo.getId());
 
 			if (this.ongRepo.findByid(ngo.getId()) != null) {
 
 				if (ngo.getPassword() == null) {
-					ngo.setPassword(this.ongRepo.findByid(this.ongCompo.getLoggedUser().getId()).getPassword());
+					ngo.setPassword(this.ongRepo.findByid(loggedNgo.getId()).getPassword());
 				} else {
 					ngo.setPassword(new BCryptPasswordEncoder().encode(ngo.getPassword()));
 				}

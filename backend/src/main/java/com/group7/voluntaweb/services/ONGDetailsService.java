@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.components.ONGComponent;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.models.ONG;
@@ -31,19 +32,24 @@ public class ONGDetailsService implements UserDetailsService {
 	private UserComponent userComponent;
 	@Autowired
 	private ONGComponent ongComponent;
+	@Autowired
+	private GenericComponent genComponent;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// first try loading from User table
 		User user = userRepository.findByEmail(username);
+		
+		
 		if (user != null) {
-			userComponent.setLoggedUser(user);
+			
+			genComponent.setLoggedUser(user);
 			return new CustomUserDetails(user.getEmail(), user.getPassword(), user.getName());
 		} else {
 			// Not found in user table, so check ong
 			ONG ong = ongRepository.findByEmail(username);
 			if (ong != null) {
-				ongComponent.setLoggedUser(ong);
+				genComponent.setLoggedUser(ong);
 				return new CustomUserDetails(ong.getEmail(), ong.getPassword(), null);
 			}
 		}
