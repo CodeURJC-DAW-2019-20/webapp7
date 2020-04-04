@@ -1,6 +1,5 @@
 package com.group7.voluntaweb;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -73,7 +72,7 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// Users
 		auth.inMemoryAuthentication().withUser("user").password("pass").roles("USER");
 
-		auth.inMemoryAuthentication().withUser("admin@admin.com").password("{noop}password").roles("USER", "ADMIN");
+		//auth.inMemoryAuthentication().withUser("admin@admin.com").password("{noop}password").roles("USER", "ADMIN");
 
 		auth.authenticationProvider(authProvider());
 	}

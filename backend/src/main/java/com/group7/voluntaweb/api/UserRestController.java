@@ -27,6 +27,7 @@ import com.group7.voluntaweb.repositories.UserRepository;
 import com.group7.voluntaweb.services.ImageService;
 import com.group7.voluntaweb.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.models.Like;
 import com.group7.voluntaweb.models.ONG;
@@ -49,10 +50,13 @@ public class UserRestController {
 
 	@Autowired
 	UserComponent userCompo;
-	
+
+	@Autowired
+	GenericComponent genCompo;
+
 	@Autowired
 	UserService service;
-	
+
 	@Autowired
 	ImageService imgService;
 
@@ -102,7 +106,7 @@ public class UserRestController {
 	public User createUser(@RequestBody User user) {
 
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-		
+
 		user.setRegisteredAt(Date.valueOf(LocalDate.now()));
 
 		this.userRepo.save(user);
@@ -114,22 +118,23 @@ public class UserRestController {
 	@JsonView(UserCompuesto.class)
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
 	public ResponseEntity<User> updateUser(@RequestBody User user) {
-		
-		if(userCompo.getLoggedUser().getRoles().contains("ROLE_USER")) {
-			user.setId(this.userCompo.getLoggedUser().getId());
+
+		if (genCompo.getLoggedUser() instanceof User) {
+
+			User loggedUser = (User) this.genCompo.getLoggedUser();
+
+			user.setId(loggedUser.getId());
 
 			if (this.userRepo.findByid(user.getId()) != null) {
-
-				user.setLikes(this.userRepo.findByid(this.userCompo.getLoggedUser().getId()).getLikes());
-
-				user.setRegistrations(this.userRepo.findByid(this.userCompo.getLoggedUser().getId()).getRegistrations());
-				
-				if(user.getPassword() == null) {
-					user.setPassword(this.userRepo.findByid(this.userCompo.getLoggedUser().getId()).getPassword());
-				}
-				else {
+				if (user.getPassword() == null) {
+					user.setPassword(this.userRepo.findByid(loggedUser.getId()).getPassword());
+				} else {
 					user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 				}
+
+				user.setLikes(loggedUser.getLikes());
+
+				user.setRegistrations(loggedUser.getRegistrations());
 
 				this.userRepo.save(user);
 
@@ -137,70 +142,72 @@ public class UserRestController {
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
-			
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
-
-		
 	}
 
 	// Only logged users
 	@JsonView(UserCompuesto.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-
-		Boolean isUser = userCompo.getLoggedUser() != null;
-		User user = userCompo.getLoggedUser();
-		User deletedUser = userRepo.findByid(id);
-		if (isUser) {
-			if ((user.getRoles().contains("ROLE_USER") && user.getId().equals(id)) || user.getRoles().contains("ROLE_ADMIN")) {
-				userRepo.delete(deletedUser);
-				return new ResponseEntity<User>(deletedUser, HttpStatus.OK);
-			} else {
-
+		
+		User deletedUser = this.createUser(userRepo.findByid(id));
+		
+		if (deletedUser != null) {
+			if (genCompo.getLoggedUser() instanceof User) {
 				
-				return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+				User user = (User) this.genCompo.getLoggedUser();
+
+				if (user.getRoles().contains("ROLE_ADMIN") || user.getId().equals(id)) {
+					this.userRepo.deleteById(id);
+
+					return new ResponseEntity<>(deletedUser, HttpStatus.OK);
+				} else {
+
+					return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+				}
+
+			}
+			else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
 
 		} else {
-			System.out.println("2");
-			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	
-	//Only logged users
-		@JsonView(UserBasico.class)
-		@PostMapping(value = "/image")
-		public ResponseEntity<com.group7.voluntaweb.models.User> uploadImage(@RequestParam MultipartFile imageFile) throws IOException{
-			
-			com.group7.voluntaweb.models.User user = this.userCompo.getLoggedUser();
-			
-			user.setImage("true");
-			
-			this.imgService.saveImage("user",user.getId(), imageFile);
-			
-			return new ResponseEntity<>(user,HttpStatus.OK);
-		}
-		
-		
-		//Anonymous
-		@JsonView(UserBasico.class)
-		@GetMapping(value = "/{id}/image")
-		public ResponseEntity<Object> downloadImage(@PathVariable Long id) throws MalformedURLException{
 
-			com.group7.voluntaweb.models.User user = this.userRepo.findByid(id);
-			
-			System.out.println(user.getName());
-			
-			if((user != null) && (user.getImage().equals("true"))) {
-								
-				return this.imgService.createResponseFromImage("user", user.getId());
-			}
-			else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
+	// Only logged users
+	@JsonView(UserBasico.class)
+	@PostMapping(value = "/image")
+	public ResponseEntity<com.group7.voluntaweb.models.User> uploadImage(@RequestParam MultipartFile imageFile)
+			throws IOException {
+
+		com.group7.voluntaweb.models.User user = this.userCompo.getLoggedUser();
+
+		user.setImage("true");
+
+		this.imgService.saveImage("user", user.getId(), imageFile);
+
+		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+
+	// Anonymous
+	@JsonView(UserBasico.class)
+	@GetMapping(value = "/{id}/image")
+	public ResponseEntity<Object> downloadImage(@PathVariable Long id) throws MalformedURLException {
+
+		com.group7.voluntaweb.models.User user = this.userRepo.findByid(id);
+
+		System.out.println(user.getName());
+
+		if ((user != null) && (user.getImage().equals("true"))) {
+
+			return this.imgService.createResponseFromImage("user", user.getId());
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
 
 }

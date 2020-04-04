@@ -55,8 +55,12 @@ public class GenericComponent {
 	}
 
 	public boolean isLoggedUser() {
-		return this.ong != null;
-	}
+        return this.user != null;
+    }
+	
+    public boolean isLoggedONG() {
+        return this.ong != null;
+    }
 	
 	public boolean isONG() {
 		return true;

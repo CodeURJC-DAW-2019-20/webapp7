@@ -42,6 +42,8 @@ public class ONGRestController {
 
 	@Autowired
 	private ONGRepository ongRepo;
+	
+	
 
 	@Autowired
 	private ONGComponent ongCompo;
@@ -145,33 +147,45 @@ public class ONGRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
 	public ResponseEntity<ONG> deleteNGO(@PathVariable Long id) {
 
-		ONG ngo = this.ongCompo.getLoggedUser();
-		User user = this.userCompo.getLoggedUser();
-		
-		
-		if (ngo != null || !user.getRoles().contains("ROLE_USER")) {
-			if (ngo != null && ngo.getId().equals(id)) {
+		if(this.ongRepo.findByid(id) != null) {
+			if (genCompo.getLoggedUser() instanceof ONG) {
 				
+				ONG ngo = (ONG) this.genCompo.getLoggedUser();
+				
+				
+				if (ngo.getId().equals(id)) {
 
-				this.ongRepo.deleteById(id);
+					this.ongRepo.deleteById(id);
+					
+					return new ResponseEntity<>(ngo, HttpStatus.OK);
+				} else {
+					
+					return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+					
+				}
 				
-				return new ResponseEntity<>(ngo, HttpStatus.OK);
+			} else if(genCompo.getLoggedUser() instanceof User){
 				
-			} else if(userCompo.getLoggedUser().getRoles().contains("ROLE_ADMIN")) {
-
-				this.ongRepo.deleteById(id);
+				User user = (User) this.genCompo.getLoggedUser();
 				
-				return new ResponseEntity<>(ngo, HttpStatus.OK);
-			} else {
-				
-				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-				
+				if(user.getRoles().contains("ROLE_ADMIN")) {
+					ONG deletedNgo = this.ongRepo.findByid(id);
+					
+					this.ongRepo.deleteById(id);
+					
+					return new ResponseEntity<>(deletedNgo, HttpStatus.OK);	
+				}
+				else {
+					return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+				}
 			}
-			
-		} else {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
 		}
-
+		else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	// Only logged users
