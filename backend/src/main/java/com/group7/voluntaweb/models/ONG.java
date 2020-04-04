@@ -38,36 +38,27 @@ public class ONG {
 	private Long id;
 
 	@JsonView(Basico.class)
-	@NotEmpty
-	// @Column(unique = true)
 	private String name;
 
 	@JsonView(Basico.class)
-	@NotEmpty
 	private String responsiblename;
 	@JsonView(Basico.class)
-	@NotEmpty
 	private String responsiblesurname;
 
 	@JsonView(Basico.class)
-	@NotEmpty
 	@Lob
 	private String description;
 
 	@JsonView(Basico.class)
-	@NotEmpty
 	private String address;
 
 	@JsonView(Basico.class)
-	@NotEmpty
 	private String email;
 	@JsonView(Basico.class)
-	@NotEmpty
 	private String postal;
 	@JsonView(Basico.class)
 	private String image;
 
-	//@JsonIgnore
 	@JsonView(Ads.class)
 	@OneToMany(mappedBy = "ong", fetch = FetchType.EAGER)
 	private List<Volunteering> volunteerings;

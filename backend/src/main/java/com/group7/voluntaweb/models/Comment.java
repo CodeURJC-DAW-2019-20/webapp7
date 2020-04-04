@@ -28,8 +28,6 @@ import javax.validation.constraints.NotNull;
 			this.id = id;
 		}
 
-
-		@NotEmpty
 		private String name;
 
 
@@ -41,7 +39,6 @@ import javax.validation.constraints.NotNull;
 			this.name = name;
 		}
 		
-		@NotEmpty
 		private String email;
 		
 		public String getEmail() {
@@ -53,7 +50,6 @@ import javax.validation.constraints.NotNull;
 			this.email = email;
 		}
 		
-		@NotEmpty
 		@Lob
 		private String message;
 

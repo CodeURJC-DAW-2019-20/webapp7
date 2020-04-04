@@ -39,42 +39,40 @@ public class Volunteering {
 	@OneToMany(mappedBy = "volunteering", fetch = FetchType.EAGER)
 	private Set<Like> likes;
 
-	@NotEmpty
 	@JsonView(Basico.class)
 	private String name;
 
-	@NotEmpty
 	@JsonView(Basico.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Category category;
-	@NotEmpty
+
 	@JsonView(Basico.class)
 	private Date startdate;
-	@NotEmpty
+
 	@JsonView(Basico.class)
 	private Date enddate;
-	@NotEmpty
+
 	@JsonView(Basico.class)
 	@Lob
 	private String description;
-	// @NotEmpty
+
 	@JsonView(Basico.class)
 	private String image;
-	@NotEmpty
+
 	@JsonView(Basico.class)
 	private String city;
 
-	// @NotEmpty
+
 	@JsonView(NGO.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	private ONG ong;
-	@NotEmpty
+
 	@JsonView(Basico.class)
 	private String email;
 
-	public Volunteering(Set<UsersVolunteerings> joined_users, @NotEmpty String name, @NotEmpty Category category,
-			@NotEmpty Date startdate, @NotEmpty Date enddate, @NotEmpty String description, @NotEmpty String image,
-			@NotEmpty String city, @NotEmpty String email) {
+	public Volunteering(Set<UsersVolunteerings> joined_users, String name, Category category,
+			Date startdate, Date enddate, String description, String image,
+			String city, String email) {
 		super();
 
 		this.name = name;

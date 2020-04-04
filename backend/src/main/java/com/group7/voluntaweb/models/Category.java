@@ -23,7 +23,6 @@ public class Category {
 	private long id;
 	
 	@JsonView(Basico.class)
-	@NotEmpty
 	private String name;
 	                
 	public Category(Long id, String name) {
