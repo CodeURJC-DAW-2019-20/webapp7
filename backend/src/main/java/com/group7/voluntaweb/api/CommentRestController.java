@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.models.Comment;
+import com.group7.voluntaweb.models.User;
 import com.group7.voluntaweb.services.CommentService;
 import com.group7.voluntaweb.services.UserService;
 
@@ -28,6 +30,9 @@ import com.group7.voluntaweb.services.UserService;
 public class CommentRestController {
 	@Autowired
 	private CommentService comService;
+	
+	@Autowired
+	private GenericComponent genCompo;
 	
 	@Autowired
 	private UserComponent userComponent;
@@ -67,15 +72,21 @@ public class CommentRestController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Comment> deleteComment(@PathVariable Long id) {
-		if (userComponent.getLoggedUser().getRoles().contains("ROLE_ADMIN")) {
-			Comment commentToDelete = comService.findComment(id);
-			if (commentToDelete != null) {
-				comService.deleteComment(id);
-				return new ResponseEntity<>(commentToDelete, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) this.genCompo.getLoggedUser();
+			if(user.getRoles().contains("ROLE_ADMIN")) {
+				Comment commentToDelete = comService.findComment(id);
+				if (commentToDelete != null) {
+					comService.deleteComment(id);
+					return new ResponseEntity<>(commentToDelete, HttpStatus.OK);
+				} else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}
-			
+			else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}

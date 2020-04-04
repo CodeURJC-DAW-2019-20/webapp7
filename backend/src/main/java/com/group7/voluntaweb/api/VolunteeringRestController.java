@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.components.ONGComponent;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.helpers.Helpers;
@@ -64,6 +65,9 @@ public class VolunteeringRestController {
 	Date date = new Date();
 
 	@Autowired
+	private GenericComponent genCompo;
+
+	@Autowired
 	private VolunteeringService volunteeringService;
 
 	@Autowired
@@ -83,10 +87,10 @@ public class VolunteeringRestController {
 	private ONGRepository ongRepo;
 	@Autowired
 	private VolunteeringRepository volRepo;
-	
+
 	@Autowired
 	private LikeRepository likeRepo;
-	
+
 	@Autowired
 	private ImageService imgService;
 
@@ -123,12 +127,11 @@ public class VolunteeringRestController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Volunteering> createVolunteering(@RequestBody Volunteering ad) {
 
-		if (ongComponent.isLoggedUser() && ongComponent.getLoggedUser().getResponsibleName() != null) {
-			ONG ngo = ongComponent.getLoggedUser();
+		if (genCompo.isLoggedONG()) {
+			ONG ngo = (ONG) genCompo.getLoggedUser();
 			ad.setOng(ngo);
 			Volunteering saved = volunteeringService.save(ad);
 			return new ResponseEntity<Volunteering>(saved, HttpStatus.CREATED);
-
 		}
 
 		return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
@@ -139,12 +142,13 @@ public class VolunteeringRestController {
 	@DeleteMapping("/{id}")
 	@JsonView(CompleteVolunteering.class)
 	public ResponseEntity<Volunteering> deleteVolunteering(@PathVariable Long id) {
-		Boolean isONG = ongComponent.getLoggedUser() != null;
-		ONG ong = ongComponent.getLoggedUser();
-		User user = userComponent.getLoggedUser();
+		// Boolean isONG = ongComponent.getLoggedUser() != null;
 
 		Volunteering deletedVolunteering = volunteeringService.findVolunteering(id); // .get()
-		if (isONG) {
+		if (this.genCompo.getLoggedUser() instanceof ONG) {
+
+			ONG ong = (ONG) this.genCompo.getLoggedUser();
+
 			if (ong.getId().equals(deletedVolunteering.getOng().getId())) {
 				if (deletedVolunteering != null) {
 					volunteeringService.delete(id);
@@ -156,9 +160,16 @@ public class VolunteeringRestController {
 				return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
 			}
 
-		} else if (user.getRoles().contains("ROLE_ADMIN")) {
-			volunteeringService.delete(id);
-			return new ResponseEntity<Volunteering>(deletedVolunteering, HttpStatus.OK);
+		} else if (this.genCompo.getLoggedUser() instanceof User) {
+
+			User user = (User) this.genCompo.getLoggedUser();
+
+			if (user.getRoles().contains("ROLE_ADMIN")) {
+				volunteeringService.delete(id);
+				return new ResponseEntity<Volunteering>(deletedVolunteering, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
+			}
 		} else {
 			return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
 		}
@@ -173,15 +184,20 @@ public class VolunteeringRestController {
 
 		if (volunteeringService.findVolunteering(id) != null) {
 			updatedVolunteering.setId(id);
-			ONG ngo = ongComponent.getLoggedUser();
-			if (ngo != null && volunteeringService.findVolunteering(id).getOng().getId().equals(ngo.getId())) {
-				updatedVolunteering.setOng(ngo);
-				volunteeringService.save(updatedVolunteering);
-				return new ResponseEntity<Volunteering>(updatedVolunteering, HttpStatus.OK);
+			if (this.genCompo.getLoggedUser() instanceof ONG) {
+				ONG ngo = (ONG) genCompo.getLoggedUser();
+				if (ngo != null && volunteeringService.findVolunteering(id).getOng().getId().equals(ngo.getId())) {
+					updatedVolunteering.setOng(ngo);
+					volunteeringService.save(updatedVolunteering);
+					return new ResponseEntity<Volunteering>(updatedVolunteering, HttpStatus.OK);
 
+				} else {
+					return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
+				}
 			} else {
-				return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
+
 		} else {
 			return new ResponseEntity<Volunteering>(HttpStatus.NOT_FOUND);
 		}
@@ -272,20 +288,19 @@ public class VolunteeringRestController {
 			throws IOException {
 
 		ONG ngo = this.ongComponent.getLoggedUser();
-		
-		Volunteering volunteering = this.volRepo.findById((long)id);
-		
-		if(ngo.getEmail().equals(volunteering.getEmail())) {
-			
+
+		Volunteering volunteering = this.volRepo.findById((long) id);
+
+		if (ngo.getEmail().equals(volunteering.getEmail())) {
+
 			volunteering.setImage("true");
-			
+
 			this.volRepo.save(volunteering);
-			
+
 			this.imgService.saveImage("volunteerings", id, imageFile);
-			
-			return new ResponseEntity<>(volunteering,HttpStatus.OK);
-		}
-		else {
+
+			return new ResponseEntity<>(volunteering, HttpStatus.OK);
+		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -295,17 +310,16 @@ public class VolunteeringRestController {
 	@GetMapping(value = "/image/{id}")
 	public ResponseEntity<Object> downloadImage(@PathVariable Long id) throws MalformedURLException {
 
-		Volunteering volunteering = this.volRepo.findById((long)id);
-		
-		if(volunteering != null && volunteering.getImage().equals("true")) {
-			
+		Volunteering volunteering = this.volRepo.findById((long) id);
+
+		if (volunteering != null && volunteering.getImage().equals("true")) {
+
 			return this.imgService.createResponseFromImage("volunteerings", volunteering.getId());
-			
-		}
-		else {
-			
+
+		} else {
+
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			
+
 		}
 	}
 }
