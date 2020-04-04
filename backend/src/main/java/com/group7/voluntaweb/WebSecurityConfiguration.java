@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.group7.voluntaweb.services.ONGDetailsService;
 
@@ -65,6 +69,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		// Disable CSRF at the moment
 		http.csrf().disable();
+		 http.exceptionHandling()
+         //Actually Spring already configures default AuthenticationEntryPoint - LoginUrlAuthenticationEntryPoint
+         //This one is REST-specific addition to default one, that is based on PathRequest
+         .defaultAuthenticationEntryPointFor(getRestAuthenticationEntryPoint(), new AntPathRequestMatcher("/api/**"));
 	}
 
 	@Override
@@ -93,5 +101,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
 		return authProvider;
 	}
+	
+	private AuthenticationEntryPoint getRestAuthenticationEntryPoint() {
+        return new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED);
+    }
 
 }
