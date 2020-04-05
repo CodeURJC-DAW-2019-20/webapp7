@@ -1,6 +1,8 @@
 package com.group7.voluntaweb;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +28,10 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import com.group7.voluntaweb.services.ONGDetailsService;
 
@@ -83,6 +88,8 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// Do not redirect when logout
 		http.logout().logoutSuccessHandler((rq, rs, a) -> {
 		});
+		
+		http.cors().configurationSource(corsConfigurationSource());
 	}
 
 	@Override
@@ -98,6 +105,20 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		auth.authenticationProvider(authProvider());
 	}
+
+	//This can be customized as required
+		CorsConfigurationSource corsConfigurationSource() {
+		    CorsConfiguration configuration = new CorsConfiguration();
+		    List<String> allowOrigins = Arrays.asList("*");
+		    configuration.setAllowedOrigins(allowOrigins);
+		    configuration.setAllowedMethods(Arrays.asList("*"));
+		    configuration.setAllowedHeaders(Arrays.asList("*"));
+		    //in case authentication is enabled this flag MUST be set, otherwise CORS requests will fail
+		    configuration.setAllowCredentials(true);
+		    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		    source.registerCorsConfiguration("/**", configuration);
+		    return source;
+		}
 
 	@Bean
 	public UserDetailsService userDetailsService() {
