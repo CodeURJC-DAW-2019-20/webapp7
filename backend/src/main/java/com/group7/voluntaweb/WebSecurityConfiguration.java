@@ -1,5 +1,8 @@
 package com.group7.voluntaweb;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +18,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import com.group7.voluntaweb.services.ONGDetailsService;
 
@@ -66,6 +73,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// Logout
 		http.logout().logoutUrl("/logout");
 		http.logout().logoutSuccessUrl("/");
+		
+		http.cors().configurationSource(corsConfigurationSource());
 
 		// Disable CSRF at the moment
 		http.csrf().disable();
@@ -73,6 +82,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
          //Actually Spring already configures default AuthenticationEntryPoint - LoginUrlAuthenticationEntryPoint
          //This one is REST-specific addition to default one, that is based on PathRequest
          .defaultAuthenticationEntryPointFor(getRestAuthenticationEntryPoint(), new AntPathRequestMatcher("/api/**"));
+	}
+	//This can be customized as required
+	CorsConfigurationSource corsConfigurationSource() {
+	    CorsConfiguration configuration = new CorsConfiguration();
+	    List<String> allowOrigins = Arrays.asList("*");
+	    configuration.setAllowedOrigins(allowOrigins);
+	    configuration.setAllowedMethods(Arrays.asList("*"));
+	    configuration.setAllowedHeaders(Arrays.asList("*"));
+	    //in case authentication is enabled this flag MUST be set, otherwise CORS requests will fail
+	    configuration.setAllowCredentials(true);
+	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/**", configuration);
+	    return source;
 	}
 
 	@Override

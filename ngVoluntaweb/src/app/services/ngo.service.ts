@@ -1,37 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NGO } from '../models/ngo';
 import { Observable } from 'rxjs';
-import { NgoSettingsComponent } from '../components/ngo-settings/ngo-settings.component';
 
-@Injectable(/*{
-  providedIn: NgoSettingsComponent
-}*/)
+
+@Injectable()
 export class NgoService {
 
-  public ngo: NGO;
-  public url: string = "https://localhost:8443/api";
+  //public ngo: NGO;
+  public url: string = "https://localhost:8443/api/ongs/";
 
   constructor(private _http: HttpClient) {
-    this.ngo = new NGO(1, "PruebaName", "PruebaResponsibleName", "PruebaResponsibleSurname", "PruebaDescription", "PruebaAddress", "PruebaEmail",
-      "PruebaCodigoPostal", "PruebaImagen", null, "PruebaTelefono", "PruebaPassword");
+    /*this.ngo = new NGO(1, "PruebaName", "PruebaResponsibleName", "PruebaResponsibleSurname", "PruebaDescription", "PruebaAddress", "PruebaEmail",
+      "PruebaCodigoPostal", "PruebaImagen", null, "PruebaTelefono", "PruebaPassword");*/
   }
 
-  public getNGO(ngoId: string): Observable<any> {
+  /*public getNGO(ngoId: string): Observable<any> {
 
     let headers = new HttpHeaders().set('Content-Type', 'aplication/json');
 
-    return this._http.get(this.url + "/ongs/" + ngoId, { headers: headers });
-  }
+    return this._http.get(this.url + ngoId, { headers: headers });
+  }*/
 
-  updateNgo(ngo: NGO): void {
-    this.ngo = ngo;
+  updateNgo(ngoId:string, ngo: any): Observable<any> {
 
-    console.log(this.ngo);
+    let token:string = localStorage.getItem('authorization');
 
-    //Here we have to implement the update of the ngo with the API Rest
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set("Authorization","Basic " + token);
 
-
+    return this._http.put(this.url, ngo,{headers: headers});
   }
 
 }
