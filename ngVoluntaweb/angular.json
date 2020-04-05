@@ -29,7 +29,25 @@
               "src/assets/css/templete.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/jquery.min.js",
+              "src/assets/plugins/wow/wow.js",
+              "src/assets/plugins/bootstrap/js/popper.min.js",
+              "src/assets/plugins/bootstrap/js/bootstrap.min.js",
+              "src/assets/plugins/bootstrap-select/bootstrap-select.min.js",
+              "src/assets/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js",
+              "src/assets/plugins/magnific-popup/magnific-popup.js",
+              "src/assets/plugins/counter/waypoints-min.js",
+              "src/assets/plugins/counter/counterup.min.js",
+              "src/assets/plugins/imagesloaded/imagesloaded.js",
+              "src/assets/plugins/masonry/masonry-3.1.4.js",
+              "src/assets/plugins/masonry/masonry.filter.js",
+              "src/assets/plugins/owl-carousel/owl.carousel.js",
+              "src/assets/plugins/rangeslider/rangeslider.js",
+              "src/assets/js/custom.js",
+              "src/assets/js/dz.carousel.js",
+              "src/assets/js/dz.ajax.js"
+            ]
           },
           "configurations": {
             "production": {
