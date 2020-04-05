@@ -1,10 +1,13 @@
 import {Injectable} from '@angular/core';
 import { NGO } from '../models/ngo';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class NgoSettingsService{
 
     public ngo: NGO;
+    public url:string = "estoEsUnaPrueba";
+
 
     constructor(){
         this.ngo = new NGO(1,"PruebaName","PruebaResponsibleName","PruebaResponsibleSurname","PruebaDescription","PruebaAddress","PruebaEmail",
@@ -17,6 +20,10 @@ export class NgoSettingsService{
 
         return this.ngo;
     }
+
+    /*getNGO(ngoId):Observable<any>{
+        return this._http
+    }*/
 
     updateNgo(ngo:NGO):void{
         this.ngo = ngo;

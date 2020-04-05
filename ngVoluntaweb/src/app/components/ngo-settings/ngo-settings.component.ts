@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NGO } from 'src/app/models/ngo';
 import { NgoSettingsService } from 'src/app/service/ngo-settings.service';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-ong-settings',
@@ -26,9 +28,7 @@ export class NgoSettingsComponent implements OnInit {
   }
 
   onSubmit(formNgo){
-
     this._ngoSettingsService.updateNgo(this.ngo);
-
   }
 
 }
