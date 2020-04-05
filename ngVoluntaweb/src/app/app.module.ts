@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-import { NgoSettingsComponent } from './components/ngo-settings/ngo-settings.component';
 
 
 @NgModule({
@@ -15,8 +14,7 @@ import { NgoSettingsComponent } from './components/ngo-settings/ngo-settings.com
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    HeaderComponent,
-    NgoSettingsComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
