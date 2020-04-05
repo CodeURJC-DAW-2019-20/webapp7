@@ -1,18 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { OngSettingsComponent } from './components/ong-settings/ong-settings.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { NgoSettingsComponent } from './components/ngo-settings/ngo-settings.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    OngSettingsComponent
+    NavbarComponent,
+    FooterComponent,
+    HeaderComponent,
+    NgoSettingsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
