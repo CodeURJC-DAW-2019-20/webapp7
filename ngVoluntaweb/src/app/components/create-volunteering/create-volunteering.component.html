@@ -56,8 +56,8 @@
                                 <label for="categoryId" class="col-md-4 col-form-label text-md-right">Categoría</label>
                                 
                                 <div class="col-md-6">
-                                    <select name="categoryId" >
-                                            <option *ngFor="let categoryId of categories" [ngValue]="categoryId.id">{{categoryId.name}}</option>
+                                    <select name="categorySelect" [(ngModel)] = "category">
+                                            <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
                                             <!--<option value = "2" >Cooperación al desarrollo</option>
                                             <option value = "3">Cultura y arte social</option>
                                             <option value = "4">Derechos humanos</option>
