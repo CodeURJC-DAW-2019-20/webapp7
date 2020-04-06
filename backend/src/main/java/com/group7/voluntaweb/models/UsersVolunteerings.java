@@ -21,7 +21,7 @@ public class UsersVolunteerings {
 	public interface Basico{
 	}
 	
-	public interface Volunteerings{
+	public interface Volunteerings extends Volunteering.Basico{
 	}
 	
 	public interface Users{
