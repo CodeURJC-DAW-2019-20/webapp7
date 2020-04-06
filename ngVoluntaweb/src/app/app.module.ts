@@ -10,6 +10,7 @@ import { NgoSettingsComponent } from './components/ngo-settings/ngo-settings.com
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CreateVolunteeringComponent } from './components/create-volunteering/create-volunteering.component';
+import { EditVolunteeringComponent } from './components/edit-volunteering/edit-volunteering.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CreateVolunteeringComponent } from './components/create-volunteering/cr
     FooterComponent,
     HeaderComponent,
     NgoSettingsComponent,
-    CreateVolunteeringComponent
+    CreateVolunteeringComponent,
+    EditVolunteeringComponent
   ],
   imports: [
     BrowserModule,

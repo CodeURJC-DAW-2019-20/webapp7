@@ -31,6 +31,16 @@ export class VolunteeringService {
 
   }
 
+
+  public getEditVolunteering():any{
+      //This is fake for testing
+      localStorage.setItem('editVolunteering',"382")
+      //This is fake for testing
+
+      return localStorage.getItem('editVolunteering');
+  }
+
+
   public createVolunteering(volunteering:any):Observable<any>{
 
     let token:string = localStorage.getItem('authorization');
@@ -38,6 +48,16 @@ export class VolunteeringService {
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set("Authorization","Basic " + token);
 
     return this._http.post(this.url,volunteering,{headers:headers});
+
+  }
+
+  public getVolunteeringById(volunteeringId:string):Observable<any>{
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    console.log(this.url + volunteeringId);
+    
+    return this._http.get(this.url + volunteeringId,{headers: headers});
 
   }
 }
