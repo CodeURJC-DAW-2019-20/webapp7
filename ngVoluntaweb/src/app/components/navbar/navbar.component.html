@@ -8,7 +8,7 @@
                     <div class="container clearfix">
                         <!-- website logo -->
                         <div class="logo-header mostion">
-                            <a href="/"><img src="/assets/images/logo.png" class="logo" alt=""></a>
+                            <a [routerLink]="['/']"><img src="/assets/images/logo.png" class="logo" alt=""></a>
                         </div>
                         <!-- nav toggle button -->
                         <!-- nav toggle button -->
@@ -23,7 +23,7 @@
                         <!-- Anonymous Navbar -->
                         <div class="extra-nav" *ngIf="!identity">
                             <div class="extra-cell">
-                                <a href="/register" class="site-button"><i class="fa fa-user"></i> Regístrate</a>
+                                <a [routerLink]="['/register']" class="site-button"><i class="fa fa-user"></i> Regístrate</a>
                                 <a [routerLink]="['/login']" class="site-button"><i class="fa fa-lock"></i> Inicia sesión</a>
                             </div>
                         </div>
@@ -44,11 +44,11 @@
 									</a>
 									
 									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" *ngIf="!identity.roles.includes('ROLE_ADMIN')">
-										<a class="dropdown-item" href="/myvolunteerings">
+										<a class="dropdown-item" [routerLink]="['user/myvolunteerings']">
 											Mis voluntariados
 										</a>
 
-										<a class="dropdown-item" href="/settings">
+										<a class="dropdown-item" [routerLink]="['/user/settings']">
 
 											Ajustes
 										</a>
@@ -116,18 +116,18 @@
                         <div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
                             <ul class="nav navbar-nav">
                                 <li>
-                                    <a href="/">Inicio</a>
+                                    <a [routerLink]="['/']">Inicio</a>
                                 </li>
                                 <li>
-                                    <a href="/search">Voluntariados</a>
+                                    <a [routerLink]="['/search']">Voluntariados</a>
                                 </li>
-                                <li><a href="/ongs">ONGs</a></li>
+                                <li><a [routerLink]="['/ongs']">ONGs</a></li>
                                 
                                 <li class="ls-mobile">
-                                    <a href="/register">Regístrate <i class="fa fa-user"></i></a>
+                                    <a [routerLink]="['/register']">Regístrate <i class="fa fa-user"></i></a>
                                 </li>
                                 <li class="ls-mobile">
-                                    <a href="/login">Inicia sesión <i class="fa fa-lock"></i></a>
+                                    <a [routerLink]="['/login']">Inicia sesión <i class="fa fa-lock"></i></a>
                                 </li>
                             </ul>
                         </div>

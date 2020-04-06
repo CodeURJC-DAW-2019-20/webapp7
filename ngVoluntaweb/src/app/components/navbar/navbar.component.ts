@@ -42,6 +42,7 @@ export class NavbarComponent implements OnInit {
           localStorage.removeItem("identity");
           localStorage.removeItem("entity_type");
           localStorage.removeItem("authorization");
+          this._router.navigate(['/']);
         } 
       },
       error=>{

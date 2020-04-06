@@ -14,7 +14,7 @@ export class RegisterNgoComponent implements OnInit {
   public status: String;
 
   constructor(
-    private ngoService: NgoService
+    private _ngoService: NgoService
   ) { 
     this.ngo = new NGO(null,"","","","","","","","",null,null,"");
   }
@@ -24,7 +24,7 @@ export class RegisterNgoComponent implements OnInit {
 
 
   onSubmit(form){
-    this.ngoService.register(this.ngo).subscribe(response=>{
+    this._ngoService.register(this.ngo).subscribe(response=>{
       if(response.id != null){
         this.status = "success";
       }else {

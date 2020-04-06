@@ -14,6 +14,7 @@ import { EntityService } from './services/entity.service';
 import { RegisterComponent } from './components/register/register.component';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
 import { RegisterNgoComponent } from './components/register-ngo/register-ngo.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { RegisterNgoComponent } from './components/register-ngo/register-ngo.com
     LoginComponent,
     RegisterComponent,
     RegisterUserComponent,
-    RegisterNgoComponent
+    RegisterNgoComponent,
+    UserSettingsComponent
   ],
   imports: [
     BrowserModule,
