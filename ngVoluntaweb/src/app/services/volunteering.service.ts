@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { NGO } from '../models/ngo';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { global } from './global.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,10 @@ export class VolunteeringService {
 
   private ngo:NGO;
   private identity:string;
-  private url:string = "https://localhost:8443/api/volunteerings/";
+  private url:string;
 
   constructor(private _http: HttpClient) { 
-
+    this.url = global.url2 + "volunteerings/";
   }
 
   public getNgoLogged():any{
