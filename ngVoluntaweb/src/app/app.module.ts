@@ -16,6 +16,7 @@ import { RegisterUserComponent } from './components/register-user/register-user.
 import { RegisterNgoComponent } from './components/register-ngo/register-ngo.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { JoinedVolunteeringsComponent } from './components/joined-volunteerings/joined-volunteerings.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { JoinedVolunteeringsComponent } from './components/joined-volunteerings/
     RegisterUserComponent,
     RegisterNgoComponent,
     UserSettingsComponent,
-    JoinedVolunteeringsComponent
+    JoinedVolunteeringsComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
