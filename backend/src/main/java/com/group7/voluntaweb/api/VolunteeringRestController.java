@@ -211,7 +211,7 @@ public class VolunteeringRestController {
 
 		Boolean isUser = userComponent.getLoggedUser() != null;
 		Volunteering vol = volunteeringService.findVolunteering(id);
-		User user = userComponent.getLoggedUser();
+		User user = (User) userComponent.getLoggedUser();
 
 		if (isUser && !user.getRoles().contains("ROLE_ADMIN")) {
 			Set<UsersVolunteerings> registrationsSet = user.getRegistrations();
@@ -320,6 +320,45 @@ public class VolunteeringRestController {
 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+		}
+	}
+	
+	@GetMapping("/ong/{id}")
+	//@JsonView(CompleteVolunteering2.class)
+	public ResponseEntity<Object> getVolunteeringsByNGO(@PathVariable Long id) {
+		ONG ngo = ongRepo.findByid(id);
+		Iterable<Volunteering> volunteerings = volRepo.findVolunteeringsByNGO(ngo);
+		
+		if (volunteerings != null) {
+			return new ResponseEntity<>(volunteerings,HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@GetMapping("/join/{id}")
+	//@JsonView(CompleteVolunteering2.class)
+	public ResponseEntity<Object> getJoinedVolunteeringByUser(@PathVariable Long id) {
+		User user = userRepo.findByid(id);
+		Iterable<Volunteering> volunteerings = volRepo.findMyVolunteerings(user);
+		
+		if (volunteerings != null) {
+			return new ResponseEntity<>(volunteerings,HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@GetMapping("/like/{id}")
+	//@JsonView(CompleteVolunteering2.class)
+	public ResponseEntity<Object> getLikedVolunteeringByUser(@PathVariable Long id) {
+		User user = userRepo.findByid(id);
+		Iterable<Volunteering> volunteerings = volRepo.findMyLiked(user);
+		
+		if (volunteerings != null) {
+			return new ResponseEntity<>(volunteerings,HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 }

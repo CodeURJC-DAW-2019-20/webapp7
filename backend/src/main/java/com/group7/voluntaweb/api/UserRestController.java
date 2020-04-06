@@ -60,11 +60,10 @@ public class UserRestController {
 	@Autowired
 	ImageService imgService;
 
-	interface UserBasico extends com.group7.voluntaweb.models.User.Basico {
+	interface UserBasico extends User.Basico {
 	}
 
-	interface UserCompuesto extends com.group7.voluntaweb.models.User.Basico, com.group7.voluntaweb.models.User.Likes,
-			com.group7.voluntaweb.models.User.UsersVol, Like.Basico, UsersVolunteerings.Basico {
+	interface UserCompuesto extends User.Basico, User.Likes, User.UsersVol  {
 	}
 
 	// AllUsers

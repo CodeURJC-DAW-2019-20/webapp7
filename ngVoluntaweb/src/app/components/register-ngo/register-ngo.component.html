@@ -35,7 +35,7 @@
                                 <h4 class="font-weight-700">INFORMACIÓN DE LA ONG</h4>
                                 <p class="font-weight-600">Si tiene una cuenta con nosotros, por favor inicie sesión.</p>
                                 <div class="alert alert-success mt-3" *ngIf="status == 'success'">¡Te has registrado correctamente!</div>
-                                <div class="alert alert-success mt-3" *ngIf="status == 'error'">¡Ha habido un error al registrárte!</div>
+                                <div class="alert alert-danger mt-3" *ngIf="status == 'error'">¡Ha habido un error al registrárte!</div>
                                 <div class="form-group">
                                     <label class="font-weight-700">Nombre de la ONG *</label>
                                     <input name="name" required="" class="form-control" placeholder="Nombre" type="text" #name="ngModel" [(ngModel)]="ngo.name">
@@ -78,7 +78,7 @@
                                 </div>
                                 
                                 <div class="text-left">
-                                    <input type='submit' value='Enviar' [disabled]="registerForm.invalid"/>
+                                    <input type='submit' class="site-button button-lg outline outline-2" value='Enviar' [disabled]="registerForm.invalid"/>
                                     
                                 </div>
                             </form>
