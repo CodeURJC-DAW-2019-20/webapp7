@@ -3,6 +3,7 @@ import { NGO } from '../models/ngo';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { global } from './global.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class VolunteeringService {
   private url:string;
 
   constructor(private _http: HttpClient) { 
-    this.url = global.url2 + "volunteerings/";
+    this.url = global.url + "volunteerings/";
   }
 
   public getNgoLogged():any{
@@ -27,15 +28,18 @@ export class VolunteeringService {
     localStorage.setItem('authorization',"aW5mb3JtYUBhdmVudHVyYS5vcmc6dGVzdA==");
     //This is fake for testing that this works
 
-    this.identity = localStorage.get('identity')
-    return JSON.parse(this.identity);
+    this.identity = localStorage.getItem('identity');
+
+    this.ngo = JSON.parse(this.identity);
+
+    return this.ngo;
 
   }
 
 
   public getEditVolunteering():any{
       //This is fake for testing
-      localStorage.setItem('editVolunteering',"382")
+      localStorage.setItem('editVolunteering',"382");
       //This is fake for testing
 
       return localStorage.getItem('editVolunteering');
@@ -52,13 +56,29 @@ export class VolunteeringService {
 
   }
 
-  public getVolunteeringById(volunteeringId:string):Observable<any>{
+  public getVolunteeringById(volunteeringId:number):Observable<any>{
 
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     console.log(this.url + volunteeringId);
     
     return this._http.get(this.url + volunteeringId,{headers: headers});
+
+  }
+
+
+  public updateVolunteering(volunteringId:number, volunteering:any){
+
+    //Esto hay que quitarlo
+    localStorage.setItem('authorization',"aW5mb3JtYUBhdmVudHVyYS5vcmc6dGVzdA==");
+    //Esto hay que quitarlo
+
+
+    let token:string = localStorage.getItem('authorization');
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set("Authorization","Basic " + token);
+
+    return this._http.put(this.url + volunteringId, volunteering,{headers: headers});
 
   }
 }

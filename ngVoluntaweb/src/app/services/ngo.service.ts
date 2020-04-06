@@ -9,7 +9,7 @@ export class NgoService {
   public url: string;
 
   constructor(private _http: HttpClient) {
-    this.url = global.url2 + "ongs/";
+    this.url = global.url + "ongs/";
   }
 
   updateNgo(ngoId:string, ngo: any): Observable<any> {

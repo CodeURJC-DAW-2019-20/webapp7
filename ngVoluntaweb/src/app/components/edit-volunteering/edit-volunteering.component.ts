@@ -32,10 +32,13 @@ export class EditVolunteeringComponent implements OnInit {
 
   ngOnInit() {
 
-    //this.ngoLogged = this._volunteeringService.getNgoLogged();
+    this.ngoLogged = this._volunteeringService.getNgoLogged();
+
+    console.log(this.ngoLogged);
+
     this.editedVolunteering = this._volunteeringService.getEditVolunteering();
 
-    this._volunteeringService.getVolunteeringById(this.editedVolunteering).subscribe(
+    this._volunteeringService.getVolunteeringById(this.volunteering.id).subscribe(
       (response:any)=>{
         if(response){
           this.volunteering = response;
@@ -49,12 +52,38 @@ export class EditVolunteeringComponent implements OnInit {
       }
     );
 
+    
+
+    if(this.ngoLogged.volunteerings != null){     //Cuando se una todo esto no va 
+      this.ngoLogged.volunteerings.delete(this.volunteering);
+    }
+    
+
   }
   
 
   public onSubmit(){
 
+    this._volunteeringService.updateVolunteering(this.volunteering.id,this.volunteering).subscribe(
+      (response:any) =>{
+        if(response){
+          this.volunteering = response;
+        }
+        else{
+          this.status = 'error';
+        }
+      },
+      error =>{
+        console.log(<any>error);
+      }
+    );
 
+    if(this.ngoLogged.volunteerings == null){
+        this.ngoLogged.volunteerings = new Set<Volunteering>();
+    }
+    this.ngoLogged.volunteerings.add(this.volunteering);
+
+    localStorage.setItem('identity',JSON.stringify(this.ngoLogged));
 
   }
 

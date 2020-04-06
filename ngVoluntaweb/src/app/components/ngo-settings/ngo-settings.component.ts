@@ -62,6 +62,9 @@ export class NgoSettingsComponent implements OnInit {
         console.log(<any>error);
       }
     );
+
+    localStorage.setItem('identity',JSON.stringify(this.ngo));
+
   }
 
 }

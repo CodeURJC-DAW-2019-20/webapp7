@@ -65,6 +65,10 @@ export class CreateVolunteeringComponent implements OnInit {
       }
     );
 
+    this.ngoLogged.volunteerings.add(this.volunteering);
+
+    localStorage.setItem('identity',JSON.stringify(this.ngoLogged));
+
   }
 
 }
