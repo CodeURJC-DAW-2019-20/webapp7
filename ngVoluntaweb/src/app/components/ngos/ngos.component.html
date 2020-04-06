@@ -1,0 +1,59 @@
+<!-- Content -->
+<div class="page-content bg-white">
+    <!-- inner page banner -->
+    <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(/assets/images/background/Volunteerswalk.jpg);">
+        <div class="container">
+            <div class="dez-bnr-inr-entry">
+                <h1 class="text-white">ONGs</h1>
+                <!-- Breadcrumb row -->
+                <div class="breadcrumb-row">
+                    <ul class="list-inline">
+                        <li><a href="#">Inicio</a></li>
+                        <li>ONGs</li>
+                    </ul>
+                </div>
+                <!-- Breadcrumb row END -->
+            </div>
+        </div>
+    </div>
+    <!-- inner page banner END -->
+    <!-- contact area -->
+    <div class="content-block">
+        <!-- Find Job -->
+        <div class="section-full bg-white content-inner">
+            <div class="container">
+                <h3 *ngIf="loading"> Cargando...</h3>
+            </div>
+            <div *ngIf="!loading" class="container">
+                <ul class="post-job-bx">
+                    <li *ngFor="let ngo of data">
+                        <a href="/ngos/{{ngo.id}}">
+                            <div class="d-flex m-b30">
+                                <div class="job-post-company">
+                                    <span><img src="{{url}}ongs/{{ngo.id}}/image" onerror="this.onerror=null;this.src='/assets/images/user-placeholder.png'" class="avatar"></span>
+                                </div>
+                                <div class="job-post-info">
+                                    <h4>{{ngo.name}}</h4>
+                                    <ul>
+                                        <li><i class="fa fa-map-marker"></i> {{ngo.address}}</li>
+                                        <li><i class="fa fa-envelope"></i> {{ngo.email}} </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <br>
+                <div class="container">
+                    <a *ngIf="previous" _ngcontent-hut-c1="" class="site-button" (click)="previousPage()"><span style="color:white;"><i _ngcontent-hut-c1="" class="fa fa-caret-square-o-left"></i> Anterior</span></a>
+                    <a *ngIf="!previous" _ngcontent-hut-c1="" class="site-button"><span  style="color:rgb(0, 121, 219);"><i _ngcontent-hut-c1="" class="fa fa-caret-square-o-left"></i> Anterior</span></a>
+                    <a *ngIf="next" _ngcontent-hut-c1="" class="site-button" (click)="nextPage()"><span style="color:white;"><i _ngcontent-hut-c1="" class="fa fa-caret-square-o-right"></i> Siguiente</span></a>
+                    <a *ngIf="!next" _ngcontent-hut-c1="" class="site-button"><span style="color:rgb(0, 121, 219);"><i _ngcontent-hut-c1="" class="fa fa-caret-square-o-right"></i> Siguiente</span></a>
+                </div>
+                <br>
+            </div>
+        </div>
+        <!-- Find Job END -->
+    </div>
+</div>
+<!-- Content END-->
