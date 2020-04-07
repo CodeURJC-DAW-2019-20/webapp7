@@ -56,22 +56,9 @@
             <div class="row text-center bg-gray">
                 <h2 class="text-center">Algunas de nuestras estadísticas</h2>
             </div>
-            <div class="row bg-gray">
+            <div class="container">
                 <div style="display: block">
-                    <!--
-                    <canvas mdbChart
-                        [chartType]="chartType"
-                        [datasets]="chartDatasets"
-                        [labels]="chartLabels"
-                        [colors]="chartColors"
-                        [options]="chartOptions"
-                        [legend]="true"
-                        (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)">
-                    </canvas>-->
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-center m-t20 m-b50" id="graf1">
-                    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+                    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
                 </div>
             </div>
         </div>

@@ -25,7 +25,7 @@ import { IndexComponent } from './components/index/index.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
