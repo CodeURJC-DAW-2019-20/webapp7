@@ -3,12 +3,14 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule} from '@angular/forms';
 import{ HttpClientModule } from '@angular/common/http';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NgoDetailsComponent } from './components/ngo-details/ngo-details.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -17,13 +19,15 @@ import { NgoDetailsComponent } from './components/ngo-details/ngo-details.compon
     NavbarComponent,
     FooterComponent,
     HeaderComponent,
-    NgoDetailsComponent
+    NgoDetailsComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule, 
+    InfiniteScrollModule
   ],
   providers: [],
   bootstrap: [AppComponent]

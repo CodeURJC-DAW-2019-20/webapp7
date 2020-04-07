@@ -16,16 +16,17 @@ export class NgoDetailsComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _ngodetailService: NgoService
+    private _ngoService: NgoService
   ) {}
 
   ngOnInit() {
     this._route.params.subscribe((params: Params) => {
         this.id_ngo = params.id;
+        console.log(this.id_ngo);
     })
-    this._ngodetailService.getNgo(this.id_ngo).subscribe(
-      result => {
-        this.current_ngo = result;
+    this._ngoService.getNgo(this.id_ngo).subscribe(
+      response => {
+        this.current_ngo = response;
       },
       error => {
         console.log(<any>error);

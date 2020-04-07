@@ -13,6 +13,7 @@ export class NgoService{
     }
 
     getNgo(id): Observable<any>{
-        return this._http.get(this.url+'ongs/' + id);
+        let headers = new HttpHeaders().set('Content-Type', "application/json");
+        return this._http.get(this.url+'ongs/' + id, {headers:headers});
     }
 }
