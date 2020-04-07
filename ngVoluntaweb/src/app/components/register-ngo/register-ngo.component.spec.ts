@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgoSettingsComponent } from './ngo-settings.component';
+import { RegisterNgoComponent } from './register-ngo.component';
 
-describe('NgoSettingsComponent', () => {
-  let component: NgoSettingsComponent;
-  let fixture: ComponentFixture<NgoSettingsComponent>;
+describe('RegisterNgoComponent', () => {
+  let component: RegisterNgoComponent;
+  let fixture: ComponentFixture<RegisterNgoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NgoSettingsComponent ]
+      declarations: [ RegisterNgoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NgoSettingsComponent);
+    fixture = TestBed.createComponent(RegisterNgoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

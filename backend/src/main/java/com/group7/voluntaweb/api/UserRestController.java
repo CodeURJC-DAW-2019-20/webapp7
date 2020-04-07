@@ -2,6 +2,7 @@ package com.group7.voluntaweb.api;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -60,11 +61,10 @@ public class UserRestController {
 	@Autowired
 	ImageService imgService;
 
-	interface UserBasico extends com.group7.voluntaweb.models.User.Basico {
+	interface UserBasico extends User.Basico {
 	}
 
-	interface UserCompuesto extends com.group7.voluntaweb.models.User.Basico, com.group7.voluntaweb.models.User.Likes,
-			com.group7.voluntaweb.models.User.UsersVol, Like.Basico, UsersVolunteerings.Basico {
+	interface UserCompuesto extends User.Basico, User.Likes, User.UsersVol  {
 	}
 
 	// AllUsers
@@ -181,33 +181,30 @@ public class UserRestController {
 	// Only logged users
 	@JsonView(UserBasico.class)
 	@PostMapping(value = "/image")
-	public ResponseEntity<com.group7.voluntaweb.models.User> uploadImage(@RequestParam MultipartFile imageFile)
+	public ResponseEntity<com.group7.voluntaweb.models.User> uploadImage(@RequestParam MultipartFile file0)
 			throws IOException {
 
-		com.group7.voluntaweb.models.User user = this.userCompo.getLoggedUser();
+		com.group7.voluntaweb.models.User user = (User) this.genCompo.getLoggedUser();
 
-		user.setImage("true");
 
-		this.imgService.saveImage("user", user.getId(), imageFile);
+		Path path = this.imgService.saveImage("user", file0);
+		String filePath = path.getFileName().toString();
+		
+		user.setImage(filePath);
+		
+		this.userRepo.save(user);
 
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 	// Anonymous
 	@JsonView(UserBasico.class)
-	@GetMapping(value = "/{id}/image")
-	public ResponseEntity<Object> downloadImage(@PathVariable Long id) throws MalformedURLException {
+	@GetMapping(value = "/{filename}/image")
+	public ResponseEntity<Object> downloadImage(@PathVariable String filename) throws MalformedURLException {
 
-		com.group7.voluntaweb.models.User user = this.userRepo.findByid(id);
 
-		System.out.println(user.getName());
-
-		if ((user != null) && (user.getImage().equals("true"))) {
-
-			return this.imgService.createResponseFromImage("user", user.getId());
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+			return this.imgService.createResponseFromImage("user", filename);
+		
 	}
 
 }
