@@ -2,6 +2,7 @@ package com.group7.voluntaweb.api;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -191,30 +192,26 @@ public class ONGRestController {
 	// Only logged users
 	@JsonView(ONGSDetalle.class)
 	@PostMapping(value = "/image")
-	public ResponseEntity<ONG> uploadImage(@RequestParam MultipartFile imageFile) throws IOException {
+	public ResponseEntity<ONG> uploadImage(@RequestParam MultipartFile file0) throws IOException {
 
-		ONG ngo = this.ongCompo.getLoggedUser();
+		ONG ngo = (ONG) this.genCompo.getLoggedUser();
 
-		ngo.setImage("true");
+
+		Path path = this.imgService.saveImage("ong", file0);
+		String filePath = path.getFileName().toString();
+		ngo.setImage(filePath);
 		
 		this.ongRepo.save(ngo);
-
-		this.imgService.saveImage("ong", ngo.getId(), imageFile);
 
 		return new ResponseEntity<>(ngo, HttpStatus.OK);
 	}
 
 	// Anonymous
 	@JsonView(ONGSDetalle.class)
-	@GetMapping(value = "/{id}/image")
-	public ResponseEntity<Object> downloadImage(@PathVariable Long id) throws MalformedURLException {
+	@GetMapping(value = "/{filename}/image")
+	public ResponseEntity<Object> downloadImage(@PathVariable String filename) throws MalformedURLException {
 
-		ONG ngo = this.ongRepo.findByid(id);
-
-		if ((ngo != null) && (ngo.getImage().equals("true"))) {
-			return this.imgService.createResponseFromImage("ong", ngo.getId());
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+			return this.imgService.createResponseFromImage("ong", filename);
+		
 	}
 }

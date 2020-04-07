@@ -7,6 +7,7 @@ import { RegisterNgoComponent } from './components/register-ngo/register-ngo.com
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { JoinedVolunteeringsComponent } from './components/joined-volunteerings/joined-volunteerings.component'
 import { ContactComponent } from './components/contact/contact.component';
+import { VolunteeringPageComponent } from './components/volunteering-page/volunteering-page.component';
 
 const routes: Routes = [
   {path: "login", component: LoginComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: "register/ong", component: RegisterNgoComponent},
   {path: "user/settings", component: UserSettingsComponent},
   {path: "user/myvolunteerings", component: JoinedVolunteeringsComponent},
-  {path: "contact", component: ContactComponent}
+  {path: "contact", component: ContactComponent},
+  {path: "volunteering/:id", component: VolunteeringPageComponent}
 ];
 
 @NgModule({
