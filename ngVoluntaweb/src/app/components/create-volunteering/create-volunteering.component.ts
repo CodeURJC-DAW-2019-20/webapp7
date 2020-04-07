@@ -5,6 +5,7 @@ import { VolunteeringService } from 'src/app/services/volunteering.service';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
 import { Form } from '@angular/forms';
+import { global } from '../../services/global.service';
 
 @Component({
   selector: 'app-create-volunteering',
@@ -23,6 +24,12 @@ export class CreateVolunteeringComponent implements OnInit {
   public category:Category;
 
   private status: string;
+
+  private afuConfig:any;
+
+  private url:string;
+
+  private token: string;
   
 
 
@@ -35,6 +42,45 @@ export class CreateVolunteeringComponent implements OnInit {
 
     this.category = this.categories[0];
 
+    this.url = global.url;
+
+    //Esto esta para testear
+    localStorage.setItem('authorization',"cmVjZXBjaW9uLmNlbnRyYWxAc2F2ZXRoZWNoaWxkcmVuLm9yZzp0ZXN0");
+    //Esto esta para testear
+
+    this.token = localStorage.getItem('authorization');
+
+    console.log(this.url + 'volunteerings/image/' + this.volunteering.id);
+
+    this.volunteering.image = "false";
+
+
+    this.afuConfig = {
+      uploadAPI: {
+        url: this.url + 'volunteerings/image/'+ this.volunteering.id,
+        headers: {
+          "Authorization": 'Basic '+ this.token
+        }
+      },
+      multiple: false,
+      formatsAllowed: ".jpg",
+      maxSize: '50',
+      theme: "attachPin",
+      hideProgressBar: false,
+      hideResetBtn: true,
+      hideSelectBtn: false,
+      replaceTexts: {
+        selectFileBtn: 'Seleccionar archivo...',
+        resetBtn: 'Reset',
+        uploadBtn: 'Subir',
+        dragNDropBox: 'Drag N Drop',
+        attachPinBtn: 'Seleccionar archivo...',
+        afterUploadMsg_success: '¡Subida satisfactoria!',
+        afterUploadMsg_error: '¡Subida fallida!'
+      }
+    };
+
+
    }
 
 
@@ -42,7 +88,7 @@ export class CreateVolunteeringComponent implements OnInit {
   ngOnInit() {
 
     this.ngoLogged = this._volunteeringService.getNgoLogged();
-
+    console.log(this.ngoLogged);
   }
 
   onSubmit(){
@@ -65,10 +111,22 @@ export class CreateVolunteeringComponent implements OnInit {
       }
     );
 
+
+    if(this.ngoLogged.volunteerings == null){
+      this.ngoLogged.volunteerings = new Set<Volunteering>();
+    }
+
+
     this.ngoLogged.volunteerings.add(this.volunteering);
 
     localStorage.setItem('identity',JSON.stringify(this.ngoLogged));
 
   }
 
+
+  avatarUpload(data) {
+    console.log(data.response);
+    let data_obj = JSON.parse(data.response);
+    this.volunteering.image = "true";
+  }
 }

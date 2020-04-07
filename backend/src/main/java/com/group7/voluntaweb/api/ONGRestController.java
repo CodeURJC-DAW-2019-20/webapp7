@@ -191,15 +191,15 @@ public class ONGRestController {
 	// Only logged users
 	@JsonView(ONGSDetalle.class)
 	@PostMapping(value = "/image")
-	public ResponseEntity<ONG> uploadImage(@RequestParam MultipartFile imageFile) throws IOException {
+	public ResponseEntity<ONG> uploadImage(@RequestParam MultipartFile file0) throws IOException {
 
-		ONG ngo = this.ongCompo.getLoggedUser();
+		ONG ngo = (ONG) this.genCompo.getLoggedUser();
 
 		ngo.setImage("true");
 		
 		this.ongRepo.save(ngo);
 
-		this.imgService.saveImage("ong", ngo.getId(), imageFile);
+		this.imgService.saveImage("ong", ngo.getId(),file0);
 
 		return new ResponseEntity<>(ngo, HttpStatus.OK);
 	}

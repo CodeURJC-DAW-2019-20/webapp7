@@ -125,8 +125,8 @@
                                     perfil</label>
 
                                 <div class="col-md-6">
-                                    <input id="imagenFile" type="file" class="form-control" name="imagenFile"
-                                        autocomplete="image" placeholder=".jpg" accept=".jpg">
+                                    <angular-file-uploader class="pointer" [config]="afuConfig" (ApiResponse)="avatarUpload($event)" name="file0">
+                                    </angular-file-uploader>
                                     <!--<span *ngIf = "image.touched && !image.valid" style = "color:red">Es necesario rellenar este campo</span>-->
                                 </div>
                             </div>

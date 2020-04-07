@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CreateVolunteeringComponent } from './components/create-volunteering/create-volunteering.component';
 import { EditVolunteeringComponent } from './components/edit-volunteering/edit-volunteering.component';
+import { AngularFileUploaderModule } from 'angular-file-uploader';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { EditVolunteeringComponent } from './components/edit-volunteering/edit-v
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AngularFileUploaderModule
   ],
   providers: [
     

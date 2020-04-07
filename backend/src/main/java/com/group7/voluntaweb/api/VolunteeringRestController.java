@@ -284,7 +284,7 @@ public class VolunteeringRestController {
 	// Only logged users
 	@JsonView(CompleteVolunteering3.class)
 	@PostMapping(value = "/image/{id}")
-	public ResponseEntity<Volunteering> uploadImage(@PathVariable Long id, @RequestParam MultipartFile imageFile)
+	public ResponseEntity<Volunteering> uploadImage(@PathVariable Long id, @RequestParam MultipartFile file0)
 			throws IOException {
 
 		ONG ngo = this.ongComponent.getLoggedUser();
@@ -297,7 +297,7 @@ public class VolunteeringRestController {
 
 			this.volRepo.save(volunteering);
 
-			this.imgService.saveImage("volunteerings", id, imageFile);
+			this.imgService.saveImage("volunteerings", id, file0);
 
 			return new ResponseEntity<>(volunteering, HttpStatus.OK);
 		} else {

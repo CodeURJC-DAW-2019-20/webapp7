@@ -110,8 +110,8 @@
                                     anuncio</label>
 
                                 <div class="col-md-6">
-                                    <input id="imagenFile" placeholder=".jpg" type='file' accept=".jpg" class="form-control" name="imagenFile"
-                                        autocomplete="image">
+                                    <angular-file-uploader class="pointer" [config]="afuConfig" (ApiResponse)="avatarUpload($event)" name="file0">
+                                    </angular-file-uploader>
                                 </div>
                             </div>
                                                                 

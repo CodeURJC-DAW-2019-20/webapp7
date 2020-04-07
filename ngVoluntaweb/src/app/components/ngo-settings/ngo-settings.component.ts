@@ -3,6 +3,10 @@ import { NGO } from 'src/app/models/ngo';
 import { NgoService } from 'src/app/services/ngo.service';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { ImageService } from 'src/app/services/image.service';
+import { global } from '../../services/global.service';
+
+
 
 
 @Component({
@@ -18,11 +22,45 @@ export class NgoSettingsComponent implements OnInit {
   public status;
   public identity:string;
 
+  public afuConfig:any;
+  public url:string;
+  public token:string;
 
-  constructor(private _ngoService:NgoService) { 
+
+  constructor(private _ngoService:NgoService, private _imageService:ImageService) { 
 
     this.ngo = new NGO(null,"","","","","","","","",null,"","");
-  }
+
+    this.url = global.url;
+
+    this.token = localStorage.getItem('authorization');
+
+    this.afuConfig = {
+      uploadAPI: {
+        url: this.url + 'ongs/image',
+        headers: {
+          "Authorization": 'Basic '+this.token
+        }
+      },
+      multiple: false,
+      formatsAllowed: ".jpg",
+      maxSize: '50',
+      theme: "attachPin",
+      hideProgressBar: false,
+      hideResetBtn: true,
+      hideSelectBtn: false,
+      replaceTexts: {
+        selectFileBtn: 'Seleccionar archivo...',
+        resetBtn: 'Reset',
+        uploadBtn: 'Subir',
+        dragNDropBox: 'Drag N Drop',
+        attachPinBtn: 'Seleccionar archivo...',
+        afterUploadMsg_success: '¡Subida satisfactoria!',
+        afterUploadMsg_error: '¡Subida fallida!'
+      }
+    };
+   }
+  
 
   ngOnInit() {
 
@@ -67,4 +105,9 @@ export class NgoSettingsComponent implements OnInit {
 
   }
 
+
+  avatarUpload(data) {
+    let data_obj = JSON.parse(data.response);
+    this.ngo.image = "true";
+  }
 }

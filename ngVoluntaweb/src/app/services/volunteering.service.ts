@@ -21,11 +21,11 @@ export class VolunteeringService {
   public getNgoLogged():any{
 
     //This is fake for testing that this works
-    this.ngo = new NGO(15,"Fundación de Ayuda a los Animales xdxdxdxdxd","Diez","Diez","Tenemos el placer de darle la bienvenida a la Fundación de Ayuda a los Animales (F.A.A.).En donde el respeto a los animales, al amor y el cariño que sentimos hacia ellos es lo que mueve a nuestra Fundación a luchar día a día por todos aquellos animales que sufren el comportamiento inhumano con el que algunas personas premian su ayuda y fidelidad. Por eso desde la Fundación de Ayuda a los Animales luchamos para que todos los animales puedan tener una vida digna y para que animales abandonados puedan recibir el amor, la amistad y lealtad que merecen. Desde la FAA apoyamos a Organizaciones y Albergues dedicados a esta difícil lucha que es la Defensa de los Animales. Por otro lado, consideramos que colaborar en la lucha por un mundo más justo con los animales es colaborar por un mundo más solidario y menos violento en general","Calle Centro Comercial Mocha Chica, 0 S/N, Villanueva de la cañada","informa@aventura.org","28691","true",null,"33333333","test");
+    this.ngo = new NGO(55,"Save the children","Andrés","Conde","Todos los niños tienen derecho a un futuro. En España y en todo el mundo, trabajamos cada día para asegurar que todos los niños sobreviven, aprenden y están protegidos frente a la violencia. Cuando se produce una emergencia, y los niños son más vulnerables, somos siempre los primeros en llegar y los últimos en marcharnos. Atendemos las necesidades de los niños y nos aseguramos de que sus voces son escuchadas. Conseguimos cambios duraderos en la vida de millones de niños, incluso en aquellos a los que cuesta más llegar.  Hacemos todo lo que sea necesario para lograr que todos los niños, cada día y cuando ocurre una emergencia, puedan cambiar sus vidas y el futuro que estamos construyendo juntos.","Calle del Dr. Esquerdo, 138, Madrid","irecepcion.central@savethechildren.org","28007","true",null,"33333333","test");
 
     this.identity = JSON.stringify(this.ngo);
     localStorage.setItem('identity',this.identity);
-    localStorage.setItem('authorization',"aW5mb3JtYUBhdmVudHVyYS5vcmc6dGVzdA==");
+    localStorage.setItem('authorization',"cmVjZXBjaW9uLmNlbnRyYWxAc2F2ZXRoZWNoaWxkcmVuLm9yZzp0ZXN0");
     //This is fake for testing that this works
 
     this.identity = localStorage.getItem('identity');
@@ -39,7 +39,7 @@ export class VolunteeringService {
 
   public getEditVolunteering():any{
       //This is fake for testing
-      localStorage.setItem('editVolunteering',"382");
+      localStorage.setItem('editVolunteering',"128");
       //This is fake for testing
 
       return localStorage.getItem('editVolunteering');
@@ -70,7 +70,7 @@ export class VolunteeringService {
   public updateVolunteering(volunteringId:number, volunteering:any){
 
     //Esto hay que quitarlo
-    localStorage.setItem('authorization',"aW5mb3JtYUBhdmVudHVyYS5vcmc6dGVzdA==");
+    localStorage.setItem('authorization',"cmVjZXBjaW9uLmNlbnRyYWxAc2F2ZXRoZWNoaWxkcmVuLm9yZzp0ZXN0");
     //Esto hay que quitarlo
 
 
