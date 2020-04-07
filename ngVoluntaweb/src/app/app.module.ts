@@ -9,6 +9,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NgosComponent } from './components/ngos/ngos.component';
+import { IndexComponent } from './components/index/index.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { NgosComponent } from './components/ngos/ngos.component';
     NavbarComponent,
     FooterComponent,
     HeaderComponent,
-    NgosComponent
+    NgosComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
