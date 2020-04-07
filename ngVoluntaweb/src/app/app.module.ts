@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -17,6 +18,7 @@ import { RegisterNgoComponent } from './components/register-ngo/register-ngo.com
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { JoinedVolunteeringsComponent } from './components/joined-volunteerings/joined-volunteerings.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { VolunteeringPageComponent } from './components/volunteering-page/volunteering-page.component';
 
 
 @NgModule({
@@ -31,13 +33,15 @@ import { ContactComponent } from './components/contact/contact.component';
     RegisterNgoComponent,
     UserSettingsComponent,
     JoinedVolunteeringsComponent,
-    ContactComponent
+    ContactComponent,
+    VolunteeringPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AngularFileUploaderModule
   ],
   providers: [EntityService],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 package com.group7.voluntaweb.controllers;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
@@ -132,7 +133,7 @@ public class ONGController {
 	public String addOng(@RequestParam String name, @RequestParam String email, @RequestParam String responsiblename,
 			@RequestParam String responsiblesurname, @RequestParam String address, @RequestParam String telephone,
 			@RequestParam String postal, @RequestParam String password, @RequestParam String description,
-			@RequestParam MultipartFile imagenFile, Map<String, Object> model) throws IOException {
+			@RequestParam MultipartFile file0, Map<String, Object> model) throws IOException {
 
 		model.put("title", "Registrar ONG");
 
@@ -140,10 +141,13 @@ public class ONGController {
 
 		ONG ong = new ONG(name, responsiblename, responsiblesurname, address, description, email, postal, "true",
 				telephone, encPassword);
+		
 
+		Path path = imgService.saveImage("ong", file0);
+		String filePath = path.getFileName().toString();
+		ong.setImage(filePath);
 		this.ongService.save(ong); // INSERT INTO DATABASE
-
-		imgService.saveImage("ong", ong.getId(), imagenFile);
+		
 		return "redirect:/index"; // REDIRECTS TO INDEX
 
 	}
@@ -188,18 +192,18 @@ public class ONGController {
 	}
 
 	@PostMapping("/ong-settings-form")
-	public String ongSettingsForm(Model model, @RequestParam String name, @RequestParam String responsibleName,
-			@RequestParam String responsibleSurname, @RequestParam String address, @RequestParam String description,
+	public String ongSettingsForm(Model model, @RequestParam String name, @RequestParam String responsiblename,
+			@RequestParam String responsiblesurname, @RequestParam String address, @RequestParam String description,
 			@RequestParam String email, @RequestParam String postal, @RequestParam String telephone,
-			@RequestParam MultipartFile imagenFile) throws IOException {
+			@RequestParam MultipartFile file0) throws IOException {
 		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = principal.getName();
 
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 
 		ong.setName(name);
-		ong.setResponsibleName(responsibleName);
-		ong.setResponsibleSurname(responsibleSurname);
+		ong.setResponsibleName(responsiblename);
+		ong.setResponsibleSurname(responsiblesurname);
 		ong.setAddress(address);
 		ong.setDescription(description);
 		ong.setDescription(description);
@@ -207,10 +211,13 @@ public class ONGController {
 		ong.setPostal(postal);
 		ong.setTelephone(telephone);
 
-		this.ongRepo.save(ong);
-		if (imagenFile.getSize() > 5) {
-			imgService.saveImage("ong", ong.getId(), imagenFile);
+		
+		if (file0.getSize() > 5) {
+			Path path = imgService.saveImage("ong", file0);
+			String filePath = path.getFileName().toString();
+			ong.setImage(filePath);
 		}
+		this.ongRepo.save(ong);
 		model.addAttribute("ong", ong);
 
 		return "ong-settings";
@@ -238,21 +245,28 @@ public class ONGController {
 
 	@PostMapping("ong-submit-advertisement-form")
 	public String subirAnuncio(Model model, @RequestParam String name, @RequestParam String city,
-			@RequestParam long categoryId, @RequestParam Date startDate, @RequestParam Date endDate,
-			@RequestParam String description, @RequestParam MultipartFile imagenFile, @RequestParam String email)
+			@RequestParam long categoryid, @RequestParam Date startdate, @RequestParam Date enddate,
+			@RequestParam String description, @RequestParam MultipartFile file0, @RequestParam String email)
 			throws IOException {
 
-		Category cat = this.catRepo.findById(categoryId);
+		Category cat = this.catRepo.findById(categoryid);
 
-		Volunteering anuncio = new Volunteering(null, name, cat, startDate, endDate, description,
-				"/images/volunteerings/", city, email);
+		Volunteering anuncio = new Volunteering(null, name, cat, startdate, enddate, description,
+				null, city, email);
 
 		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = principal.getName();
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 		anuncio.setOng(ong);
 		try {
-			volService.save(anuncio);
+			if (file0.getSize() > 5) {
+				
+				Path path = imgService.saveImage("volunteerings", file0);
+				String filePath = path.getFileName().toString();
+				anuncio.setImage(filePath);
+				
+				volService.save(anuncio);				
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 
@@ -262,7 +276,7 @@ public class ONGController {
 		volunteerings.add(anuncio);
 		ong.setVolunteerings(volunteerings);
 		ongService.save(ong);
-		imgService.saveImage("volunteerings", anuncio.getId(), imagenFile);
+		
 
 		model.addAttribute("ong", ong);
 

@@ -1,6 +1,7 @@
 package com.group7.voluntaweb.controllers;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -140,7 +141,7 @@ public class UserController {
 	@PostMapping("/user-settings-form")
 	public String userSettingsForm(Model model, @RequestParam String name, @RequestParam String surname,
 			@RequestParam String city, @RequestParam String telephone, @RequestParam String email,
-			@RequestParam MultipartFile imagenFile) throws IOException {
+			@RequestParam MultipartFile file0) throws IOException {
 		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = principal.getName();
 		User user = userRepo.findByEmail(currentPrincipalName);
@@ -151,10 +152,12 @@ public class UserController {
 		user.setTelephone(telephone);
 		user.setEmail(email);
 
-		this.userRepo.save(user);
-		if (imagenFile.getSize() > 5) {
-			imgService.saveImage("user", user.getId(), imagenFile);
+		if (file0.getSize() > 5) {
+			Path path = imgService.saveImage("user", file0);
+			String filePath = path.getFileName().toString();
+			user.setImage(filePath);
 		}
+		this.userRepo.save(user);
 		model.addAttribute("user", user);
 		return "redirect:settings";
 	}

@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   public identity;
   public entity_type;
   public url;
+  public test
 
   constructor(
     private _entityService: EntityService,

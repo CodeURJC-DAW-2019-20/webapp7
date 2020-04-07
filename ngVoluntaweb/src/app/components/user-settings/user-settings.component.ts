@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { EntityService } from 'src/app/services/entity.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { global } from '../../services/global';
 
 @Component({
   selector: 'app-user-settings',
@@ -15,6 +16,9 @@ export class UserSettingsComponent implements OnInit {
   public status: String;
   public user: User;
   public identity;
+  public afuConfig;
+  public token;
+  public url;
 
 
   constructor(
@@ -25,6 +29,35 @@ export class UserSettingsComponent implements OnInit {
   ) {
     this.identity = this._entityService.getIdentity();
     this.user = this.identity;
+
+    this.token = localStorage.getItem('authorization');
+
+    this.url = global.url;
+
+    this.afuConfig = {
+      uploadAPI: {
+        url: this.url + 'users/image',
+        headers: {
+          "Authorization": 'Basic '+this.token
+        }
+      },
+      multiple: false,
+      formatsAllowed: ".jpg",
+      maxSize: '50',
+      theme: "attachPin",
+      hideProgressBar: false,
+      hideResetBtn: true,
+      hideSelectBtn: false,
+      replaceTexts: {
+        selectFileBtn: 'Seleccionar archivo...',
+        resetBtn: 'Reset',
+        uploadBtn: 'Subir',
+        dragNDropBox: 'Drag N Drop',
+        attachPinBtn: 'Seleccionar archivo...',
+        afterUploadMsg_success: '¡Subida satisfactoria!',
+        afterUploadMsg_error: '¡Subida fallida!'
+      }
+    };
    }
 
   ngOnInit() {
@@ -39,6 +72,7 @@ export class UserSettingsComponent implements OnInit {
     this._userService.update(this.user).subscribe(response=>{
       if(response.id != null){
         this.status = "success";
+        this.identity = response;
         localStorage.setItem("identity", JSON.stringify(response));
       }else {
         this.status = "error";
@@ -47,7 +81,9 @@ export class UserSettingsComponent implements OnInit {
     error=>{
       console.log(<any>error);
       this.status = "error";
-    })
+    });
+
+    
     
   }
 
@@ -70,5 +106,12 @@ export class UserSettingsComponent implements OnInit {
       }
     );
   }
+
+  avatarUpload(data) {
+    console.log(data);
+    let data_obj = JSON.parse(data.response);
+    this.user.image = data_obj.image;
+  }
+
 
 }
