@@ -5,36 +5,38 @@ import { VolunteeringService } from 'src/app/services/volunteering.service';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
 import { Form } from '@angular/forms';
-import { global } from '../../services/global.service';
+import { global } from '../../services/global';
+import { EntityService } from 'src/app/services/entity.service';
 
 @Component({
   selector: 'app-create-volunteering',
   templateUrl: './create-volunteering.component.html',
   styleUrls: ['./create-volunteering.component.css'],
-  providers: [VolunteeringService]
+  providers: [VolunteeringService, EntityService]
 })
 export class CreateVolunteeringComponent implements OnInit {
 
-  private volunteering: Volunteering;
+  public volunteering: Volunteering;
 
-  private ngoLogged:NGO;
+  public ngoLogged:NGO;
 
   public categories:Array<Category>;
 
   public category:Category;
 
-  private status: string;
+  public status: string;
 
-  private afuConfig:any;
+  public afuConfig:any;
 
   private url:string;
 
   private token: string;
+  public identity;
   
 
 
 
-  constructor(private _volunteeringService: VolunteeringService, private _categoryService: CategoryService) {
+  constructor(private _volunteeringService: VolunteeringService, private _categoryService: CategoryService, private _entityService: EntityService) {
 
     this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
 
@@ -86,7 +88,7 @@ export class CreateVolunteeringComponent implements OnInit {
 
 
   ngOnInit() {
-
+    this.identity = this._entityService.getIdentity();
     this.ngoLogged = this._volunteeringService.getNgoLogged();
     console.log(this.ngoLogged);
   }
@@ -97,10 +99,19 @@ export class CreateVolunteeringComponent implements OnInit {
     this.volunteering.ong = this.ngoLogged;
     this.volunteering.id = null; //The API give the id
 
-    this._volunteeringService.createVolunteering(this.volunteering).subscribe(
+    this._volunteeringService.create(this.volunteering).subscribe(
       (response:any) =>{
-        if(response.volunteering){
-          this.volunteering = response.volunteering;
+        if(response){
+          this.volunteering = response;
+
+          //if(this.ngoLogged.volunteerings == null){
+            //this.identity.volunteerings = new Set();
+          //}
+
+          
+          this.identity.volunteerings.add(this.volunteering);
+          
+          localStorage.setItem('identity',JSON.stringify(this.identity));
         }
         else{
           this.status = 'error';
@@ -110,16 +121,7 @@ export class CreateVolunteeringComponent implements OnInit {
         console.log(<any>error);
       }
     );
-
-
-    if(this.ngoLogged.volunteerings == null){
-      this.ngoLogged.volunteerings = new Set<Volunteering>();
-    }
-
-
-    this.ngoLogged.volunteerings.add(this.volunteering);
-
-    localStorage.setItem('identity',JSON.stringify(this.ngoLogged));
+    
 
   }
 

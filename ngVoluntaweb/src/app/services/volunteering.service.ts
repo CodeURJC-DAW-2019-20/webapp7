@@ -20,7 +20,7 @@ export class VolunteeringService {
     this.url = global.url;
   }
 
-  public getNgoLogged():any{
+  public getNgoLogged():NGO{
 
     //This is fake for testing that this works
     /*this.ngo = new NGO(55,"Save the children","Andrés","Conde","Todos los niños tienen derecho a un futuro. En España y en todo el mundo, trabajamos cada día para asegurar que todos los niños sobreviven, aprenden y están protegidos frente a la violencia. Cuando se produce una emergencia, y los niños son más vulnerables, somos siempre los primeros en llegar y los últimos en marcharnos. Atendemos las necesidades de los niños y nos aseguramos de que sus voces son escuchadas. Conseguimos cambios duraderos en la vida de millones de niños, incluso en aquellos a los que cuesta más llegar.  Hacemos todo lo que sea necesario para lograr que todos los niños, cada día y cuando ocurre una emergencia, puedan cambiar sus vidas y el futuro que estamos construyendo juntos.","Calle del Dr. Esquerdo, 138, Madrid","irecepcion.central@savethechildren.org","28007","true",null,"33333333","test");

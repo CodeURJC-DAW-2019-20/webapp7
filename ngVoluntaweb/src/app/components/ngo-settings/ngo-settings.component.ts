@@ -3,8 +3,7 @@ import { NGO } from 'src/app/models/ngo';
 import { NgoService } from 'src/app/services/ngo.service';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { ImageService } from 'src/app/services/image.service';
-import { global } from '../../services/global.service';
+import { global } from '../../services/global';
 import { EntityService } from 'src/app/services/entity.service';
 
 

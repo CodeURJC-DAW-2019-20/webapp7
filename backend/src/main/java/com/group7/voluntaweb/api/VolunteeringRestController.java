@@ -132,6 +132,7 @@ public class VolunteeringRestController {
 			ONG ngo = (ONG) genCompo.getLoggedUser();
 			ad.setOng(ngo);
 			Volunteering saved = volunteeringService.save(ad);
+			ngo.getVolunteerings().add(ad);
 			return new ResponseEntity<Volunteering>(saved, HttpStatus.CREATED);
 		}
 

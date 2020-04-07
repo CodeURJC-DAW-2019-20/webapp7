@@ -4,7 +4,8 @@ import { Volunteering } from 'src/app/models/volunteering';
 import { Category } from 'src/app/models/category';
 import { VolunteeringService } from 'src/app/services/volunteering.service';
 import { CategoryService } from 'src/app/services/category.service';
-import { global } from '../../services/global.service';
+import { global } from '../../services/global';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class EditVolunteeringComponent implements OnInit {
   public categories:Array<Category>;
   public category:Category;
   private status: string;
-  private editedVolunteering:string;
+
   
 
   public afuConfig:any;
@@ -27,7 +28,7 @@ export class EditVolunteeringComponent implements OnInit {
   public token:string;
   
 
-  constructor(private _volunteeringService: VolunteeringService, private _categoryService: CategoryService) { 
+  constructor(private _volunteeringService: VolunteeringService, private _categoryService: CategoryService, private _route: ActivatedRoute) { 
     
     this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
 
@@ -38,9 +39,8 @@ export class EditVolunteeringComponent implements OnInit {
 
     this.ngoLogged = this._volunteeringService.getNgoLogged();
 
-    this.editedVolunteering = this._volunteeringService.getEditVolunteering();
 
-    this._volunteeringService.getVolunteeringById(Number.parseInt(this.editedVolunteering)).subscribe(
+    this._volunteeringService.getVolunteeringById(this.volunteering.id).subscribe(
       (response:any)=>{
         if(response){
           this.volunteering = response;
@@ -55,7 +55,7 @@ export class EditVolunteeringComponent implements OnInit {
     );
 
     //Esto esta para testear
-    localStorage.setItem('authorization',"cmVjZXBjaW9uLmNlbnRyYWxAc2F2ZXRoZWNoaWxkcmVuLm9yZzp0ZXN0");
+    /*localStorage.setItem('authorization',"cmVjZXBjaW9uLmNlbnRyYWxAc2F2ZXRoZWNoaWxkcmVuLm9yZzp0ZXN0");*/
     //Esto esta para testear
 
     this.token = localStorage.getItem('authorization');
@@ -92,9 +92,16 @@ export class EditVolunteeringComponent implements OnInit {
 
   ngOnInit() {
 
-    if(this.ngoLogged.volunteerings != null){     //Cuando se una todo esto no va 
+    /*if(this.ngoLogged.volunteerings != null){     //Cuando se una todo esto no va 
       this.ngoLogged.volunteerings.delete(this.volunteering);
-    }
+    }*/
+
+    this._route.params.subscribe(
+      (params) =>{
+        var volId = params['id'];
+        this.volunteering.id = volId;
+      }
+    );
     
   }
   
@@ -112,6 +119,7 @@ export class EditVolunteeringComponent implements OnInit {
       },
       error =>{
         console.log(<any>error);
+        this.status = 'error';
       }
     );
 
@@ -127,7 +135,7 @@ export class EditVolunteeringComponent implements OnInit {
 
   avatarUpload(data) {
     let data_obj = JSON.parse(data.response);
-    this.volunteering.image = "true";
+    this.volunteering.image = data_obj.image;
   }
 
 }

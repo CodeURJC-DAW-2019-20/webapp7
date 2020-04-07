@@ -4,6 +4,8 @@ import { VolunteeringService } from 'src/app/services/volunteering.service';
 import { Volunteering } from 'src/app/models/volunteering';
 import { EntityService } from 'src/app/services/entity.service';
 import { global } from '../../services/global';
+import { User } from '../../models/user';
+import { UserVolunteering } from 'src/app/models/uservolunteering';
 
 @Component({
   selector: 'app-volunteering-page',
@@ -20,6 +22,8 @@ export class VolunteeringPageComponent implements OnInit {
   public entity_type;
   public joined: Boolean;
   public url;
+  public user: User;
+  public registration: UserVolunteering;
 
   constructor(
     private _route: ActivatedRoute,
@@ -66,6 +70,9 @@ export class VolunteeringPageComponent implements OnInit {
         if (response.id){
           this.joined = true;
           console.log(this.joined);
+          this.user = this.identity;
+          console.log(this.identity);
+          localStorage.setItem('identity', JSON.stringify(this.identity));
         }
       },
       error=>{

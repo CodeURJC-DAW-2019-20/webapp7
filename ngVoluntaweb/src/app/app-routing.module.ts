@@ -8,6 +8,9 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
 import { JoinedVolunteeringsComponent } from './components/joined-volunteerings/joined-volunteerings.component'
 import { ContactComponent } from './components/contact/contact.component';
 import { VolunteeringPageComponent } from './components/volunteering-page/volunteering-page.component';
+import { EditVolunteeringComponent } from './components/edit-volunteering/edit-volunteering.component';
+import { NgoSettingsComponent } from './components/ngo-settings/ngo-settings.component';
+import { CreateVolunteeringComponent } from './components/create-volunteering/create-volunteering.component';
 
 const routes: Routes = [
   {path: "login", component: LoginComponent},
@@ -17,7 +20,10 @@ const routes: Routes = [
   {path: "user/settings", component: UserSettingsComponent},
   {path: "user/myvolunteerings", component: JoinedVolunteeringsComponent},
   {path: "contact", component: ContactComponent},
-  {path: "volunteering/:id", component: VolunteeringPageComponent}
+  {path: "volunteering/new", component: CreateVolunteeringComponent},
+  {path: "volunteering/:id", component: VolunteeringPageComponent},
+  {path: "volunteering/edit/:id", component: EditVolunteeringComponent},
+  {path: "ngo/settings", component: NgoSettingsComponent}
 ];
 
 @NgModule({
