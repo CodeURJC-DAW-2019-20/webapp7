@@ -22,5 +22,16 @@ export class NgoService{
 
     }
 
+    updateNgo(ngo: any): Observable<any> {
+      let headers = new HttpHeaders().set('Content-Type', 'application/json').set("Authorization","Basic " +  this.getLoggedNgoToken());
+  
+      return this._http.put(this.url+'ongs/', ngo,{headers: headers});
+    }
 
+
+    getLoggedNgoToken(){
+      return localStorage.getItem("authorization");
+    }
 }
+
+

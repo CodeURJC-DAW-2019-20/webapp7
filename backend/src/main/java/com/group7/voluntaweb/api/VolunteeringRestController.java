@@ -1,4 +1,4 @@
-package com.group7.voluntaweb.api;
+gipackage com.group7.voluntaweb.api;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

@@ -1,14 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
-import { AngularFileUploaderModule } from "angular-file-uploader";
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+import { NgoSettingsComponent } from './components/ngo-settings/ngo-settings.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { CreateVolunteeringComponent } from './components/create-volunteering/create-volunteering.component';
+import { EditVolunteeringComponent } from './components/edit-volunteering/edit-volunteering.component';
+import { AngularFileUploaderModule } from 'angular-file-uploader';
+
 import { LoginComponent } from './components/login/login.component';
 
 import { EntityService } from './services/entity.service';
@@ -27,6 +30,9 @@ import { VolunteeringPageComponent } from './components/volunteering-page/volunt
     NavbarComponent,
     FooterComponent,
     HeaderComponent,
+    NgoSettingsComponent,
+    CreateVolunteeringComponent,
+    EditVolunteeringComponent,
     LoginComponent,
     RegisterComponent,
     RegisterUserComponent,
