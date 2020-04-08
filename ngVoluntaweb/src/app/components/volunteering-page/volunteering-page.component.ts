@@ -6,12 +6,13 @@ import { EntityService } from 'src/app/services/entity.service';
 import { global } from '../../services/global';
 import { User } from '../../models/user';
 import { UserVolunteering } from 'src/app/models/uservolunteering';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-volunteering-page',
   templateUrl: './volunteering-page.component.html',
   styleUrls: ['./volunteering-page.component.css'],
-  providers: [VolunteeringService, EntityService]
+  providers: [VolunteeringService, EntityService, UserService]
 })
 export class VolunteeringPageComponent implements OnInit {
 
@@ -20,16 +21,19 @@ export class VolunteeringPageComponent implements OnInit {
   public likesNumber: Number;
   public identity;
   public entity_type;
-  public joined: Boolean;
+  public isJoined: Boolean;
+  public joined: Volunteering[];
   public url;
   public user: User;
   public registration: UserVolunteering;
+  public alert: Boolean;
 
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
     private _volunteeringService: VolunteeringService,
-    private _entityService: EntityService
+    private _entityService: EntityService,
+    private _userService: UserService
   ) { 
     this.identity = this._entityService.getIdentity();
     this.entity_type = this._entityService.getEntityType();
@@ -43,6 +47,24 @@ export class VolunteeringPageComponent implements OnInit {
         this.getVolunteering(volId);
       }
     );
+
+    this._volunteeringService.getByJoined(this.identity.id).subscribe(
+      (response)=>{
+        let volsJoined = response as Set<Volunteering>;
+        this.joined = Array.from(volsJoined);
+        if(this.joined.includes(this.volunteering)){
+          this.isJoined = true;
+        } else {
+          this.isJoined = false;
+        }
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    );
+
+
+
   }
 
 
@@ -68,11 +90,7 @@ export class VolunteeringPageComponent implements OnInit {
     this._volunteeringService.join(volId).subscribe(
       response=> {
         if (response.id){
-          this.joined = true;
-          console.log(this.joined);
-          this.user = this.identity;
-          console.log(this.identity);
-          localStorage.setItem('identity', JSON.stringify(this.identity));
+          this.alert= true;
         }
       },
       error=>{

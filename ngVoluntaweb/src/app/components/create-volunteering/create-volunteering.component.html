@@ -30,10 +30,9 @@
 
                     <div class="card-body">
                         <!-- Settings form -->
-                        
-
-
-                        <form #formCreateVolunteering = "ngForm" (ngSubmit) = "onSubmit()">
+                        <form #formCreateVolunteering = "ngForm" (ngSubmit) = "onSubmit(formCreateVolunteering)">
+                            <div class="alert alert-success mt-3" *ngIf="status == 'success'">¡Has publicado un nuevo voluntariado! Haz click <a [routerLink]="['/volunteering/',volunteering.id]">aquí</a> para verlo.</div>
+                            <div class="alert alert-danger mt-3" *ngIf="status == 'error'">No se ha podido publicar tu anuncio. Inténtalo de nuevo.</div>
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
 
@@ -59,7 +58,7 @@
                                 <label for="categoryId" class="col-md-4 col-form-label text-md-right">Categoría</label>
                                 
                                 <div class="col-md-6">
-                                    <select name="categorySelect" [(ngModel)] = "category" [disabled] ="volunteering.id != null">
+                                    <select name="categorySelect" class="form-control" [(ngModel)] = "category" [disabled] ="volunteering.id != null">
                                             <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
                                             <!--<option value = "2" >Cooperación al desarrollo</option>
                                             <option value = "3">Cultura y arte social</option>
