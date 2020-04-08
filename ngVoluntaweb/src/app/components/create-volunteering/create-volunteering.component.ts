@@ -114,7 +114,7 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
     );
   }
 
-  onSubmit(){
+  onSubmit(form){
 
     this.volunteering.category = this.category;
     this.volunteering.ong = this.ngoLogged;
@@ -124,6 +124,8 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
       (response:any) =>{
         if(response){
           this.volunteering = response;
+          this.status = "success";
+          form.reset();
         }
         else{
           this.status = 'error';

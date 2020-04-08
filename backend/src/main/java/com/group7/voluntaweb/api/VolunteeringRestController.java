@@ -1,5 +1,6 @@
 package com.group7.voluntaweb.api;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
@@ -313,10 +314,8 @@ public class VolunteeringRestController {
 	// Anonymous
 	@JsonView(CompleteVolunteering3.class)
 	@GetMapping(value = "/image/{filename}")
-	public ResponseEntity<Object> downloadImage(@PathVariable String filename) throws MalformedURLException {
-
-			return this.imgService.createResponseFromImage("volunteerings", filename);
-
+	public ResponseEntity<Object> downloadImage(@PathVariable String filename) throws MalformedURLException, FileNotFoundException {
+			return this.imgService.createResponseFromImage("volunteerings", filename);			
 	}
 	
 	@GetMapping("/ong/{id}")
