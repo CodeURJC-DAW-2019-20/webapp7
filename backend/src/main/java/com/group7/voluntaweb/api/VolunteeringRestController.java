@@ -297,7 +297,7 @@ public class VolunteeringRestController {
 
 		Volunteering volunteering = this.volRepo.findById((long) id);
 
-		if (ngo.equals(volunteering.getOng())) {
+		if (ngo.getId().equals(volunteering.getOng().getId())) {
 
 
 			Path path = this.imgService.saveImage("volunteerings", file0);
