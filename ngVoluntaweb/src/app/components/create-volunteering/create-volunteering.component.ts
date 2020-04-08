@@ -41,7 +41,9 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
 
     this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
 
-    this.categories = this._categoryService.getCategories();
+    this.categories = new Array();
+
+    this.getCategories();
 
     this.category = this.categories[0];
 
@@ -92,6 +94,24 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
     this.identity = this._entityService.getIdentity();
     this.ngoLogged = this._volunteeringService.getNgoLogged();
     console.log(this.ngoLogged);
+  }
+
+  getCategories():void{
+
+    this._categoryService.getCategories().subscribe(
+      (response:any) =>{
+        if(response){
+          this.categories = response;
+        }
+        else{
+          this.status = 'error';
+        }
+      },
+      error =>{
+        this.status = 'error';
+        console.log(<any>error);
+      }
+    );
   }
 
   onSubmit(){
