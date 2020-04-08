@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NGO } from 'src/app/models/ngo';
 import { Volunteering } from 'src/app/models/volunteering';
 import { Category } from 'src/app/models/category';
@@ -6,6 +6,7 @@ import { VolunteeringService } from 'src/app/services/volunteering.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { global } from '../../services/global';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { NgoService } from 'src/app/services/ngo.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   templateUrl: './edit-volunteering.component.html',
   styleUrls: ['./edit-volunteering.component.css']
 })
-export class EditVolunteeringComponent implements OnInit {
+export class EditVolunteeringComponent implements OnInit, OnDestroy {
 
   private volunteering: Volunteering;
   private ngoLogged:NGO;
@@ -28,7 +29,7 @@ export class EditVolunteeringComponent implements OnInit {
   public token:string;
   
 
-  constructor(private _volunteeringService: VolunteeringService, private _categoryService: CategoryService, private _route: ActivatedRoute) { 
+  constructor(private _volunteeringService: VolunteeringService, private _ngoService:NgoService, private _categoryService: CategoryService, private _route: ActivatedRoute) { 
     
     this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
 
@@ -123,19 +124,43 @@ export class EditVolunteeringComponent implements OnInit {
       }
     );
 
-    if(this.ngoLogged.volunteerings == null){
+    //ERROR (Same as in create volunteering)
+
+    /*if(this.ngoLogged.volunteerings == null){
         this.ngoLogged.volunteerings = new Set<Volunteering>();
     }
     
     this.ngoLogged.volunteerings.add(this.volunteering);
 
-    localStorage.setItem('identity',JSON.stringify(this.ngoLogged));
+    localStorage.setItem('identity',JSON.stringify(this.ngoLogged));*/
 
+    //ERROR
   }
 
   avatarUpload(data) {
     let data_obj = JSON.parse(data.response);
     this.volunteering.image = data_obj.image;
+  }
+
+  ngOnDestroy(){
+    this._ngoService.getNgo(this.ngoLogged.id).subscribe(
+      (response:any)=>{
+        if(response){
+          this.ngoLogged = response;
+
+          localStorage.setItem('identity',JSON.stringify(this.ngoLogged));
+
+          console.log(this.ngoLogged);
+        }
+        else{
+          this.status = 'error';
+        }
+      },
+      error =>{
+        this.status = 'error';
+        console.log(<any>error);
+      }
+    );
   }
 
 }

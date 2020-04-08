@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Volunteering } from 'src/app/models/volunteering';
 import { NGO } from 'src/app/models/ngo';
 import { VolunteeringService } from 'src/app/services/volunteering.service';
@@ -7,14 +7,15 @@ import { CategoryService } from 'src/app/services/category.service';
 import { Form } from '@angular/forms';
 import { global } from '../../services/global';
 import { EntityService } from 'src/app/services/entity.service';
+import { NgoService } from 'src/app/services/ngo.service';
 
 @Component({
   selector: 'app-create-volunteering',
   templateUrl: './create-volunteering.component.html',
   styleUrls: ['./create-volunteering.component.css'],
-  providers: [VolunteeringService, EntityService]
+  providers: [VolunteeringService, NgoService, EntityService]
 })
-export class CreateVolunteeringComponent implements OnInit {
+export class CreateVolunteeringComponent implements OnInit,OnDestroy {
 
   public volunteering: Volunteering;
 
@@ -36,7 +37,7 @@ export class CreateVolunteeringComponent implements OnInit {
 
 
 
-  constructor(private _volunteeringService: VolunteeringService, private _categoryService: CategoryService, private _entityService: EntityService) {
+  constructor(private _volunteeringService: VolunteeringService, private _ngoService: NgoService,private _categoryService: CategoryService, private _entityService: EntityService) {
 
     this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
 
@@ -103,26 +104,26 @@ export class CreateVolunteeringComponent implements OnInit {
       (response:any) =>{
         if(response){
           this.volunteering = response;
-
-          //if(this.ngoLogged.volunteerings == null){
-            //this.identity.volunteerings = new Set();
-          //}
-
-          
-          this.identity.volunteerings.add(this.volunteering);
-          
-          localStorage.setItem('identity',JSON.stringify(this.identity));
         }
         else{
           this.status = 'error';
         }
       },
       error =>{
+        this.status = 'error';
         console.log(<any>error);
       }
     );
-    
 
+    /*ERROR*/
+
+    /*if(this.ngoLogged.volunteerings == null){
+      this.identity.volunteerings = new Set();
+    }        
+    this.identity.volunteerings.add(this.volunteering); 
+    localStorage.setItem('identity',JSON.stringify(this.identity));*/
+
+    /*ERROR*/
   }
 
 
@@ -130,5 +131,31 @@ export class CreateVolunteeringComponent implements OnInit {
     console.log(data.response);
     let data_obj = JSON.parse(data.response);
     this.volunteering.image = "true";
+  }
+
+  
+
+  //We have to made this instead adding directly to localStorage because there is an error when we add to the set the volunteering that we don´t know how to resolve it.
+  //So we have to get the ngo from spring with the new volunteering and bring it here to save it on the localStorage.
+
+  ngOnDestroy(){
+    this._ngoService.getNgo(this.ngoLogged.id).subscribe(
+      (response:any)=>{
+        if(response){
+          this.ngoLogged = response;
+
+          localStorage.setItem('identity',JSON.stringify(this.ngoLogged));
+
+          console.log(this.ngoLogged);
+        }
+        else{
+          this.status = 'error';
+        }
+      },
+      error =>{
+        this.status = 'error';
+        console.log(<any>error);
+      }
+    );
   }
 }

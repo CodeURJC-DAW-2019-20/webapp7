@@ -32,6 +32,12 @@ export class NgoService{
     getLoggedNgoToken(){
       return localStorage.getItem("authorization");
     }
+
+    getNgo(ngoId:number):Observable<any>{
+      let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+      return this._http.get(this.url + 'ongs/' + ngoId,{headers:headers});
+    }
 }
 
 
