@@ -22,7 +22,6 @@ export class NgoDetailsComponent implements OnInit {
   ngOnInit() {
     this._route.params.subscribe((params: Params) => {
         this.id_ngo = params.id;
-        console.log(this.id_ngo);
     })
     this._ngoService.getNgo(this.id_ngo).subscribe(
       response => {

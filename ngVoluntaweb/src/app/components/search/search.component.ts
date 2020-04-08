@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { Category } from '../../models/category';
-import { SearchService } from '../../services/search.service'
+import { SearchService } from '../../services/search.service';
+import { VolunteeringService } from '../../services/volunteering.service'
 import { NgoService } from '../../services/ngo.service';
 import { Volunteering } from 'src/app/models/volunteering';
 import { CategoryService } from '../../services/category.service';
@@ -11,10 +12,11 @@ import { Observable } from 'rxjs';
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
-  providers: [SearchService, CategoryService]
+  providers: [SearchService, CategoryService, VolunteeringService]
 })
 export class SearchComponent implements OnInit {
-  private page:number=0;
+  private currentPage:number;
+  private numberPages:number;
   private volunteerings:Array<Volunteering>;
   private all_volunteerings:Array<Volunteering>;
   private selected_volunteerings:Array<Volunteering>;
@@ -27,13 +29,17 @@ export class SearchComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _searchService: SearchService,
+    private _volunteeringService: VolunteeringService,
     private _categoryService: CategoryService
     ) {
       this.AllCategories();
+      this.getNumberPages();
     }
 
   ngOnInit() {
-    if (!this.volunteerings){
+    if (this.numberPages == 0){
+      this.non_volunteerings = true;
+    } else if (!this.volunteerings){
       this.AllVolunteerings();
     }else{
       this.all_volunteerings = this.volunteerings;
@@ -42,18 +48,51 @@ export class SearchComponent implements OnInit {
   }
 
   AllVolunteerings(){
-    this._searchService.getSearch(this.page).subscribe(
+    this._searchService.getSearch(0).subscribe(
       response => {
         this.selected_volunteerings = null;
         this.all_volunteerings = response;
-        this.volunteerings = response;
+        this.volunteerings = [...this.all_volunteerings];
         this.non_volunteerings = false;
-        console.log(response);
       },
       error => {
         console.log(<any>error);
         this.non_volunteerings = true;
       }
+    )
+  }
+
+  getNumberPages(){
+    this._volunteeringService.getVolunteerings().subscribe(
+      response =>{
+        if(response.length == 0){
+          this.numberPages = 0;
+        } else if ((response.length % 5) == 0){
+          this.numberPages = response.length / 5;
+          this.numberPages -= 1;
+        } else{
+          this.numberPages = Math.floor(response.length / 5);
+        }
+        this.currentPage = 0;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  addFiveMoreVolunteerings(){
+    if(this.currentPage < (this.numberPages + 1)){
+      this.currentPage += 1;
+    }
+    this._searchService.getSearch(this.currentPage).subscribe(
+      response => {
+        this.volunteerings.push(...response);
+      },
+      error => {
+        console.log(<any>error);
+      }
+      
     )
   }
   
@@ -75,7 +114,6 @@ export class SearchComponent implements OnInit {
     this._categoryService.getCategories().subscribe(
       response => {
         this.categories = response;
-        console.log(this.categories);
         this.non_volunteerings = false;
       },
       error => {

@@ -107,6 +107,12 @@ public class VolunteeringRestController {
 		List<Volunteering> list = StreamSupport.stream(volunteerings.spliterator(), false).collect(Collectors.toList());
 		return list;
 	}
+	
+	@GetMapping("/all/")
+	@JsonView(CompleteVolunteering.class)
+	public Collection<Volunteering> getAllVolunteerings(){
+		return volunteeringService.findAll();
+	}
 
 	// obtain a volunteering
 	@GetMapping("/{id}")
