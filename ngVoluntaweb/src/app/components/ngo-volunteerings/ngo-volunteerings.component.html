@@ -1,0 +1,26 @@
+<hr>
+<div *ngIf="!volList" align="center" >
+   <h2>Cargando...</h2>
+</div>
+
+    <div class="col-lg-4 offset-4 mt-4">
+        <div *ngFor="let volunteering of volList"class="card-deck mt-4 mb-4">
+            <div class="card ml-4" >
+                <a href="/volunteering/{{volunteering.id}}">
+                    <img src="{{this.url}}volunteerings/image/{{volunteering.image}}" alt=""
+                        onerror="this.onerror=null;this.src='assets/images/placeholder-2.png'">
+                    <div class="card-body .col-lg-6">
+                    <h5 class="card-title">{{volunteering.name}}</h5>
+                        <div class="text-center">
+                            <button class="btn btn-primary mr-2">Editar</button>
+                            <button (click)="deleteVol(volunteering.id)" class="btn btn-danger ml-2">Retirar</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div> 
+    </div>
+
+  
+
+      
