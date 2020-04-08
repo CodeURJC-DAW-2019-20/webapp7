@@ -14,16 +14,16 @@ export class SearchService{
 
     getSearch(page:number): Observable<any>{
         let headers = new HttpHeaders().set('Content-Type', "application/json");
-        return this._http.get(this.url+'search?page='+ page);
+        return this._http.get(this.url+'search?page='+ page, {headers:headers});
     }
 
     getByWord(word:string): Observable<any>{
         let headers = new HttpHeaders().set('Content-Type', "application/json");
-        return this._http.get(this.url+'search/?keyword='+word);
+        return this._http.get(this.url+'search/?keyword='+word, {headers:headers});
     }
 
     getByCategory(category:number):Observable<any>{
         let headers = new HttpHeaders().set('Content-Type', "application/json");
-        return this._http.get(this.url+'search/?category='+category);
+        return this._http.get(this.url+'search/?category='+category, {headers:headers});
     }
 }
