@@ -21,6 +21,7 @@ VoluntaWeb is a project developed by group 7 of the subject "Web Application Dev
   
 ## Our links
 [Trello](https://trello.com/b/nNVdsRsp)
+Our link on YouTube: 
 
 ## Main aspects
 ### Entities
@@ -124,7 +125,7 @@ This webpage allows Volunteers to create an account in VoluntaWeb.
 ## Development environment setup:
 For the development of this application we have used Spring in its latest version. Specifically, we have used the Spring Tools 4 development. This tool is available for different IDEs (Eclipse, visual studio code, Theia).
 * Install Java SE Development Kit 13
-* Instal Eclipse IDE
+* Install Eclipse IDE
 * Install Sprint Tools 4 from the Eclipse Marketplace.
 * Import the project: File> Import> Maven> Existing Maven Projects> Browse directory > Select folder of the project and finish.
 
@@ -161,4 +162,18 @@ Document [Development Environment](./backend/Dockerfile) with information about 
 | Daniel Fuente  | 1. [Added images on UserRestController and changed their URLs](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/331311a49663cc36099cebb29ca6dae9d18c941c)<br/> 2. [Implemeted images with VolunteeringRestController](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/01adfa086288de034d3335abf99dd0682075bb40)<br/> 3. [Added images to volunteerings and ngos](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/d25d811fa769dd98cbee934f4241e4f298524911)<br/> 4. [Added Postman file](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/a058088f81dd5e0e4f181323c4194505dbd654a5)<br/> 5. [Added images with rest controller](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/574d0fa98972a5ab8529c90f2efaf90e9a9c07c1)   | 1. api.postman_collection.json<br/> 2. ONGRestController.java<br/> 3. UserRestController.java<br/> 4. ImageService<br/> 5.  VolunteeringRestController.java|
 | Daniel Serrano  | 1. [Merge pull request #21 from CodeURJC-DAW-2019-20/feature/LoginAPI](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/0fefbd04f941177febf829ff7eb323504841325b)<br/> 2. [user and ong login](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/8c952ff6814503376e7ff9eee8736344a3a48d58)<br/> 3. [Permissions in Volunteering methods](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/c293d86bca57217985f114ac8c8233fce1478538)<br/> 4. [Permissions in UserRestController methods](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/c7d1f5b21bfb5c81a9d7f1d71a812f1093f11f4f)<br/> 5. [Permissions in ONGRestController](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/6e7f19b3a5b2d7ab5a790875f55173b0d4bc9528)  | 1. LoginRestController.java<br/> 2. RestSecurityConfiguration.java<br/> 3. UserRestController.java<br/> 4. VolunteeringRestController.java<br/> 5.  OngRestController.java|
 
+### Phase 4
+## Development Environment Preparation
+
+## Class diagram
+
+## Commits list
+
+| Member | 5 relevant commits | 5 relevante files |
+| ------------- | ------------- | ------------- |
+| Samuel Severiche | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  |
+| Alicia Merino | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  |
+| Pablo Atahonero  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  |
+| Daniel Fuente  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  |
+| Daniel Serrano  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  |
 
