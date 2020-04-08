@@ -32,7 +32,7 @@
                         <div class="alert alert-success mt-3" *ngIf="status == 'success'">¡Has publicado un nuevo voluntariado! Haz click <a [routerLink]="['/volunteering/',volunteering.id]">aquí</a> para verlo.</div>
                         <div class="alert alert-danger mt-3" *ngIf="status == 'error'">No se ha podido publicar tu anuncio. Inténtalo de nuevo.</div>
                         <!-- Settings form -->
-                        <form #formCreateVolunteering = "ngForm" (ngSubmit) = "onSubmit(formCreateVolunteering)" *ngIf = "!volunteering.id">
+                        <form #formCreateVolunteering = "ngForm" (ngSubmit) = "onSubmit(formCreateVolunteering)" *ngIf = "!volunteering.id && categories">
                             
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
@@ -59,7 +59,7 @@
                                 <label for="categoryId" class="col-md-4 col-form-label text-md-right">Categoría</label>
                                 
                                 <div class="col-md-6">
-                                    <select name="categorySelect" class="form-control" [(ngModel)] = "category" [disabled] ="volunteering.id != null">
+                                    <select name="category" class="form-control" [(ngModel)] = "category" [disabled] ="volunteering.id != null">
                                             <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
                                             <!--<option value = "2" >Cooperación al desarrollo</option>
                                             <option value = "3">Cultura y arte social</option>
@@ -138,7 +138,7 @@
                             </div>
                             <div class="form-group row mb-4">
                                 <div class="col-md-6 offset-md-4">
-                                    <input type = "submit" value = "Subir imagen"/>
+                                    <input type = "submit" class = "site-button" value = "Subir imagen"/>
                                 </div>
                             </div>
                         </form>

@@ -49,9 +49,6 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
 
     this.url = global.url;
 
-    //Esto esta para testear
-    //localStorage.setItem('authorization',"cmVjZXBjaW9uLmNlbnRyYWxAc2F2ZXRoZWNoaWxkcmVuLm9yZzp0ZXN0");
-    //Esto esta para testear
 
     this.token = localStorage.getItem('authorization');
 

@@ -30,8 +30,8 @@
                                 <div class="col-lg-12 col-md-6">
                                     <div class="m-b30">
 
-                                        <img src="{{this.url}}volunteerings/image/{{volunteering.image}}" alt=""
-                                            onerror="this.onerror=null;this.src='assets/images/placeholder-2.png'">
+                                        <img src="{{this.url}}volunteerings/image/{{volunteering.image}}" alt="" *ngIf = "volunteering.image != 'false'">
+                                        <img src="assets/images/placeholder-2.png" alt="" *ngIf = "volunteering.image == 'false'">
 
                                     </div>
                                 </div>
