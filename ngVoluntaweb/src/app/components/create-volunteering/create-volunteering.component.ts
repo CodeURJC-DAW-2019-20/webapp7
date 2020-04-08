@@ -13,7 +13,7 @@ import { NgoService } from 'src/app/services/ngo.service';
   selector: 'app-create-volunteering',
   templateUrl: './create-volunteering.component.html',
   styleUrls: ['./create-volunteering.component.css'],
-  providers: [VolunteeringService, NgoService, EntityService]
+  providers: [VolunteeringService, NgoService, EntityService, CategoryService]
 })
 export class CreateVolunteeringComponent implements OnInit,OnDestroy {
 

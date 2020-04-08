@@ -33,7 +33,7 @@
                                     <div *ngIf="all_volunteerings">
                                         <h1 style="text-align: center">TODOS LOS VOLUNTARIADOS</h1>
                                         <li *ngFor="let current_volunteering of volunteerings">
-                                            <a href="{{url}}volunteerings/{{current_volunteering.id}}">
+                                            <a [routerLink]="['/volunteering',current_volunteering.id]">
                                                 <div class="d-flex m-b30">
                                                     <div class="job-post-company">
                                                         <span><img src="/assets/images/logo/icon1.png"/></span>
@@ -66,7 +66,7 @@
                                 <div *ngIf="!all_volunteerings">
                                     <div *ngIf="selected_volunteerings">
                                         <li *ngFor="let current_volunteering of selected_volunteerings">
-                                            <a href="{{url}}volunteerings/{{current_volunteering.id}}">
+                                            <a [routerLink]="['/volunteering',current_volunteering.id]">
                                                 <div class="d-flex m-b30">
                                                     <div class="job-post-company">
                                                         <span><img src="/assets/images/logo/icon1.png"/></span>
@@ -113,7 +113,7 @@
                                     <h5 class="widget-title font-weight-700 text-uppercase">Palabras clave</h5>
                                     <input type="text" [(ngModel)]="word" name="searchKeyword" #searchKeyword class="form-control" placeholder="Buscar">
                                     <p *ngIf="all_volunteerings">
-                                        <button class="site-button btn-block" (click)="AllVolunteeringsByWord()">Buscar</button>
+                                        <button class="site-button btn-block mt-3" (click)="AllVolunteeringsByWord()">Buscar</button>
                                     </p>
 
                                 </form>
@@ -122,7 +122,7 @@
                             <div class="clearfix">
                                 <form action="/search" method="GET">
                                     <h5 class="widget-title font-weight-700 text-uppercase">Categorias</h5>
-                                    <select name="cate" #cate [(ngModel)]="categor">
+                                    <select name="cate" #cate [(ngModel)]="categor" class="form-control">
                                             <option [value]="category.id" *ngFor="let category of categories">{{category.id}}. {{category.name}}</option>
                                     </select>
                                     <br>
@@ -134,7 +134,7 @@
                             </div>
                             <br>
                             <div *ngIf="selected_volunteerings">
-                                <button class="site-button btn-block" (click)="ngOnInit();searchKeyword.value='';cate.value=''">Limpiar Búsqueda</button>
+                                <button class="site-button btn-block mt-3" (click)="ngOnInit();searchKeyword.value='';cate.value=''">Limpiar Búsqueda</button>
                             </div>
 
                         </div>
