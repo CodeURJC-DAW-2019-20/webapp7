@@ -1,25 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Category } from '../models/category';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {global} from '../services/global';
 import { Observable } from 'rxjs';
+import { global } from './global';
+import { Category } from '../models/category';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class CategoryService {
+@Injectable()
+export class CategoryService{
+    public url: string;
+    constructor(
+        public _http: HttpClient
+    ){
+        this.url = global.url;
+    }
 
-  private  categories:Array<Category>;
-  private url:string;
-
-  constructor(private _http:HttpClient) { 
-    this.url = global.url;
-  }
-  
-  getCategories():Observable<any>{
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-
-    return this._http.get(this.url + "categories/", {headers:headers});
-  }
-
+    getCategories(): Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', "application/json");
+        return this._http.get(this.url+'categories/', {headers:headers});
+    }
 }
+

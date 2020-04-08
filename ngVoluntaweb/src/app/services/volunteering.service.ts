@@ -1,15 +1,11 @@
-
 import { Injectable } from '@angular/core';
 import { NGO } from '../models/ngo';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { global } from './global';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class VolunteeringService {
 
   private ngo:NGO;
@@ -36,6 +32,11 @@ export class VolunteeringService {
 
     return this.ngo;
 
+  }
+  
+  getVolunteerings(): Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', "application/json");
+        return this._http.get(this.url+'volunteerings/all/', {headers:headers});
   }
 
 
