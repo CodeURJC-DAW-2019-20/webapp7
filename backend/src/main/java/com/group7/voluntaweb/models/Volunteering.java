@@ -26,6 +26,10 @@ public class Volunteering {
 
 	public interface NGO {
 	}
+	
+	public interface Likes {
+		
+	}
 
 	@JsonView(Basico.class)
 	@Id
@@ -35,7 +39,7 @@ public class Volunteering {
 	@JsonIgnore
 	@OneToMany(mappedBy = "volunteering", fetch = FetchType.EAGER)
 	private Set<UsersVolunteerings> joined_users;
-	@JsonIgnore
+	@JsonView(Likes.class)
 	@OneToMany(mappedBy = "volunteering", fetch = FetchType.EAGER)
 	private Set<Like> likes;
 

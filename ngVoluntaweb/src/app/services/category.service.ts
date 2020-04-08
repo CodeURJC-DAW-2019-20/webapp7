@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { global } from './global';
+import { Category } from '../models/category';
 
 @Injectable()
 export class CategoryService{
@@ -17,3 +18,4 @@ export class CategoryService{
         return this._http.get(this.url+'categories/', {headers:headers});
     }
 }
+

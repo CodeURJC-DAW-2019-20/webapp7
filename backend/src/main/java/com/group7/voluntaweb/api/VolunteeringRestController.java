@@ -1,7 +1,9 @@
 package com.group7.voluntaweb.api;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,7 +58,7 @@ public class VolunteeringRestController {
 	interface CompleteVolunteering extends Volunteering.Basico, Category.Basico {
 	}
 
-	interface CompleteVolunteering2 extends Volunteering.Basico, Volunteering.NGO, ONG.Basico, Category.Basico {
+	interface CompleteVolunteering2 extends Volunteering.Basico, Volunteering.NGO, ONG.Basico, Category.Basico, Volunteering.Likes, Like.Basico {
 	}
 
 	interface CompleteVolunteering3 extends Volunteering.Basico {
@@ -137,6 +139,7 @@ public class VolunteeringRestController {
 			ONG ngo = (ONG) genCompo.getLoggedUser();
 			ad.setOng(ngo);
 			Volunteering saved = volunteeringService.save(ad);
+			ngo.getVolunteerings().add(ad);
 			return new ResponseEntity<Volunteering>(saved, HttpStatus.CREATED);
 		}
 
@@ -214,10 +217,11 @@ public class VolunteeringRestController {
 	@PostMapping("/join/{id}")
 	@JsonView(CompleteVolunteering2.class)
 	public ResponseEntity<Volunteering> joiningVolunteering(@PathVariable Long id) {
+		
 
-		Boolean isUser = userComponent.getLoggedUser() != null;
+		Boolean isUser = genCompo.getLoggedUser() != null;
 		Volunteering vol = volunteeringService.findVolunteering(id);
-		User user = userComponent.getLoggedUser();
+		User user = (User) genCompo.getLoggedUser();
 
 		if (isUser && !user.getRoles().contains("ROLE_ADMIN")) {
 			Set<UsersVolunteerings> registrationsSet = user.getRegistrations();
@@ -239,10 +243,12 @@ public class VolunteeringRestController {
 			return new ResponseEntity<Volunteering>(vol, HttpStatus.OK);
 
 		} else if (!isUser || user.getRoles().contains("ROLE_ADMIN")) {
-
+			System.out.println(isUser);
 			return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
 		} else {
+			System.out.println("test");
 			return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
+			
 		}
 
 	}
@@ -290,20 +296,20 @@ public class VolunteeringRestController {
 	// Only logged users
 	@JsonView(CompleteVolunteering3.class)
 	@PostMapping(value = "/image/{id}")
-	public ResponseEntity<Volunteering> uploadImage(@PathVariable Long id, @RequestParam MultipartFile imageFile)
+	public ResponseEntity<Volunteering> uploadImage(@PathVariable Long id, @RequestParam MultipartFile file0)
 			throws IOException {
 
-		ONG ngo = this.ongComponent.getLoggedUser();
+		ONG ngo = (ONG) this.genCompo.getLoggedUser();
 
 		Volunteering volunteering = this.volRepo.findById((long) id);
 
-		if (ngo.getEmail().equals(volunteering.getEmail())) {
+		if (ngo.getId().equals(volunteering.getOng().getId())) {
 
-			volunteering.setImage("true");
 
+			Path path = this.imgService.saveImage("volunteerings", file0);
+			String filePath = path.getFileName().toString();
+			volunteering.setImage(filePath);
 			this.volRepo.save(volunteering);
-
-			this.imgService.saveImage("volunteerings", id, imageFile);
 
 			return new ResponseEntity<>(volunteering, HttpStatus.OK);
 		} else {
@@ -313,19 +319,47 @@ public class VolunteeringRestController {
 
 	// Anonymous
 	@JsonView(CompleteVolunteering3.class)
-	@GetMapping(value = "/image/{id}")
-	public ResponseEntity<Object> downloadImage(@PathVariable Long id) throws MalformedURLException {
-
-		Volunteering volunteering = this.volRepo.findById((long) id);
-
-		if (volunteering != null && volunteering.getImage().equals("true")) {
-
-			return this.imgService.createResponseFromImage("volunteerings", volunteering.getId());
-
+	@GetMapping(value = "/image/{filename}")
+	public ResponseEntity<Object> downloadImage(@PathVariable String filename) throws MalformedURLException, FileNotFoundException {
+			return this.imgService.createResponseFromImage("volunteerings", filename);			
+	}
+	
+	@GetMapping("/ong/{id}")
+	//@JsonView(CompleteVolunteering2.class)
+	public ResponseEntity<Object> getVolunteeringsByNGO(@PathVariable Long id) {
+		ONG ngo = ongRepo.findByid(id);
+		Iterable<Volunteering> volunteerings = volRepo.findVolunteeringsByNGO(ngo);
+		
+		if (volunteerings != null) {
+			return new ResponseEntity<>(volunteerings,HttpStatus.OK);
 		} else {
-
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
+		}
+	}
+	
+	@GetMapping("/join/{id}")
+	//@JsonView(CompleteVolunteering2.class)
+	public ResponseEntity<Object> getJoinedVolunteeringByUser(@PathVariable Long id) {
+		User user = userRepo.findByid(id);
+		Iterable<Volunteering> volunteerings = volRepo.findMyVolunteerings(user);
+		
+		if (volunteerings != null) {
+			return new ResponseEntity<>(volunteerings,HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@GetMapping("/like/{id}")
+	//@JsonView(CompleteVolunteering2.class)
+	public ResponseEntity<Object> getLikedVolunteeringByUser(@PathVariable Long id) {
+		User user = userRepo.findByid(id);
+		Iterable<Volunteering> volunteerings = volRepo.findMyLiked(user);
+		
+		if (volunteerings != null) {
+			return new ResponseEntity<>(volunteerings,HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 }
