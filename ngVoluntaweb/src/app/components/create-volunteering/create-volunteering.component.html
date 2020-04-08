@@ -30,14 +30,17 @@
 
                     <div class="card-body">
                         <!-- Settings form -->
+                        
+
+
                         <form #formCreateVolunteering = "ngForm" (ngSubmit) = "onSubmit()">
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control" name="name" #name = "ngModel" [(ngModel)] = "volunteering.name"
-                                        placeholder="Nombre" autocomplete="name" autofocus required>
-                                    <span *ngIf = "name.touched && !name.valid" style = "color:red">Es necesario rellenar este campo</span>
+                                        placeholder="Nombre" autocomplete="name" autofocus required [disabled] ="volunteering.id != null">
+                                    <span *ngIf = "name.touched && !name.valid && volunteering.id ==null" style = "color:red">Es necesario rellenar este campo</span>
                                 </div>
                             </div>
 
@@ -47,8 +50,8 @@
 
                                 <div class="col-md-6">
                                     <input id="city" type="text" class="form-control" name="city" #city = "ngModel" [(ngModel)] = "volunteering.city"
-                                        placeholder="Ciudad" autocomplete="city" autofocus required>
-                                    <span *ngIf = "city.touched && !city.valid" style = "color:red">Es necesario rellenar este campo</span>
+                                        placeholder="Ciudad" autocomplete="city" autofocus required [disabled] ="volunteering.id != null">
+                                    <span *ngIf = "city.touched && !city.valid && volunteering.id ==null" style = "color:red">Es necesario rellenar este campo</span>
                                 </div>
                             </div>
 
@@ -56,7 +59,7 @@
                                 <label for="categoryId" class="col-md-4 col-form-label text-md-right">Categoría</label>
                                 
                                 <div class="col-md-6">
-                                    <select name="categorySelect" [(ngModel)] = "category">
+                                    <select name="categorySelect" [(ngModel)] = "category" [disabled] ="volunteering.id != null">
                                             <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
                                             <!--<option value = "2" >Cooperación al desarrollo</option>
                                             <option value = "3">Cultura y arte social</option>
@@ -79,8 +82,8 @@
 
                                 <div class="col-md-6">
                                     <input id="startdate" type="date" class="form-control" name="startdate" #startdate = "ngModel" [(ngModel)] = "volunteering.startdate"
-                                        placeholder="Fecha de inicio" autocomplete="startdate" autofocus required>
-                                    <span *ngIf = "startdate.touched && !startdate.valid" style = "color:red">Es necesario rellenar este campo</span>
+                                        placeholder="Fecha de inicio" autocomplete="startdate" autofocus required [disabled] ="volunteering.id != null">
+                                    <span *ngIf = "startdate.touched && !startdate.valid && volunteering.id ==null" style = "color:red">Es necesario rellenar este campo</span>
                                 </div>
                             </div>
                             
@@ -90,8 +93,8 @@
 
                                 <div class="col-md-6">
                                     <input id="enddate" type="date" class="form-control" name="enddate" #enddate = "ngModel" [(ngModel)] = "volunteering.enddate"
-                                        placeholder="Fecha de finalización" autocomplete="enddate" autofocus required>
-                                    <span *ngIf = "enddate.touched && !enddate.valid" style = "color:red">Es necesario rellenar este campo</span>
+                                        placeholder="Fecha de finalización" autocomplete="enddate" autofocus required [disabled] ="volunteering.id != null">
+                                    <span *ngIf = "enddate.touched && !enddate.valid && volunteering.id ==null" style = "color:red">Es necesario rellenar este campo</span>
                                 </div>
                             </div>
 
@@ -101,17 +104,9 @@
                                 <label for="description" class="col-md-4 col-form-label  text-md-right">Descripción</label>
 
                                 <div class="col-md-6">
-                                         <input class="form-control" name="description" placeholder="Descripción" #description = "ngModel" [(ngModel)] = "volunteering.description" required>
-                                         <span *ngIf = "description.touched && !description.valid" style = "color:red">Es necesario rellenar este campo</span>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="imagenFile" class="col-md-4 col-form-label text-md-right">Foto del
-                                    anuncio</label>
-
-                                <div class="col-md-6">
-                                    <angular-file-uploader class="pointer" [config]="afuConfig" (ApiResponse)="avatarUpload($event)" name="file0">
-                                    </angular-file-uploader>
+                                        <input class="form-control" name="description" placeholder="Descripción" #description = "ngModel" [(ngModel)] = "volunteering.description" 
+                                        required [disabled] ="volunteering.id != null">
+                                        <span *ngIf = "description.touched && !description.valid && volunteering.id ==null" style = "color:red">Es necesario rellenar este campo</span>
                                 </div>
                             </div>
                                                                 
@@ -121,18 +116,35 @@
 
                                 <div class="col-md-6">
                                     <input id="email" type="text" class="form-control" name="email" #email = "ngModel" [(ngModel)] = "volunteering.email"
-                                        placeholder="Email" autocomplete="email" autofocus required>
-                                        <span *ngIf = "email.touched && !email.valid" style = "color:red">Es necesario rellenar este campo</span>
+                                        placeholder="Email" autocomplete="email" autofocus required [disabled] ="volunteering.id != null">
+                                        <span *ngIf = "email.touched && !email.valid && volunteering.id ==null" style = "color:red">Es necesario rellenar este campo</span>
                                 </div>
                             </div>
 
-
-                            <div class="form-group row mb-0">
+                            <div class="form-group row mb-4">
                                 <div class="col-md-6 offset-md-4">
-                                    <input type = "submit" value = "Guardar cambios" [disabled] = "!formCreateVolunteering.valid"/>
+                                    <input type = "submit" value = "Guardar cambios" [disabled] = "!formCreateVolunteering.valid || volunteering.id != null"/>
                                 </div>
                             </div>
                         </form>
+
+                        <form #formSubidaImagen = "ngForm" (ngSubmit) = "onImageSubmit()">
+                            <div *ngIf = "volunteering.id != null">
+                                <div class="form-group row">
+                                    <label for="imagenFile" class="col-md-4 col-form-label text-md-right">Foto del anuncio</label>
+
+                                    <div class="form-group row">
+                                        <angular-file-uploader class="pointer" [config]="afuConfig" (ApiResponse)="avatarUpload($event)" name="file0"></angular-file-uploader>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <div class="col-md-6 offset-md-4">
+                                        <input type = "submit" value = "Subir imagen"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>

@@ -165,8 +165,6 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
           this.ngoLogged = response;
 
           localStorage.setItem('identity',JSON.stringify(this.ngoLogged));
-
-          console.log(this.ngoLogged);
         }
         else{
           this.status = 'error';
