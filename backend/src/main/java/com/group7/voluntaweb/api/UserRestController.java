@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.group7.voluntaweb.repositories.UserRepository;
 import com.group7.voluntaweb.services.ImageService;
 import com.group7.voluntaweb.services.UserService;
+import com.group7.voluntaweb.services.VolunteeringService;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.components.UserComponent;
@@ -57,6 +58,9 @@ public class UserRestController {
 
 	@Autowired
 	UserService service;
+	
+	@Autowired
+	VolunteeringService volService;
 
 	@Autowired
 	ImageService imgService;
@@ -205,6 +209,39 @@ public class UserRestController {
 
 			return this.imgService.createResponseFromImage("user", filename);
 		
+	}
+	
+	@GetMapping("/joined/{id}")
+	//@JsonView(CompleteVolunteering2.class)
+	public ResponseEntity<Object> getJoinedVolunteeringByUser(@PathVariable Long id) {
+		if(genCompo.isLoggedUser()) {
+			User user = (User) genCompo.getLoggedUser();
+			User row = service.findJoinedUser(id, user.getId());	
+			if (row != null) {
+				return new ResponseEntity<>(true,HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(true,HttpStatus.OK);
+			}
+		} else {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+	}
+	
+	@GetMapping("/liked/{id}")
+	//@JsonView(CompleteVolunteering2.class)
+	public ResponseEntity<Object> getLikedVolunteeringByUser(@PathVariable Long id) {
+		if(genCompo.isLoggedUser()) {
+			User user = (User) genCompo.getLoggedUser();
+			Volunteering vol = volService.findVolunteering(id);
+			Like row = volService.findLike(vol, user);	
+			if (row != null) {
+				return new ResponseEntity<>(false,HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(false,HttpStatus.OK);
+			}
+		} else {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 }
