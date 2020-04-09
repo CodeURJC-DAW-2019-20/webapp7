@@ -1388,3 +1388,7 @@ footer img {
 	border-radius: 0 !important;
 	box-shadow: none !important;
 }
+
+.image-edit{
+    width: 80px;
+}

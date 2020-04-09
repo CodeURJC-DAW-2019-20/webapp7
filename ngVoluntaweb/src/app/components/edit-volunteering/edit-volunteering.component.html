@@ -56,17 +56,8 @@
                                 <label for="categoryId" class="col-md-4 col-form-label text-md-right">Categoría</label>
                                 
                                 <div class="col-md-6">
-                                    <select name="categorySelect" [(ngModel)] = "category" class="form-control">
+                                    <select name="category" [(ngModel)] = "volunteering.category" class="form-control" #category="ngModel">
                                             <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
-                                            <!--<option value = "2" >Cooperación al desarrollo</option>
-                                            <option value = "3">Cultura y arte social</option>
-                                            <option value = "4">Derechos humanos</option>
-                                            <option value = "5">Inmigración,refugio y asilo</option>
-                                            <option value = "6">Medio ambiente</option>
-                                            <option value = "7">Personas en riesgo de exclusión</option>
-                                            <option value = "8">Personas sin hogar</option>
-                                            <option value = "9">Protección de animales</option>
-                                            <option value = "10">Salud</option>-->
                                     </select>
                                 </div>
 
@@ -105,16 +96,7 @@
                                          <span *ngIf = "description.touched && !description.valid" style = "color:red">Es necesario rellenar este campo</span>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="imagenFile" class="col-md-4 col-form-label text-md-right">Foto del
-                                    anuncio</label>
 
-                                <div class="col-md-6">
-                                    <angular-file-uploader class="pointer" [config]="afuConfig" (ApiResponse)="avatarUpload($event)" name="file0">
-                                    </angular-file-uploader>
-                                </div>
-                            </div>
-                                                                
                             <div class="form-group row">
                                 <label for="email"
                                     class="col-md-4 col-form-label text-md-right">Email</label>
@@ -125,6 +107,23 @@
                                         <span *ngIf = "email.touched && !email.valid" style = "color:red">Es necesario rellenar este campo</span>
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label for="imagenFile" class="col-md-4 col-form-label text-md-right">Foto del
+                                    anuncio</label>
+
+                                <div class="col-md-6">
+                                    <angular-file-uploader class="pointer" [config]="afuConfig" (ApiResponse)="avatarUpload($event)" name="file0">
+                                    </angular-file-uploader>
+
+                                    <div *ngIf="volunteering.image && volunteering.image != 'false'"><img class="avatar-edit mt-3" src="{{url}}volunteerings/image/{{volunteering.image}}" height="200" width="200" alt=""></div>
+                                </div>
+
+
+                                
+                            </div>
+                                                                
+                            
 
 
                             <div class="form-group row mb-0">

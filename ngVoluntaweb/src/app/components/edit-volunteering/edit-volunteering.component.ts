@@ -7,6 +7,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { global } from '../../services/global';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgoService } from 'src/app/services/ngo.service';
+import { Form } from '@angular/forms';
 
 
 @Component({
@@ -38,9 +39,44 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
 
     this.getCategories();
 
-    this.category = this.categories[0];
+    
 
     this.ngoLogged = this._volunteeringService.getNgoLogged();
+
+    this.url = global.url;
+
+    this.token = localStorage.getItem('authorization');
+
+    this._route.params.subscribe(
+      (params) =>{
+        var volId = params['id'];
+        this.afuConfig = {
+          uploadAPI: {
+            url: this.url + 'volunteerings/image/'+ volId,
+            headers: {
+              "Authorization": 'Basic '+ this.token
+            }
+          },
+          multiple: false,
+          formatsAllowed: ".jpg",
+          maxSize: '50',
+          theme: "attachPin",
+          hideProgressBar: false,
+          hideResetBtn: true,
+          hideSelectBtn: false,
+          replaceTexts: {
+            selectFileBtn: 'Seleccionar archivo...',
+            resetBtn: 'Reset',
+            uploadBtn: 'Subir',
+            dragNDropBox: 'Drag N Drop',
+            attachPinBtn: 'Seleccionar archivo...',
+            afterUploadMsg_success: '¡Subida satisfactoria!',
+            afterUploadMsg_error: '¡Subida fallida!'
+          }
+        };
+        this.getVolunteering(volId);
+      }
+    );
 
 
     
@@ -48,34 +84,11 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
     /*localStorage.setItem('authorization',"cmVjZXBjaW9uLmNlbnRyYWxAc2F2ZXRoZWNoaWxkcmVuLm9yZzp0ZXN0");*/
     //Esto esta para testear
 
-    this.token = localStorage.getItem('authorization');
 
-    this.url = global.url;
+
+
   
-    this.afuConfig = {
-      uploadAPI: {
-        url: this.url + 'volunteerings/image/'+ this.volunteering.id,
-        headers: {
-          "Authorization": 'Basic '+ this.token
-        }
-      },
-      multiple: false,
-      formatsAllowed: ".jpg",
-      maxSize: '50',
-      theme: "attachPin",
-      hideProgressBar: false,
-      hideResetBtn: true,
-      hideSelectBtn: false,
-      replaceTexts: {
-        selectFileBtn: 'Seleccionar archivo...',
-        resetBtn: 'Reset',
-        uploadBtn: 'Subir',
-        dragNDropBox: 'Drag N Drop',
-        attachPinBtn: 'Seleccionar archivo...',
-        afterUploadMsg_success: '¡Subida satisfactoria!',
-        afterUploadMsg_error: '¡Subida fallida!'
-      }
-    };
+    
      
 
   }
@@ -85,6 +98,8 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
       (response:any)=>{
         if(response && response.ong.id == this.ngoLogged.id){
           this.volunteering = response;
+
+
         }
         else{
           this._router.navigate(['/']);
@@ -102,13 +117,7 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
     /*if(this.ngoLogged.volunteerings != null){     //Cuando se una todo esto no va 
       this.ngoLogged.volunteerings.delete(this.volunteering);
     }*/
-
-    this._route.params.subscribe(
-      (params) =>{
-        var volId = params['id'];
-        this.getVolunteering(volId);
-      }
-    );
+    
     
   }
 
@@ -161,6 +170,7 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
   }
 
   avatarUpload(data) {
+
     let data_obj = JSON.parse(data.response);
     this.volunteering.image = data_obj.image;
   }
