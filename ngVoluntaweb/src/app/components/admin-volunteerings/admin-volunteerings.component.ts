@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { VolunteeringService } from '../../services/volunteering.service';
 import { global } from '../../services/global';
 
 @Component({
-  selector: 'app-admin-users',
-  templateUrl: './admin-users.component.html',
-  styleUrls: ['./admin-users.component.css'],
-  providers: [UserService]
+  selector: 'app-admin-volunteerings',
+  templateUrl: './admin-volunteerings.component.html',
+  styleUrls: ['./admin-volunteerings.component.css'],
+  providers: [VolunteeringService]
 })
-export class AdminUsersComponent implements OnInit {
+export class AdminVolunteeringsComponent implements OnInit {
   public loading: boolean = true;
   public more: boolean = false;
   public data = [];
@@ -16,10 +16,10 @@ export class AdminUsersComponent implements OnInit {
   public page: number = 2;
   public url: string = global.url;
 
-  constructor(private _userService: UserService) { }
+  constructor(private _volunteeringService: VolunteeringService) { }
 
   ngOnInit() {
-    this._userService.getUsers(0).subscribe(
+    this._volunteeringService.getVolunteerings(0).subscribe(
       result => {
         this.data = result;
         this.loading = false;
@@ -28,7 +28,7 @@ export class AdminUsersComponent implements OnInit {
         console.log("No hay nada");
       }
     );
-    this._userService.getUsers(1).subscribe(
+    this._volunteeringService.getVolunteerings(1).subscribe(
       result => {
         this.additional = result;
         this.more = true;
@@ -39,16 +39,17 @@ export class AdminUsersComponent implements OnInit {
     );
   }
 
-  deleteUser(id: number) {
-    this._userService.delete(id);
-    window.location.reload();
+  deleteVolunteering(id: number) {
+    console.log(this._volunteeringService.delete(id));
+    console.log(id);
+    //window.location.reload();
   }
 
-  moreUsers() {
+  moreVolunteerings() {
     this.loading = true;
     this.data = this.data.concat(this.additional);
     if (this.more) {
-      this._userService.getUsers(this.page).subscribe(
+      this._volunteeringService.getVolunteerings(this.page).subscribe(
         result => {
           this.additional = result;
           this.more = true;
@@ -62,8 +63,10 @@ export class AdminUsersComponent implements OnInit {
           this.additional = [];
           this.more = false;
           this.loading = false;
+          console.log("se prendio la wea");
         }
       );
     }
   }
+
 }

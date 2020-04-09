@@ -24,6 +24,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { VolunteeringPageComponent } from './components/volunteering-page/volunteering-page.component';
 import { AdminNgosComponent } from './components/admin-ngos/admin-ngos.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
+import { AdminVolunteeringsComponent } from './components/admin-volunteerings/admin-volunteerings.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { AdminUsersComponent } from './components/admin-users/admin-users.compon
     ContactComponent,
     VolunteeringPageComponent,
     AdminNgosComponent,
-    AdminUsersComponent
+    AdminUsersComponent,
+    AdminVolunteeringsComponent
   ],
   imports: [
     BrowserModule,

@@ -9,18 +9,18 @@
                 <div class="col-md-12 text-center">
                     <h5 class="widget-title font-weight-700 text-uppercase">ONGs registradas:</h5>
                     <ul class="post-job-bx">
-                        <li *ngFor="let ngo of data">
+                        <li *ngFor="let volunteering of data">
                             <a>
                                 <div class="d-flex m-b30">
                                     <div class="job-post-company">
-                                        <span><img src="{{url}}ngos/{{ngo.image}}/image" onerror="this.onerror=null;this.src='/assets/images/user-placeholder.png'" class="avatar"/></span>
+                                        <span><img src="{{url}}ngos/{{volunteering.image}}/image" onerror="this.onerror=null;this.src='/assets/images/user-placeholder.png'" class="avatar"/></span>
                                     </div>
                                     <div class="job-post-info">
-                                        <h3>{{ngo.id}}: {{ngo.name}}</h3>
+                                        <h3>{{volunteering.id}}: {{volunteering.name}}</h3>
                                     </div>
                                 </div>
                                 <div class = "text-rigth">
-                                    <input type = "submit" class = "site-button" value = "Eliminar" (click)="deleteNgo(ngo.id)" style="background-color:rgb(255, 58, 58)"/>
+                                    <input type = "submit" class = "site-button" value = "Eliminar" (click)="deleteVolunteering(volunteering.id)" style="background-color:rgb(255, 58, 58)"/>
                                 </div>
                             </a>
                         </li>
@@ -31,7 +31,7 @@
                     </div>
                     <div *ngIf="more && !loading" class="d-flex">
                         <div class="text-center">
-                            <button class="site-button m-r5 button-lg" (click)="moreNgos()">Cargar más</button> 
+                            <button class="site-button m-r5 button-lg" (click)="moreVolunteerings()">Cargar más</button> 
                         </div>
                     </div>
                 </div>

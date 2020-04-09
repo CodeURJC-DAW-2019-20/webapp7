@@ -23,6 +23,8 @@ export class AdminNgosComponent implements OnInit {
     this._ngoService.getNgos(0).subscribe(
       result => {
         this.data = result;
+        this.more = true;
+        this.loading=false;
       },
       error => {
         console.log("No hay nada");
@@ -31,8 +33,6 @@ export class AdminNgosComponent implements OnInit {
     this._ngoService.getNgos(1).subscribe(
       result => {
         this.additional = result;
-        this.more = true;
-        this.loading=false;
       },
       error => {
         this.more = false;
@@ -55,6 +55,9 @@ export class AdminNgosComponent implements OnInit {
         this.more=true;
         this.page++;
         this.loading=false;
+        if(this.additional.length==0){
+          this.more=false;
+        }
       },
       error=>{
         this.additional=[];
@@ -62,7 +65,6 @@ export class AdminNgosComponent implements OnInit {
         this.loading=false;
       }
     );
-    
   }
   
 }

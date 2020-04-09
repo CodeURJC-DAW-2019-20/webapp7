@@ -26,10 +26,8 @@
                         </li>
                     </ul>
                     <br>
-                    <div *ngIf="loading" class="d-flex">
-                        <div class="text-center">
-                            <p>Cargando...</p> 
-                        </div>
+                    <div *ngIf="loading" align="center" class="mt-5 mb-5">
+                        <img src="assets/images/loading.svg" alt="">
                     </div>
                     <div *ngIf="more && !loading" class="d-flex">
                         <div class="text-center">

@@ -36,7 +36,7 @@ export class NgoService{
     delete(id):Observable<any>{
       let headers = new HttpHeaders().set('Content-Type', "application/json").set('Authorization', 'Basic '+this.getLoggedNgoToken());
       return this._http.delete(this.url+'ongs/'+id, {headers: headers});
-  }
+    }
 
     getNgo(ngoId:number):Observable<any>{
       let headers = new HttpHeaders().set('Content-Type', 'application/json');
