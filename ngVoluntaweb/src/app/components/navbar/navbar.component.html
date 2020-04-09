@@ -58,16 +58,16 @@
                                     </div>
                                     
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" *ngIf="identity.roles.includes('ROLE_ADMIN')">
-										<a class="dropdown-item" href="/admin/volunteerings">
+										<a class="dropdown-item" [routerLink]="['/admin/volunteerings']">
 											Voluntariados
 										</a>
-										<a class="dropdown-item" href="/admin/users">
+										<a class="dropdown-item" [routerLink]="['/admin/users']">
 											Usuarios registrados
 										</a>
-										<a class="dropdown-item" href="/admin/ngos">
+										<a class="dropdown-item" [routerLink]="['/admin/ngos']">
 											ONGs registradas
 										</a>
-										<a class="dropdown-item" href="/admin/comments">
+										<a class="dropdown-item" [routerLink]="['/admin/comments']">
 											Comentarios
 										</a>
 										<a class="dropdown-item pointer" (click)="logout()">
@@ -95,7 +95,7 @@
 									</a>
 									
 									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-										<a class="dropdown-item" href="/myvolunteerings">
+										<a class="dropdown-item" [routerLink]="['/ngo/myvolunteerings']">
 											Mis voluntariados
 										</a>
 

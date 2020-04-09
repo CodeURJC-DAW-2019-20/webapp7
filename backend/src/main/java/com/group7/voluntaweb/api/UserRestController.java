@@ -220,7 +220,7 @@ public class UserRestController {
 			if (row != null) {
 				return new ResponseEntity<>(true,HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>(true,HttpStatus.OK);
+				return new ResponseEntity<>(false,HttpStatus.OK);
 			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -235,7 +235,7 @@ public class UserRestController {
 			Volunteering vol = volService.findVolunteering(id);
 			Like row = volService.findLike(vol, user);	
 			if (row != null) {
-				return new ResponseEntity<>(false,HttpStatus.OK);
+				return new ResponseEntity<>(true,HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(false,HttpStatus.OK);
 			}
@@ -243,5 +243,13 @@ public class UserRestController {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-
+	
+	@GetMapping(value = "/stats")
+	public ResponseEntity<int[]> graph(){
+		int[] stats = new int[12];
+		for(int i=0;i<12;i++) {
+			stats[i] = userRepo.usersPerMonth(i+1);
+		}
+		return new ResponseEntity<>(stats, HttpStatus.OK);
+	}
 }

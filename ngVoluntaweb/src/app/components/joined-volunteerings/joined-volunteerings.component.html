@@ -29,7 +29,7 @@
 
                         
                         <li *ngFor="let v of joined">
-                            <a href="/volunteering/{{v.id}}">
+                            <a [routerLink]="['/volunteering', v.id]">
                                 <div class="d-flex m-b30">
                                     <div class="job-post-company">
                                         <span><img src="assets/images/logo/icon1.png"/></span>

@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { NgosComponent } from './components/ngos/ngos.component';
+import { IndexComponent } from './components/index/index.component';
+
+import { NgoDetailsComponent } from './components/ngo-details/ngo-details.component';
+import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
@@ -14,8 +19,15 @@ import { CreateVolunteeringComponent } from './components/create-volunteering/cr
 import { AdminNgosComponent } from './components/admin-ngos/admin-ngos.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { AdminVolunteeringsComponent } from './components/admin-volunteerings/admin-volunteerings.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
+import { NgoVolunteeringsComponent } from './components/ngo-volunteerings/ngo-volunteerings.component';
+
 
 const routes: Routes = [
+
+  {path: '', component: IndexComponent},
+  {path: 'ngos',component: NgosComponent},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "register/user", component: RegisterUserComponent},
@@ -29,7 +41,13 @@ const routes: Routes = [
   {path: "ngo/settings", component: NgoSettingsComponent},
   {path: "admin/ngos", component: AdminNgosComponent},
   {path: "admin/users", component: AdminUsersComponent},
-  {path: "admin/volunteerings", component: AdminVolunteeringsComponent}
+  {path: "admin/volunteerings", component: AdminVolunteeringsComponent},
+  {path: 'admin/comments', component: AdminCommentsComponent},
+  {path: "ngo/myvolunteerings",component:NgoVolunteeringsComponent},
+  {path: 'ngo/:id', component: NgoDetailsComponent},
+  {path: 'search', component: SearchComponent},
+  {path: 'about-us', component: AboutUsComponent}
+
 ];
 
 @NgModule({
