@@ -35,7 +35,6 @@ export class UserService{
         return this._http.delete(this.url+'users/'+id, {headers: headers});
     }
 
-
     getUser(id):Observable<any>{
         let headers = new HttpHeaders().set('Content-Type', "application/json");
 
@@ -45,6 +44,13 @@ export class UserService{
     getStats() :Observable<any>{
     return this._http.get(this.url+'users/stats');
   }
+    getUsers(page: number) :Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+        return this._http.get(this.url+'users/?page='+page, {headers:headers});
+    }
+  
 
 }
+
 

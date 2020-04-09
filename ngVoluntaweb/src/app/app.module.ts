@@ -24,9 +24,13 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
 import { JoinedVolunteeringsComponent } from './components/joined-volunteerings/joined-volunteerings.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { VolunteeringPageComponent } from './components/volunteering-page/volunteering-page.component';
+import { AdminNgosComponent } from './components/admin-ngos/admin-ngos.component';
+import { AdminUsersComponent } from './components/admin-users/admin-users.component';
+import { AdminVolunteeringsComponent } from './components/admin-volunteerings/admin-volunteerings.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { NgoVolunteeringsComponent} from './components/ngo-volunteerings/ngo-volunteerings.component';
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
+
 
 
 @NgModule({
@@ -50,11 +54,12 @@ import { AdminCommentsComponent } from './components/admin-comments/admin-commen
     JoinedVolunteeringsComponent,
     ContactComponent,
     VolunteeringPageComponent,
+    AdminNgosComponent,
+    AdminUsersComponent,
+    AdminVolunteeringsComponent,
     AboutUsComponent,
     NgoVolunteeringsComponent,
     AdminCommentsComponent
-
-
 
   ],
   imports: [

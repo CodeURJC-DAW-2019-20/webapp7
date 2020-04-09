@@ -1,0 +1,47 @@
+<!-- Content -->
+<div class="page-content bg-white">
+    <!-- contact area -->
+    <div class="content-block">
+        <!-- Browse Jobs -->
+        <div class="section-full bg-white browse-job content-inner-2">
+            <div class="container">
+                <!--<div class="row">-->
+                <div class="col-md-12 text-center">
+                    <h5 class="widget-title font-weight-700 text-uppercase">Usuarios registrados:</h5>
+                    <ul class="post-job-bx">
+                        <li *ngFor="let user of data">
+                            <a>
+                                <div class="d-flex m-b30">
+                                    <div class="job-post-company">
+                                        <span><img src="{{url}}users/{{user.image}}/image" onerror="this.onerror=null;this.src='/assets/images/user-placeholder.png'" class="avatar"/></span>
+                                    </div>
+                                    <div class="job-post-info">
+                                        <h4>{{user.name}} {{user.surname}}</h4>
+                                        <ul>
+                                            <li><i class="fa fa-envelope-o"></i>{{user.email}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class = "text-rigth">
+                                    <button class="site-button m-r5 button-lg" (click)="deleteUser(user.id)" style="background-color:rgb(255, 58, 58)">Eliminar</button>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <br>
+                    <div *ngIf="loading" align="center" class="mt-5 mb-5">
+                        <img src="assets/images/loading.svg" alt="">
+                    </div>
+                    <div *ngIf="more && !loading" class="d-flex">
+                        <div class="text-center">
+                            <button class="site-button m-r5 button-lg" (click)="moreUsers()">Cargar más</button> 
+                        </div>
+                    </div>
+                </div>
+                <!--</div>-->
+            </div>
+        </div>
+        <!-- Browse Jobs END -->
+    </div>
+</div>
+<!-- Content END-->

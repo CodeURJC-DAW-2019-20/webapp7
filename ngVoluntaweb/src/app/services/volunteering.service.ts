@@ -113,10 +113,17 @@ export class VolunteeringService {
   getLoggedUserToken(){
     return localStorage.getItem("authorization");
   }
+
+
+  getVolunteerings(page: number) :Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.get(this.url+'volunteerings/?page='+page, {headers:headers});
+  }
   
   deleteoneVolunteering(volid:number):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', "application/json").set('Authorization', 'Basic '+this.getLoggedUserToken());
     return this._http.delete(this.url+'volunteerings/'+volid, {headers: headers});
+
   }
 
 }

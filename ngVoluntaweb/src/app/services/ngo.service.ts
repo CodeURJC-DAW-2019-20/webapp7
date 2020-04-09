@@ -36,9 +36,23 @@ export class NgoService{
     getLoggedNgoToken(){
       return localStorage.getItem("authorization");
     }
-  
-  getNgos(page: number) :Observable<any>{
-        return this._http.get(this.url+'ongs/?page='+page);
+
+    delete(id):Observable<any>{
+      let headers = new HttpHeaders().set('Content-Type', "application/json").set('Authorization', 'Basic '+this.getLoggedNgoToken());
+      return this._http.delete(this.url+'ongs/'+id, {headers: headers});
     }
+
+    getNgo(ngoId:number):Observable<any>{
+      let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+      return this._http.get(this.url + 'ongs/' + ngoId,{headers:headers});
+
+    }
+
+    getNgos(page: number) :Observable<any>{
+      let headers = new HttpHeaders().set('Content-Type', 'application/json');
+      return this._http.get(this.url+'ongs/?page='+page, {headers:headers});
+    }
+
 }
 
