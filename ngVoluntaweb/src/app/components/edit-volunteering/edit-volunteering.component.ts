@@ -12,7 +12,8 @@ import { NgoService } from 'src/app/services/ngo.service';
 @Component({
   selector: 'app-edit-volunteering',
   templateUrl: './edit-volunteering.component.html',
-  styleUrls: ['./edit-volunteering.component.css']
+  styleUrls: ['./edit-volunteering.component.css'],
+  providers: [VolunteeringService, NgoService, CategoryService]
 })
 export class EditVolunteeringComponent implements OnInit, OnDestroy {
 
@@ -29,7 +30,7 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
   public token:string;
   
 
-  constructor(private _volunteeringService: VolunteeringService, private _ngoService:NgoService, private _categoryService: CategoryService, private _route: ActivatedRoute) { 
+  constructor(private _volunteeringService: VolunteeringService, private _ngoService:NgoService, private _categoryService: CategoryService, private _route: ActivatedRoute, private _router: Router) { 
     
     this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
 
@@ -42,20 +43,7 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
     this.ngoLogged = this._volunteeringService.getNgoLogged();
 
 
-    this._volunteeringService.getVolunteeringById(this.volunteering.id).subscribe(
-      (response:any)=>{
-        if(response){
-          this.volunteering = response;
-        }
-        else{
-          this.status = 'error';
-        }
-      },
-      error =>{
-        console.log(<any>error);
-      }
-    );
-
+    
     //Esto esta para testear
     /*localStorage.setItem('authorization',"cmVjZXBjaW9uLmNlbnRyYWxAc2F2ZXRoZWNoaWxkcmVuLm9yZzp0ZXN0");*/
     //Esto esta para testear
@@ -92,6 +80,23 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
 
   }
 
+  getVolunteering(volId){
+    this._volunteeringService.getVolunteeringById(volId).subscribe(
+      (response:any)=>{
+        if(response && response.ong.id == this.ngoLogged.id){
+          this.volunteering = response;
+        }
+        else{
+          this._router.navigate(['/']);
+        }
+      },
+      error =>{
+        console.log(<any>error);
+      }
+    );
+
+  }
+
   ngOnInit() {
 
     /*if(this.ngoLogged.volunteerings != null){     //Cuando se una todo esto no va 
@@ -101,7 +106,7 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
     this._route.params.subscribe(
       (params) =>{
         var volId = params['id'];
-        this.volunteering.id = volId;
+        this.getVolunteering(volId);
       }
     );
     

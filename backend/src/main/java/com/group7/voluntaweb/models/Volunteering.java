@@ -30,6 +30,10 @@ public class Volunteering {
 	public interface Likes {
 		
 	}
+	
+	public interface Cat{
+		
+	}
 
 	@JsonView(Basico.class)
 	@Id
@@ -46,7 +50,7 @@ public class Volunteering {
 	@JsonView(Basico.class)
 	private String name;
 
-	@JsonView(Basico.class)
+	@JsonView(Cat.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Category category;
 

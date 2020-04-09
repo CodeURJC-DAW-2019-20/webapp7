@@ -32,22 +32,33 @@ export class NgoVolunteeringsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getNGO();
+  }
+
+  getNGO(){
     this._ngoService.getNgo(this.NGO.id).subscribe(
       result =>{console.log(result),
       this.NGO= result 
-      this.volList =this.NGO.volunteerings;
+      this.volList = this.NGO.volunteerings;
       console.log(this.volList);
-      this.vollength=this.volList.size;
-    
+  
     },
       error=>{console.log(<any>error)}
     );
-    console.log('Esto de momento funciona');
-    console.log(this.vollength);
-    console.log("Esta es la linea de después");
+
   }
+
+  
   deleteVol(volid:number){
-    this._volunteeringService.deleteoneVolunteering(volid).subscribe(result=>{},error=>{});
+    this._volunteeringService.deleteoneVolunteering(volid).subscribe(
+      response=>{
+        console.log(response);
+        this.getNGO();
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    );
   }
 
 }

@@ -58,7 +58,7 @@ public class VolunteeringRestController {
 	interface CompleteVolunteering extends Volunteering.Basico, Category.Basico {
 	}
 
-	interface CompleteVolunteering2 extends Volunteering.Basico, Volunteering.NGO, ONG.Basico, Category.Basico, Volunteering.Likes, Like.Basico {
+	interface CompleteVolunteering2 extends Volunteering.Basico, Volunteering.NGO, Volunteering.Cat, ONG.Basico, Category.Basico, Volunteering.Likes, Like.Basico {
 	}
 
 	interface CompleteVolunteering3 extends Volunteering.Basico {

@@ -7,6 +7,7 @@ import { NgoService } from '../../services/ngo.service';
 import { Volunteering } from 'src/app/models/volunteering';
 import { CategoryService } from '../../services/category.service';
 import { Observable } from 'rxjs';
+import { global } from '../../services/global';
 
 @Component({
   selector: 'app-search',
@@ -24,6 +25,7 @@ export class SearchComponent implements OnInit {
   private categor:number;
   private word:string;
   private non_volunteerings:boolean;
+  public url: string;
 
   constructor(
     private _route: ActivatedRoute,
@@ -34,6 +36,7 @@ export class SearchComponent implements OnInit {
     ) {
       this.AllCategories();
       this.getNumberPages();
+      this.url = global.url;
     }
 
   ngOnInit() {
@@ -52,6 +55,7 @@ export class SearchComponent implements OnInit {
       response => {
         this.selected_volunteerings = null;
         this.all_volunteerings = response;
+        console.log(response);
         this.volunteerings = [...this.all_volunteerings];
         this.non_volunteerings = false;
       },

@@ -2,7 +2,7 @@
 <div class="page-content bg-white">
     <!-- inner page banner -->
     <div class="dez-bnr-inr overlay-black-middle"
-        style="background-image:url(images/background/Volunteerswalk.jpg);">
+        style="background-image:url(assets/images/background/Volunteerswalk.jpg);">
         <div class="container">
             <div class="dez-bnr-inr-entry">
                 <h1 class="text-white">Editar anuncio</h1>
@@ -56,7 +56,7 @@
                                 <label for="categoryId" class="col-md-4 col-form-label text-md-right">Categoría</label>
                                 
                                 <div class="col-md-6">
-                                    <select name="categorySelect" [(ngModel)] = "category">
+                                    <select name="categorySelect" [(ngModel)] = "category" class="form-control">
                                             <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
                                             <!--<option value = "2" >Cooperación al desarrollo</option>
                                             <option value = "3">Cultura y arte social</option>

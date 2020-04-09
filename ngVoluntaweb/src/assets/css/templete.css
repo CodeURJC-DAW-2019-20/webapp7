@@ -1358,6 +1358,19 @@ footer img {
 	float: left;
 }
 
+.container-volunteering {
+	width: 60px;
+	height: 60px;
+	border-radius: 5px;
+	overflow: hidden;
+	float: left;
+}
+
+.container-volunteering img {
+	height: 100%;
+	width: 100%;
+}
+
 .container-avatar img {
 	height: 100%;
 	width: 100%;
@@ -1365,4 +1378,13 @@ footer img {
 
 .reset-color {
 	color: rgb(53, 53, 53);
+}
+
+
+.custom-anchor{
+	background-color: none !important;
+	padding: 0 !important;
+	border-left: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
 }
