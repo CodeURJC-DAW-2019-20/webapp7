@@ -18,7 +18,7 @@ import { Form } from '@angular/forms';
 })
 export class EditVolunteeringComponent implements OnInit, OnDestroy {
 
-  private volunteering: Volunteering;
+  public volunteering: Volunteering;
   private ngoLogged:NGO;
   public categories:Array<Category>;
   public category:Category;
@@ -32,12 +32,17 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
   
 
   constructor(private _volunteeringService: VolunteeringService, private _ngoService:NgoService, private _categoryService: CategoryService, private _route: ActivatedRoute, private _router: Router) { 
+
     
     this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
 
     this.categories = new Array();
 
-    this.getCategories();
+    //this.getCategories();
+
+    //this.category = this.getCategories[6];
+
+
 
     
 
