@@ -37,6 +37,7 @@ export class SearchComponent implements OnInit {
       this.AllCategories();
       this.getNumberPages();
       this.url = global.url;
+      this.categor = 1;
     }
 
   ngOnInit() {

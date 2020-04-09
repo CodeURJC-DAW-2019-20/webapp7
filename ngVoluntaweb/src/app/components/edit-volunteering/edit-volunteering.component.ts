@@ -20,7 +20,7 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
 
   public volunteering: Volunteering;
   private ngoLogged:NGO;
-  public categories:Array<Category>;
+  public categories;
   public category:Category;
   private status: string;
 
@@ -36,9 +36,8 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
     
     this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
 
-    this.categories = new Array();
 
-    //this.getCategories();
+    this.getCategories();
 
     //this.category = this.getCategories[6];
 

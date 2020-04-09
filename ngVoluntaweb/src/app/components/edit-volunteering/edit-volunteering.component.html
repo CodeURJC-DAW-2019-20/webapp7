@@ -52,17 +52,16 @@
                                 </div>
                             </div>
 
-                            <!--<div class="form-group row">
+                            <div class="form-group row">
                                 <label for="categoryId" class="col-md-4 col-form-label text-md-right">Categoría</label>
                                 
                                 <div class="col-md-6">
-                                    <select name="category" class="form-control" [(ngModel)] = "category">
-                                            <option value="">Elige una categoría</option>
-                                            <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
+                                    <select name="category" class="form-control" [(ngModel)] = "volunteering.category.id">
+                                            <option *ngFor="let c of categories" [ngValue]="c.id">{{c.name}}</option>
                                     </select>
                                 </div>
 
-                            </div>-->
+                            </div>
                             
 
                             <div class="form-group row">

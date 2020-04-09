@@ -21,7 +21,7 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
 
   public ngoLogged:NGO;
 
-  public categories:Array<Category>;
+  public categories;
 
   public category:Category;
 
@@ -41,11 +41,10 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
 
     this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
 
-    this.categories = new Array();
 
     this.getCategories();
 
-    this.category = this.categories[0];
+    
 
     this.url = global.url;
 
@@ -93,6 +92,7 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
       (response:any) =>{
         if(response){
           this.categories = response;
+          this.category = this.categories[0].id;
         }
         else{
           this.status = 'error';
@@ -110,15 +110,10 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
     this.volunteering.category = this.category;
     this.volunteering.ong = this.ngoLogged;
     this.volunteering.id = null; //The API give the id
-    console.log(this.volunteering);
-    if(this.volunteering.category == null){
-      this.volunteering.category = this.categories[0];
-    }
 
     this._volunteeringService.create(this.volunteering).subscribe(
       (response:any) =>{
         if(response){
-          console.log(response);
           this.volunteering = response;
           this.afuConfig.uploadAPI.url = this.url + 'volunteerings/image/'+ this.volunteering.id;
         }

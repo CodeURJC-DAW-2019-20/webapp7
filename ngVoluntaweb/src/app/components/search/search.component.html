@@ -123,7 +123,7 @@
                                 <form action="/search" method="GET">
                                     <h5 class="widget-title font-weight-700 text-uppercase">Categorias</h5>
                                     <select name="cate" #cate [(ngModel)]="categor" class="form-control">
-                                            <option [value]="category.id" *ngFor="let category of categories">{{category.id}}. {{category.name}}</option>
+                                            <option [ngValue]="category.id" *ngFor="let category of categories">{{category.id}}. {{category.name}}</option>
                                     </select>
                                     <br>
                                     <p *ngIf="all_volunteerings">
