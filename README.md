@@ -21,7 +21,7 @@ VoluntaWeb is a project developed by group 7 of the subject "Web Application Dev
   
 ## Our links
 [Trello](https://trello.com/b/nNVdsRsp)
-Our link on YouTube: 
+[Youtube]() 
 
 ## Main aspects
 ### Entities
@@ -154,7 +154,7 @@ Document [Development Environment](./backend/Dockerfile) with information about 
 
 ## Commits list
 
-| Member | 5 relevant commits | 5 relevante files |
+| Member | 5 relevant commits | 5 relevant files |
 | ------------- | ------------- | ------------- |
 | Samuel  | 1. [Page request](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/8e2bd0e1ea30a1d23bf24eacd73799e1b2f8c868)<br/> 2. [Image download for ongRestController](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/8f964609ca91c860119a1a792b32bfb514818d45)<br/> 3. [Admin and search rest controller](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/9e1f12668c0061108a6636ea64a6edfaed11ab41) | 1. SearchRestController.java<br/> 2. VolunteeringService.java<br/> 3. ONGRestController.java |
 | Alicia Merino | 1. [Get Volunteering and Create a Volunteering](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/e8dd99fca3240433a4b02e167f66f07a56561912)<br/> 2. [Added some methods to VolunteeringRestController](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/fc7323482fd90c7c2ed030a1cdd347a315ebbb2b)<br/> 3. [fixed some errors](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/0bd7183109ee985b8d37442a928c2c8a07cc5ecd)<br/> 4. [like volunteering](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/6c463f2da3f9e20a234a4d12d90e13b884af9a92)<br/> 5. [Created and done most methods in API.md](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/7e327c2a5afde7c3cedb2a78b79618e1cc5be9c6) | 1. VolunteeringRestController.java <br/> 2. Category.java <br/> 3. VolunteeringRepository.java<br/> 4. API.md<br/> 5. UserService.java|
@@ -166,10 +166,11 @@ Document [Development Environment](./backend/Dockerfile) with information about 
 ## Development Environment Preparation
 
 ## Class diagram
+<img src="./diagrams/ClassDiagram14April.svg">
 
 ## Commits list
 
-| Member | 5 relevant commits | 5 relevante files |
+| Member | 5 relevant commits | 5 relevant files |
 | ------------- | ------------- | ------------- |
 | Samuel Severiche | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  |
 | Alicia Merino | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  |

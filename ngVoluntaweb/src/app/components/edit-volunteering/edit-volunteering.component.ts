@@ -7,16 +7,18 @@ import { CategoryService } from 'src/app/services/category.service';
 import { global } from '../../services/global';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgoService } from 'src/app/services/ngo.service';
+import { Form } from '@angular/forms';
 
 
 @Component({
   selector: 'app-edit-volunteering',
   templateUrl: './edit-volunteering.component.html',
-  styleUrls: ['./edit-volunteering.component.css']
+  styleUrls: ['./edit-volunteering.component.css'],
+  providers: [VolunteeringService, NgoService, CategoryService]
 })
 export class EditVolunteeringComponent implements OnInit, OnDestroy {
 
-  private volunteering: Volunteering;
+  public volunteering: Volunteering;
   private ngoLogged:NGO;
   public categories:Array<Category>;
   public category:Category;
@@ -29,66 +31,89 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
   public token:string;
   
 
-  constructor(private _volunteeringService: VolunteeringService, private _ngoService:NgoService, private _categoryService: CategoryService, private _route: ActivatedRoute) { 
+  constructor(private _volunteeringService: VolunteeringService, private _ngoService:NgoService, private _categoryService: CategoryService, private _route: ActivatedRoute, private _router: Router) { 
+
     
     this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
 
     this.categories = new Array();
 
-    this.getCategories();
+    //this.getCategories();
 
-    this.category = this.categories[0];
+    //this.category = this.getCategories[6];
+
+
+
+    
 
     this.ngoLogged = this._volunteeringService.getNgoLogged();
 
+    this.url = global.url;
 
-    this._volunteeringService.getVolunteeringById(this.volunteering.id).subscribe(
+    this.token = localStorage.getItem('authorization');
+
+    this._route.params.subscribe(
+      (params) =>{
+        var volId = params['id'];
+        this.afuConfig = {
+          uploadAPI: {
+            url: this.url + 'volunteerings/image/'+ volId,
+            headers: {
+              "Authorization": 'Basic '+ this.token
+            }
+          },
+          multiple: false,
+          formatsAllowed: ".jpg",
+          maxSize: '50',
+          theme: "attachPin",
+          hideProgressBar: false,
+          hideResetBtn: true,
+          hideSelectBtn: false,
+          replaceTexts: {
+            selectFileBtn: 'Seleccionar archivo...',
+            resetBtn: 'Reset',
+            uploadBtn: 'Subir',
+            dragNDropBox: 'Drag N Drop',
+            attachPinBtn: 'Seleccionar archivo...',
+            afterUploadMsg_success: '¡Subida satisfactoria!',
+            afterUploadMsg_error: '¡Subida fallida!'
+          }
+        };
+        this.getVolunteering(volId);
+      }
+    );
+
+
+    
+    //Esto esta para testear
+    /*localStorage.setItem('authorization',"cmVjZXBjaW9uLmNlbnRyYWxAc2F2ZXRoZWNoaWxkcmVuLm9yZzp0ZXN0");*/
+    //Esto esta para testear
+
+
+
+
+  
+    
+     
+
+  }
+
+  getVolunteering(volId){
+    this._volunteeringService.getVolunteeringById(volId).subscribe(
       (response:any)=>{
-        if(response){
+        if(response && response.ong.id == this.ngoLogged.id){
           this.volunteering = response;
+
+
         }
         else{
-          this.status = 'error';
+          this._router.navigate(['/']);
         }
       },
       error =>{
         console.log(<any>error);
       }
     );
-
-    //Esto esta para testear
-    /*localStorage.setItem('authorization',"cmVjZXBjaW9uLmNlbnRyYWxAc2F2ZXRoZWNoaWxkcmVuLm9yZzp0ZXN0");*/
-    //Esto esta para testear
-
-    this.token = localStorage.getItem('authorization');
-
-    this.url = global.url;
-  
-    this.afuConfig = {
-      uploadAPI: {
-        url: this.url + 'volunteerings/image/'+ this.volunteering.id,
-        headers: {
-          "Authorization": 'Basic '+ this.token
-        }
-      },
-      multiple: false,
-      formatsAllowed: ".jpg",
-      maxSize: '50',
-      theme: "attachPin",
-      hideProgressBar: false,
-      hideResetBtn: true,
-      hideSelectBtn: false,
-      replaceTexts: {
-        selectFileBtn: 'Seleccionar archivo...',
-        resetBtn: 'Reset',
-        uploadBtn: 'Subir',
-        dragNDropBox: 'Drag N Drop',
-        attachPinBtn: 'Seleccionar archivo...',
-        afterUploadMsg_success: '¡Subida satisfactoria!',
-        afterUploadMsg_error: '¡Subida fallida!'
-      }
-    };
-     
 
   }
 
@@ -97,13 +122,7 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
     /*if(this.ngoLogged.volunteerings != null){     //Cuando se una todo esto no va 
       this.ngoLogged.volunteerings.delete(this.volunteering);
     }*/
-
-    this._route.params.subscribe(
-      (params) =>{
-        var volId = params['id'];
-        this.volunteering.id = volId;
-      }
-    );
+    
     
   }
 
@@ -156,6 +175,7 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
   }
 
   avatarUpload(data) {
+
     let data_obj = JSON.parse(data.response);
     this.volunteering.image = data_obj.image;
   }

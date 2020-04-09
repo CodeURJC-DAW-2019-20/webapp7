@@ -58,7 +58,7 @@ public class VolunteeringRestController {
 	interface CompleteVolunteering extends Volunteering.Basico, Category.Basico {
 	}
 
-	interface CompleteVolunteering2 extends Volunteering.Basico, Volunteering.NGO, ONG.Basico, Category.Basico, Volunteering.Likes, Like.Basico {
+	interface CompleteVolunteering2 extends Volunteering.Basico, Volunteering.NGO, Volunteering.Cat, ONG.Basico, Category.Basico, Volunteering.Likes, Like.Basico {
 	}
 
 	interface CompleteVolunteering3 extends Volunteering.Basico {
@@ -216,7 +216,7 @@ public class VolunteeringRestController {
 	// joining to a volunteering
 	@PostMapping("/join/{id}")
 	@JsonView(CompleteVolunteering2.class)
-	public ResponseEntity<Volunteering> joiningVolunteering(@PathVariable Long id) {
+	public ResponseEntity<Object> joiningVolunteering(@PathVariable Long id) {
 		
 
 		Boolean isUser = genCompo.getLoggedUser() != null;
@@ -235,19 +235,19 @@ public class VolunteeringRestController {
 				registrationsSet.add(connect);
 				user.setRegistrations(registrationsSet);
 				userService.save(user);
+				return new ResponseEntity<>(true, HttpStatus.OK);
 			} else {
 				volunteeringService.deleteJoin(user.getId(), vol.getId());
-
+				return new ResponseEntity<>(false, HttpStatus.OK);
 			}
 
-			return new ResponseEntity<Volunteering>(vol, HttpStatus.OK);
 
 		} else if (!isUser || user.getRoles().contains("ROLE_ADMIN")) {
 			System.out.println(isUser);
-			return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} else {
 			System.out.println("test");
-			return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			
 		}
 
@@ -256,7 +256,7 @@ public class VolunteeringRestController {
 	// like volunteering
 	@PostMapping("/like/{id}")
 	@JsonView(CompleteVolunteering2.class)
-	public ResponseEntity<Volunteering> likeVolunteering(@PathVariable long id) {
+	public ResponseEntity<Object> likeVolunteering(@PathVariable long id) {
 
 		Boolean isUser = userComponent.getLoggedUser() != null;
 		Volunteering vol = volunteeringService.findVolunteering(id);
@@ -274,21 +274,21 @@ public class VolunteeringRestController {
 				userLikes.add(like);
 				user.setLikes(userLikes);
 				userService.save(user);
+				return new ResponseEntity<>(true, HttpStatus.OK);
 			} else {
 				userLikes.remove(like);
 				user.setLikes(userLikes);
 				userRepo.save(user);
 				likeRepo.deleteLike(vol, user);
+				return new ResponseEntity<>(false, HttpStatus.OK);
 
 			}
 
-			return new ResponseEntity<Volunteering>(vol, HttpStatus.OK);
-
 		} else if (!isUser || user.getRoles().contains("ROLE_ADMIN")) {
 
-			return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} else {
-			return new ResponseEntity<Volunteering>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
 	}

@@ -110,6 +110,10 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
     this.volunteering.category = this.category;
     this.volunteering.ong = this.ngoLogged;
     this.volunteering.id = null; //The API give the id
+    console.log(this.volunteering);
+    if(this.volunteering.category == null){
+      this.volunteering.category = this.categories[0];
+    }
 
     this._volunteeringService.create(this.volunteering).subscribe(
       (response:any) =>{

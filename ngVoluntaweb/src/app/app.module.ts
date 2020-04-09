@@ -23,6 +23,9 @@ import { JoinedVolunteeringsComponent } from './components/joined-volunteerings/
 import { ContactComponent } from './components/contact/contact.component';
 import { VolunteeringPageComponent } from './components/volunteering-page/volunteering-page.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { NgoVolunteeringsComponent} from './components/ngo-volunteerings/ngo-volunteerings.component';
+import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
+
 
 
 @NgModule({
@@ -44,7 +47,10 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
     JoinedVolunteeringsComponent,
     ContactComponent,
     VolunteeringPageComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    NgoVolunteeringsComponent,
+    AdminCommentsComponent
+
 
   ],
   imports: [

@@ -28,7 +28,7 @@ public class SearchRestController {
 	interface VolunteeringDetalle extends Volunteering.Basico, Volunteering.NGO {
 	}
 
-	interface VolunteeringSDetalle extends Volunteering.Basico, Category.Basico, Volunteering.NGO, ONG.Basico {
+	interface VolunteeringSDetalle extends Volunteering.Basico, Category.Basico, Volunteering.NGO, ONG.Basico, Volunteering.Cat {
 	}
 
 	@GetMapping(value = "/search", produces = "application/json;charset=UTF-8")

@@ -78,9 +78,9 @@
                             <p class="p-t20">{{volunteering.description}}</p>
 
 
-                            <button *ngIf="!isJoined" type="submit" class="site-button btn-blue"
+                            <button *ngIf="!isJoined" type="submit" class="btn btn-primary"
                                 (click)="join(volunteering.id)">Apuntarse</button>
-                            <button *ngIf="isJoined" type="submit" class="site-button btn-red"
+                            <button *ngIf="isJoined" type="submit" class="btn btn-danger"
                                 (click)="join(volunteering.id)">Desapuntarse</button>
                             <span class="ml-2" *ngIf="alert" style="color: green">¡Te has apuntado al voluntariado!</span>
 
@@ -101,12 +101,8 @@
     <br>
 </div>
 
-<div class="like-button {{b-color}}">
-    <i class="fa fa-heart like {{i-color}}">
-        <form id="form-like" action="/like" method="POST">
-            <input type="text" name="volunteering" hidden=true value="{{volunteering}}">
-        </form>
-    </i>
+<div class="like-button {{btnColor}}" (click)="like(volunteering.id)">
+    <i class="fa fa-heart like {{iconColor}}"></i>
 </div>
 
 <!-- Content END-->

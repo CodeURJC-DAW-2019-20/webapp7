@@ -26,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.components.ONGComponent;
 import com.group7.voluntaweb.components.UserComponent;
+import com.group7.voluntaweb.models.Category;
 import com.group7.voluntaweb.models.ONG;
 import com.group7.voluntaweb.models.User;
 import com.group7.voluntaweb.models.Volunteering;
@@ -60,7 +61,7 @@ public class ONGRestController {
 	@Autowired
 	private GenericComponent genCompo ;
 
-	interface ONGDetalle extends ONG.Basico, ONG.Ads, Volunteering.Basico {
+	interface ONGDetalle extends ONG.Basico, ONG.Ads, Volunteering.Basico, Volunteering.Cat, Category.Basico {
 	}
 
 	interface ONGSDetalle extends ONG.Basico {
