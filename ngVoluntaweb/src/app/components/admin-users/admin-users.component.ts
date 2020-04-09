@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { global } from '../../services/global';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-admin-users',
@@ -40,8 +41,16 @@ export class AdminUsersComponent implements OnInit {
   }
 
   deleteUser(id: number) {
-    this._userService.delete(id);
-    window.location.reload();
+    this._userService.delete(id).subscribe(
+      (response:User) =>{
+        if(response){
+          window.location.reload();
+        }
+      },
+      error =>{
+        console.log(<any> error);
+      }
+    );
   }
 
   moreUsers() {

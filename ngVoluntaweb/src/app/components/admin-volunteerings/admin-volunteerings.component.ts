@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VolunteeringService } from '../../services/volunteering.service';
 import { global } from '../../services/global';
+import { Volunteering } from 'src/app/models/volunteering';
 
 @Component({
   selector: 'app-admin-volunteerings',
@@ -40,9 +41,16 @@ export class AdminVolunteeringsComponent implements OnInit {
   }
 
   deleteVolunteering(id: number) {
-    console.log(this._volunteeringService.delete(id));
-    console.log(id);
-    //window.location.reload();
+    this._volunteeringService.delete(id).subscribe(
+      (response:Volunteering) =>{
+        if(response){
+          window.location.reload();
+        }
+      },
+      error =>{
+        console.log(<any> error);
+      }
+    );
   }
 
   moreVolunteerings() {

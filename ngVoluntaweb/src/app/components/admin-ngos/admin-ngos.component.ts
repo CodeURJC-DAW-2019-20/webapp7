@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgoService } from '../../services/ngo.service';
 import { global } from '../../services/global';
+import { NGO } from 'src/app/models/ngo';
 
 @Component({
   selector: 'app-admin-ngos',
@@ -42,8 +43,16 @@ export class AdminNgosComponent implements OnInit {
   }
 
   deleteNgo(id: number) {
-    this._ngoService.delete(id);
-    window.location.reload();
+    this._ngoService.delete(id).subscribe(
+      (response:NGO) =>{
+        if(response){
+          window.location.reload();
+        }
+      },
+      error =>{
+        console.log(<any> error);
+      }
+    );
   }
 
   moreNgos(){
