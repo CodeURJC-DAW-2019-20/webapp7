@@ -1,0 +1,68 @@
+<!-- Content -->
+<div class="page-content bg-white">
+    <!-- Section Banner -->
+    <div class="dez-bnr-inr dez-bnr-inr-md" style="background-image:url(/assets/images/main-slider/slide2.jpg);">
+        <div class="container">
+            <div class="dez-bnr-inr-entry align-m ">
+                <div class="find-job-bx">
+                    <!--<p class="site-button button-sm">Find Jobs, Employment & Career Opportunities</p>-->
+                    <h2>Busca Entre Mas De <br /> <span class="text-primary">50,000</span> Voluntariados.</h2>
+                    <div class="container">
+                        <form #formSearch="ngForm" (ngSubmit)="onSubmit()" class="dezPlaceAni">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control"
+                                            placeholder="Título, Palabras Clave, o Frases" #search="ngModel" [(ngModel)]=key>
+                                        <br>
+                                        <input type="submit" class="site-button btn-block" value="Enviar">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Section Banner END -->
+    <!-- About Us -->
+    <div class="section-full job-categories content-inner-2 bg-white"
+        style="background-image:url(/assets/images/pattern/pic1.html);">
+        <div class="container">
+            <div class="section-head d-flex head-counter clearfix">
+                <div class="mr-auto">
+                    <h2 class="m-b5">Categorias Populares</h2>
+                    <h6 class="fw3">Hay mas de 10 categorias de voluntariados esperandote</h6>
+                </div>
+            </div>
+            <div class="row sp20">
+                <div *ngFor="let category of categories" class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="icon-bx-wraper">
+                        <div class="icon-content">
+                            <div class="icon-md text-primary m-b20"><i class="ti-location-pin"></i></div>
+                            <a href="search/?category={{category.id}}" class="dez-tilte">{{category.name}}</a>
+                            <div class="rotate-icon"><i class="ti-location-pin"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 text-center m-t30">
+                    <a href="/search"><button class="site-button radius-xl">Buscar por categoría</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About Us END -->
+    <div class="section-full content-inner bg-gray">
+        <div class="container">
+            <div class="row text-center bg-gray">
+                <h2 class="text-center">Algunas de nuestras estadísticas</h2>
+            </div>
+            <div class="container">
+                <div style="display: block">
+                    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

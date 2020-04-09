@@ -1,0 +1,57 @@
+<!-- Content -->
+<div class="page-content bg-white">
+    <!-- inner page banner -->
+    <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(/assets/images/background/Volunteerswalk.jpg);">
+        <div class="container">
+            <div class="dez-bnr-inr-entry">
+                <h1 class="text-white">ONGs</h1>
+                <!-- Breadcrumb row -->
+                <div class="breadcrumb-row">
+                    <ul class="list-inline">
+                        <li><a href="#">Inicio</a></li>
+                        <li>ONGs</li>
+                    </ul>
+                </div>
+                <!-- Breadcrumb row END -->
+            </div>
+        </div>
+    </div>
+    <!-- inner page banner END -->
+    <!-- contact area -->
+    <div class="content-block">
+        <!-- Find Job -->
+        <div class="section-full bg-white content-inner">
+            <div class="container">
+                <ul class="post-job-bx">
+                    <li *ngFor="let ngo of data">
+                        <a href="/ngos/{{ngo.id}}">
+                            <div class="d-flex m-b30">
+                                <div class="job-post-company">
+                                    <span><img src="{{url}}ongs/{{ngo.id}}/image" onerror="this.onerror=null;this.src='/assets/images/user-placeholder.png'" class="avatar"></span>
+                                </div>
+                                <div class="job-post-info">
+                                    <h4>{{ngo.name}}</h4>
+                                    <ul>
+                                        <li><i class="fa fa-map-marker"></i> {{ngo.address}}</li>
+                                        <li><i class="fa fa-envelope"></i> {{ngo.email}} </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <br>
+                <div *ngIf="loading" align="center" class="mt-5 mb-5">
+                    <img src="assets/images/loading.svg" alt="">
+                </div>
+                <div *ngIf="more && !loading" class="d-flex">
+                    <div class="text-center">
+                        <button class="site-button m-r5 button-lg" (click)="moreNgos()">Cargar más</button> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Find Job END -->
+    </div>
+</div>
+<!-- Content END-->

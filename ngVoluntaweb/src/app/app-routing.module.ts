@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { NgosComponent } from './components/ngos/ngos.component';
+import { IndexComponent } from './components/index/index.component';
 
 import { NgoDetailsComponent } from './components/ngo-details/ngo-details.component';
 import { SearchComponent } from './components/search/search.component';
@@ -20,6 +22,9 @@ import { NgoVolunteeringsComponent } from './components/ngo-volunteerings/ngo-vo
 
 
 const routes: Routes = [
+
+  {path: '/', component: IndexComponent},
+  {path: 'ngos',component: NgosComponent},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "register/user", component: RegisterUserComponent},

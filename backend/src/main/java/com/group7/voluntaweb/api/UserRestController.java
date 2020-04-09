@@ -243,5 +243,13 @@ public class UserRestController {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-
+	
+	@GetMapping(value = "/stats")
+	public ResponseEntity<int[]> graph(){
+		int[] stats = new int[12];
+		for(int i=0;i<12;i++) {
+			stats[i] = userRepo.usersPerMonth(i+1);
+		}
+		return new ResponseEntity<>(stats, HttpStatus.OK);
+	}
 }

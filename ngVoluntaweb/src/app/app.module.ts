@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+import { NgosComponent } from './components/ngos/ngos.component';
+import { IndexComponent } from './components/index/index.component';
 import { NgoDetailsComponent } from './components/ngo-details/ngo-details.component';
 import { SearchComponent } from './components/search/search.component';
 import { NgoSettingsComponent } from './components/ngo-settings/ngo-settings.component';
@@ -27,13 +29,14 @@ import { NgoVolunteeringsComponent} from './components/ngo-volunteerings/ngo-vol
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
     HeaderComponent,
+    NgosComponent,
+    IndexComponent,
     NgoDetailsComponent,
     SearchComponent,
     NgoSettingsComponent,
@@ -50,6 +53,7 @@ import { AdminCommentsComponent } from './components/admin-comments/admin-commen
     AboutUsComponent,
     NgoVolunteeringsComponent,
     AdminCommentsComponent
+
 
 
   ],

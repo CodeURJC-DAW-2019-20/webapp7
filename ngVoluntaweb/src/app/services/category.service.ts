@@ -18,4 +18,3 @@ export class CategoryService{
         return this._http.get(this.url+'categories/', {headers:headers});
     }
 }
-

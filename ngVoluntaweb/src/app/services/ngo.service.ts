@@ -36,6 +36,9 @@ export class NgoService{
     getLoggedNgoToken(){
       return localStorage.getItem("authorization");
     }
+  
+  getNgos(page: number) :Observable<any>{
+        return this._http.get(this.url+'ongs/?page='+page);
+    }
 }
-
 

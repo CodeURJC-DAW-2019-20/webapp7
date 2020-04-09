@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NgoService } from './ngo.service';
+import { UserService } from './user.service';
 
-describe('NgoService', () => {
+describe('UserService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: NgoService = TestBed.get(NgoService);
+    const service: UserService = TestBed.get(UserService);
     expect(service).toBeTruthy();
   });
 });
-

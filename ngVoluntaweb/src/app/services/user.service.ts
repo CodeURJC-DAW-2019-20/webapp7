@@ -41,6 +41,10 @@ export class UserService{
 
         return this._http.get(this.url+"users/"+id, {headers: headers});
     }
-
+  
+    getStats() :Observable<any>{
+    return this._http.get(this.url+'users/stats');
+  }
 
 }
+
