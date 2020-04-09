@@ -22,6 +22,7 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
 import { JoinedVolunteeringsComponent } from './components/joined-volunteerings/joined-volunteerings.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { VolunteeringPageComponent } from './components/volunteering-page/volunteering-page.component';
+import { AdminNgosComponent } from './components/admin-ngos/admin-ngos.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { VolunteeringPageComponent } from './components/volunteering-page/volunt
     UserSettingsComponent,
     JoinedVolunteeringsComponent,
     ContactComponent,
-    VolunteeringPageComponent
+    VolunteeringPageComponent,
+    AdminNgosComponent
   ],
   imports: [
     BrowserModule,

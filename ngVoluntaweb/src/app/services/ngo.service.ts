@@ -38,6 +38,11 @@ export class NgoService{
 
       return this._http.get(this.url + 'ongs/' + ngoId,{headers:headers});
     }
+
+    getNgos(page: number) :Observable<any>{
+      return this._http.get(this.url+'ongs/?page='+page);
+    }
+
 }
 
 
