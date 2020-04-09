@@ -23,7 +23,7 @@ import { NgoVolunteeringsComponent } from './components/ngo-volunteerings/ngo-vo
 
 const routes: Routes = [
 
-  {path: '/', component: IndexComponent},
+  {path: '', component: IndexComponent},
   {path: 'ngos',component: NgosComponent},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},

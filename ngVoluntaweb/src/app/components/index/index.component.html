@@ -41,13 +41,13 @@
                     <div class="icon-bx-wraper">
                         <div class="icon-content">
                             <div class="icon-md text-primary m-b20"><i class="ti-location-pin"></i></div>
-                            <a href="search/?category={{category.id}}" class="dez-tilte">{{category.name}}</a>
+                            <span class="dez-tilte">{{category.name}}</span>
                             <div class="rotate-icon"><i class="ti-location-pin"></i></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-12 text-center m-t30">
-                    <a href="/search"><button class="site-button radius-xl">Buscar por categoría</button></a>
+                    <a [routerLink]="['/search']"><button class="site-button radius-xl">Buscar por categoría</button></a>
                 </div>
             </div>
         </div>

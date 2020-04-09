@@ -24,7 +24,14 @@ export class IndexComponent implements OnInit {
         for(let i=0;i< 12;i++){
           this.data[i] = result[i];
         }
-        this.categories= this._categoryService.getCategories();
+        this._categoryService.getCategories().subscribe(
+          response=>{
+            this.categories = response;
+          },
+          error=>{
+            console.log(<any>error);
+          }
+        );
         console.log(this.data[2]);
         let chart = new CanvasJS.Chart("chartContainer", {
           animationEnabled: true,
