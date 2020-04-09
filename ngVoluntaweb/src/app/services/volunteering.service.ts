@@ -115,7 +115,7 @@ export class VolunteeringService {
   }
 
 
-  getVolunteerings(page: number) :Observable<any>{
+  getVolunteeringsByPage(page: number) :Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.get(this.url+'volunteerings/?page='+page, {headers:headers});
   }

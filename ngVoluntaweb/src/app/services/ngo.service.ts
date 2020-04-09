@@ -42,12 +42,6 @@ export class NgoService{
       return this._http.delete(this.url+'ongs/'+id, {headers: headers});
     }
 
-    getNgo(ngoId:number):Observable<any>{
-      let headers = new HttpHeaders().set('Content-Type', 'application/json');
-
-      return this._http.get(this.url + 'ongs/' + ngoId,{headers:headers});
-
-    }
 
     getNgos(page: number) :Observable<any>{
       let headers = new HttpHeaders().set('Content-Type', 'application/json');

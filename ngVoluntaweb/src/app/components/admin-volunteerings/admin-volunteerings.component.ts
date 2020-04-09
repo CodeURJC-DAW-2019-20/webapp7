@@ -20,7 +20,7 @@ export class AdminVolunteeringsComponent implements OnInit {
   constructor(private _volunteeringService: VolunteeringService) { }
 
   ngOnInit() {
-    this._volunteeringService.getVolunteerings(0).subscribe(
+    this._volunteeringService.getVolunteeringsByPage(0).subscribe(
       result => {
         this.data = result;
         this.loading = false;
@@ -29,7 +29,7 @@ export class AdminVolunteeringsComponent implements OnInit {
         console.log("No hay nada");
       }
     );
-    this._volunteeringService.getVolunteerings(1).subscribe(
+    this._volunteeringService.getVolunteeringsByPage(1).subscribe(
       result => {
         this.additional = result;
         this.more = true;
@@ -41,7 +41,7 @@ export class AdminVolunteeringsComponent implements OnInit {
   }
 
   deleteVolunteering(id: number) {
-    this._volunteeringService.delete(id).subscribe(
+    this._volunteeringService.deleteoneVolunteering(id).subscribe(
       (response:Volunteering) =>{
         if(response){
           window.location.reload();
@@ -57,7 +57,7 @@ export class AdminVolunteeringsComponent implements OnInit {
     this.loading = true;
     this.data = this.data.concat(this.additional);
     if (this.more) {
-      this._volunteeringService.getVolunteerings(this.page).subscribe(
+      this._volunteeringService.getVolunteeringsByPage(this.page).subscribe(
         result => {
           this.additional = result;
           this.more = true;
