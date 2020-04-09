@@ -10,68 +10,55 @@ import { global } from '../../services/global';
   providers: [NgoService]
 })
 export class NgosComponent implements OnInit {
-
-  public previous: boolean;
-  public next: boolean;
-  public page: number=0;
-  public data= [];
-  public url: string;
-  public loading: boolean;
+  public loading: boolean=true;
+  public more: boolean=false;
+  public data = [];
+  public additional = [];
+  public page: number = 2;
+  public url: string=global.url;
 
   constructor(private _ngoService: NgoService) {
-    this.previous= false;
-    this.next= true;
-    this.url= global.url;
-    this.loading= true;
   }
 
-  ngOnInit() {
-    this._ngoService.getNgos(this.page).subscribe(
-      result =>{
-        this.loading= false;
-        this.data=result;
+  ngOnInit(){
+    this._ngoService.getNgos(0).subscribe(
+      result => {
+        this.data = result;
+        this.more = true;
+        this.loading=false;
       },
       error => {
-        this.data=[];
+        console.log("No hay nada");
+      }
+    );
+    this._ngoService.getNgos(1).subscribe(
+      result => {
+        this.additional = result;
+      },
+      error => {
+        this.more = false;
+        this.loading=false;
       }
     );
   }
 
-  previousPage(){
-    this.loading= true;
-    this.next = true;
-    this.page--;
-    this.previous= this.page>0;
+  moreNgos(){
+    this.loading=true;
+    this.data= this.data.concat(this.additional);
     this._ngoService.getNgos(this.page).subscribe(
-      result =>{
-        this.data=result;
+      result=>{
+        this.additional=result;
+        this.more=true;
+        this.page++;
+        this.loading=false;
+        if(this.additional.length==0){
+          this.more=false;
+        }
       },
-      error => {
-        
-      }
-    );
-    this.loading= false;
-  }
-
-  nextPage(){
-    this.loading= true;
-    this.previous = true;
-    this.page++;
-    this._ngoService.getNgos(this.page).subscribe(
-      result =>{
-        this.data=result;
-      },
-      error => {
-        this.next= false;
-      }
-    );
-    this.loading= false;
-    this._ngoService.getNgos(this.page+1).subscribe(
-      result =>{
-        
-      },
-      error => {
-        this.next= false;
+      error=>{
+        this.additional=[];
+        this.more=false;
+        this.loading=false;
       }
     );
   }

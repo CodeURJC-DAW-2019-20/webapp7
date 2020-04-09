@@ -1,5 +1,5 @@
 <!-- Content -->
-<div class="page-content">
+<div class="page-content bg-white">
     <!-- Section Banner -->
     <div class="dez-bnr-inr dez-bnr-inr-md" style="background-image:url(/assets/images/main-slider/slide2.jpg);">
         <div class="container">
@@ -7,18 +7,20 @@
                 <div class="find-job-bx">
                     <!--<p class="site-button button-sm">Find Jobs, Employment & Career Opportunities</p>-->
                     <h2>Busca Entre Mas De <br /> <span class="text-primary">50,000</span> Voluntariados.</h2>
-                    <form #formSearch="ngForm" (ngSubmit)="onSubmit()" class="dezPlaceAni">
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input type="text" name="search" class="form-control"
-                                        placeholder="Título, Palabras Clave, o Frases" #search="ngModel" [(ngModel)]=key>
-                                    <br>
-                                    <input type="submit" class="site-button btn-block" value="Enviar">
+                    <div class="container">
+                        <form #formSearch="ngForm" (ngSubmit)="onSubmit()" class="dezPlaceAni">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control"
+                                            placeholder="Título, Palabras Clave, o Frases" #search="ngModel" [(ngModel)]=key>
+                                        <br>
+                                        <input type="submit" class="site-button btn-block" value="Enviar">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

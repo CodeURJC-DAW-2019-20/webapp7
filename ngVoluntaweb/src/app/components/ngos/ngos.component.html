@@ -22,9 +22,6 @@
         <!-- Find Job -->
         <div class="section-full bg-white content-inner">
             <div class="container">
-                <h3 *ngIf="loading"> Cargando...</h3>
-            </div>
-            <div *ngIf="!loading" class="container">
                 <ul class="post-job-bx">
                     <li *ngFor="let ngo of data">
                         <a href="/ngos/{{ngo.id}}">
@@ -44,13 +41,14 @@
                     </li>
                 </ul>
                 <br>
-                <div class="container">
-                    <a *ngIf="previous" _ngcontent-hut-c1="" class="site-button" (click)="previousPage()"><span style="color:white;"><i _ngcontent-hut-c1="" class="fa fa-caret-square-o-left"></i> Anterior</span></a>
-                    <a *ngIf="!previous" _ngcontent-hut-c1="" class="site-button"><span  style="color:rgb(0, 121, 219);"><i _ngcontent-hut-c1="" class="fa fa-caret-square-o-left"></i> Anterior</span></a>
-                    <a *ngIf="next" _ngcontent-hut-c1="" class="site-button" (click)="nextPage()"><span style="color:white;"><i _ngcontent-hut-c1="" class="fa fa-caret-square-o-right"></i> Siguiente</span></a>
-                    <a *ngIf="!next" _ngcontent-hut-c1="" class="site-button"><span style="color:rgb(0, 121, 219);"><i _ngcontent-hut-c1="" class="fa fa-caret-square-o-right"></i> Siguiente</span></a>
+                <div *ngIf="loading" align="center" class="mt-5 mb-5">
+                    <img src="assets/images/loading.svg" alt="">
                 </div>
-                <br>
+                <div *ngIf="more && !loading" class="d-flex">
+                    <div class="text-center">
+                        <button class="site-button m-r5 button-lg" (click)="moreNgos()">Cargar más</button> 
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Find Job END -->
