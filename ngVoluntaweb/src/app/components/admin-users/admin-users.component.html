@@ -7,33 +7,33 @@
             <div class="container">
                 <!--<div class="row">-->
                 <div class="col-md-12 text-center">
-                    <h5 class="widget-title font-weight-700 text-uppercase">ONGs registradas:</h5>
+                    <h5 class="widget-title font-weight-700 text-uppercase">Usuarios registrados:</h5>
                     <ul class="post-job-bx">
-                        <li *ngFor="let ngo of data">
+                        <li *ngFor="let user of data">
                             <a>
                                 <div class="d-flex m-b30">
                                     <div class="job-post-company">
-                                        <span><img src="{{url}}ngos/{{ngo.image}}/image" onerror="this.onerror=null;this.src='/assets/images/user-placeholder.png'" class="avatar"/></span>
+                                        <span><img src="{{url}}users/{{user.image}}/image" onerror="this.onerror=null;this.src='/assets/images/user-placeholder.png'" class="avatar"/></span>
                                     </div>
                                     <div class="job-post-info">
-                                        <h3>{{ngo.name}}</h3>
+                                        <h3>{{user.name}} {{user.surname}}</h3>
                                     </div>
                                 </div>
                                 <div class = "text-rigth">
-                                    <input type = "submit" class = "site-button" value = "Eliminar" (click)="deleteNgo(ngo.id)" style="background-color:rgb(255, 58, 58)"/>
+                                    <button class="site-button m-r5 button-lg" (click)="deleteUser(user.id)" style="background-color:rgb(255, 58, 58)">Eliminar</button>
                                 </div>
                             </a>
                         </li>
                     </ul>
                     <br>
-                    <div *ngIf="more && !loading" class="d-flex">
+                    <div *ngIf="loading" class="d-flex">
                         <div class="text-center">
-                            <button class="site-button m-r5 button-lg" (click)="moreUsers()">Cargar más</button> 
+                            <p>Cargando...</p> 
                         </div>
                     </div>
                     <div *ngIf="more && !loading" class="d-flex">
                         <div class="text-center">
-                            <button class="site-button m-r5 button-lg" (click)="moreNgos()">Cargar más</button> 
+                            <button class="site-button m-r5 button-lg" (click)="moreUsers()">Cargar más</button> 
                         </div>
                     </div>
                 </div>

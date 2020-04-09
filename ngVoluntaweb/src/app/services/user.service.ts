@@ -35,12 +35,17 @@ export class UserService{
         return this._http.delete(this.url+'users/'+id, {headers: headers});
     }
 
-
     getUser(id):Observable<any>{
         let headers = new HttpHeaders().set('Content-Type', "application/json");
 
         return this._http.get(this.url+"users/"+id, {headers: headers});
     }
 
+    getUsers(page: number) :Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+        return this._http.get(this.url+'users/?page='+page, {headers:headers});
+    }
+  
 
 }

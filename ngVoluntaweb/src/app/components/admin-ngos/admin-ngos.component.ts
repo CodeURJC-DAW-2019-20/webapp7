@@ -9,10 +9,11 @@ import { global } from '../../services/global';
   providers:[NgoService]
 })
 export class AdminNgosComponent implements OnInit {
+  public loading: boolean=true;
   public more: boolean=false;
   public data = [];
   public additional = [];
-  public page: number = 0;
+  public page: number = 2;
   public url: string=global.url;
 
   constructor(private _ngoService: NgoService) {
@@ -31,31 +32,34 @@ export class AdminNgosComponent implements OnInit {
       result => {
         this.additional = result;
         this.more = true;
+        this.loading=false;
       },
       error => {
         this.more = false;
+        this.loading=false;
       }
     );
   }
 
   deleteNgo(id: number) {
-    console.log("Eliminado");
-    console.log(id);
+    this._ngoService.delete(id);
+    window.location.reload();
   }
 
   moreNgos(){
+    this.loading=true;
     this.data= this.data.concat(this.additional);
-    console.log(this.additional);
-    this.page++;
     this._ngoService.getNgos(this.page).subscribe(
       result=>{
         this.additional=result;
         this.more=true;
-        console.log(this.data);
+        this.page++;
+        this.loading=false;
       },
       error=>{
+        this.additional=[];
         this.more=false;
-        console.log("error");
+        this.loading=false;
       }
     );
     
