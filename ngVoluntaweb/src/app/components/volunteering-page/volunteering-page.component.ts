@@ -22,11 +22,13 @@ export class VolunteeringPageComponent implements OnInit {
   public identity;
   public entity_type;
   public isJoined: Boolean;
-  public joined: Volunteering[];
+  public isLiked: Boolean;
   public url;
   public user: User;
   public registration: UserVolunteering;
   public alert: Boolean;
+  public btnColor: String;
+  public iconColor: String;
 
   constructor(
     private _route: ActivatedRoute,
@@ -48,23 +50,33 @@ export class VolunteeringPageComponent implements OnInit {
       }
     );
 
-    this._volunteeringService.getByJoined(this.identity.id).subscribe(
+    
+
+
+
+  }
+
+  isJoinedF(volId){
+    this._volunteeringService.isJoined(this.volunteering.id).subscribe(
       (response)=>{
-        let volsJoined = response as Set<Volunteering>;
-        this.joined = Array.from(volsJoined);
-        if(this.joined.includes(this.volunteering)){
-          this.isJoined = true;
-        } else {
-          this.isJoined = false;
-        }
+          this.isJoined = response;
       },
       error=>{
         console.log(<any>error);
       }
     );
+  }
 
-
-
+  isLikedF(volId){
+    this._volunteeringService.isLiked(this.volunteering.id).subscribe(
+      (response)=>{
+          this.isLiked = response;
+          console.log(response);
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    );
   }
 
 
@@ -74,6 +86,17 @@ export class VolunteeringPageComponent implements OnInit {
         if (response.id != null){
           this.volunteering = response;
           this.likesNumber=Array.from(this.volunteering.likes).length;
+          this.isJoinedF(this.volunteering.id);
+          this.isLikedF(this.volunteering.id);
+          if (this.isLiked){
+            this.btnColor = "blue2";
+            this.iconColor = "blue";
+            console.log("LIKED");
+          } else {
+            this.btnColor = "grey2";
+            this.iconColor = "grey";
+            console.log("DISLIKED");
+          }
         } else {
           this.status = "error";
           this._router.navigate(['/']);
@@ -89,9 +112,30 @@ export class VolunteeringPageComponent implements OnInit {
   join(volId){
     this._volunteeringService.join(volId).subscribe(
       response=> {
-        if (response.id){
-          this.alert= true;
-        }
+          this.isJoined= response;
+          if (this.isJoined){
+            this.alert = true;
+          } else {
+            this.alert = false;
+          }
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    );
+  }
+
+  like(volId){
+    this._volunteeringService.like(volId).subscribe(
+      response=> {
+          this.isLiked= response;
+          if (this.isLiked){
+            this.btnColor = "blue2";
+            this.iconColor = "blue";
+          } else {
+            this.btnColor = "grey2";
+            this.iconColor = "grey";
+          }
       },
       error=>{
         console.log(<any>error);
