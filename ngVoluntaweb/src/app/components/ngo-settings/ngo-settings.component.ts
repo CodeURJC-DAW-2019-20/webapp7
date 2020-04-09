@@ -90,8 +90,8 @@ export class NgoSettingsComponent implements OnInit {
   onSubmit(formNgo){
     this._ngoService.updateNgo(this.ngo).subscribe(
       (response:any) => {
-          if(response.ngo){
-            this.ngo = response.ngo;
+          if(response.id){
+            this.ngo = response;
             localStorage.setItem('identity',JSON.stringify(this.ngo));
           }
           else{
@@ -109,6 +109,7 @@ export class NgoSettingsComponent implements OnInit {
 
   avatarUpload(data) {
     let data_obj = JSON.parse(data.response);
+    console.log(data_obj);
     this.ngo.image = data_obj.image;
   }
 }

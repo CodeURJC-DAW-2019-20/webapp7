@@ -1,0 +1,149 @@
+<!-- Content -->
+<div class="page-content bg-white">
+    <!-- inner page banner -->
+    <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(assets/images/background/Volunteerswalk.jpg);">
+        <div class="container">
+            <div class="dez-bnr-inr-entry">
+                <h1 class="text-white">Resultados de búsqueda</h1>
+                <!-- Breadcrumb row -->
+                <div class="breadcrumb-row">
+                    <ul class="list-inline">
+                        <li>Inicio</li>
+                        <li>Resultados de búsqueda</li>
+                    </ul>
+                </div>
+                <!-- Breadcrumb row END -->
+            </div>
+        </div>
+    </div>
+    <!-- inner page banner END -->
+    <!-- contact area -->
+    <div class="content-block">
+        <!-- Browse Jobs -->
+        <div class="section-full bg-white browse-job content-inner-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 col-lg-8">
+                        <ul class="post-job-bx">
+                            <div *ngIf="non_volunteerings">
+                                <h4 style="text-align: center">¡Lo sentimos! No hay resultados</h4>
+                            </div>
+                            <div *ngIf="!non_volunteerings">
+                                <div *ngIf="!selected_volunteerings">
+                                    <div *ngIf="all_volunteerings">
+                                        <h1 style="text-align: center">TODOS LOS VOLUNTARIADOS</h1>
+                                        <li *ngFor="let current_volunteering of volunteerings">
+                                            <a [routerLink]="['/volunteering',current_volunteering.id]">
+                                                <div class="d-flex m-b30">
+                                                    <div class="job-post-company">
+                                                        <span><img src="/assets/images/logo/icon1.png"/></span>
+                                                    </div>
+                                                    <div class="job-post-info">
+                                                        <h4>{{current_volunteering.name}}</h4>
+                                                        <ul>
+                                                            <li><i class="fa fa-map-marker"></i>{{current_volunteering.city}} </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <div class="job-time mr-auto">
+                                                        <span>{{current_volunteering.category.name}}</span>
+                                                    </div>
+                                                    <div class="pagination-bx">
+                                                        <span>{{current_volunteering.ong.name}}</span>
+                                                    </div>
+                                                </div>
+
+                                            </a>
+                                        </li>
+                                        <div *ngIf="numberPages != currentPage">
+                                            <br>
+                                            <button class="site-button btn-block" (click)="addFiveMoreVolunteerings()">Cargar más</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="!all_volunteerings">
+                                    <div *ngIf="selected_volunteerings">
+                                        <li *ngFor="let current_volunteering of selected_volunteerings">
+                                            <a [routerLink]="['/volunteering',current_volunteering.id]">
+                                                <div class="d-flex m-b30">
+                                                    <div class="job-post-company">
+                                                        <span><img src="/assets/images/logo/icon1.png"/></span>
+                                                    </div>
+                                                    <div class="job-post-info">
+                                                        <h4>{{current_volunteering.name}}</h4>
+                                                        <ul>
+                                                            <li><i class="fa fa-map-marker"></i>{{current_volunteering.city}} </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <div class="job-time mr-auto">
+                                                        <span>{{current_volunteering.category}}</span>
+                                                    </div>
+                                                    <div class="pagination-bx">
+                                                        <span>{{current_volunteering.ong}}</span>
+                                                    </div>
+                                                </div>
+
+                                            </a>
+                                        </li>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </ul>
+                        <!--<div class="pagination-bx m-t30">
+                            <ul class="pagination">
+                                <li class="previous"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li class="next"><a href="#">Next <i class="ti-arrow-right"></i></a></li>
+                            </ul>
+                        </div>-->
+
+                    </div>
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="sticky-top">
+
+                            <div class="clearfix m-b30">
+                                <form action="/search" method="GET">
+                                    <h5 class="widget-title font-weight-700 text-uppercase">Palabras clave</h5>
+                                    <input type="text" [(ngModel)]="word" name="searchKeyword" #searchKeyword class="form-control" placeholder="Buscar">
+                                    <p *ngIf="all_volunteerings">
+                                        <button class="site-button btn-block mt-3" (click)="AllVolunteeringsByWord()">Buscar</button>
+                                    </p>
+
+                                </form>
+                            </div>
+
+                            <div class="clearfix">
+                                <form action="/search" method="GET">
+                                    <h5 class="widget-title font-weight-700 text-uppercase">Categorias</h5>
+                                    <select name="cate" #cate [(ngModel)]="categor" class="form-control">
+                                            <option [value]="category.id" *ngFor="let category of categories">{{category.id}}. {{category.name}}</option>
+                                    </select>
+                                    <br>
+                                    <p *ngIf="all_volunteerings">
+                                        <button class="site-button btn-block" (click)="AllVolunteeringsByCategory()">Buscar</button>
+                                    </p>
+
+                                </form>
+                            </div>
+                            <br>
+                            <div *ngIf="selected_volunteerings">
+                                <button class="site-button btn-block mt-3" (click)="ngOnInit();searchKeyword.value='';cate.value=''">Limpiar Búsqueda</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browse Jobs END -->
+    </div>
+</div>
+<!-- Content END-->

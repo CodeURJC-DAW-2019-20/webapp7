@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { NgoDetailsComponent } from './components/ngo-details/ngo-details.component';
+import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
@@ -25,7 +28,10 @@ const routes: Routes = [
   {path: "volunteering/:id", component: VolunteeringPageComponent},
   {path: "volunteering/edit/:id", component: EditVolunteeringComponent},
   {path: "ngo/settings", component: NgoSettingsComponent},
-  {path: "ngo/myvolunteerings",component:NgoVolunteeringsComponent}
+  {path: "ngo/myvolunteerings",component:NgoVolunteeringsComponent},
+  {path: 'ngo/:id', component: NgoDetailsComponent},
+  {path: 'search', component: SearchComponent}
+
 ];
 
 @NgModule({

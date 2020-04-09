@@ -13,7 +13,7 @@ import { NgoService } from 'src/app/services/ngo.service';
   selector: 'app-create-volunteering',
   templateUrl: './create-volunteering.component.html',
   styleUrls: ['./create-volunteering.component.css'],
-  providers: [VolunteeringService, NgoService, EntityService]
+  providers: [VolunteeringService, NgoService, EntityService, CategoryService]
 })
 export class CreateVolunteeringComponent implements OnInit,OnDestroy {
 
@@ -49,16 +49,10 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
 
     this.url = global.url;
 
-    //Esto esta para testear
-    localStorage.setItem('authorization',"cmVjZXBjaW9uLmNlbnRyYWxAc2F2ZXRoZWNoaWxkcmVuLm9yZzp0ZXN0");
-    //Esto esta para testear
 
     this.token = localStorage.getItem('authorization');
 
-    console.log(this.url + 'volunteerings/image/' + this.volunteering.id);
-
     this.volunteering.image = "false";
-
 
     this.afuConfig = {
       uploadAPI: {
@@ -84,8 +78,6 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
         afterUploadMsg_error: '¡Subida fallida!'
       }
     };
-
-
    }
 
 
@@ -93,7 +85,6 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
   ngOnInit() {
     this.identity = this._entityService.getIdentity();
     this.ngoLogged = this._volunteeringService.getNgoLogged();
-    console.log(this.ngoLogged);
   }
 
   getCategories():void{
@@ -123,9 +114,9 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
     this._volunteeringService.create(this.volunteering).subscribe(
       (response:any) =>{
         if(response){
+          console.log(response);
           this.volunteering = response;
-          this.status = "success";
-          form.reset();
+          this.afuConfig.uploadAPI.url = this.url + 'volunteerings/image/'+ this.volunteering.id;
         }
         else{
           this.status = 'error';
@@ -146,16 +137,42 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
     localStorage.setItem('identity',JSON.stringify(this.identity));*/
 
     /*ERROR*/
+
+
   }
+
 
 
   avatarUpload(data) {
-    console.log(data.response);
+
+    console.log(this.volunteering);
+
+    console.log(this.afuConfig.uploadAPI.url);
+    
+    console.log(data);
     let data_obj = JSON.parse(data.response);
-    this.volunteering.image = "true";
+    this.volunteering.image = data_obj.image;
   }
 
-  
+  onImageSubmit(){
+    this._volunteeringService.updateVolunteering(this.volunteering.id,this.volunteering).subscribe(
+      (response:any) =>{
+        if(response){
+          this.volunteering = response;
+          this.status = "success";
+        }
+        else{
+          this.status = 'error';
+        }
+      },
+      error =>{
+        console.log(<any>error);
+        this.status = 'error';
+      }
+    );
+  }
+
+
 
   //We have to made this instead adding directly to localStorage because there is an error when we add to the set the volunteering that we don´t know how to resolve it.
   //So we have to get the ngo from spring with the new volunteering and bring it here to save it on the localStorage.

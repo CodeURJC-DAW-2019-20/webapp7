@@ -1,15 +1,11 @@
-
 import { Injectable } from '@angular/core';
 import { NGO } from '../models/ngo';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { global } from './global';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class VolunteeringService {
 
   private ngo:NGO;
@@ -37,6 +33,11 @@ export class VolunteeringService {
     return this.ngo;
 
   }
+  
+  getVolunteerings(): Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', "application/json");
+        return this._http.get(this.url+'volunteerings/all/', {headers:headers});
+  }
 
 
   /*public getEditVolunteering():any{
@@ -56,6 +57,18 @@ export class VolunteeringService {
     return this._http.post(this.url+'volunteerings/',volunteering,{headers:headers});
 
 }
+  public isJoined(volId):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set("Authorization","Basic " + this.getLoggedUserToken());
+    return this._http.get(this.url + 'users/joined/'+volId,{headers: headers});
+
+  }
+
+  public isLiked(volId):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set("Authorization","Basic " + this.getLoggedUserToken());
+    return this._http.get(this.url + 'users/liked/'+volId,{headers: headers});
+
+  }
+
   public getByJoined(userId):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.get(this.url + 'volunteerings/join/'+userId,{headers: headers});
@@ -87,18 +100,23 @@ export class VolunteeringService {
   join(volId):Observable<any>{
 
     let headers = new HttpHeaders().set('Content-Type', "application/json").set('Authorization', 'Basic '+this.getLoggedUserToken());
-    console.log(headers);
     return this._http.post(this.url+'volunteerings/join/'+volId,null, {headers: headers});
+
+  }
+
+  like(volId):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', "application/json").set('Authorization', 'Basic '+this.getLoggedUserToken());
+    return this._http.post(this.url+'volunteerings/like/'+volId,null, {headers: headers});
 
   }
 
   getLoggedUserToken(){
     return localStorage.getItem("authorization");
-}
-deleteoneVolunteering(volid:number){
-  let headers = new HttpHeaders().set('Content-Type', "application/json").set('Authorization', 'Basic '+this.getLoggedUserToken());
-   return this._http.delete(this.url+'volunteerings/'+volid, {headers: headers});
-    
-}
+  }
+  deleteoneVolunteering(volid:number){
+    let headers = new HttpHeaders().set('Content-Type', "application/json").set('Authorization', 'Basic '+this.getLoggedUserToken());
+    return this._http.delete(this.url+'volunteerings/'+volid, {headers: headers});
+  }
+
 }
 
