@@ -30,10 +30,10 @@ public class User {
 	public interface Basico{
 	}
 	
-	public interface UsersVol{
+	public interface UsersVol extends UsersVolunteerings.Basico, UsersVolunteerings.Volunteerings{
 	}
 	
-	public interface Likes{ 
+	public interface Likes extends Like.Basico, Like.Volunteerings{ 
 	}
 	
 

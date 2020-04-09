@@ -1,0 +1,68 @@
+<div class="dez-bnr-inr overlay-black-middle"
+    style="background-image:url(assets/images/background/Volunteerswalk.jpg);">
+    <div class="container">
+        <div class="dez-bnr-inr-entry">
+            <h1 class="text-white">Mis voluntariados</h1>
+            <!-- Breadcrumb row -->
+            <div class="breadcrumb-row">
+                <ul class="list-inline">
+                    <li>Inicio</li>
+                    <li>Mis voluntariados</li>
+                </ul>
+            </div>
+            <!-- Breadcrumb row END -->
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="!volList" align="center" class="mt-5 mb-5">
+    <img src="assets/images/loading.svg" alt="">
+</div>
+
+<div class="content-block">
+    <!-- Browse Jobs -->
+    <div class="section-full bg-white browse-job content-inner-2">
+        <div class="container">
+            <!--<div class="row">-->
+            <div class="col-md-12 text-center">
+                <h5 class="widget-title font-weight-700 text-uppercase">Mis voluntariados</h5>
+                <ul class="post-job-bx">
+
+
+                    <li *ngFor="let volunteering of volList">
+                        <a>
+                            <div class="d-flex m-b30">
+                                <div class="job-post-company">
+                                    <div class="container-volunteering"><img
+                                            src="{{url}}volunteerings/image/{{volunteering.image}}" /></div>
+                                </div>
+                                <div class="job-post-info">
+                                    <a class="custom-anchor" [routerLink]="['/volunteering', volunteering.id]"><h4>{{volunteering.name}}</h4></a>
+                                    <ul class="text-left">
+                                        <li><i class="fa fa-map-marker"></i>{{volunteering.city}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="job-time mr-auto">
+                                    <span>{{volunteering.category.name}}</span>
+                                </div>
+                                <div class="pagination-bx d-inline-block">
+                                    <button class="btn btn-primary" [routerLink]="['/volunteering/edit', volunteering.id]">Editar</button>
+                                    <button (click)="deleteVol(volunteering.id)"
+                                        class="btn btn-danger ml-2">Retirar</button>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!--</div>-->
+        </div>
+    </div>
+    <!-- Browse Jobs END -->
+</div>

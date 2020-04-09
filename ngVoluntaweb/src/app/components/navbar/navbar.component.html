@@ -8,7 +8,7 @@
                     <div class="container clearfix">
                         <!-- website logo -->
                         <div class="logo-header mostion">
-                            <a href="/"><img src="/assets/images/logo.png" class="logo" alt=""></a>
+                            <a [routerLink]="['/']"><img src="/assets/images/logo.png" class="logo" alt=""></a>
                         </div>
                         <!-- nav toggle button -->
                         <!-- nav toggle button -->
@@ -19,37 +19,115 @@
                             <span></span>
                             <span></span>
                         </button>
-                        <!-- extra nav -->
-                        <div class="extra-nav">
+
+                        <!-- Anonymous Navbar -->
+                        <div class="extra-nav" *ngIf="!identity">
                             <div class="extra-cell">
-                                <a href="/register" class="site-button"><i class="fa fa-user"></i> Regístrate</a>
-                                <a href="/login" class="site-button"><i class="fa fa-lock"></i> Inicia sesión</a>
+                                <a [routerLink]="['/register']" class="site-button"><i class="fa fa-user"></i> Regístrate</a>
+                                <a [routerLink]="['/login']" class="site-button"><i class="fa fa-lock"></i> Inicia sesión</a>
                             </div>
                         </div>
-                        <!-- Quik search -->
-                        <div class="dez-quik-search bg-primary">
-                            <form action="#">
-                                <input name="search" value="" type="text" class="form-control"
-                                    placeholder="Escribe algo para buscar">
-                                <span id="quik-search-remove"><i class="flaticon-close"></i></span>
-                            </form>
+
+                        <!-- Logged User Navbar -->
+						<div class="extra-nav" *ngIf="identity && entity_type == 'user'">
+							<ul class="navbar-nav">
+								<li>
+									<div class="container-avatar">
+										<img src="{{url}}users/{{identity.image}}/image" onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'" class="avatar">
+									</div>
+								</li>
+								<li class="nav-item dropdown">
+									<a id="navbarDropdown" class="nav-link dropdown-toggle reset-color" href="#"
+										role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+										v-pre>
+										{{identity.name}} <span class="caret"></span>
+									</a>
+									
+									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" *ngIf="!identity.roles.includes('ROLE_ADMIN')">
+										<a class="dropdown-item" [routerLink]="['user/myvolunteerings']">
+											Mis voluntariados
+										</a>
+
+										<a class="dropdown-item" [routerLink]="['/user/settings']">
+
+											Ajustes
+										</a>
+										<a class="dropdown-item pointer" (click)="logout()">
+											Cerrar sesión
+										</a>
+                                    </div>
+                                    
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" *ngIf="identity.roles.includes('ROLE_ADMIN')">
+										<a class="dropdown-item" [routerLink]="['/admin/volunteerings']">
+											Voluntariados
+										</a>
+										<a class="dropdown-item" [routerLink]="['/admin/users']">
+											Usuarios registrados
+										</a>
+										<a class="dropdown-item" [routerLink]="['/admin/ngos']">
+											ONGs registradas
+										</a>
+										<a class="dropdown-item" [routerLink]="['/admin/comments']">
+											Comentarios
+										</a>
+										<a class="dropdown-item pointer" (click)="logout()">
+											Cerrar sesión
+										</a>
+									</div>
+                                </li>
+                                
+							</ul>
                         </div>
+                        
+                        <!-- Logged NGO Navbar -->
+						<div class="extra-nav" *ngIf="identity && entity_type == 'ngo'">
+							<ul class="navbar-nav">
+								<li>
+									<div class="container-avatar">
+										<img src="{{url}}ongs/{{identity.image}}/image" onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'" class="avatar">
+									</div>
+								</li>
+								<li class="nav-item dropdown">
+									<a id="navbarDropdown" class="nav-link dropdown-toggle reset-color" href="#"
+										role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+										v-pre>
+										{{identity.name}} <span class="caret"></span>
+									</a>
+									
+									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item" [routerLink]="['/ngo/myvolunteerings']">
+											Mis voluntariados
+										</a>
+
+										<a class="dropdown-item" [routerLink]="['/ngo/settings']">
+
+											Ajustes
+										</a>
+										<a class="dropdown-item pointer" (click)="logout()">
+											Cerrar sesión
+										</a>
+									</div>
+								</li>
+							</ul>
+						</div>
+
+                        
                         <!-- main nav -->
                         <div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
                             <ul class="nav navbar-nav">
                                 <li>
-                                    <a href="/">Inicio</a>
+                                    <a [routerLink]="['/']">Inicio</a>
                                 </li>
                                 <li>
-                                    <a href="/search">Voluntariados</a>
+                                    <a [routerLink]="['/search']">Voluntariados</a>
                                 </li>
-                                <li><a href="/ongs">ONGs</a></li>
+                                <li><a [routerLink]="['/ongs']">ONGs</a></li>
                                 
                                 <li class="ls-mobile">
-                                    <a href="/register">Regístrate <i class="fa fa-user"></i></a>
+                                    <a [routerLink]="['/register']">Regístrate <i class="fa fa-user"></i></a>
                                 </li>
                                 <li class="ls-mobile">
-                                    <a href="/login">Inicia sesión <i class="fa fa-lock"></i></a>
+                                    <a [routerLink]="['/login']">Inicia sesión <i class="fa fa-lock"></i></a>
                                 </li>
                             </ul>
                         </div>

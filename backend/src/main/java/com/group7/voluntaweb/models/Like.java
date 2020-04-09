@@ -23,7 +23,7 @@ public class Like{
 	public interface Users{
 	}
 	
-	public interface Volunteerings{
+	public interface Volunteerings extends Volunteering.Basico{
 	}
 	
 	

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.group7.voluntaweb.models.Like;
+import com.group7.voluntaweb.models.ONG;
 import com.group7.voluntaweb.models.User;
 import com.group7.voluntaweb.models.Volunteering;
 import com.group7.voluntaweb.repositories.LikeRepository;
@@ -58,6 +59,10 @@ public class VolunteeringService {
 	public Iterable<Volunteering> volunteeringByPage(int pageNumber, int pageSize){
 		PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.unsorted());
 		Iterable<Volunteering> list = volunteeringRepository.findAll(pageRequest);
+		return list;
+	}
+	public Iterable<Volunteering> volunteeringsByNGO(ONG ong){
+		Iterable<Volunteering> list = volunteeringRepository.findVolunteeringsByNGO(ong);
 		return list;
 	}
 
