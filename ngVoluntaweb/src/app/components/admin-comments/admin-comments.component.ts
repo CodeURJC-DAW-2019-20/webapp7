@@ -48,7 +48,7 @@ export class AdminCommentsComponent implements OnInit {
     this._commentService.delete(commentId).subscribe(
       (response:Comment) =>{
         if(response){
-          this.status = "succes";
+          this.status = "success";
 
           this.getComments();
 
