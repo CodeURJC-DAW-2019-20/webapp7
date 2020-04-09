@@ -112,6 +112,6 @@ export class VolunteeringService {
 
   getLoggedUserToken(){
     return localStorage.getItem("authorization");
-}
+  }
 }
 

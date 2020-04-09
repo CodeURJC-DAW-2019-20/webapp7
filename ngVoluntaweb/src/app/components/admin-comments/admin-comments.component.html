@@ -1,0 +1,40 @@
+<!-- Content -->
+<div class="page-content bg-white">
+    <!-- contact area -->
+    <div class="content-block">
+        <!-- Browse Jobs -->
+        <div class="section-full bg-white browse-job content-inner-2">
+            <div class="container">
+                <!--<div class="row">-->
+                <div class="col-md-12 text-center">
+                    <h5 class="widget-title font-weight-700 text-uppercase mb-5">Comentarios</h5>
+                    <ul class="post-job-bx">
+                        <li *ngFor = "let c of comments">
+                            <a href = "#">
+                                <div class="d-flex m-b30">
+                                    <div class="job-post-info">
+                                        <h4>{{c.name}}</h4>
+                                        <ul>
+                                            <li>Email: {{c.email}}</li>
+                                            <li><span>ID mensaje: {{c.id}}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div class="job-time mr-auto">
+                                        <p>{{c.message}}</p>
+                                    </div>
+                                </div>
+                                <div class = "text-rigth">
+                                    <input type = "submit" class = "site-button" value = "Eliminar" (click) = "deleteComment(c.id)"/>
+                                </div>
+                            </a>    
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Browse Jobs END -->
+    </div>
+</div>
+<!-- Content END-->

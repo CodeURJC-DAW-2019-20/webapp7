@@ -22,6 +22,7 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
 import { JoinedVolunteeringsComponent } from './components/joined-volunteerings/joined-volunteerings.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { VolunteeringPageComponent } from './components/volunteering-page/volunteering-page.component';
+import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { VolunteeringPageComponent } from './components/volunteering-page/volunt
     UserSettingsComponent,
     JoinedVolunteeringsComponent,
     ContactComponent,
-    VolunteeringPageComponent
+    VolunteeringPageComponent,
+    AdminCommentsComponent
 
   ],
   imports: [

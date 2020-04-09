@@ -7,7 +7,6 @@ import { Comment } from '../models/comment';
 
 
 @Injectable()
-
 export class CommentService{
     public url: String;
     public comment: Comment;
@@ -30,7 +29,11 @@ export class CommentService{
     }
 
     delete(commentId):Observable<any>{
-        let headers = new HttpHeaders().set("Content-Type", "application/json");
+        /*
+        Hay que añadir el auth de paripe
+        */
+
+        let headers = new HttpHeaders().set("Content-Type", "application/json").set('Authorization', 'Basic '+this.getLoggedUserToken());
         return this._http.delete(this.url+'comments/'+commentId, {headers: headers});
     }
 
@@ -38,5 +41,9 @@ export class CommentService{
         let headers = new HttpHeaders().set("Content-Type", "application/json");
         return this._http.get(this.url+'comments/'+commentId, {headers: headers});
     }
+
+    getLoggedUserToken(){
+        return localStorage.getItem("authorization");
+      }
     
 }
