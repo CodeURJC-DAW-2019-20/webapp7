@@ -113,5 +113,10 @@ export class VolunteeringService {
   getLoggedUserToken(){
     return localStorage.getItem("authorization");
   }
+  deleteoneVolunteering(volid:number){
+    let headers = new HttpHeaders().set('Content-Type', "application/json").set('Authorization', 'Basic '+this.getLoggedUserToken());
+    return this._http.delete(this.url+'volunteerings/'+volid, {headers: headers});
+  }
+
 }
 
