@@ -26,6 +26,7 @@ export class SearchComponent implements OnInit {
   private word:string;
   private non_volunteerings:boolean;
   public url: string;
+  public keywordIndex:string;
 
   constructor(
     private _route: ActivatedRoute,
@@ -38,16 +39,34 @@ export class SearchComponent implements OnInit {
       this.getNumberPages();
       this.url = global.url;
       this.categor = 1;
+      console.log(this.all_volunteerings);
+      console.log(this.selected_volunteerings);
+      console.log(this.volunteerings);
     }
 
   ngOnInit() {
+    this._route.params.subscribe((params: Params) => {
+      this.keywordIndex = params.wordIndex;
+    })
+    this.word = this.keywordIndex;
     if (this.numberPages == 0){
       this.non_volunteerings = true;
-    } else if (!this.volunteerings){
+      console.log("hola num 1");
+    } else if(this.keywordIndex){
+      this.AllVolunteeringsByWord();
+      console.log("hola num 2");
+      console.log(this.all_volunteerings);
+      console.log(this.selected_volunteerings);
+      console.log(this.volunteerings);
+      console.log(this.non_volunteerings);
+    } 
+    else if (!this.volunteerings){
       this.AllVolunteerings();
+      console.log("hola num 3");
     }else{
       this.all_volunteerings = this.volunteerings;
       this.selected_volunteerings = null;
+      console.log("hola num 4");
     }
   }
 
@@ -56,9 +75,9 @@ export class SearchComponent implements OnInit {
       response => {
         this.selected_volunteerings = null;
         this.all_volunteerings = response;
-        console.log(response);
         this.volunteerings = [...this.all_volunteerings];
         this.non_volunteerings = false;
+        console.log("hola soy todos los voluntariados");
       },
       error => {
         console.log(<any>error);
@@ -79,6 +98,7 @@ export class SearchComponent implements OnInit {
           this.numberPages = Math.floor(response.length / 5);
         }
         this.currentPage = 0;
+        console.log("hola soy el numero de paginas");
       },
       error => {
         console.log(<any>error);
@@ -93,6 +113,7 @@ export class SearchComponent implements OnInit {
     this._searchService.getSearch(this.currentPage).subscribe(
       response => {
         this.volunteerings.push(...response);
+        console.log("hola soy añadir voluntariados");
       },
       error => {
         console.log(<any>error);
@@ -107,10 +128,13 @@ export class SearchComponent implements OnInit {
         this.selected_volunteerings = response;
         this.all_volunteerings = null;
         this.non_volunteerings = false;
+        console.log("hola soy buscar por palabra");
       },
       error => {
         console.log(<any>error);
+        console.log("hola palabra no encontrada");
         this.non_volunteerings = true;
+        console.log(this.non_volunteerings);
       }
     )
   }
@@ -119,11 +143,10 @@ export class SearchComponent implements OnInit {
     this._categoryService.getCategories().subscribe(
       response => {
         this.categories = response;
-        this.non_volunteerings = false;
+        console.log("hola soy todas las categorias");
       },
       error => {
         console.log(<any>error);
-        this.non_volunteerings = true;
       }
     )
   }
@@ -134,6 +157,7 @@ export class SearchComponent implements OnInit {
         this.selected_volunteerings = response;
         this.all_volunteerings = null;
         this.non_volunteerings = false;
+        console.log("hola soy buscar por categoria");
       },
       error => {
         console.log(<any>error);

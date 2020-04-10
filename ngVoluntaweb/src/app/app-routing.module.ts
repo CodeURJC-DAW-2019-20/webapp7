@@ -46,6 +46,7 @@ const routes: Routes = [
   {path: "ngo/myvolunteerings",component:NgoVolunteeringsComponent},
   {path: 'ngo/:id', component: NgoDetailsComponent},
   {path: 'search', component: SearchComponent},
+  {path: 'search/:wordIndex', component: SearchComponent},
   {path: 'about-us', component: AboutUsComponent}
 
 ];

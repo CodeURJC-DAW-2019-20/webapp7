@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-xl-9 col-lg-8">
                         <ul class="post-job-bx">
-                            <div *ngIf="non_volunteerings">
+                            <div *ngIf="non_volunteerings || (non_volunteerings && keywordIndex)">
                                 <h4 style="text-align: center">¡Lo sentimos! No hay resultados</h4>
                             </div>
                             <div *ngIf="!non_volunteerings">
@@ -36,7 +36,7 @@
                                             <a [routerLink]="['/volunteering',current_volunteering.id]">
                                                 <div class="d-flex m-b30">
                                                     <div class="job-post-company">
-                                                        <div class="container-volunteering"><img src="{{url}}volunteerings/image/{{current_volunteering.image}}"/></div>
+                                                        <div class="container-volunteering"><img src="/assets/images/logo/icon1.png" /></div>
                                                     </div>
                                                     <div class="job-post-info">
                                                         <h4>{{current_volunteering.name}}</h4>
@@ -94,15 +94,6 @@
                             </div>
 
                         </ul>
-                        <!--<div class="pagination-bx m-t30">
-                            <ul class="pagination">
-                                <li class="previous"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li class="next"><a href="#">Next <i class="ti-arrow-right"></i></a></li>
-                            </ul>
-                        </div>-->
 
                     </div>
                     <div class="col-xl-3 col-lg-4">
@@ -115,11 +106,14 @@
                                     <p *ngIf="all_volunteerings">
                                         <button class="site-button btn-block mt-3" (click)="AllVolunteeringsByWord()">Buscar</button>
                                     </p>
+                                    <p *ngIf="non_volunteerings && keywordIndex">
+                                        <button class="site-button btn-block mt-3" (click)="AllVolunteeringsByWord()">Buscar</button>
+                                    </p>
 
                                 </form>
                             </div>
 
-                            <div class="clearfix">
+                            <div *ngIf="categories && !keywordIndex" class="clearfix">
                                 <form action="/search" method="GET">
                                     <h5 class="widget-title font-weight-700 text-uppercase">Categorias</h5>
                                     <select name="cate" #cate [(ngModel)]="categor" class="form-control">
@@ -134,7 +128,8 @@
                             </div>
                             <br>
                             <div *ngIf="selected_volunteerings">
-                                <button class="site-button btn-block mt-3" (click)="ngOnInit();searchKeyword.value='';cate.value=''">Limpiar Búsqueda</button>
+                                <div *ngIf="!keywordIndex"><button class="site-button btn-block mt-3" (click)="ngOnInit();searchKeyword.value='';cate.value=''">Limpiar Búsqueda</button></div>
+                                <div *ngIf="keywordIndex"><a class="site-button btn-block mt-3" [routerLink]="['/search']">Limpiar Búsqueda</a></div>
                             </div>
 
                         </div>
