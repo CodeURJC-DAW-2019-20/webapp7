@@ -127,9 +127,7 @@ For the development of this application we have used Spring in its latest versio
 
 * <img alt="Hex.pm" src="https://img.shields.io/badge/Install-JDK 13-orange">
 * <img alt="Hex.pm" src="https://img.shields.io/badge/Install-Eclipse-blue">
-* <img alt="Hex.pm" src="https://img.shields.io/badge/Install-Maven-red">
 * <img alt="Hex.pm" src="https://img.shields.io/badge/Install-Spring Tools-green">
-* <img alt="Hex.pm" src="https://img.shields.io/badge/Install-Mustache-pink">
 
 > Import the project: File> Import> Maven> Existing Maven Projects> Browse directory > Select folder of the project and finish.
 
@@ -167,6 +165,11 @@ Document [Development Environment](./backend/Dockerfile) with information about 
 
 ## Phase 4: 
 ### Development Environment Preparation
+1. <img alt="Hex.pm" src="https://img.shields.io/badge/Install-Node.js-green">
+2. Download our repository content
+3. Open angular proyect
+4. Write on the terminal `$npm install`
+5. Finally, write on the terminal `$ng serve`
 
 ### Class diagram
 <img src="./diagrams/ClassDiagram14April.svg">
