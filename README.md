@@ -7,9 +7,9 @@
 
 
 # VoluntaWeb - Group 7 
-VoluntaWeb is a project developed by group 7 of the subject "Web Application Development". It consists of an online site where you can publish your volunteer ad or search for NGOs to join them. You will have a panel from where you can manage your ads (if you register as an NGO) or consult which NGOs you are helping.
+_VoluntaWeb is a project developed by group 7 of the subject "Web Application Development". It consists of an online site where you can publish your volunteer ad or search for NGOs to join them. You will have a panel from where you can manage your ads (if you register as an NGO) or consult which NGOs you are helping._
 
-## Members
+### Members
 | Name | Mail address | GitHub username|
 |--------|--------|------------|
 |Alicia Merino Martínez| a.merinom.2017@alumnos.urjc.es| aliholi44 |
@@ -19,118 +19,121 @@ VoluntaWeb is a project developed by group 7 of the subject "Web Application Dev
 |Samuel Severiche Berna | s.severiche.2017@alumnos.urjc.es | sbsam |
 
   
-## Our links
-[Trello](https://trello.com/b/nNVdsRsp)
-[Youtube]() 
+### Our links :link:
+- [Trello](https://trello.com/b/nNVdsRsp)
+- [Youtube]() 
 
-## Main aspects
 ### Entities
 VoluntaWeb has 4 entities: users (users table), support comments (comments table), NGOs(ngos table) and volunteerings (volunteerings table).  
--NGOs can publish volunteerings ads (ngo_volunteering table).  
--Users can join volunteerings (user_volunteering).  
+- NGOs can publish volunteerings ads (ngo_volunteering table).  
+- Users can join volunteerings (user_volunteering).  
 ### Permissions
--Visitors can search NGOs and volunteerings but not join them or like them.  
--Logged users can do the actions vistors can do, but also join volunteerings and like them and modify their user settings.  
--NGOs can publish volunteerings and edit/remove them, aswell edit their NGO settings.  
--Administrator can moderate volunteerings.  
+- Visitors can search NGOs and volunteerings but not join them or like them.  
+- Logged users can do the actions vistors can do, but also join volunteerings and like them and modify their user settings.  
+- NGOs can publish volunteerings and edit/remove them, aswell edit their NGO settings.  
+- Administrator can moderate volunteerings.  
 ### Images
--Logged user have a profile image.  
--NGOs have a profile image.  
--Volunteerings have a banner image.  
+- Logged user have a profile image.  
+- NGOs have a profile image.  
+- Volunteerings have a banner image.  
 ### Charts
 We're implemented graphic charts:  
--Volunteerings published in a month.  
--Users joined for a volunteering in a month.  
--Users registered in a month.  
+- Volunteerings published in a month.  
+- Users joined for a volunteering in a month.  
+- Users registered in a month.  
 ### Complementary technonlogies
--We are consuming the Google Maps API for include location map in a volunteering.
+- We are consuming the Google Maps API for include location map in a volunteering.
 ### Advanced algorithm
--The search page has a search filter for volunteerings and NGOs.
-### Phase 2
-#### Navigation diagram
+- The search page has a search filter for volunteerings and NGOs.
+
+## Phase 2: Web with HTML generated on server and AJAX
+### Navigation diagram
 <img src="./diagrams/navDiagram.svg">
 
-#### Database diagram
+### Database diagram
 <img src="./diagrams/DatabaseDiagram.svg"> 
 
-#### Class diagram
+### Class diagram
 <img src="./diagrams/UpdatedClassDiagram.svg"> 
 
 ### Screenshots
 ![](./screenshots/F2-index.PNG)
-#### Description
+#### 1. Index
 "Index" page is the main page of the web application. It's the entry point to the other pages.
 
 ![](./screenshots/F2-aboututs.PNG)
-#### Description
+#### 2. AboutUs
 "About Us" is a page that have some information about VoluntaWeb and it's objectives.  
 
 ![](./screenshots/F2-contact.PNG)
-#### Description
+#### 3. Contact
 The "Contact" page, as her name says, is for contact the administrator of the website in order to make sugerences and questions.  
 
 ![](./screenshots/F2-volunteerings.PNG)
-#### Description
+#### 4. Volunteering control panel
 "Volunteering-gestion-panel" is a page that have, mainly, two options: edit and delete. Also appears the last modification.
 
 ![](./screenshots/F2-ongs.PNG)
-#### Description
-"Ongs" is a page that contains all ONGs that are in our data base. It is possible to filter a search looking ONG's name.
+#### 5. NGOs
+"Ongs" is a page that contains all NGOs that are in our data base. It is possible to filter a search looking ONG's name.
 
 ![](./screenshots/F2-login.PNG)
-#### Description
+#### 6. Login
 "Login" is a page where users, such as volunteers and ONGs, can login and browse the website.
 
 ![](./screenshots/F2-my-volunteerings.PNG)
-#### Description
+#### 7. User's Volunteerings
 This webpage shows all the volunteers to whom a user of the web has subscribed, with their title, their location, the email of the corresponding NGO and more information about the activity by clicking on it.
  
 ![](./screenshots/F2-ong-id.PNG)
-#### Description
+#### 8. NGO's information
 This webpage shows information about a specific NGO, with its name, its data and also a short description. Also below shows recent volunteers from that NGO.
 
 ![](./screenshots/F2-ong-settings.PNG)
-#### Description
+#### 9. NGO's settings
 This website allows NGOs to change data on their Voluntaweb account such as their name, address, email, category, profile picture etc.
   
 ![](./screenshots/F2-register.PNG)
-#### Description
+#### 10. Register as NGO or Volunteer
 This webpage allows users to chose if they want register as NGOs or Volunteers.
 
 ![](./screenshots/F2-register-ong.PNG)
-#### Description
+#### 11. Register NGO
 This webpage allows NGOs to create an account in VoluntaWeb.
 
 ![](./screenshots/F2-register-user.PNG)
-#### Description
+#### 12. Register Volunteer
 This webpage allows Volunteers to create an account in VoluntaWeb.
 
 ![](./screenshots/F2-search.PNG)
-#### Description
+#### 13. Search
 “Searches” This page display the results of a search and allow the user to change the parameters of the search.
 
 ![](./screenshots/F2-ong-submit-advertisement.PNG)
-#### Description
+#### 14. Add volunteerings
 “Ong submit advertisement” This page will allow the NGOs to submit a volunteering offer.
 
 ![](./screenshots/F2-user-settings.PNG)
-#### Description
+#### 15. User settings
 “User settings” This page will allow the user to change the settings of his account.
 
 ![](./screenshots/F2-voluntariado-detail.PNG)
-#### Description
+#### 16. Volunteering's information
  “Volunteering” This page is an example of the design of the volunteering offers.
 
 
-## Development environment setup:
+### Development environment setup:
 For the development of this application we have used Spring in its latest version. Specifically, we have used the Spring Tools 4 development. This tool is available for different IDEs (Eclipse, visual studio code, Theia).
-* Install Java SE Development Kit 13
-* Install Eclipse IDE
-* Install Sprint Tools 4 from the Eclipse Marketplace.
-* Import the project: File> Import> Maven> Existing Maven Projects> Browse directory > Select folder of the project and finish.
 
+* <img alt="Hex.pm" src="https://img.shields.io/badge/Install-JDK 13-orange">
+* <img alt="Hex.pm" src="https://img.shields.io/badge/Install-Eclipse-blue">
+* <img alt="Hex.pm" src="https://img.shields.io/badge/Install-Maven-red">
+* <img alt="Hex.pm" src="https://img.shields.io/badge/Install-Spring Tools-green">
+* <img alt="Hex.pm" src="https://img.shields.io/badge/Install-Mustache-pink">
 
-## Commits list 
+> Import the project: File> Import> Maven> Existing Maven Projects> Browse directory > Select folder of the project and finish.
+
+### Members Participation 
 | Member | 5 relevant commits |
 | ------------- | ------------- |
 | Samuel | 1. [ONG and ONG detail pages](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/d03b6925d0180e26073c256db742148e9630ca52)<br/> 2. [Register ong with images](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/9dc0e565dc08f194a5fb35668cc43c18049379f9)<br/> 3. [User and ONG settings](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/096279ec03e3b45181bf7cf30eff13238b3ad365)<br/> 4. [Admin pages and minor fixes (admin pages: ngos, volunteerings, users, comments and delete functionality)](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/68c4c9f041207f7693c6de17da0f071b596d4f1c)<br/> 5. [admin comments section and aboutus navbar](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/0b04bed303adcda43580a4189fe8d4205f7abbc4)
@@ -139,20 +142,20 @@ For the development of this application we have used Spring in its latest versio
 | Daniel Fuente  | 1. [Creación, edición y borrado de anuncios y edición de ong funcionando](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/33a3d94cd3ca9662ee2e71835ef7b4c3d179ae6c)<br/> 2. [Implementado subida de imágenes y consumo en la lista de voluntariado…](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/e82f5e1c1b204327b342771d2f9916c18d7b738c)<br/> 3. [Rama lista para implementar el usuario.](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/fa0b71e60828bce18d3294e81b0b0970e18dae90)<br/> 4. [Cambiado category a como esta en develop.](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/f95f745c45ac44a289edae1ca883fc0cb551a4e6)<br/> 5. [Actualizados navbar de la parte de ongs](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/fb34ded98c95e401dd7adf6373c892f4b697fd76)
 | Daniel Serrano | 1. [The Great Commit](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/3e19774a18789f96d0c22ce31b3a3d4f7b8ad89d)<br/> 2. [Merge pull request #5 from CodeURJC-DAW-2019-20/feature/charts](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/099c943f340b0c15f5e7fea96c526e725c31a919)<br/> 3. [Merge pull request #4 from CodeURJC-DAW-2019-20/feature/search](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/6473753ca43fac44c5df06df7935bb919624ce2c)<br/> 4. [Merge pull request #17 from CodeURJC-DAW-2019-20/feature/comments](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/49a82bdbaecf6782659d0f0ad24e11db15ff601c)<br/> 5. [login bug](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/03dd7f6b6d526e9549ee44a650b73ca0d7741835)
 
-### Phase 3
-## Class diagram
+## Phase 3: REST API to the web application and deployment with docker.
+### Class diagram
 <img src="./diagrams/ClassDiagramF4.svg">
 
-## API documentation
+### API documentation :link:
 Document [Api documentation](API.md) with information about the REST API.
 
-## Dockerized application execution instructions
+### Dockerized application execution instructions :link:
 Document [Execution instructions](./backend/docker-compose.yml) with information about execution instructions using docker-compose.yml.
 
-## Development Environment Preparation
+### Development Environment Preparation :link:
 Document [Development Environment](./backend/Dockerfile) with information about development environment configuration.
 
-## Commits list
+### Members Participation
 
 | Member | 5 relevant commits | 5 relevant files |
 | ------------- | ------------- | ------------- |
@@ -162,13 +165,13 @@ Document [Development Environment](./backend/Dockerfile) with information about 
 | Daniel Fuente  | 1. [Added images on UserRestController and changed their URLs](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/331311a49663cc36099cebb29ca6dae9d18c941c)<br/> 2. [Implemeted images with VolunteeringRestController](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/01adfa086288de034d3335abf99dd0682075bb40)<br/> 3. [Added images to volunteerings and ngos](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/d25d811fa769dd98cbee934f4241e4f298524911)<br/> 4. [Added Postman file](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/a058088f81dd5e0e4f181323c4194505dbd654a5)<br/> 5. [Added images with rest controller](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/574d0fa98972a5ab8529c90f2efaf90e9a9c07c1)   | 1. api.postman_collection.json<br/> 2. ONGRestController.java<br/> 3. UserRestController.java<br/> 4. ImageService<br/> 5.  VolunteeringRestController.java|
 | Daniel Serrano  | 1. [Merge pull request #21 from CodeURJC-DAW-2019-20/feature/LoginAPI](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/0fefbd04f941177febf829ff7eb323504841325b)<br/> 2. [user and ong login](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/8c952ff6814503376e7ff9eee8736344a3a48d58)<br/> 3. [Permissions in Volunteering methods](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/c293d86bca57217985f114ac8c8233fce1478538)<br/> 4. [Permissions in UserRestController methods](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/c7d1f5b21bfb5c81a9d7f1d71a812f1093f11f4f)<br/> 5. [Permissions in ONGRestController](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/6e7f19b3a5b2d7ab5a790875f55173b0d4bc9528)  | 1. LoginRestController.java<br/> 2. RestSecurityConfiguration.java<br/> 3. UserRestController.java<br/> 4. VolunteeringRestController.java<br/> 5.  OngRestController.java|
 
-### Phase 4
-## Development Environment Preparation
+## Phase 4: 
+### Development Environment Preparation
 
-## Class diagram
+### Class diagram
 <img src="./diagrams/ClassDiagram14April.svg">
 
-## Commits list
+### Members Participation
 
 | Member | 5 relevant commits | 5 relevant files |
 | ------------- | ------------- | ------------- |
