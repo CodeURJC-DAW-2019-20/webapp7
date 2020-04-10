@@ -28,6 +28,7 @@ export class SearchComponent implements OnInit {
   private non_volunteerings:boolean;
   public url: string;
   public keywordIndex:string;
+  public loading:boolean = true;
 
   constructor(
     private _route: ActivatedRoute,
@@ -69,6 +70,7 @@ export class SearchComponent implements OnInit {
         this.all_volunteerings = response;
         this.volunteerings = [...this.all_volunteerings];
         this.non_volunteerings = false;
+        this.loading = false;
       },
       error => {
         console.log(<any>error);
@@ -117,6 +119,7 @@ export class SearchComponent implements OnInit {
         this.selected_volunteerings = response;
         this.all_volunteerings = null;
         this.non_volunteerings = false;
+        this.loading = false;
       },
       error => {
         console.log(<any>error);
@@ -143,6 +146,7 @@ export class SearchComponent implements OnInit {
         this.selected_volunteerings = response;
         this.all_volunteerings = null;
         this.non_volunteerings = false;
+        this.loading = false;
       },
       error => {
         console.log(<any>error);

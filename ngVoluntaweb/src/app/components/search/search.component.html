@@ -22,7 +22,10 @@
         <!-- Browse Jobs -->
         <div class="section-full bg-white browse-job content-inner-2">
             <div class="container">
-                <div class="row">
+                <div *ngIf="loading" align="center" class="mt-5 mb-5">
+                    <img src="assets/images/loading.svg" alt="">
+                </div>
+                <div *ngIf="!loading" class="row">
                     <div class="col-xl-9 col-lg-8">
                         <ul class="post-job-bx">
                             <div *ngIf="non_volunteerings || (non_volunteerings && keywordIndex)">

@@ -15,6 +15,7 @@ export class NgoDetailsComponent implements OnInit {
   public id_ngo:number;
   public current_ngo: NGO;
   public url: string;
+  public loading:boolean = true;
 
   constructor(
     private _route: ActivatedRoute,
@@ -34,7 +35,7 @@ export class NgoDetailsComponent implements OnInit {
         if (response.id != null){
           this.current_ngo = response;
           this._titleService.setTitle(this.current_ngo.name+" - VoluntaWeb");
-
+          this.loading = false;
         } else {
           this._router.navigate(['/']);
         }
