@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { global } from '../../services/global';
 import { User } from 'src/app/models/user';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-admin-users',
@@ -17,7 +18,9 @@ export class AdminUsersComponent implements OnInit {
   public page: number = 2;
   public url: string = global.url;
 
-  constructor(private _userService: UserService) { }
+  constructor(private _userService: UserService, private _titleService: Title) { 
+    this._titleService.setTitle("Administrar usuarios - VoluntaWeb");
+  }
 
   ngOnInit() {
     this._userService.getUsers(0).subscribe(

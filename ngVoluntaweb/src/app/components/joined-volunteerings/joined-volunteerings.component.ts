@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EntityService } from '../../services/entity.service';
 import { VolunteeringService } from 'src/app/services/volunteering.service';
 import { Volunteering } from 'src/app/models/volunteering';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-joined-volunteerings',
@@ -15,8 +16,10 @@ export class JoinedVolunteeringsComponent implements OnInit {
 
   constructor(
     private _entityService: EntityService,
-    private _volunteeringService: VolunteeringService
+    private _volunteeringService: VolunteeringService,
+    private _titleService: Title
   ) {
+    this._titleService.setTitle("Mis voluntariados - VoluntaWeb");
     this.identity = this._entityService.getIdentity();
    }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Comment } from '../../models/comment';
-import { CommentService} from '../../services/comment.service';
+import { CommentService } from '../../services/comment.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-admin-comments',
@@ -13,8 +14,8 @@ export class AdminCommentsComponent implements OnInit {
   public comments:Set<Comment>;
   private status:string;
 
-  constructor(private _commentService:CommentService) { 
-
+  constructor(private _commentService:CommentService, private _titleService: Title) { 
+    this._titleService.setTitle("Administrar comentarios - VoluntaWeb");
     this.comments = null;
 
     this.getComments();

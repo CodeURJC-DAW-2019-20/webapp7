@@ -8,6 +8,7 @@ import { Volunteering } from 'src/app/models/volunteering';
 import { CategoryService } from '../../services/category.service';
 import { Observable } from 'rxjs';
 import { global } from '../../services/global';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-search',
@@ -33,8 +34,10 @@ export class SearchComponent implements OnInit {
     private _router: Router,
     private _searchService: SearchService,
     private _volunteeringService: VolunteeringService,
-    private _categoryService: CategoryService
+    private _categoryService: CategoryService,
+    private _titleService: Title
     ) {
+      this._titleService.setTitle("Voluntariados - VoluntaWeb");
       this.AllCategories();
       this.getNumberPages();
       this.url = global.url;

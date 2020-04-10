@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NGO } from '../../models/ngo';
 import { NgoService } from '../../services/ngo.service';
 import { global } from '../../services/global';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ngos',
@@ -17,7 +18,8 @@ export class NgosComponent implements OnInit {
   public page: number = 2;
   public url: string=global.url;
 
-  constructor(private _ngoService: NgoService) {
+  constructor(private _ngoService: NgoService, private _titleService: Title) {
+    this._titleService.setTitle("ONGs - VoluntaWeb");
   }
 
   ngOnInit(){

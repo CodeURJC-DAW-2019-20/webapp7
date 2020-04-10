@@ -4,6 +4,7 @@ import { NGO } from '../../models/ngo';
 import { Router, ActivatedRoute, Params } from '@angular/router'
 import { Logeable } from 'src/app/models/logeable';
 import { EntityService } from '../../services/entity.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -23,8 +24,10 @@ export class LoginComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _entityService: EntityService
+    private _entityService: EntityService,
+    private _titleService: Title
     ) {
+      this._titleService.setTitle("Iniciar sesión - VoluntaWeb");
       this.page_title = 'Iniciar sesión';
       this.logeable = new Logeable("","","user");
      }

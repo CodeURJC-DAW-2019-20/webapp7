@@ -7,6 +7,8 @@ import { NgoService } from 'src/app/services/ngo.service';
 import { VolunteeringService } from 'src/app/services/volunteering.service';
 import { EntityService } from 'src/app/services/entity.service';
 import { global } from '../../services/global';
+import { Title } from '@angular/platform-browser';
+
 @Component({
   selector: 'ngo-volunteerings',
   templateUrl: './ngo-volunteerings.component.html',
@@ -25,8 +27,10 @@ export class NgoVolunteeringsComponent implements OnInit {
     private _router:Router,
     private _ngoService:NgoService,
     private _volunteeringService:VolunteeringService,
-    private _entityService: EntityService
+    private _entityService: EntityService,
+    private _titleService: Title
   ) { 
+      this._titleService.setTitle("Mis voluntariados - VoluntaWeb");
       this.NGO=this._entityService.getIdentity();
       this.url=global.url;
   }

@@ -23,10 +23,13 @@
         <div class="section-full bg-white browse-job content-inner-2">
             <div class="container">
                 <!--<div class="row">-->
-                <div class="col-md-12 text-center">
-                    <h5 class="widget-title font-weight-700 text-uppercase">Mis voluntariados</h5>
-                    <ul class="post-job-bx">
-
+                    <div class="col-md-12 text-center">
+                        <h5 class="widget-title font-weight-700 text-uppercase">Mis voluntariados</h5>
+                        <ul class="post-job-bx">
+                            
+                            <div *ngIf="!joined" align="center" class="mt-5 mb-5">
+                                <img src="assets/images/loading.svg" alt="">
+                            </div>
                         
                         <li *ngFor="let v of joined">
                             <a [routerLink]="['/volunteering', v.id]">
@@ -49,7 +52,6 @@
                                         <span>{{v.ong}}</span>
                                     </div>
                                 </div>
-                                <span class="post-like fa fa-heart-o"></span>
                             </a>
                         </li>
 

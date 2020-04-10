@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { global } from '../../services/global';
 import { EntityService } from 'src/app/services/entity.service';
+import { Title } from '@angular/platform-browser';
 
 
 
@@ -27,7 +28,8 @@ export class NgoSettingsComponent implements OnInit {
   public token:string;
 
 
-  constructor(private _ngoService:NgoService, private _entityService: EntityService) { 
+  constructor(private _ngoService:NgoService, private _entityService: EntityService, private _titleService: Title) { 
+    this._titleService.setTitle("Mis ajustes - VoluntaWeb");
 
     this.ngo = new NGO(null,"","","","","","","","",null,"","");
 

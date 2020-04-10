@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommentService } from '../../services/comment.service';
 import { Comment } from '../../models/comment';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact',
@@ -14,8 +15,10 @@ export class ContactComponent implements OnInit {
   public status: String;
 
   constructor(
-    private _commentService: CommentService
+    private _commentService: CommentService,
+    private _titleService: Title
   ) { 
+    this._titleService.setTitle("Contacto - VoluntaWeb");
     this.comment = new Comment(null, "", "", "");
   }
 

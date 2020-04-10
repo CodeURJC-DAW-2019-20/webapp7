@@ -30,6 +30,11 @@ import { AdminVolunteeringsComponent } from './components/admin-volunteerings/ad
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { NgoVolunteeringsComponent} from './components/ngo-volunteerings/ngo-volunteerings.component';
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
+import { ErrorComponent } from './components/error/error.component';
+import { UserGuard } from './services/user.guard';
+import { NGOGuard } from './services/ngo.guard';
+import { AnonymousGuard } from './services/anonymous.guard';
+import { AdminGuard } from './services/admin.guard';
 
 
 
@@ -59,7 +64,8 @@ import { AdminCommentsComponent } from './components/admin-comments/admin-commen
     AdminVolunteeringsComponent,
     AboutUsComponent,
     NgoVolunteeringsComponent,
-    AdminCommentsComponent
+    AdminCommentsComponent,
+    ErrorComponent
 
   ],
   imports: [
@@ -69,7 +75,7 @@ import { AdminCommentsComponent } from './components/admin-comments/admin-commen
     FormsModule,
     AngularFileUploaderModule
   ],
-  providers: [EntityService],
+  providers: [EntityService, UserGuard, NGOGuard, AnonymousGuard, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

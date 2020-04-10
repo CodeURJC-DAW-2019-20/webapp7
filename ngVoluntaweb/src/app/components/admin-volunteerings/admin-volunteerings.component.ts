@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VolunteeringService } from '../../services/volunteering.service';
 import { global } from '../../services/global';
 import { Volunteering } from 'src/app/models/volunteering';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-admin-volunteerings',
@@ -17,7 +18,9 @@ export class AdminVolunteeringsComponent implements OnInit {
   public page: number = 2;
   public url: string = global.url;
 
-  constructor(private _volunteeringService: VolunteeringService) { }
+  constructor(private _volunteeringService: VolunteeringService, private _titleService: Title) {
+    this._titleService.setTitle("Administrar voluntariados - VoluntaWeb");
+   }
 
   ngOnInit() {
     this._volunteeringService.getVolunteeringsByPage(0).subscribe(

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgoService } from '../../services/ngo.service';
 import { NGO } from 'src/app/models/ngo';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register-ngo',
@@ -14,8 +15,10 @@ export class RegisterNgoComponent implements OnInit {
   public status: String;
 
   constructor(
-    private _ngoService: NgoService
+    private _ngoService: NgoService,
+    private _titleService: Title
   ) { 
+    this._titleService.setTitle("Registrarse como ONG - VoluntaWeb");
     this.ngo = new NGO(null,"","","","","","","","",null,null,"");
   }
 

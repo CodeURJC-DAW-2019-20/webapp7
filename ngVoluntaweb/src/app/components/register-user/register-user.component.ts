@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
-import { UserService } from '../../services/user.service'
+import { UserService } from '../../services/user.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register-user',
@@ -14,8 +15,10 @@ export class RegisterUserComponent implements OnInit {
   public status: String;
 
   constructor(
-    private _userService: UserService
+    private _userService: UserService,
+    private _titleService: Title
   ) { 
+    this._titleService.setTitle("Registrarse como usuario - VoluntaWeb");
     this.user = new User(null,null,null,"","","","","","",null,"",null);
   }
 

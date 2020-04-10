@@ -24,7 +24,7 @@
             <div class="container">
                 <ul class="post-job-bx">
                     <li *ngFor="let ngo of data">
-                        <a href="/ngos/{{ngo.id}}">
+                        <a [routerLink]="['/ngo',ngo.id]">
                             <div class="d-flex m-b30">
                                 <div class="job-post-company">
                                     <span><img src="{{url}}ongs/{{ngo.id}}/image" onerror="this.onerror=null;this.src='/assets/images/user-placeholder.png'" class="avatar"></span>

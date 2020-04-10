@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user';
 import { EntityService } from 'src/app/services/entity.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { global } from '../../services/global';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-settings',
@@ -25,8 +26,10 @@ export class UserSettingsComponent implements OnInit {
     private _userService: UserService,
     private _entityService: EntityService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _titleService: Title
   ) {
+    this._titleService.setTitle("Mis ajustes - VoluntaWeb");
     this.identity = this._entityService.getIdentity();
     this.user = this.identity;
 

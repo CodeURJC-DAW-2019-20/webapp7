@@ -6,13 +6,13 @@ import { EntityService } from 'src/app/services/entity.service';
 import { global } from '../../services/global';
 import { User } from '../../models/user';
 import { UserVolunteering } from 'src/app/models/uservolunteering';
-import { UserService } from 'src/app/services/user.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-volunteering-page',
   templateUrl: './volunteering-page.component.html',
   styleUrls: ['./volunteering-page.component.css'],
-  providers: [VolunteeringService, EntityService, UserService]
+  providers: [VolunteeringService, EntityService]
 })
 export class VolunteeringPageComponent implements OnInit {
 
@@ -35,7 +35,7 @@ export class VolunteeringPageComponent implements OnInit {
     private _router: Router,
     private _volunteeringService: VolunteeringService,
     private _entityService: EntityService,
-    private _userService: UserService
+    private _titleService: Title
   ) { 
     this.identity = this._entityService.getIdentity();
     this.entity_type = this._entityService.getEntityType();
@@ -85,17 +85,16 @@ export class VolunteeringPageComponent implements OnInit {
       response=> {
         if (response.id != null){
           this.volunteering = response;
+          this._titleService.setTitle(this.volunteering.name+" - VoluntaWeb");
           this.likesNumber=Array.from(this.volunteering.likes).length;
           this.isJoinedF(this.volunteering.id);
           this.isLikedF(this.volunteering.id);
           if (this.isLiked){
             this.btnColor = "blue2";
             this.iconColor = "blue";
-            console.log("LIKED");
           } else {
             this.btnColor = "grey2";
             this.iconColor = "grey";
-            console.log("DISLIKED");
           }
         } else {
           this.status = "error";

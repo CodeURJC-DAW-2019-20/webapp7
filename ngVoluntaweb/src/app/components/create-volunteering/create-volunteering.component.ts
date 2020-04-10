@@ -8,6 +8,7 @@ import { Form } from '@angular/forms';
 import { global } from '../../services/global';
 import { EntityService } from 'src/app/services/entity.service';
 import { NgoService } from 'src/app/services/ngo.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-volunteering',
@@ -37,8 +38,8 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
 
 
 
-  constructor(private _volunteeringService: VolunteeringService, private _ngoService: NgoService,private _categoryService: CategoryService, private _entityService: EntityService) {
-
+  constructor(private _volunteeringService: VolunteeringService, private _ngoService: NgoService,private _categoryService: CategoryService, private _entityService: EntityService, private _titleService: Title) {
+    this._titleService.setTitle("Publicar voluntariado - VoluntaWeb");
     this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
 
 

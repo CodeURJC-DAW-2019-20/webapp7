@@ -8,6 +8,7 @@ import { global } from '../../services/global';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgoService } from 'src/app/services/ngo.service';
 import { Form } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -31,8 +32,8 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
   public token:string;
   
 
-  constructor(private _volunteeringService: VolunteeringService, private _ngoService:NgoService, private _categoryService: CategoryService, private _route: ActivatedRoute, private _router: Router) { 
-
+  constructor(private _volunteeringService: VolunteeringService, private _ngoService:NgoService, private _categoryService: CategoryService, private _route: ActivatedRoute, private _router: Router, private _titleService: Title) { 
+    this._titleService.setTitle("Editar voluntariado - VoluntaWeb");
     
     this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
 

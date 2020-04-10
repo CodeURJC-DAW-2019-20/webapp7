@@ -4,6 +4,7 @@ import { CategoryService } from '../../services/category.service';
 import { Category } from 'src/app/models/category';
 import { Router } from '@angular/router';
 import * as CanvasJS from './canvasjs.min';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-index',
@@ -16,7 +17,9 @@ export class IndexComponent implements OnInit {
   public data: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
   public key: string;
 
-  constructor(private _categoryService: CategoryService,private _userService: UserService, private router: Router) {   }
+  constructor(private _categoryService: CategoryService,private _userService: UserService, private router: Router, private _titleService: Title) {  
+    this._titleService.setTitle("Inicio - VoluntaWeb");
+   }
 
   ngOnInit() {
     this._userService.getStats().subscribe(

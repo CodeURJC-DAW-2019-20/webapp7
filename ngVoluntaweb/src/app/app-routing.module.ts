@@ -22,32 +22,39 @@ import { AdminVolunteeringsComponent } from './components/admin-volunteerings/ad
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { NgoVolunteeringsComponent } from './components/ngo-volunteerings/ngo-volunteerings.component';
+import { ErrorComponent } from './components/error/error.component';
+
+import { UserGuard } from './services/user.guard';
+import { NGOGuard } from './services/ngo.guard';
+import { AnonymousGuard } from './services/anonymous.guard';
+import { AdminGuard } from './services/admin.guard';
 
 
 const routes: Routes = [
 
   {path: '', component: IndexComponent},
   {path: 'ngos',component: NgosComponent},
-  {path: "login", component: LoginComponent},
-  {path: "register", component: RegisterComponent},
-  {path: "register/user", component: RegisterUserComponent},
-  {path: "register/ong", component: RegisterNgoComponent},
-  {path: "user/settings", component: UserSettingsComponent},
-  {path: "user/myvolunteerings", component: JoinedVolunteeringsComponent},
+  {path: "login", canActivate: [AnonymousGuard], component: LoginComponent},
+  {path: "register", canActivate: [AnonymousGuard], component: RegisterComponent},
+  {path: "register/user", canActivate: [AnonymousGuard], component: RegisterUserComponent},
+  {path: "register/ong", canActivate: [AnonymousGuard], component: RegisterNgoComponent},
+  {path: "user/settings", canActivate: [UserGuard], component: UserSettingsComponent},
+  {path: "user/myvolunteerings", canActivate: [UserGuard], component: JoinedVolunteeringsComponent},
   {path: "contact", component: ContactComponent},
-  {path: "volunteering/new", component: CreateVolunteeringComponent},
+  {path: "volunteering/new", canActivate: [NGOGuard], component: CreateVolunteeringComponent},
   {path: "volunteering/:id", component: VolunteeringPageComponent},
-  {path: "volunteering/edit/:id", component: EditVolunteeringComponent},
-  {path: "ngo/settings", component: NgoSettingsComponent},
-  {path: "admin/ngos", component: AdminNgosComponent},
-  {path: "admin/users", component: AdminUsersComponent},
-  {path: "admin/volunteerings", component: AdminVolunteeringsComponent},
-  {path: 'admin/comments', component: AdminCommentsComponent},
-  {path: "ngo/myvolunteerings",component:NgoVolunteeringsComponent},
+  {path: "volunteering/edit/:id", canActivate: [NGOGuard], component: EditVolunteeringComponent},
+  {path: "ngo/settings", canActivate: [NGOGuard], component: NgoSettingsComponent},
+  {path: "admin/ngos", canActivate: [AdminGuard], component: AdminNgosComponent},
+  {path: "admin/users", canActivate: [AdminGuard], component: AdminUsersComponent},
+  {path: "admin/volunteerings", canActivate: [AdminGuard], component: AdminVolunteeringsComponent},
+  {path: 'admin/comments', canActivate: [AdminGuard], component: AdminCommentsComponent},
+  {path: "ngo/myvolunteerings", canActivate: [NGOGuard], component:NgoVolunteeringsComponent},
   {path: 'ngo/:id', component: NgoDetailsComponent},
   {path: 'search', component: SearchComponent},
   {path: 'search/:wordIndex', component: SearchComponent},
-  {path: 'about-us', component: AboutUsComponent}
+  {path: 'about-us', component: AboutUsComponent},
+  {path: '**', component: ErrorComponent}
 
 ];
 
