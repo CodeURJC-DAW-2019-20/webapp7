@@ -44,14 +44,17 @@ export class AdminNgosComponent implements OnInit {
     );
   }
 
-  deleteNgo(id: number) {
+  deleteNgo(id: number, $event: MouseEvent) {
+    ($event.target as HTMLButtonElement).disabled = true;
+    ($event.target as HTMLButtonElement).value= "Procesando";
     this._ngoService.delete(id).subscribe(
       (response:NGO) =>{
         if(response){
-          window.location.reload();
+          ($event.target as HTMLButtonElement).value= "Eliminada";
         }
       },
       error =>{
+        ($event.target as HTMLButtonElement).value= "Error";
         console.log(<any> error);
       }
     );

@@ -16,11 +16,15 @@
                                         <span><img src="{{url}}ngos/{{volunteering.image}}/image" onerror="this.onerror=null;this.src='/assets/images/user-placeholder.png'" class="avatar"/></span>
                                     </div>
                                     <div class="job-post-info">
-                                        <h3>{{volunteering.id}}: {{volunteering.name}}</h3>
+                                        <h3>{{volunteering.name}}</h3>
+                                        <ul>
+                                            <li>ID: {{volunteering.id}}</li>
+                                            <li><i class="fa fa-envelope-o"></i>{{volunteering.email}}</li>
+                                        </ul>
                                     </div>
                                 </div>
                                 <div class = "text-rigth">
-                                    <input type = "submit" class = "site-button" value = "Eliminar" (click)="deleteVolunteering(volunteering.id)" style="background-color:rgb(255, 58, 58)"/>
+                                    <input type = "submit" class = "site-button" value = "Eliminar" (click)="deleteVolunteering(volunteering.id, $event)" style="background-color:rgb(255, 58, 58)"/>
                                 </div>
                             </a>
                         </li>

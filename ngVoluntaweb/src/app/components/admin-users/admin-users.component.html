@@ -18,12 +18,13 @@
                                     <div class="job-post-info">
                                         <h4>{{user.name}} {{user.surname}}</h4>
                                         <ul>
+                                            <li>ID: {{user.id}}</li>
                                             <li><i class="fa fa-envelope-o"></i>{{user.email}}</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class = "text-rigth">
-                                    <button class="site-button m-r5 button-lg" (click)="deleteUser(user.id)" style="background-color:rgb(255, 58, 58)">Eliminar</button>
+                                    <input type = "submit" class = "site-button" value = "Eliminar" (click)="deleteUser(user.id, $event)" style="background-color:rgb(255, 58, 58)"/>
                                 </div>
                             </a>
                         </li>

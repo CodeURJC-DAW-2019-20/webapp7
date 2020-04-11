@@ -43,14 +43,17 @@ export class AdminVolunteeringsComponent implements OnInit {
     );
   }
 
-  deleteVolunteering(id: number) {
+  deleteVolunteering(id: number, $event: MouseEvent) {
+    ($event.target as HTMLButtonElement).disabled = true;
+    ($event.target as HTMLButtonElement).value= "Procesando";
     this._volunteeringService.deleteoneVolunteering(id).subscribe(
       (response:Volunteering) =>{
         if(response){
-          window.location.reload();
+          ($event.target as HTMLButtonElement).value= "Eliminado";
         }
       },
       error =>{
+        ($event.target as HTMLButtonElement).value= "Error";
         console.log(<any> error);
       }
     );

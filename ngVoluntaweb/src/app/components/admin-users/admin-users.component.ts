@@ -43,14 +43,17 @@ export class AdminUsersComponent implements OnInit {
     );
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: number, $event: MouseEvent) {
+    ($event.target as HTMLButtonElement).disabled = true;
+    ($event.target as HTMLButtonElement).value= "Procesando";
     this._userService.delete(id).subscribe(
       (response:User) =>{
         if(response){
-          window.location.reload();
+          ($event.target as HTMLButtonElement).value= "Eliminado";
         }
       },
       error =>{
+        ($event.target as HTMLButtonElement).value= "Error";
         console.log(<any> error);
       }
     );
