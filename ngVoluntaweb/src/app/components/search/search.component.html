@@ -107,7 +107,7 @@
                                     <h5 class="widget-title font-weight-700 text-uppercase">Palabras clave</h5>
                                     <input type="text" [(ngModel)]="word" name="searchKeyword" #searchKeyword class="form-control" placeholder="Buscar">
                                     <p *ngIf="all_volunteerings">
-                                        <button class="site-button btn-block mt-3" (click)="AllVolunteeringsByWord()">Buscar</button>
+                                        <button class="site-button btn-block mt-3" (click)="AllVolunteeringsByWord()" [disabled]="!word">Buscar</button>
                                     </p>
                                     <p *ngIf="non_volunteerings && keywordIndex">
                                         <button class="site-button btn-block mt-3" (click)="AllVolunteeringsByWord()">Buscar</button>

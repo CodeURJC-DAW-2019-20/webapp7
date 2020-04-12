@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit {
     this.word = this.keywordIndex;
     if (this.numberPages == 0){
       this.non_volunteerings = true;
-    } else if(this.keywordIndex){
+    } else if(this.keywordIndex != undefined){
       this.AllVolunteeringsByWord();
     } 
     else if (!this.volunteerings){
@@ -124,7 +124,8 @@ export class SearchComponent implements OnInit {
       error => {
         console.log(<any>error);
         this.non_volunteerings = true;
-        console.log(this.non_volunteerings);
+        this.loading = false;
+        this.selected_volunteerings = null;
       }
     )
   }
@@ -151,6 +152,7 @@ export class SearchComponent implements OnInit {
       error => {
         console.log(<any>error);
         this.non_volunteerings = true;
+        this.selected_volunteerings = null;
       }
     )
   }
