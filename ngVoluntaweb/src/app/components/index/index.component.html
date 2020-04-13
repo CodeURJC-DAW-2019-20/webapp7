@@ -14,7 +14,8 @@
                                     <div class="input-group">
                                         <input type="text" name="search" class="form-control" placeholder="Título, Palabras Clave, o Frases" #search="ngModel" [(ngModel)]=key>
                                         <br>
-                                        <a *ngIf="key" [routerLink]="['/search',key]" class="site-button btn-block">Buscar</a>
+                                        <a *ngIf="key == undefined" [routerLink]="['/search']" class="site-button btn-block">Buscar</a>
+                                        <a *ngIf="key != undefined" [routerLink]="['/search',key]" class="site-button btn-block">Buscar</a>
                                     </div>
                                 </div>
                             </div>
