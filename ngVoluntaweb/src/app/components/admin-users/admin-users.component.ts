@@ -23,24 +23,7 @@ export class AdminUsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._userService.getUsers(0).subscribe(
-      result => {
-        this.data = result;
-        this.loading = false;
-      },
-      error => {
-        console.log("No hay nada");
-      }
-    );
-    this._userService.getUsers(1).subscribe(
-      result => {
-        this.additional = result;
-        this.more = true;
-      },
-      error => {
-        this.more = false;
-      }
-    );
+    this.getUsers();
   }
 
   deleteUser(id: number, $event: MouseEvent) {
@@ -50,6 +33,7 @@ export class AdminUsersComponent implements OnInit {
       (response:User) =>{
         if(response){
           ($event.target as HTMLButtonElement).value= "Eliminado";
+          this.getUsers();
         }
       },
       error =>{
@@ -81,4 +65,26 @@ export class AdminUsersComponent implements OnInit {
       );
     }
   }
+
+  getUsers(){
+    this._userService.getUsers(0).subscribe(
+      result => {
+        this.data = result;
+        this.loading = false;
+      },
+      error => {
+        console.log("No hay nada");
+      }
+    );
+    this._userService.getUsers(1).subscribe(
+      result => {
+        this.additional = result;
+        this.more = true;
+      },
+      error => {
+        this.more = false;
+      }
+    );
+  }
+
 }
