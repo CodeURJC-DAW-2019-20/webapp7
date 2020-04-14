@@ -71,10 +71,10 @@ export class IndexComponent implements OnInit {
 
   onSubmit(){
     if(this.key.length>1){
-      this.router.navigate(['/search/?keyword='+this.key]);
+      this.router.navigate(['search/?keyword='+this.key]);
     }
     else{
-      this.router.navigate(['/search']);
+      this.router.navigate(['search']);
     }
   }
 
