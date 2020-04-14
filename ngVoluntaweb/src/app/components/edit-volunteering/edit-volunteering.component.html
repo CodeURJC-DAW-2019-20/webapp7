@@ -92,7 +92,7 @@
                                 <label for="description" class="col-md-4 col-form-label  text-md-right">Descripción</label>
 
                                 <div class="col-md-6">
-                                         <input class="form-control" name="description" placeholder="Descripción" #description = "ngModel" [(ngModel)] = "volunteering.description" required>
+                                         <textarea class="form-control" name="description" placeholder="Descripción" #description = "ngModel" [(ngModel)] = "volunteering.description" required></textarea>
                                          <span *ngIf = "description.touched && !description.valid" style = "color:red">Es necesario rellenar este campo</span>
                                 </div>
                             </div>

@@ -94,8 +94,8 @@
                                     class="col-md-4 col-form-label text-md-right">Descripción</label>
 
                                 <div class="col-md-6">
-                                    <input id="description" type="text" class="form-control" name="description" #description = "ngModel" [(ngModel)] = "ngo.description"
-                                        placeholder="Descripción" required autocomplete="description" autofocus>
+                                    <textarea id="description" type="text" class="form-control" name="description" #description = "ngModel" [(ngModel)] = "ngo.description"
+                                        placeholder="Descripción" required autocomplete="description" autofocus></textarea>
                                     <span *ngIf = "description.touched && !description.valid" style = "color:red">Es necesario rellenar este campo</span>
                                 </div>
                             </div>
