@@ -14,6 +14,7 @@ import com.group7.voluntaweb.beans.VolAndCat;
 import com.group7.voluntaweb.models.Like;
 import com.group7.voluntaweb.models.ONG;
 import com.group7.voluntaweb.models.User;
+import com.group7.voluntaweb.models.UsersVolunteerings;
 import com.group7.voluntaweb.models.Volunteering;
 
 public interface VolunteeringRepository extends JpaRepository<Volunteering, Long> {

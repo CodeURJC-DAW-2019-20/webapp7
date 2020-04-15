@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import com.group7.voluntaweb.models.Like;
 import com.group7.voluntaweb.models.ONG;
 import com.group7.voluntaweb.models.User;
+import com.group7.voluntaweb.models.UsersVolunteerings;
 import com.group7.voluntaweb.models.Volunteering;
 import com.group7.voluntaweb.repositories.LikeRepository;
+import com.group7.voluntaweb.repositories.UsersVolunteeringsRepository;
 import com.group7.voluntaweb.repositories.VolunteeringRepository;
 
 @Service
@@ -21,6 +23,8 @@ public class VolunteeringService {
 	private VolunteeringRepository volunteeringRepository;
 	@Autowired
 	private LikeRepository likeRepository;
+	@Autowired
+	private UsersVolunteeringsRepository uservolRepository;
 
 	public Volunteering findVolunteering(long id) {
 		return volunteeringRepository.findById(id);
@@ -45,7 +49,7 @@ public class VolunteeringService {
 
 
 	public void deleteJoin(long user_id, long volunteering_id) {
-		volunteeringRepository.deleteJoin(user_id, volunteering_id);
+		uservolRepository.deleteJoin(user_id, volunteering_id);
 	}
 
 	public Like findLike(Volunteering volunteering_id, User user_id) {
@@ -64,6 +68,13 @@ public class VolunteeringService {
 	public Iterable<Volunteering> volunteeringsByNGO(ONG ong){
 		Iterable<Volunteering> list = volunteeringRepository.findVolunteeringsByNGO(ong);
 		return list;
+	}
+	
+	public UsersVolunteerings join(UsersVolunteerings userVol) {
+		return uservolRepository.save(userVol);
+	}
+	public Like like(Like like) {
+		return likeRepository.save(like);
 	}
 
 	/*

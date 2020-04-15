@@ -224,19 +224,17 @@ public class VolunteeringRestController {
 		User user = (User) genCompo.getLoggedUser();
 
 		if (isUser && !user.getRoles().contains("ROLE_ADMIN")) {
-			Set<UsersVolunteerings> registrationsSet = user.getRegistrations();
 
-			User userFound = userService.findJoinedUser(vol.getId(), user.getId());
+			UsersVolunteerings userFound = userService.findVolUser(vol.getId(), user.getId());
 			if (userFound == null) {
 				UsersVolunteerings connect = new UsersVolunteerings();
 				connect.setUser(user);
 				connect.setVolunteering(vol);
 				connect.setDate(new Timestamp(new Date().getTime()));
-				registrationsSet.add(connect);
-				user.setRegistrations(registrationsSet);
-				userService.save(user);
+				volunteeringService.join(connect);
 				return new ResponseEntity<>(true, HttpStatus.OK);
 			} else {
+
 				volunteeringService.deleteJoin(user.getId(), vol.getId());
 				return new ResponseEntity<>(false, HttpStatus.OK);
 			}
@@ -264,21 +262,18 @@ public class VolunteeringRestController {
 
 		if (isUser && !user.getRoles().contains("ROLE_ADMIN")) {
 
-			Like like = new Like();
 
-			like.setUser(user);
-			like.setVolunteering(vol);
-			Set<Like> userLikes = user.getLikes();
 
 			if (volunteeringService.findLike(vol, user) == null) {
-				userLikes.add(like);
-				user.setLikes(userLikes);
-				userService.save(user);
+				Like like = new Like();
+				
+				like.setUser(user);
+				like.setVolunteering(vol);
+				volunteeringService.like(like);
+
 				return new ResponseEntity<>(true, HttpStatus.OK);
 			} else {
-				userLikes.remove(like);
-				user.setLikes(userLikes);
-				userRepo.save(user);
+
 				likeRepo.deleteLike(vol, user);
 				return new ResponseEntity<>(false, HttpStatus.OK);
 

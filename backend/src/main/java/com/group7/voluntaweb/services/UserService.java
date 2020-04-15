@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.group7.voluntaweb.models.User;
+import com.group7.voluntaweb.models.UsersVolunteerings;
 import com.group7.voluntaweb.repositories.UserRepository;
 
 @Service
@@ -51,6 +52,10 @@ public class UserService {
 
 	public User findJoinedUser(Long volunteeringId, Long userId) {
 		return userRepository.findUserVolunteering(volunteeringId, userId);
+	}
+	
+	public UsersVolunteerings findVolUser(Long volunteeringId, Long userId) {
+		return userRepository.findUserVolunteerings(volunteeringId, userId);
 	}
 	
 	public Iterable<User> userByPage(int pageNumber, int pageSize){
