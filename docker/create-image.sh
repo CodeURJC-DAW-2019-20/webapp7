@@ -35,5 +35,5 @@ mv backend_src-0.0.1-SNAPSHOT.jar ../../docker/app/
 cd ../../docker/app/
 mv backend_src-0.0.1-SNAPSHOT.jar backend.jar
 cd ..
-sudo docker build -t dserranoc/voluntaweb .
-sudo docker push dserranoc/voluntaweb
+sudo docker build -t theroxd4n/voluntaweb .
+sudo docker push theroxd4n/voluntaweb
