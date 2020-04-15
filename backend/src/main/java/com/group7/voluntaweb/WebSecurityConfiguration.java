@@ -1,6 +1,8 @@
 package com.group7.voluntaweb;
 
 import java.util.Arrays;
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import com.group7.voluntaweb.services.ONGDetailsService;
+
+
 
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -36,6 +41,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		// Public pages
 		http.authorizeRequests().antMatchers("/").permitAll();
+		http.authorizeRequests().antMatchers("/new/**").permitAll();
 		http.authorizeRequests().antMatchers("/ongs").permitAll();
 		http.authorizeRequests().antMatchers("/ongs/**").permitAll();
 		http.authorizeRequests().antMatchers("/search").permitAll();
@@ -127,5 +133,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private AuthenticationEntryPoint getRestAuthenticationEntryPoint() {
         return new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED);
     }
+	
+	
 
 }

@@ -137,4 +137,5 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private AuthenticationEntryPoint getRestAuthenticationEntryPoint() {
         return new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED);
     }
+	
 }

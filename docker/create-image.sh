@@ -14,21 +14,26 @@ if ! which node > /dev/null; then
    sudo apt install nodejs
    sudo apt install npm
 fi
+if ! which ng > /dev/null; then
+   echo -e "AngularCLI not found. It will install shortly\c"
+   sudo npm install -g @angular/cli
+fi
 
-sudo npm install --silent
-sudo npm run build
+sudo npm install > /dev/null
+sudo ng build --baseHref=/new/
 
 cd dist/ngVoluntaweb
-cp . ../../../backend/src/main/resources/static/new/.
+cp -r . ../../../backend/src/main/resources/static/new/.
 
 
 
 cd ../../../backend
 mvn clean install
 cd target
-mv backend_src-0.0.1-SNAPSHOT.jar ../../docker/app/backend.jar
+mkdir ../../docker/app/
+mv backend_src-0.0.1-SNAPSHOT.jar ../../docker/app/
+cd ../../docker/app/
+mv backend_src-0.0.1-SNAPSHOT.jar backend.jar
 cd ..
-cd ..
-cd docker
-docker build -t dserranoc/voluntaweb .
-docker push dserranoc/voluntaweb
+sudo docker build -t dserranoc/voluntaweb .
+sudo docker push dserranoc/voluntaweb

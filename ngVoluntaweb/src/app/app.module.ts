@@ -6,7 +6,6 @@ import{ HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { HeaderComponent } from './components/header/header.component';
 import { NgosComponent } from './components/ngos/ngos.component';
 import { IndexComponent } from './components/index/index.component';
 import { NgoDetailsComponent } from './components/ngo-details/ngo-details.component';
@@ -43,7 +42,6 @@ import { AdminGuard } from './services/admin.guard';
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    HeaderComponent,
     NgosComponent,
     IndexComponent,
     NgoDetailsComponent,

@@ -3,7 +3,10 @@ version: '3'
 services:
   db:
     image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
+    volumes:
+      - ./mysql-dump:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_DATABASE=voluntaweb
       - MYSQL_ROOT_PASSWORD=root
@@ -14,7 +17,7 @@ services:
 
 
   voluntaweb:
-    image: dserranoc/voluntaweb
+    image: theroxd4n/voluntaweb:latest
     entrypoint: ["java", "-jar", "backend.jar"]
     ports:
       - 8443:8443
