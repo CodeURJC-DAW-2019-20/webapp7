@@ -1,3 +1,7 @@
+if ! which java > /dev/null; then
+   echo -e "JAVA not found. It will install shortly\c"
+   sudo apt-get install openjdk-13-jdk
+fi
 if ! which mvn > /dev/null; then
    echo -e "Maven not found. It will install shortly\c"
    sudo apt-get install maven
