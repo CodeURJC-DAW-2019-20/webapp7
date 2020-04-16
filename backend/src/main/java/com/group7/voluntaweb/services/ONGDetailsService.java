@@ -45,7 +45,7 @@ public class ONGDetailsService implements UserDetailsService {
 			
 			genComponent.setLoggedUser(user);
 			userComponent.setLoggedUser(user);
-			return new CustomUserDetails(user.getEmail(), user.getPassword(), user.getName());
+			return new CustomUserDetails(user.getEmail(), user.getPassword(), user.getRoles().get(0));
 		} else {
 			// Not found in user table, so check ong
 			ONG ong = ongRepository.findByEmail(username);

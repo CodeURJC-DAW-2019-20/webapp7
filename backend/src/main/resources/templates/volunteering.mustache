@@ -107,6 +107,7 @@
             <br>
         </div>
         {{#logged}}
+        {{^logged_admin}}
         {{#b-color}}
         <div class="like-button {{b-color}}">
             <i class="fa fa-heart like {{i-color}}">
@@ -116,6 +117,7 @@
  			</i>
         </div>
         {{/b-color}}
+        {{/logged_admin}}
         {{/logged}}
         <!-- Content END-->
 {{>layout/footer}}

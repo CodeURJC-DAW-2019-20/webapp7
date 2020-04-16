@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.components.ONGComponent;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.helpers.Helpers;
@@ -70,10 +71,7 @@ public class UserController {
 	private ONGService ongService;
 
 	@Autowired
-	private ONGComponent ongComponent;
-
-	@Autowired
-	private UserComponent userComponent;
+	private GenericComponent genCompo;
 
 	@GetMapping("/register")
 	public String register(Map<String, Object> model) {
@@ -117,23 +115,17 @@ public class UserController {
 	}
 
 	@GetMapping("/settings")
-	public String prueba(Model model) {
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
+	public String settings(Model model) {
 
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) genCompo.getLoggedUser();
+			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			helper.setNavbar(model, user, null, isAdmin);
+			
+		} else if (genCompo.getLoggedUser() instanceof ONG){
+			return "redirect:index";
+		}
 		model.addAttribute("title", "Ajustes");
 		return "user-settings";
 	}
@@ -142,9 +134,8 @@ public class UserController {
 	public String userSettingsForm(Model model, @RequestParam String name, @RequestParam String surname,
 			@RequestParam String city, @RequestParam String telephone, @RequestParam String email,
 			@RequestParam MultipartFile file0) throws IOException {
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-		User user = userRepo.findByEmail(currentPrincipalName);
+
+		User user = (User) genCompo.getLoggedUser();
 
 		user.setName(name);
 		user.setSurname(surname);
@@ -157,82 +148,61 @@ public class UserController {
 			String filePath = path.getFileName().toString();
 			user.setImage(filePath);
 		}
-		this.userRepo.save(user);
+		user = this.userRepo.save(user);
+		genCompo.setLoggedUser(user);
 		model.addAttribute("user", user);
 		return "redirect:settings";
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(Model model) {
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
 
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
-		userService.deleteCount(user);
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) genCompo.getLoggedUser();
+			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			helper.setNavbar(model, user, null, isAdmin);
+			userService.deleteCount(user);
+		}
 		return "redirect:logout";
 	}
 
 	@GetMapping("/myvolunteerings")
 	public String myvolunteerings(Model model) {
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
-
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
-		Iterable<Volunteering> myvolunteerings = volRepo.findMyVolunteerings(user);
-		model.addAttribute("title", "Mis Voluntariados");
-		model.addAttribute("user", user);
-		model.addAttribute("myvolunteerings", myvolunteerings);
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) genCompo.getLoggedUser();
+			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			helper.setNavbar(model, user, null, isAdmin);
+			Iterable<Volunteering> myvolunteerings = volRepo.findMyVolunteerings(user);
+			model.addAttribute("title", "Mis Voluntariados");
+			model.addAttribute("user", user);
+			model.addAttribute("myvolunteerings", myvolunteerings);
+			
+		} else if (genCompo.getLoggedUser() instanceof ONG){
+			return "redirect:index";
+		}
 
 		return "myvolunteerings";
 	}
 
-	/*
-	 * Esto hay que refactorizarlo. Hay una clase igual en indexController
-	 */
 
 	@GetMapping("/admin")
 	public String admin(Model model) {
 
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
-
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) genCompo.getLoggedUser();
+			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			helper.setNavbar(model, user, null, isAdmin);
+			Iterable<Volunteering> myvolunteerings = volRepo.findMyVolunteerings(user);
+			model.addAttribute("title", "Mis Voluntariados");
+			model.addAttribute("user", user);
+			model.addAttribute("myvolunteerings", myvolunteerings);
+			
+		} else if (genCompo.getLoggedUser() instanceof ONG){
+			return "redirect:index";
+		}
 		model.addAttribute("title", "Bienvenido");
 		model.addAttribute("chart", true);
 		model.addAttribute("1", userRepo.usersPerMonth(1));
@@ -257,22 +227,17 @@ public class UserController {
 
 	@GetMapping("/admin/volunteerings")
 	public String volunteerings(Model model) {
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
-
+		
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) genCompo.getLoggedUser();
+			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			helper.setNavbar(model, user, null, isAdmin);
+			model.addAttribute("title", "Mis Voluntariados");
+			model.addAttribute("user", user);			
+		} else if (genCompo.getLoggedUser() instanceof ONG){
+			return "redirect:index";
+		}
 		Iterable<Volunteering> volunteerings = volRepo.findAll();
 		model.addAttribute("title", "Voluntariados");
 		model.addAttribute("volunteerings", volunteerings);
@@ -288,22 +253,19 @@ public class UserController {
 
 	@GetMapping("/admin/users")
 	public String adminVolunteerings(Model model) {
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
-
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) genCompo.getLoggedUser();
+			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			helper.setNavbar(model, user, null, isAdmin);
+			Iterable<Volunteering> myvolunteerings = volRepo.findMyVolunteerings(user);
+			model.addAttribute("title", "Mis Voluntariados");
+			model.addAttribute("user", user);
+			model.addAttribute("myvolunteerings", myvolunteerings);
+			
+		} else if (genCompo.getLoggedUser() instanceof ONG){
+			return "redirect:index";
+		}
 		Iterable<User> users = userRepo.findAll();
 		model.addAttribute("title", "Usuarios");
 		model.addAttribute("users", users);
@@ -320,22 +282,19 @@ public class UserController {
 
 	@GetMapping("/admin/ngos")
 	public String adminNgos(Model model) {
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
-
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) genCompo.getLoggedUser();
+			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			helper.setNavbar(model, user, null, isAdmin);
+			Iterable<Volunteering> myvolunteerings = volRepo.findMyVolunteerings(user);
+			model.addAttribute("title", "Mis Voluntariados");
+			model.addAttribute("user", user);
+			model.addAttribute("myvolunteerings", myvolunteerings);
+			
+		} else if (genCompo.getLoggedUser() instanceof ONG){
+			return "redirect:index";
+		}
 		Iterable<ONG> ngos = ongRepo.findAll();
 		model.addAttribute("title", "ONGs");
 		model.addAttribute("ngos", ngos);
@@ -351,22 +310,19 @@ public class UserController {
 
 	@GetMapping("/admin/comments")
 	public String adminComments(Model model) {
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
-
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) genCompo.getLoggedUser();
+			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			helper.setNavbar(model, user, null, isAdmin);
+			Iterable<Volunteering> myvolunteerings = volRepo.findMyVolunteerings(user);
+			model.addAttribute("title", "Mis Voluntariados");
+			model.addAttribute("user", user);
+			model.addAttribute("myvolunteerings", myvolunteerings);
+			
+		} else if (genCompo.getLoggedUser() instanceof ONG){
+			return "redirect:index";
+		}
 		Iterable<Comment> comments = commentRepo.findAll();
 		model.addAttribute("title", "Comments");
 
