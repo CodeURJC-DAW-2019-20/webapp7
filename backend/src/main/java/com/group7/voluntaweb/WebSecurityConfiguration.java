@@ -65,7 +65,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/plugins/**").permitAll();
 		http.authorizeRequests().antMatchers("/about-us").permitAll();
 		http.authorizeRequests().antMatchers("/contact").permitAll();
-
+		http.authorizeRequests().antMatchers("/new-message").permitAll();
 		// Private pages (all other pages)
 		http.authorizeRequests().antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN");
 		http.authorizeRequests().anyRequest().authenticated();

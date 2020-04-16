@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.components.ONGComponent;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.helpers.Helpers;
@@ -37,6 +38,8 @@ public class CommentController {
 	private UserComponent userComponent;
 	@Autowired
 	private ONGComponent ongComponent;
+	@Autowired 
+	GenericComponent genCompo;
 
 	@GetMapping("/contact")
 	public String contact(Model model) {
@@ -44,19 +47,16 @@ public class CommentController {
 //		String currentPrincipalName = principal.getName();
 //		User user = userRepo.findByEmail(currentPrincipalName);
 
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
-
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+        if (genCompo.getLoggedUser() instanceof User) {
+            User user = (User) genCompo.getLoggedUser();
+            Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+            helper.setNavbar(model, user, null, isAdmin);
 
+        } else if (genCompo.getLoggedUser() instanceof ONG){
+            ONG ong = (ONG) genCompo.getLoggedUser();
+            helper.setNavbar(model, null, ong, false);
+        }
 		model.addAttribute("title", "Contacta con nosotros");
 		return "contact";
 	}
