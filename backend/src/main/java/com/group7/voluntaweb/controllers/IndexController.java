@@ -1,27 +1,18 @@
 package com.group7.voluntaweb.controllers;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.group7.voluntaweb.components.GenericComponent;
-import com.group7.voluntaweb.components.ONGComponent;
-import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.helpers.Helpers;
 import com.group7.voluntaweb.models.Category;
 import com.group7.voluntaweb.models.ONG;
 import com.group7.voluntaweb.models.User;
 import com.group7.voluntaweb.repositories.CategoryRepository;
-import com.group7.voluntaweb.repositories.ONGRepository;
 import com.group7.voluntaweb.repositories.UserRepository;
 
 @Controller
@@ -30,38 +21,23 @@ public class IndexController {
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
-	private ONGRepository ongRepo;
-	@Autowired
-	private UserComponent userComponent;
-	@Autowired
-	private ONGComponent ongComponent;
-	@Autowired
 	private CategoryRepository categoryRepo;
 	@Autowired
 	private GenericComponent genCompo;
 
 	@RequestMapping("/")
 	public String index(Model model) {
-//
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = false;
-		if(user != null) {
-			isAdmin = user.getRoles().contains("ROLE_ADMIN");
-			System.out.println(isAdmin);
-		}
 
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) genCompo.getLoggedUser();
+			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			helper.setNavbar(model, user, null, isAdmin);
+			
+		} else if (genCompo.getLoggedUser() instanceof ONG){
+			ONG ong = (ONG) genCompo.getLoggedUser();
+			helper.setNavbar(model, null, ong, false);
+		}
 
 		model.addAttribute("title", "Bienvenido");
 		model.addAttribute("chart", true);
@@ -92,22 +68,17 @@ public class IndexController {
 
 	@GetMapping("/about-us")
 	public String about(Model model) {
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
 
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) genCompo.getLoggedUser();
+			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			helper.setNavbar(model, user, null, isAdmin);
+			
+		} else if (genCompo.getLoggedUser() instanceof ONG){
+			ONG ong = (ONG) genCompo.getLoggedUser();
+			helper.setNavbar(model, null, ong, false);
+		}
 		model.addAttribute("title", "¿Quienes somos?");
 
 		return "aboutUs";
