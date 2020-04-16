@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.group7.voluntaweb.beans.VolAndCat;
+import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.components.ONGComponent;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.helpers.Helpers;
@@ -41,6 +42,8 @@ public class SearchController {
 	private UserComponent userComponent;
 	@Autowired
 	private ONGComponent ongComponent;
+	@Autowired
+	private GenericComponent genCompo;
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
@@ -68,18 +71,17 @@ public class SearchController {
 //		String currentPrincipalName = principal.getName();
 //		User user = userRepo.findByEmail(currentPrincipalName);
 
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
-
+		User loggedUser = null;
+		ONG loggedNgo = null;
+		Boolean isAdmin = false;
+		if (this.genCompo.getLoggedUser() instanceof User) {
+			loggedUser = (User) this.genCompo.getLoggedUser();
+			isAdmin = loggedUser.getRoles().contains("ROLE_ADMIN");
+		}else if (this.genCompo.getLoggedUser() instanceof ONG) {
+			loggedNgo = (ONG) this.genCompo.getLoggedUser();
+		}
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		helper.setNavbar(model, loggedUser, loggedNgo, isAdmin);
 
 		ArrayList<Category> categories = categoryRepo.findAll();
 		Iterable<Volunteering> volunteerings = volRepo.findByCategory(category);
@@ -99,18 +101,18 @@ public class SearchController {
 //		String currentPrincipalName = principal.getName();
 //		User user = userRepo.findByEmail(currentPrincipalName);
 
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
-
+		User loggedUser = null;
+		ONG loggedNgo = null;
+		Boolean isAdmin = false;
+		if (this.genCompo.getLoggedUser() instanceof User) {
+			loggedUser = (User) this.genCompo.getLoggedUser();
+			isAdmin = loggedUser.getRoles().contains("ROLE_ADMIN");
+		}else if (this.genCompo.getLoggedUser() instanceof ONG) {
+			loggedNgo = (ONG) this.genCompo.getLoggedUser();
+		}
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		helper.setNavbar(model, loggedUser, loggedNgo, isAdmin);
+		
 		if (s != null) {
 			ArrayList<Category> categories = categoryRepo.findAll();
 			Iterable<Volunteering> volunteerings = volRepo.findByQuery(s);
