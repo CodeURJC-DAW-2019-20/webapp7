@@ -217,10 +217,12 @@ public class ONGController {
 			String filePath = path.getFileName().toString();
 			ong.setImage(filePath);
 		}
-		this.ongRepo.save(ong);
+		ong = this.ongRepo.save(ong);
+		ongComponent.setLoggedUser(ong);
 		model.addAttribute("ong", ong);
+		model.addAttribute("title", "Configuración");
 
-		return "ong-settings";
+		return "redirect:ong-settings";
 	}
 
 	@RequestMapping("/ong-submit-advertisement")

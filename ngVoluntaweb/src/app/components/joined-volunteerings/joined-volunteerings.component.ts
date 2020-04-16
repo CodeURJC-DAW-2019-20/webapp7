@@ -3,6 +3,7 @@ import { EntityService } from '../../services/entity.service';
 import { VolunteeringService } from 'src/app/services/volunteering.service';
 import { Volunteering } from 'src/app/models/volunteering';
 import { Title } from '@angular/platform-browser';
+import { global } from '../../services/global';
 
 @Component({
   selector: 'app-joined-volunteerings',
@@ -13,6 +14,7 @@ import { Title } from '@angular/platform-browser';
 export class JoinedVolunteeringsComponent implements OnInit {
   public identity;
   public joined: Set<Volunteering>;
+  public url: string;
 
   constructor(
     private _entityService: EntityService,
@@ -21,6 +23,7 @@ export class JoinedVolunteeringsComponent implements OnInit {
   ) {
     this._titleService.setTitle("Mis voluntariados - VoluntaWeb");
     this.identity = this._entityService.getIdentity();
+    this.url = global.url;
    }
 
   ngOnInit() {

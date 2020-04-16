@@ -35,7 +35,6 @@ export class IndexComponent implements OnInit {
             console.log(<any>error);
           }
         );
-        console.log(this.data[2]);
         let chart = new CanvasJS.Chart("chartContainer", {
           animationEnabled: true,
           exportEnabled: true,
@@ -67,6 +66,13 @@ export class IndexComponent implements OnInit {
       }
     )
     
+  }
+
+
+  prevent(event){
+    if(event.code == "Enter" || event.code == "NumpadEnter"){
+      event.preventDefault();
+    }
   }
 
   onSubmit(){

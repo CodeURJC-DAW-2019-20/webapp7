@@ -696,14 +696,14 @@ $(window).resize(function () {
 }
 );
 
-jQuery(window).bind("scroll", function () {
+/*jQuery(window).bind("scroll", function () {
 	var scroll = jQuery(window).scrollTop();
 	if (scroll > 900) {
 		jQuery(".like-button").fadeIn(1000);
 	} else {
 		jQuery(".like-button").fadeOut(1000);
 	}
-});
+});*/
 
 $(".like-button").click(
 	function () {

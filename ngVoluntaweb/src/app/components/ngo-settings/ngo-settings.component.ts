@@ -111,7 +111,6 @@ export class NgoSettingsComponent implements OnInit {
 
   avatarUpload(data) {
     let data_obj = JSON.parse(data.response);
-    console.log(data_obj);
     this.ngo.image = data_obj.image;
   }
 }

@@ -6,7 +6,7 @@ import { EntityService } from 'src/app/services/entity.service';
 import { global } from '../../services/global';
 import { User } from '../../models/user';
 import { UserVolunteering } from 'src/app/models/uservolunteering';
-import { Title } from '@angular/platform-browser';
+import { Title, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-volunteering-page',
@@ -18,7 +18,7 @@ export class VolunteeringPageComponent implements OnInit {
 
   public volunteering: Volunteering;
   public status: String;
-  public likesNumber: Number;
+  public likesNumber: any;
   public identity;
   public entity_type;
   public isJoined: Boolean;
@@ -35,7 +35,9 @@ export class VolunteeringPageComponent implements OnInit {
     private _router: Router,
     private _volunteeringService: VolunteeringService,
     private _entityService: EntityService,
-    private _titleService: Title
+    private _titleService: Title,
+    private _sanitizer: DomSanitizer
+
   ) { 
     this.identity = this._entityService.getIdentity();
     this.entity_type = this._entityService.getEntityType();
@@ -56,6 +58,11 @@ export class VolunteeringPageComponent implements OnInit {
 
   }
 
+
+  sanitizeURL(){
+    return this._sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/place?q='+this.volunteering.city+'&key=AIzaSyBRzPLTqGSEnouc5sMpfk6cYbVKVX42c5s');
+  }
+
   isJoinedF(volId){
     this._volunteeringService.isJoined(this.volunteering.id).subscribe(
       (response)=>{
@@ -71,7 +78,6 @@ export class VolunteeringPageComponent implements OnInit {
     this._volunteeringService.isLiked(this.volunteering.id).subscribe(
       (response)=>{
           this.isLiked = response;
-          console.log(response);
       },
       error=>{
         console.log(<any>error);
@@ -129,9 +135,11 @@ export class VolunteeringPageComponent implements OnInit {
       response=> {
           this.isLiked= response;
           if (this.isLiked){
+            this.likesNumber = this.likesNumber + 1;
             this.btnColor = "blue2";
             this.iconColor = "blue";
           } else {
+            this.likesNumber = this.likesNumber -1;
             this.btnColor = "grey2";
             this.iconColor = "grey";
           }

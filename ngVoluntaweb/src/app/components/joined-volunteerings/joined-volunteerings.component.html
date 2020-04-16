@@ -35,7 +35,7 @@
                             <a [routerLink]="['/volunteering', v.id]">
                                 <div class="d-flex m-b30">
                                     <div class="job-post-company">
-                                        <span><img src="assets/images/logo/icon1.png"/></span>
+                                        <span class="container-volunteering"><img src="{{url}}volunteerings/image/{{v.image}}" onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'" class="avatar"/></span>
                                     </div>
                                     <div class="job-post-info">
                                         <h4>{{v.name}}</h4>

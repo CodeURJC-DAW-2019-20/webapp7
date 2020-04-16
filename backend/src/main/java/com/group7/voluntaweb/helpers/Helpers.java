@@ -31,14 +31,15 @@ public class Helpers {
 			model.addAttribute("user", user);
 			model.addAttribute("logged_user", true);
 			model.addAttribute("logged", true);
+			if(isAdmin) {
+				model.addAttribute("logged_admin", isAdmin);				
+				model.addAttribute("user", false);
+			}
 		} else if (ong != null) {
 			model.addAttribute("user", ong);
 			model.addAttribute("logged_ong", true);
 			model.addAttribute("logged", true);
-		} else if (isAdmin) {
-			model.addAttribute("logged_admin", true);
-			model.addAttribute("logged", true);
-		} else {
+		}  else {
 			model.addAttribute("logged", false);
 
 		}

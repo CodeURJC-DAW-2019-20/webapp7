@@ -97,11 +97,6 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 
-		// Users
-		auth.inMemoryAuthentication().withUser("user").password("pass").roles("USER");
-
-		// auth.inMemoryAuthentication().withUser("admin@admin.com").password("{noop}password").roles("USER",
-		// "ADMIN");
 
 		auth.authenticationProvider(authProvider());
 	}

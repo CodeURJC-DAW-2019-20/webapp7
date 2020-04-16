@@ -4,12 +4,12 @@
     <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(assets/images/background/fondo.jpg);">
         <div class="container">
             <div class="dez-bnr-inr-entry">
-                <h1 class="text-white">{{current_ngo.name}}</h1>
+                <h1 *ngIf="!loading" class="text-white">{{current_ngo.name}}</h1>
                 <!-- Breadcrumb row -->
                 <div class="breadcrumb-row">
                     <ul class="list-inline">
-                        <li><a href="#">Inicio</a></li>
-                        <li>{{current_ngo.name}}</li>
+                        <li><a [routerLink]="['/']">Inicio</a></li>
+                        <li *ngIf="!loading">{{current_ngo.name}}</li>
                     </ul>
                 </div>
                 <!-- Breadcrumb row END -->
@@ -50,7 +50,7 @@
                     <div class="col-lg-8">
                         <div class="job-info-box">
                             <h3 class="m-t0 m-b10 font-weight-700 title-head">
-                                <a href="#" class="text-secondry m-r30">{{current_ngo.name}}</a>
+                                <span class="text-secondry m-r30">{{current_ngo.name}}</span>
                             </h3>
                             <h5 class="font-weight-600">Descripción</h5>
                             <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>

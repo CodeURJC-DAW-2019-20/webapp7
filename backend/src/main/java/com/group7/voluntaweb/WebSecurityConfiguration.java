@@ -63,6 +63,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/images/**").permitAll();
 		http.authorizeRequests().antMatchers("/js/**").permitAll();
 		http.authorizeRequests().antMatchers("/plugins/**").permitAll();
+		http.authorizeRequests().antMatchers("/about-us").permitAll();
+		http.authorizeRequests().antMatchers("/contact").permitAll();
 
 		// Private pages (all other pages)
 		http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ADMIN");
@@ -107,11 +109,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
-
-		// Users
-		auth.inMemoryAuthentication().withUser("user").password("pass").roles("USER");
-
-		auth.inMemoryAuthentication().withUser("admin@admin.com").password("{noop}password").roles("USER", "ADMIN");
 
 		auth.authenticationProvider(authProvider());
 	}

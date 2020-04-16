@@ -41,11 +41,9 @@ export class NgoVolunteeringsComponent implements OnInit {
 
   getNGO(){
     this._ngoService.getNgo(this.NGO.id).subscribe(
-      result =>{console.log(result),
+      result =>{
       this.NGO= result 
       this.volList = this.NGO.volunteerings;
-      console.log(this.volList);
-  
     },
       error=>{console.log(<any>error)}
     );
@@ -56,7 +54,6 @@ export class NgoVolunteeringsComponent implements OnInit {
   deleteVol(volid:number){
     this._volunteeringService.deleteoneVolunteering(volid).subscribe(
       response=>{
-        console.log(response);
         this.getNGO();
       },
       error=>{

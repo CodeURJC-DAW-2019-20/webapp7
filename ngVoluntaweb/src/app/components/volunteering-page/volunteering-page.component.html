@@ -8,7 +8,7 @@
                 <!-- Breadcrumb row -->
                 <div class="breadcrumb-row">
                     <ul class="list-inline">
-                        <li><a href="#">Inicio</a></li>
+                        <li><a [routerLink]="['/']">Inicio</a></li>
                         <li>Voluntariado</li>
                     </ul>
                 </div>
@@ -62,7 +62,7 @@
                     <div class="col-lg-8">
                         <div class="job-info-box">
                             <h3 class="m-t0 m-b10 font-weight-700 title-head">
-                                <a href="#" class="text-secondry m-r30">{{volunteering.name}}</a>
+                                <span class="text-secondry m-r30">{{volunteering.name}}</span>
                             </h3>
                             <ul class="job-info">
                                 <li><i class="ti-bookmark text-black m-r5"></i><strong>Categoría</strong>
@@ -91,7 +91,7 @@
                             <div>
                                 <br>
                                 <iframe width="600" height="450" frameborder="0" style="border:0"
-                                    src="https://www.google.com/maps/embed/v1/place?q={{volunteering.city}}&key=AIzaSyBRzPLTqGSEnouc5sMpfk6cYbVKVX42c5s"
+                                    [src]="sanitizeURL()"
                                     allowfullscreen></iframe>
                             </div>
                         </div>

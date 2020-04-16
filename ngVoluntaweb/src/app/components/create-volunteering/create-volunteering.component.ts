@@ -24,7 +24,7 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
 
   public categories;
 
-  public category:Category;
+  public category:any;
 
   public status: string;
 
@@ -108,7 +108,7 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
 
   onSubmit(form){
 
-    this.volunteering.category = this.category;
+    this.volunteering.category = this.categories[this.category-1];
     this.volunteering.ong = this.ngoLogged;
     this.volunteering.id = null; //The API give the id
 

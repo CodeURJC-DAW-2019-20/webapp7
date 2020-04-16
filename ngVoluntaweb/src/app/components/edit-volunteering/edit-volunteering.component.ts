@@ -22,7 +22,7 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
   public volunteering: Volunteering;
   private ngoLogged:NGO;
   public categories;
-  public category:Category;
+  public category;
   private status: string;
 
   
@@ -103,6 +103,7 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
       (response:any)=>{
         if(response && response.ong.id == this.ngoLogged.id){
           this.volunteering = response;
+          this.category = this.volunteering.category.id;
 
 
         }
@@ -145,6 +146,7 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
   
 
   public onSubmit(){
+    this.volunteering.category = this.categories[this.category-1];
 
     this._volunteeringService.updateVolunteering(this.volunteering.id,this.volunteering).subscribe(
       (response:any) =>{
@@ -188,7 +190,6 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
 
           localStorage.setItem('identity',JSON.stringify(this.ngoLogged));
 
-          console.log(this.ngoLogged);
         }
         else{
           this.status = 'error';

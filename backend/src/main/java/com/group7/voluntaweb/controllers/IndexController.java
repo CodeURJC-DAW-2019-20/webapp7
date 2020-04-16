@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.components.ONGComponent;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.helpers.Helpers;
@@ -36,6 +37,8 @@ public class IndexController {
 	private ONGComponent ongComponent;
 	@Autowired
 	private CategoryRepository categoryRepo;
+	@Autowired
+	private GenericComponent genCompo;
 
 	@RequestMapping("/")
 	public String index(Model model) {
@@ -51,7 +54,11 @@ public class IndexController {
 
 		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
 				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
+		Boolean isAdmin = false;
+		if(user != null) {
+			isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			System.out.println(isAdmin);
+		}
 
 		Helpers helper = new Helpers();
 		helper.setNavbar(model, user, ong, isAdmin);
