@@ -1,16 +1,12 @@
 package com.group7.voluntaweb.controllers;
 
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,18 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.group7.voluntaweb.components.ONGComponent;
-import com.group7.voluntaweb.components.UserComponent;
+import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.helpers.Helpers;
 import com.group7.voluntaweb.models.Like;
 import com.group7.voluntaweb.models.ONG;
 import com.group7.voluntaweb.models.User;
 import com.group7.voluntaweb.models.UsersVolunteerings;
 import com.group7.voluntaweb.models.Volunteering;
-import com.group7.voluntaweb.repositories.CategoryRepository;
 import com.group7.voluntaweb.repositories.LikeRepository;
-import com.group7.voluntaweb.repositories.ONGRepository;
 import com.group7.voluntaweb.repositories.UserRepository;
 import com.group7.voluntaweb.repositories.VolunteeringRepository;
 import com.group7.voluntaweb.services.UserService;
@@ -49,20 +41,13 @@ public class VolunteeringController {
 	private VolunteeringService volunteeringService;
 
 	@Autowired
-	private UserComponent userComponent;
-	@Autowired
-	private ONGComponent ongComponent;
+	private GenericComponent genCompo;
 
 	@Autowired
 	private UserService userService;
 
 	@Autowired
-	private CategoryRepository categoryRepo;
-
-	@Autowired
 	private UserRepository userRepo;
-	@Autowired
-	private ONGRepository ongRepo;
 
 	@Autowired
 	private LikeRepository likeRepo;
@@ -70,46 +55,39 @@ public class VolunteeringController {
 	@GetMapping("/volunteering/{id}")
 	public String prueba(Model model, @PathVariable long id) {
 
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
-
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) genCompo.getLoggedUser();
+			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			helper.setNavbar(model, user, null, isAdmin);
+			if (user != null) {
 
-		if (user != null) {
+				Volunteering vol = volunteeringRepo.findById(id);
 
-			Volunteering vol = volunteeringRepo.findById(id);
+				User row = userService.findJoinedUser(id, user.getId());
+				if (row != null) {
+					model.addAttribute("alert", "¡Te has apuntado a este voluntariado!");
+					model.addAttribute("buttonName", "Desapuntarse");
+					model.addAttribute("color-button", "danger");
+				} else {
+					model.addAttribute("color-button", "primary");
+					model.addAttribute("buttonName", "Apuntarse");
+				}
 
-			User row = userService.findJoinedUser(id, user.getId());
-			if (row != null) {
-				model.addAttribute("alert", "¡Te has apuntado a este voluntariado!");
-				model.addAttribute("buttonName", "Desapuntarse");
-				model.addAttribute("color-button", "danger");
-			} else {
-				model.addAttribute("color-button", "primary");
-				model.addAttribute("buttonName", "Apuntarse");
+				if (volunteeringService.findLike(vol, user) == null) {
+
+					model.addAttribute("b-color", "grey2");
+					model.addAttribute("i-color", "grey");
+				} else {
+					model.addAttribute("b-color", "blue2");
+					model.addAttribute("i-color", "blue");
+				}
+
 			}
 
-			if (volunteeringService.findLike(vol, user) == null) {
-
-				model.addAttribute("b-color", "grey2");
-				model.addAttribute("i-color", "grey");
-			} else {
-				model.addAttribute("b-color", "blue2");
-				model.addAttribute("i-color", "blue");
-			}
-
+		} else if (genCompo.getLoggedUser() instanceof ONG) {
+			ONG ong = (ONG) genCompo.getLoggedUser();
+			helper.setNavbar(model, null, ong, false);
 		}
 
 		Volunteering advert = volunteeringRepo.findById(id);
@@ -157,9 +135,6 @@ public class VolunteeringController {
 		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = principal.getName();
 		User user = userRepo.findByEmail(currentPrincipalName);
-
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
-
 
 		Like like = new Like();
 		Volunteering vol = volunteeringRepo.findOneById(volunteering);
