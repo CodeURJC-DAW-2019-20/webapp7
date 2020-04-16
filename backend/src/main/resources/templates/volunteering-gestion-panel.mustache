@@ -19,9 +19,9 @@
 
 
 			{{#anuncios}}
-			<div class="col-lg-4 offset-4 mt-4">
+			<div class="col-lg-4 offset-4 mt-4 mb-4">
 			<div class="card ml-4"><a href="/volunteering/{{id}}">
-                <img class="card-img-top" src="/images/volunteerings/image-{{id}}.jpg" alt="Card image cap">
+				<span><img src="/images/volunteerings/{{image}}" onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'" class="avatar"/></span>
                 <div class="card-body">
                     <h5 class="card-title">{{name}}</h5>
                     <div class="text-center">

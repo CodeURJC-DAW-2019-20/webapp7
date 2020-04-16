@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.components.ONGComponent;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.helpers.Helpers;
@@ -36,6 +37,7 @@ import com.group7.voluntaweb.repositories.VolunteeringRepository;
 import com.group7.voluntaweb.services.ImageService;
 import com.group7.voluntaweb.services.ONGService;
 import com.group7.voluntaweb.services.VolunteeringService;
+import com.group7.voluntaweb.helpers.Helpers;
 
 @Controller
 public class ONGController {
@@ -49,14 +51,12 @@ public class ONGController {
 	@Autowired
 	private CategoryRepository catRepo;
 
-	@Autowired
-	private UserRepository userRepo;
+	/*
+	 * @Autowired private UserRepository userRepo;
+	 */
 
 	@Autowired
-	private ONGComponent ongComponent;
-
-	@Autowired
-	private UserComponent userComponent;
+	private GenericComponent genCompo;
 
 	@Autowired
 	private ONGService ongService;
@@ -76,22 +76,16 @@ public class ONGController {
 
 	@GetMapping("/ongs")
 	public String ngos(Model model) {
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
 
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) genCompo.getLoggedUser();
+			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			helper.setNavbar(model, user, null, isAdmin);
+		} else if (genCompo.getLoggedUser() instanceof ONG) {
+			ONG ong = (ONG) genCompo.getLoggedUser();
+			helper.setNavbar(model, null, ong, false);
+		}
 
 		model.addAttribute("title", "ong");
 		Iterable<ONG> ngos = ongService.getAll();
@@ -101,22 +95,17 @@ public class ONGController {
 
 	@RequestMapping("/ongs/{id}")
 	public String ngo(Model model, @PathVariable Long id) {
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
 
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		if (genCompo.getLoggedUser() instanceof User) {
+			User user = (User) genCompo.getLoggedUser();
+			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
+			helper.setNavbar(model, user, null, isAdmin);
+		} else if (genCompo.getLoggedUser() instanceof ONG) {
+			ONG ong = (ONG) genCompo.getLoggedUser();
+			helper.setNavbar(model, null, ong, false);
+		}
+
 		ONG ngo = ongRepo.findByid(id);
 		model.addAttribute("id", ngo.getId());
 		model.addAttribute("title", "ONG");
@@ -141,54 +130,31 @@ public class ONGController {
 
 		ONG ong = new ONG(name, responsiblename, responsiblesurname, address, description, email, postal, "true",
 				telephone, encPassword);
-		
 
 		Path path = imgService.saveImage("ong", file0);
 		String filePath = path.getFileName().toString();
 		ong.setImage(filePath);
 		this.ongService.save(ong); // INSERT INTO DATABASE
-		
+
 		return "redirect:/index"; // REDIRECTS TO INDEX
 
 	}
 
-//	@GetMapping("/login-ong")
-//	public String login(Map<String, Object> model, HttpSession sesion) {
-//		model.put("title", "Iniciar sesión");
-//
-//		Boolean logged = ongComponent.isLoggedUser();
-//		ONG user = ongComponent.getLoggedUser();
-//
-//		model.put("logged", logged);
-//		model.put("user", user);
-//
-//		return "login";
-//	}
-
 	@GetMapping("/ong-settings")
 	public String ongSettings(Model model) {
 
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
-
-		User user = userComponent.getLoggedUser();
-
-		ONG ong = ongComponent.getLoggedUser();
-
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
-
 		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+		if (genCompo.getLoggedUser() instanceof ONG) {
+			ONG ong = (ONG) genCompo.getLoggedUser();
+			helper.setNavbar(model, null, ong, false);
 
-		model.addAttribute("ong", ong);
-		model.addAttribute("title", "Configuración");
+			model.addAttribute("ong", ong);
+			model.addAttribute("title", "Configuración");
 
-		return "ONG-settings";
+			return "ONG-settings";
+		} else {
+			return "redirect:index";
+		}
 	}
 
 	@PostMapping("/ong-settings-form")
@@ -196,53 +162,62 @@ public class ONGController {
 			@RequestParam String responsiblesurname, @RequestParam String address, @RequestParam String description,
 			@RequestParam String email, @RequestParam String postal, @RequestParam String telephone,
 			@RequestParam MultipartFile file0) throws IOException {
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
 
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+		if (genCompo.getLoggedUser() instanceof ONG) {
+			ONG ong = (ONG) this.genCompo.getLoggedUser();
 
-		ong.setName(name);
-		ong.setResponsibleName(responsiblename);
-		ong.setResponsibleSurname(responsiblesurname);
-		ong.setAddress(address);
-		ong.setDescription(description);
-		ong.setDescription(description);
-		ong.setEmail(email);
-		ong.setPostal(postal);
-		ong.setTelephone(telephone);
+			ong.setName(name);
+			ong.setResponsibleName(responsiblename);
+			ong.setResponsibleSurname(responsiblesurname);
+			ong.setAddress(address);
+			ong.setDescription(description);
+			ong.setDescription(description);
+			ong.setEmail(email);
+			ong.setPostal(postal);
+			ong.setTelephone(telephone);
 
-		
-		if (file0.getSize() > 5) {
-			Path path = imgService.saveImage("ong", file0);
-			String filePath = path.getFileName().toString();
-			ong.setImage(filePath);
+			if (file0.getSize() > 5) {
+				Path path = imgService.saveImage("ong", file0);
+				String filePath = path.getFileName().toString();
+				ong.setImage(filePath);
+			}
+			ong = this.ongRepo.save(ong);
+
+			genCompo.setLoggedUser(ong);
+
+			model.addAttribute("ong", ong);
+			model.addAttribute("title", "Configuración");
+
+			return "redirect:ong-settings";
+		} else {
+			return "redirec:index";
 		}
-		ong = this.ongRepo.save(ong);
-		ongComponent.setLoggedUser(ong);
-		model.addAttribute("ong", ong);
-		model.addAttribute("title", "Configuración");
 
-		return "redirect:ong-settings";
 	}
 
 	@RequestMapping("/ong-submit-advertisement")
 	public String crearAnuncio(Model model) {
 
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
+		Helpers helper = new Helpers();
+		if (genCompo.getLoggedUser() instanceof ONG) {
+			ONG ong = (ONG) this.genCompo.getLoggedUser();
 
-		Date fecha = new Date(System.currentTimeMillis());
+			helper.setNavbar(model, null, ong, false);
 
-		List<Category> categories = this.catRepo.findAll();
+			Date fecha = new Date(System.currentTimeMillis());
 
-		Volunteering anuncio = new Volunteering(null, "", categories.get(0), fecha, fecha, "", "", "", "");
+			List<Category> categories = this.catRepo.findAll();
 
-		model.addAttribute("anuncio", anuncio);
-		model.addAttribute("categories", categories);
-		model.addAttribute("user", ong);
-		model.addAttribute("title", "Añadir voluntariado");
-		return "ong-submit-advertisement";
+			Volunteering anuncio = new Volunteering(null, "", categories.get(0), fecha, fecha, "", "", "", "");
+
+			model.addAttribute("anuncio", anuncio);
+			model.addAttribute("categories", categories);
+			model.addAttribute("user", ong);
+			model.addAttribute("title", "Añadir voluntariado");
+			return "ong-submit-advertisement";
+		} else {
+			return "redirect:index";
+		}
 	}
 
 	@PostMapping("ong-submit-advertisement-form")
@@ -253,21 +228,21 @@ public class ONGController {
 
 		Category cat = this.catRepo.findById(categoryid);
 
-		Volunteering anuncio = new Volunteering(null, name, cat, startdate, enddate, description,
-				null, city, email);
+		Volunteering anuncio = new Volunteering(null, name, cat, startdate, enddate, description, null, city, email);
 
 		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = principal.getName();
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 		anuncio.setOng(ong);
+		
 		try {
 			if (file0.getSize() > 5) {
-				
+
 				Path path = imgService.saveImage("volunteerings", file0);
 				String filePath = path.getFileName().toString();
 				anuncio.setImage(filePath);
-				
-				volService.save(anuncio);				
+
+				volService.save(anuncio);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -279,7 +254,8 @@ public class ONGController {
 		ong.setVolunteerings(volunteerings);
 		ongService.save(ong);
 		
-
+		genCompo.setLoggedUser(ong);
+		
 		model.addAttribute("ong", ong);
 
 		return "redirect:/";
@@ -292,82 +268,91 @@ public class ONGController {
 //		String currentPrincipalName = principal.getName();
 //		User user = userRepo.findByEmail(currentPrincipalName);
 
-		User user = userComponent.getLoggedUser();
+		if (genCompo.getLoggedUser() instanceof ONG) {
+			ONG ong = (ONG) genCompo.getLoggedUser();
 
-		ONG ong = ongComponent.getLoggedUser();
+			SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
 
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
+			Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
+					.getAuthorities();
+			Boolean isAdmin = roles.contains(roleAdmin);
 
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
+			Helpers helper = new Helpers();
+			helper.setNavbar(model, null, ong, isAdmin);
 
-		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
+			List<Volunteering> anuncios = ong.getVolunteerings();
 
-		List<Volunteering> anuncios = ong.getVolunteerings();
+			model.addAttribute("anuncios", anuncios);
+			model.addAttribute("title", "Mi panel de gestión");
 
-		// List<Volunteering> anuncios = this.volRepo.findAll();//we have to change this
+			return "volunteering-gestion-panel";
+		} else {
+			return "redirect:index";
+		}
 
-		model.addAttribute("anuncios", anuncios);
-		model.addAttribute("title", "Mi panel de gestión");
-
-		return "volunteering-gestion-panel";
 	}
+	
 
 	@RequestMapping("/ong-edit-advertisement-{id}")
 	public String editVolunteerings(Model model, @PathVariable long id) {
-//		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-//		String currentPrincipalName = principal.getName();
-//		User user = userRepo.findByEmail(currentPrincipalName);
 
-		User user = userComponent.getLoggedUser();
+		
 
-		ONG ong = ongComponent.getLoggedUser();
+		if (genCompo.getLoggedUser() instanceof ONG) {
 
-		SimpleGrantedAuthority roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
+			ONG ong = (ONG) genCompo.getLoggedUser();
+			
+			Volunteering anuncio = this.volRepo.findById(id);
 
-		Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication()
-				.getAuthorities();
-		Boolean isAdmin = roles.contains(roleAdmin);
+			if (anuncio.getOng().getId().equals(ong.getId())) {
 
-		Helpers helper = new Helpers();
-		helper.setNavbar(model, user, ong, isAdmin);
-		Volunteering anuncio = this.volRepo.findById(id);
-		if (anuncio.getOng().getId() != ong.getId()) {
-			return "redirect:/volunteering-gestion-panel";
+				Helpers helper = new Helpers();
+
+				helper.setNavbar(model, null, ong, false);
+
+				List<Category> cats = this.catRepo.findAll();
+
+				model.addAttribute("anuncio", anuncio);
+				model.addAttribute("anuncio", anuncio);
+				model.addAttribute("categories", cats);
+				model.addAttribute("title", "Editar voluntariado");
+				model.addAttribute("user", ong);
+
+				return "ong-submit-advertisement";
+			} else {
+				return "redirect:/volunteering-gestion-panel";
+			}
+		} else {
+			return "redirect:index";
 		}
-
-		List<Category> cats = this.catRepo.findAll();
-
-		model.addAttribute("anuncio", anuncio);
-		model.addAttribute("anuncio", anuncio);
-		model.addAttribute("categories", cats);
-		model.addAttribute("title", "Editar voluntariado");
-		model.addAttribute("user", ong);
-
-		return "ong-submit-advertisement";
 	}
 
+	
 	@RequestMapping("/ong-remove-advertisement-{id}")
 	public String removeVolunteerings(Model model, @PathVariable long id) {
-
-		/*
-		 * ONG ong = this.ongRepo.findByid(this.id);
-		 * 
-		 * List<Volunteering> anuncios = ong.getAnuncios();
-		 */
-
-		this.volRepo.deleteById(id);
-
-		Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = principal.getName();
-
-		ONG ong = ongRepo.findByEmail(currentPrincipalName);
-
-		model.addAttribute("ong", ong);
-
-		return "ONG-settings";
+		
+		if(genCompo.getLoggedUser() instanceof ONG) {
+			
+			ONG ong = (ONG) genCompo.getLoggedUser();
+			
+			Volunteering anuncio = this.volRepo.findById(id);
+			
+			if(anuncio.getOng().getId().equals(ong.getId())) {
+				
+				this.volRepo.deleteById(id);
+				
+				/*model
+				model.addAttribute("ong", ong);*/
+				
+				return "redirect:/ong-settings";
+			}
+			else {
+				return "redirect:/volunteering-gestion-panel";
+			}
+		}
+		else {
+			return "redirect:index";
+		}
 	}
 
 }
