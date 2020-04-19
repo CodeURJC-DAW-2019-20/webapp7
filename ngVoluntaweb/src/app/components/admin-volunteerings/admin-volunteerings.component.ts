@@ -29,7 +29,7 @@ export class AdminVolunteeringsComponent implements OnInit {
         this.loading = false;
       },
       error => {
-        console.log("No hay nada");
+        console.log(<any>error);
       }
     );
     this._volunteeringService.getVolunteeringsByPage(1).subscribe(
@@ -77,7 +77,6 @@ export class AdminVolunteeringsComponent implements OnInit {
           this.additional = [];
           this.more = false;
           this.loading = false;
-          console.log("se prendio la wea");
         }
       );
     }
