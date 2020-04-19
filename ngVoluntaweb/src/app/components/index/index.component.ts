@@ -42,7 +42,7 @@ export class IndexComponent implements OnInit {
             text: "Usuarios registrados por meses"
           },
           data: [{
-            type: "column",
+            type: "line",
             dataPoints: [
               { y: this.data[0], label: "Enero" },
               { y: this.data[1], label: "Febrero" },
