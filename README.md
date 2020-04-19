@@ -178,9 +178,9 @@ Document [Development Environment](./backend/Dockerfile) with information about 
 
 | Member | 5 relevant commits | 5 relevant files |
 | ------------- | ------------- | ------------- |
-| Samuel Severiche | 1. [create-volunteerings working!!!] (https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/261e88e790c64c4ad03945e53fcd3df78c844530) <br/> 2. [Edit-volunteering working the real one!!!] (https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/a845feaf8af7d7c779e6c2a03a041b4777e44fdb) <br/> 3. [Upload Images from update ngo working!!!] (https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/855760cb7d4b52178268fa418787ac302bb4acf0) </br> 4. [https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/92a302f16fd0ddd24d9d51e6cdf1e6918fd85e14] (https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/92a302f16fd0ddd24d9d51e6cdf1e6918fd85e14) </br> 5. [Image upload on create volunteerig working!!!] (Image upload on create volunteerig working!!!) | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  |
+| Samuel Severiche | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  |
 | Alicia Merino | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  |
 | Pablo Atahonero  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  |
-| Daniel Fuente  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  |
+| Daniel Fuente  | 1. [create-volunteerings working!!!](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/261e88e790c64c4ad03945e53fcd3df78c844530)<br/> 2. [Edit-volunteering working the real one!!!](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/a845feaf8af7d7c779e6c2a03a041b4777e44fdb)<br/> 3. [Upload Images from update ngo working!!!](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/855760cb7d4b52178268fa418787ac302bb4acf0)</br> 4. [https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/92a302f16fd0ddd24d9d51e6cdf1e6918fd85e14](https://github.com/CodeURJC-DAW-2019-20/webapp7/commit/92a302f16fd0ddd24d9d51e6cdf1e6918fd85e14)</br> 5. [Image upload on create volunteerig working!!!](Image upload on create volunteerig working!!!)|
 | Daniel Serrano  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  | 1. <br/> 2. <br/> 3. </br> 4. </br> 5.  |
 
