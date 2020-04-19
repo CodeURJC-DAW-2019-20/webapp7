@@ -1,34 +1,20 @@
-if ! which java > /dev/null; then
-   echo -e "JAVA not found. It will install shortly\c"
-   sudo apt-get install openjdk-13-jdk
-fi
-if ! which mvn > /dev/null; then
-   echo -e "Maven not found. It will install shortly\c"
-   sudo apt-get install maven
-fi
-mkdir ../backend/src/main/resources/static/new/
+
+#Angular compile project
 cd ../ngVoluntaweb
 
-if ! which node > /dev/null; then
-   echo -e "NodeJS not found. It will install shortly\c"
-   sudo apt install nodejs
-   sudo apt install npm
-fi
-if ! which ng > /dev/null; then
-   echo -e "AngularCLI not found. It will install shortly\c"
-   sudo npm install -g @angular/cli
-fi
+sudo docker run -it --rm --name ngVoluntaweb -v "$PWD":/usr/src/app -w /usr/src/app node:12.16.1 /bin/bash -c "cd /usr/src/app && npm install > /dev/null && npm i -g @angular/cli > /dev/null && ng build --baseHref=/new/"
 
-sudo npm install > /dev/null
-sudo ng build --baseHref=/new/
 
+#Move angular project to maven project
 cd dist/ngVoluntaweb
 cp -r . ../../../backend/src/main/resources/static/new/.
 
 
-
+#Maven compile project
 cd ../../../backend
-mvn clean install
+sudo docker run -it --rm --name voluntaweb -v "$PWD":/usr/src/app -w /usr/src/app maven:3.6.3-openjdk-15 mvn clean install
+
+#Build image
 cd target
 mkdir ../../docker/app/
 mv backend_src-0.0.1-SNAPSHOT.jar ../../docker/app/
@@ -36,4 +22,6 @@ cd ../../docker/app/
 mv backend_src-0.0.1-SNAPSHOT.jar backend.jar
 cd ..
 sudo docker build -t theroxd4n/voluntaweb .
+
+#Docker-compose!
 sudo docker push theroxd4n/voluntaweb
