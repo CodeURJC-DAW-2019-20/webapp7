@@ -111,7 +111,6 @@ export class UserSettingsComponent implements OnInit {
   }
 
   avatarUpload(data) {
-    console.log(data);
     let data_obj = JSON.parse(data.response);
     this.user.image = data_obj.image;
   }
