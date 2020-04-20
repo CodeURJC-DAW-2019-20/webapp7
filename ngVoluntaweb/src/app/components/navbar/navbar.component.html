@@ -35,7 +35,10 @@
 						<ul class="navbar-nav">
 							<li>
 								<div class="container-avatar">
-									<img src="{{url}}users/{{identity.image}}/image"
+									<img *ngIf="identity.image != 'false'" src="{{url}}users/{{identity.image}}/image"
+										onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'"
+										class="avatar">
+										<img *ngIf="identity.image == 'false'" src="assets/images/user-placeholder.png"
 										onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'"
 										class="avatar">
 								</div>
@@ -90,7 +93,10 @@
 						<ul class="navbar-nav">
 							<li>
 								<div class="container-avatar">
-									<img src="{{url}}ongs/{{identity.image}}/image"
+									<img *ngIf="identity.image != 'false'" src="{{url}}users/{{identity.image}}/image"
+										onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'"
+										class="avatar">
+										<img *ngIf="identity.image == 'false'" src="assets/images/user-placeholder.png"
 										onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'"
 										class="avatar">
 								</div>

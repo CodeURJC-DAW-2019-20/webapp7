@@ -19,7 +19,7 @@ export class RegisterUserComponent implements OnInit {
     private _titleService: Title
   ) {
     this._titleService.setTitle("Registrarse como usuario - VoluntaWeb");
-    this.user = new User(null, null, null, "", "", "", "", "", "", ['ROLE_USER'], "", null);
+    this.user = new User(null, null, null, "", "", "", "", "", "", ['ROLE_USER'], "false", null);
   }
 
   ngOnInit() {
