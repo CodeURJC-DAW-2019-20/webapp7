@@ -3,7 +3,6 @@ package com.group7.voluntaweb.models;
 import java.sql.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,7 +12,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -27,13 +25,13 @@ public class Volunteering {
 
 	public interface NGO {
 	}
-	
+
 	public interface Likes {
-		
+
 	}
-	
-	public interface Cat{
-		
+
+	public interface Cat {
+
 	}
 
 	@JsonView(Basico.class)
@@ -71,7 +69,6 @@ public class Volunteering {
 	@JsonView(Basico.class)
 	private String city;
 
-
 	@JsonView(NGO.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	private ONG ong;
@@ -79,9 +76,8 @@ public class Volunteering {
 	@JsonView(Basico.class)
 	private String email;
 
-	public Volunteering(Set<UsersVolunteerings> joined_users, String name, Category category,
-			Date startdate, Date enddate, String description, String image,
-			String city, String email) {
+	public Volunteering(Set<UsersVolunteerings> joined_users, String name, Category category, Date startdate,
+			Date enddate, String description, String image, String city, String email) {
 		super();
 
 		this.name = name;

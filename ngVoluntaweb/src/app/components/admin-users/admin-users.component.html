@@ -13,7 +13,9 @@
                             <a>
                                 <div class="d-flex m-b30">
                                     <div class="job-post-company">
-                                        <span><img src="{{url}}users/{{user.image}}/image" onerror="this.onerror=null;this.src='/assets/images/user-placeholder.png'" class="avatar"/></span>
+                                        <span><img src="{{url}}users/{{user.image}}/image"
+                                                onerror="this.onerror=null;this.src='/assets/images/user-placeholder.png'"
+                                                class="avatar" /></span>
                                     </div>
                                     <div class="job-post-info text-left">
                                         <h4>{{user.name}} {{user.surname}}</h4>
@@ -23,8 +25,10 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class = "text-rigth">
-                                    <input type = "submit" class = "site-button" value = "Eliminar" (click)="deleteUser(user.id, $event)" style="background-color:rgb(255, 58, 58)"/>
+                                <div class="text-rigth">
+                                    <input type="submit" class="site-button" value="Eliminar"
+                                        (click)="deleteUser(user.id, $event)"
+                                        style="background-color:rgb(255, 58, 58)" />
                                 </div>
                             </a>
                         </li>
@@ -35,7 +39,7 @@
                     </div>
                     <div *ngIf="more && !loading" class="d-flex">
                         <div class="text-center">
-                            <button class="site-button m-r5 button-lg" (click)="moreUsers()">Cargar más</button> 
+                            <button class="site-button m-r5 button-lg" (click)="moreUsers()">Cargar más</button>
                         </div>
                     </div>
                 </div>

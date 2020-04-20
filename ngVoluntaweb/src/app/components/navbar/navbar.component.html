@@ -1,140 +1,148 @@
-    <div class="page-wraper">
-    <!--<div id="loading-area"></div>-->
-        <!-- header -->
-        <header class="site-header mo-left header fullwidth">
-            <!-- main header -->
-            <div class="sticky-header main-bar-wraper navbar-expand-lg">
-                <div class="main-bar clearfix">
-                    <div class="container clearfix">
-                        <!-- website logo -->
-                        <div class="logo-header mostion">
-                            <a [routerLink]="['/']"><img src="assets/images/logo.png" class="logo" alt=""></a>
-                        </div>
-                        <!-- nav toggle button -->
-                        <!-- nav toggle button -->
-                        <button class="navbar-toggler collapsed navicon justify-content-end" type="button"
-                            data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </button>
+<div class="page-wraper">
+	<!--<div id="loading-area"></div>-->
+	<!-- header -->
+	<header class="site-header mo-left header fullwidth">
+		<!-- main header -->
+		<div class="sticky-header main-bar-wraper navbar-expand-lg">
+			<div class="main-bar clearfix">
+				<div class="container clearfix">
+					<!-- website logo -->
+					<div class="logo-header mostion">
+						<a [routerLink]="['/']"><img src="assets/images/logo.png" class="logo" alt=""></a>
+					</div>
+					<!-- nav toggle button -->
+					<!-- nav toggle button -->
+					<button class="navbar-toggler collapsed navicon justify-content-end" type="button"
+						data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
 
-                        <!-- Anonymous Navbar -->
-                        <div class="extra-nav" *ngIf="!identity">
-                            <div class="extra-cell">
-                                <a [routerLink]="['/register']" class="site-button"><i class="fa fa-user"></i> Regístrate</a>
-                                <a [routerLink]="['/login']" class="site-button"><i class="fa fa-lock"></i> Inicia sesión</a>
-                            </div>
-                        </div>
-
-                        <!-- Logged User Navbar -->
-						<div class="extra-nav" *ngIf="identity && entity_type == 'user'">
-							<ul class="navbar-nav">
-								<li>
-									<div class="container-avatar">
-										<img src="{{url}}users/{{identity.image}}/image" onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'" class="avatar">
-									</div>
-								</li>
-								<li class="nav-item dropdown">
-									<a id="navbarDropdown" class="nav-link dropdown-toggle reset-color" href="#"
-										role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-										v-pre>
-										{{identity.name}} <span class="caret"></span>
-									</a>
-									
-									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" *ngIf="!identity.roles.includes('ROLE_ADMIN')">
-										<a class="dropdown-item" [routerLink]="['user/myvolunteerings']">
-											Mis voluntariados
-										</a>
-
-										<a class="dropdown-item" [routerLink]="['/user/settings']">
-
-											Ajustes
-										</a>
-										<a class="dropdown-item pointer" (click)="logout()">
-											Cerrar sesión
-										</a>
-                                    </div>
-                                    
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" *ngIf="identity.roles.includes('ROLE_ADMIN')">
-										<a class="dropdown-item" [routerLink]="['/admin/volunteerings']">
-											Voluntariados
-										</a>
-										<a class="dropdown-item" [routerLink]="['/admin/users']">
-											Usuarios registrados
-										</a>
-										<a class="dropdown-item" [routerLink]="['/admin/ngos']">
-											ONGs registradas
-										</a>
-										<a class="dropdown-item" [routerLink]="['/admin/comments']">
-											Comentarios
-										</a>
-										<a class="dropdown-item pointer" (click)="logout()">
-											Cerrar sesión
-										</a>
-									</div>
-                                </li>
-                                
-							</ul>
-                        </div>
-                        
-                        <!-- Logged NGO Navbar -->
-						<div class="extra-nav" *ngIf="identity && entity_type == 'ngo'">
-							<ul class="navbar-nav">
-								<li>
-									<div class="container-avatar">
-										<img src="{{url}}ongs/{{identity.image}}/image" onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'" class="avatar">
-									</div>
-								</li>
-								<li class="nav-item dropdown">
-									<a id="navbarDropdown" class="nav-link dropdown-toggle reset-color" href="#"
-										role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-										v-pre>
-										{{identity.name}} <span class="caret"></span>
-									</a>
-									
-									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-										<a class="dropdown-item" [routerLink]="['/ngo/myvolunteerings']">
-											Mis voluntariados
-										</a>
-
-										<a class="dropdown-item" [routerLink]="['/ngo/settings']">
-
-											Ajustes
-										</a>
-										<a class="dropdown-item pointer" (click)="logout()">
-											Cerrar sesión
-										</a>
-									</div>
-								</li>
-							</ul>
+					<!-- Anonymous Navbar -->
+					<div class="extra-nav" *ngIf="!identity">
+						<div class="extra-cell">
+							<a [routerLink]="['/register']" class="site-button"><i class="fa fa-user"></i>
+								Regístrate</a>
+							<a [routerLink]="['/login']" class="site-button"><i class="fa fa-lock"></i> Inicia
+								sesión</a>
 						</div>
+					</div>
 
-                        
-                        <!-- main nav -->
-                        <div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
-                            <ul class="nav navbar-nav">
-                                <li>
-                                    <a [routerLink]="['/']">Inicio</a>
-                                </li>
-                                <li>
-                                    <a [routerLink]="['/search']">Voluntariados</a>
-                                </li>
-                                <li><a [routerLink]="['/ngos']">ONGs</a></li>
-                                
-                                <li class="ls-mobile">
-                                    <a [routerLink]="['/register']">Regístrate <i class="fa fa-user"></i></a>
-                                </li>
-                                <li class="ls-mobile">
-                                    <a [routerLink]="['/login']">Inicia sesión <i class="fa fa-lock"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- main header END -->
-        </header>
-        <!-- header END -->
+					<!-- Logged User Navbar -->
+					<div class="extra-nav" *ngIf="identity && entity_type == 'user'">
+						<ul class="navbar-nav">
+							<li>
+								<div class="container-avatar">
+									<img src="{{url}}users/{{identity.image}}/image"
+										onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'"
+										class="avatar">
+								</div>
+							</li>
+							<li class="nav-item dropdown">
+								<a id="navbarDropdown" class="nav-link dropdown-toggle reset-color" href="#"
+									role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+									v-pre>
+									{{identity.name}} <span class="caret"></span>
+								</a>
+
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
+									*ngIf="!identity.roles.includes('ROLE_ADMIN')">
+									<a class="dropdown-item" [routerLink]="['user/myvolunteerings']">
+										Mis voluntariados
+									</a>
+
+									<a class="dropdown-item" [routerLink]="['/user/settings']">
+
+										Ajustes
+									</a>
+									<a class="dropdown-item pointer" (click)="logout()">
+										Cerrar sesión
+									</a>
+								</div>
+
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
+									*ngIf="identity.roles.includes('ROLE_ADMIN')">
+									<a class="dropdown-item" [routerLink]="['/admin/volunteerings']">
+										Voluntariados
+									</a>
+									<a class="dropdown-item" [routerLink]="['/admin/users']">
+										Usuarios registrados
+									</a>
+									<a class="dropdown-item" [routerLink]="['/admin/ngos']">
+										ONGs registradas
+									</a>
+									<a class="dropdown-item" [routerLink]="['/admin/comments']">
+										Comentarios
+									</a>
+									<a class="dropdown-item pointer" (click)="logout()">
+										Cerrar sesión
+									</a>
+								</div>
+							</li>
+
+						</ul>
+					</div>
+
+					<!-- Logged NGO Navbar -->
+					<div class="extra-nav" *ngIf="identity && entity_type == 'ngo'">
+						<ul class="navbar-nav">
+							<li>
+								<div class="container-avatar">
+									<img src="{{url}}ongs/{{identity.image}}/image"
+										onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'"
+										class="avatar">
+								</div>
+							</li>
+							<li class="nav-item dropdown">
+								<a id="navbarDropdown" class="nav-link dropdown-toggle reset-color" href="#"
+									role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+									v-pre>
+									{{identity.name}} <span class="caret"></span>
+								</a>
+
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" [routerLink]="['/ngo/myvolunteerings']">
+										Mis voluntariados
+									</a>
+
+									<a class="dropdown-item" [routerLink]="['/ngo/settings']">
+
+										Ajustes
+									</a>
+									<a class="dropdown-item pointer" (click)="logout()">
+										Cerrar sesión
+									</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+
+
+					<!-- main nav -->
+					<div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
+						<ul class="nav navbar-nav">
+							<li>
+								<a [routerLink]="['/']">Inicio</a>
+							</li>
+							<li>
+								<a [routerLink]="['/search']">Voluntariados</a>
+							</li>
+							<li><a [routerLink]="['/ngos']">ONGs</a></li>
+
+							<li class="ls-mobile">
+								<a [routerLink]="['/register']">Regístrate <i class="fa fa-user"></i></a>
+							</li>
+							<li class="ls-mobile">
+								<a [routerLink]="['/login']">Inicia sesión <i class="fa fa-lock"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- main header END -->
+	</header>
+	<!-- header END -->

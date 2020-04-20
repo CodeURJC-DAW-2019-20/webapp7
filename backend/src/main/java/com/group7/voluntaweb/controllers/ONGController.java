@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.group7.voluntaweb.components.GenericComponent;
-import com.group7.voluntaweb.components.ONGComponent;
-import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.helpers.Helpers;
 import com.group7.voluntaweb.models.Category;
 import com.group7.voluntaweb.models.ONG;
@@ -32,12 +30,10 @@ import com.group7.voluntaweb.models.User;
 import com.group7.voluntaweb.models.Volunteering;
 import com.group7.voluntaweb.repositories.CategoryRepository;
 import com.group7.voluntaweb.repositories.ONGRepository;
-import com.group7.voluntaweb.repositories.UserRepository;
 import com.group7.voluntaweb.repositories.VolunteeringRepository;
 import com.group7.voluntaweb.services.ImageService;
 import com.group7.voluntaweb.services.ONGService;
 import com.group7.voluntaweb.services.VolunteeringService;
-import com.group7.voluntaweb.helpers.Helpers;
 
 @Controller
 public class ONGController {
@@ -234,7 +230,7 @@ public class ONGController {
 		String currentPrincipalName = principal.getName();
 		ONG ong = ongRepo.findByEmail(currentPrincipalName);
 		anuncio.setOng(ong);
-		
+
 		try {
 			if (file0.getSize() > 5) {
 
@@ -253,9 +249,9 @@ public class ONGController {
 		volunteerings.add(anuncio);
 		ong.setVolunteerings(volunteerings);
 		ongService.save(ong);
-		
+
 		genCompo.setLoggedUser(ong);
-		
+
 		model.addAttribute("ong", ong);
 
 		return "redirect:/";
@@ -291,17 +287,14 @@ public class ONGController {
 		}
 
 	}
-	
 
 	@RequestMapping("/ong-edit-advertisement-{id}")
 	public String editVolunteerings(Model model, @PathVariable long id) {
 
-		
-
 		if (genCompo.getLoggedUser() instanceof ONG) {
 
 			ONG ong = (ONG) genCompo.getLoggedUser();
-			
+
 			Volunteering anuncio = this.volRepo.findById(id);
 
 			if (anuncio.getOng().getId().equals(ong.getId())) {
@@ -327,30 +320,28 @@ public class ONGController {
 		}
 	}
 
-	
 	@RequestMapping("/ong-remove-advertisement-{id}")
 	public String removeVolunteerings(Model model, @PathVariable long id) {
-		
-		if(genCompo.getLoggedUser() instanceof ONG) {
-			
+
+		if (genCompo.getLoggedUser() instanceof ONG) {
+
 			ONG ong = (ONG) genCompo.getLoggedUser();
-			
+
 			Volunteering anuncio = this.volRepo.findById(id);
-			
-			if(anuncio.getOng().getId().equals(ong.getId())) {
-				
+
+			if (anuncio.getOng().getId().equals(ong.getId())) {
+
 				this.volRepo.deleteById(id);
-				
-				/*model
-				model.addAttribute("ong", ong);*/
-				
+
+				/*
+				 * model model.addAttribute("ong", ong);
+				 */
+
 				return "redirect:/ong-settings";
-			}
-			else {
+			} else {
 				return "redirect:/volunteering-gestion-panel";
 			}
-		}
-		else {
+		} else {
 			return "redirect:index";
 		}
 	}

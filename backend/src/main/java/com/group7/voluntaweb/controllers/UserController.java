@@ -5,17 +5,12 @@ import java.nio.file.Path;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.group7.voluntaweb.components.GenericComponent;
-import com.group7.voluntaweb.components.ONGComponent;
-import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.helpers.Helpers;
 import com.group7.voluntaweb.models.Category;
 import com.group7.voluntaweb.models.Comment;
@@ -122,8 +115,8 @@ public class UserController {
 			User user = (User) genCompo.getLoggedUser();
 			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
 			helper.setNavbar(model, user, null, isAdmin);
-			
-		} else if (genCompo.getLoggedUser() instanceof ONG){
+
+		} else if (genCompo.getLoggedUser() instanceof ONG) {
 			return "redirect:index";
 		}
 		model.addAttribute("title", "Ajustes");
@@ -178,14 +171,13 @@ public class UserController {
 			model.addAttribute("title", "Mis Voluntariados");
 			model.addAttribute("user", user);
 			model.addAttribute("myvolunteerings", myvolunteerings);
-			
-		} else if (genCompo.getLoggedUser() instanceof ONG){
+
+		} else if (genCompo.getLoggedUser() instanceof ONG) {
 			return "redirect:index";
 		}
 
 		return "myvolunteerings";
 	}
-
 
 	@GetMapping("/admin")
 	public String admin(Model model) {
@@ -199,8 +191,8 @@ public class UserController {
 			model.addAttribute("title", "Mis Voluntariados");
 			model.addAttribute("user", user);
 			model.addAttribute("myvolunteerings", myvolunteerings);
-			
-		} else if (genCompo.getLoggedUser() instanceof ONG){
+
+		} else if (genCompo.getLoggedUser() instanceof ONG) {
 			return "redirect:index";
 		}
 		model.addAttribute("title", "Bienvenido");
@@ -227,15 +219,15 @@ public class UserController {
 
 	@GetMapping("/admin/volunteerings")
 	public String volunteerings(Model model) {
-		
+
 		Helpers helper = new Helpers();
 		if (genCompo.getLoggedUser() instanceof User) {
 			User user = (User) genCompo.getLoggedUser();
 			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
 			helper.setNavbar(model, user, null, isAdmin);
 			model.addAttribute("title", "Mis Voluntariados");
-			model.addAttribute("user", user);			
-		} else if (genCompo.getLoggedUser() instanceof ONG){
+			model.addAttribute("user", user);
+		} else if (genCompo.getLoggedUser() instanceof ONG) {
 			return "redirect:index";
 		}
 		Iterable<Volunteering> volunteerings = volRepo.findAll();
@@ -262,8 +254,8 @@ public class UserController {
 			model.addAttribute("title", "Mis Voluntariados");
 			model.addAttribute("user", user);
 			model.addAttribute("myvolunteerings", myvolunteerings);
-			
-		} else if (genCompo.getLoggedUser() instanceof ONG){
+
+		} else if (genCompo.getLoggedUser() instanceof ONG) {
 			return "redirect:index";
 		}
 		Iterable<User> users = userRepo.findAll();
@@ -291,8 +283,8 @@ public class UserController {
 			model.addAttribute("title", "Mis Voluntariados");
 			model.addAttribute("user", user);
 			model.addAttribute("myvolunteerings", myvolunteerings);
-			
-		} else if (genCompo.getLoggedUser() instanceof ONG){
+
+		} else if (genCompo.getLoggedUser() instanceof ONG) {
 			return "redirect:index";
 		}
 		Iterable<ONG> ngos = ongRepo.findAll();
@@ -319,8 +311,8 @@ public class UserController {
 			model.addAttribute("title", "Mis Voluntariados");
 			model.addAttribute("user", user);
 			model.addAttribute("myvolunteerings", myvolunteerings);
-			
-		} else if (genCompo.getLoggedUser() instanceof ONG){
+
+		} else if (genCompo.getLoggedUser() instanceof ONG) {
 			return "redirect:index";
 		}
 		Iterable<Comment> comments = commentRepo.findAll();

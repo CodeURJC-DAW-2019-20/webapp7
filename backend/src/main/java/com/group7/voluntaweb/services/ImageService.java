@@ -1,13 +1,11 @@
 package com.group7.voluntaweb.services;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
-import java.sql.Timestamp;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
@@ -33,7 +31,7 @@ public class ImageService implements WebMvcConfigurer {
 
 	private Path retrieveFilePath(String name, Path folder) {
 
-			return folder.resolve(name);			
+		return folder.resolve(name);
 
 	}
 
@@ -55,13 +53,13 @@ public class ImageService implements WebMvcConfigurer {
 	}
 
 	public ResponseEntity<Object> createResponseFromImage(String folderName, String name) throws MalformedURLException {
-			Path folder = FILES_FOLDER.resolve(folderName);
-			Resource file = new UrlResource(retrieveFilePath(name, folder).toUri());
-			if(file.exists()) {
-				return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(file);				
-			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
+		Path folder = FILES_FOLDER.resolve(folderName);
+		Resource file = new UrlResource(retrieveFilePath(name, folder).toUri());
+		if (file.exists()) {
+			return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(file);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 }

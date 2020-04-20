@@ -17,28 +17,28 @@ export class RegisterNgoComponent implements OnInit {
   constructor(
     private _ngoService: NgoService,
     private _titleService: Title
-  ) { 
+  ) {
     this._titleService.setTitle("Registrarse como ONG - VoluntaWeb");
-    this.ngo = new NGO(null,"","","","","","","","",null,null,"");
+    this.ngo = new NGO(null, "", "", "", "", "", "", "", "", null, null, "");
   }
 
   ngOnInit() {
   }
 
 
-  onSubmit(form){
-    this._ngoService.register(this.ngo).subscribe(response=>{
-      if(response.id != null){
+  onSubmit(form) {
+    this._ngoService.register(this.ngo).subscribe(response => {
+      if (response.id != null) {
         this.status = "success";
-      }else {
+      } else {
         this.status = "error";
       }
     },
-    error=>{
-      console.log(<any>error);
-      this.status = "error";
-    })
-    
+      error => {
+        console.log(<any>error);
+        this.status = "error";
+      })
+
   }
 
 }

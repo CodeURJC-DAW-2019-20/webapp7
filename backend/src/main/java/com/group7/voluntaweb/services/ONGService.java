@@ -8,7 +8,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.group7.voluntaweb.models.ONG;
-import com.group7.voluntaweb.models.User;
 import com.group7.voluntaweb.repositories.ONGRepository;
 
 @Service
@@ -20,7 +19,7 @@ public class ONGService {
 	public void save(ONG user) {
 		ongRepository.save(user);
 	}
-	
+
 	public void deleteCount(Long id) {
 		ongRepository.deleteById(id);
 	}
@@ -28,12 +27,12 @@ public class ONGService {
 	public Iterable<ONG> getAll() {
 		return ongRepository.findAll();
 	}
-	
-	public List<ONG> findAll(){
+
+	public List<ONG> findAll() {
 		return ongRepository.findAll();
 	}
-	
-	public Iterable<ONG> ongByPage(int pageNumber, int pageSize){
+
+	public Iterable<ONG> ongByPage(int pageNumber, int pageSize) {
 		PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.unsorted());
 		Iterable<ONG> list = ongRepository.findAll(pageRequest);
 		return list;

@@ -1,13 +1,13 @@
 import { User } from './user';
 import { Volunteering } from './volunteering';
 
-export class UserVolunteering{
+export class UserVolunteering {
     constructor(
-        public id:number,
-        public user:User,
-        public volunteering:Volunteering,
+        public id: number,
+        public user: User,
+        public volunteering: Volunteering,
         public Timestamp: Date
-    ){
+    ) {
 
     }
 }

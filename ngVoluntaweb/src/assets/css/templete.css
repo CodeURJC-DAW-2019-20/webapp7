@@ -1380,8 +1380,7 @@ footer img {
 	color: rgb(53, 53, 53);
 }
 
-
-.custom-anchor{
+.custom-anchor {
 	background-color: none !important;
 	padding: 0 !important;
 	border-left: 0 !important;
@@ -1389,6 +1388,6 @@ footer img {
 	box-shadow: none !important;
 }
 
-.image-edit{
-    width: 80px;
+.image-edit {
+	width: 80px;
 }

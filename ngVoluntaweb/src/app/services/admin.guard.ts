@@ -7,15 +7,15 @@ export class AdminGuard implements CanActivate {
     constructor(
         private _router: Router,
         private _entityService: EntityService
-    ){
+    ) {
 
     }
 
-    canActivate(){
+    canActivate() {
         let identity = this._entityService.getIdentity();
         let entity_type = this._entityService.getEntityType();
 
-        if(identity && identity.name && entity_type == "user" && identity.roles.includes("ROLE_ADMIN")){
+        if (identity && identity.name && entity_type == "user" && identity.roles.includes("ROLE_ADMIN")) {
             return true;
         } else {
             this._router.navigate(['/']);

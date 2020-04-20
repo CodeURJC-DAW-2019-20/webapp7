@@ -1,7 +1,7 @@
 import { UserVolunteering } from './uservolunteering';
 import { Like } from './like';
 
-export class User{
+export class User {
     constructor(
         public id: number,
         public registrations: Set<UserVolunteering>,
@@ -12,10 +12,10 @@ export class User{
         public password: string,
         public city: string,
         public telephone: string,
-        public roles:Array<string>,
+        public roles: Array<string>,
         public image: string,
         public registeredAt: Date
-    ){
+    ) {
 
     }
 }

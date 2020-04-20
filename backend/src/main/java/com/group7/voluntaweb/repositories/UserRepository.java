@@ -20,9 +20,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	@Query("SELECT user FROM User user JOIN user.registrations r JOIN r.volunteering volunteering WHERE volunteering.id = :volunteeringId AND user.id = :userId")
 	User findUserVolunteering(@Param("volunteeringId") long volunteeringId, @Param("userId") long userId);
-	
+
 	@Query("SELECT r FROM User user JOIN user.registrations r JOIN r.volunteering volunteering WHERE volunteering.id = :volunteeringId AND user.id = :userId")
-	UsersVolunteerings findUserVolunteerings(@Param("volunteeringId") long volunteeringId, @Param("userId") long userId);
+	UsersVolunteerings findUserVolunteerings(@Param("volunteeringId") long volunteeringId,
+			@Param("userId") long userId);
 
 	// @Query("SELECT user FROM User user JOIN user.registrations r JOIN
 	// r.volunteering_id volunteering WHERE volunteering_id = :idVolunteering AND

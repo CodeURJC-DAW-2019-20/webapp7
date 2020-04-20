@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private _titleService: Title) { 
+  constructor(private _titleService: Title) {
     this._titleService.setTitle("Registrarse - VoluntaWeb");
   }
 

@@ -5,48 +5,48 @@ import { global } from './global';
 import { NGO } from '../models/ngo';
 
 @Injectable()
-export class NgoService{
-    public url: string;
-    public ngo: NGO;
-    constructor(
-        public _http: HttpClient
-    ){
-        this.url = global.url;
-    }
+export class NgoService {
+  public url: string;
+  public ngo: NGO;
+  constructor(
+    public _http: HttpClient
+  ) {
+    this.url = global.url;
+  }
 
-    getNgo(id): Observable<any>{
-        let headers = new HttpHeaders().set('Content-Type', "application/json");
-        return this._http.get(this.url+'ongs/' + id, {headers:headers});
-    }
+  getNgo(id): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', "application/json");
+    return this._http.get(this.url + 'ongs/' + id, { headers: headers });
+  }
 
-    register(ngo):Observable<any>{
+  register(ngo): Observable<any> {
 
-        let headers = new HttpHeaders().set('Content-Type', "application/json");
+    let headers = new HttpHeaders().set('Content-Type', "application/json");
 
-        return this._http.post(this.url+"ongs/", ngo, {headers: headers});
+    return this._http.post(this.url + "ongs/", ngo, { headers: headers });
 
-    }
+  }
 
-    updateNgo(ngo: any): Observable<any> {
-      let headers = new HttpHeaders().set('Content-Type', 'application/json').set("Authorization","Basic " +  this.getLoggedNgoToken());
-  
-      return this._http.put(this.url+'ongs/', ngo,{headers: headers});
-    }
+  updateNgo(ngo: any): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set("Authorization", "Basic " + this.getLoggedNgoToken());
 
-    getLoggedNgoToken(){
-      return localStorage.getItem("authorization");
-    }
+    return this._http.put(this.url + 'ongs/', ngo, { headers: headers });
+  }
 
-    delete(id):Observable<any>{
-      let headers = new HttpHeaders().set('Content-Type', "application/json").set('Authorization', 'Basic '+this.getLoggedNgoToken());
-      return this._http.delete(this.url+'ongs/'+id, {headers: headers});
-    }
+  getLoggedNgoToken() {
+    return localStorage.getItem("authorization");
+  }
+
+  delete(id): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', "application/json").set('Authorization', 'Basic ' + this.getLoggedNgoToken());
+    return this._http.delete(this.url + 'ongs/' + id, { headers: headers });
+  }
 
 
-    getNgos(page: number) :Observable<any>{
-      let headers = new HttpHeaders().set('Content-Type', 'application/json');
-      return this._http.get(this.url+'ongs/?page='+page, {headers:headers});
-    }
+  getNgos(page: number): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.get(this.url + 'ongs/?page=' + page, { headers: headers });
+  }
 
 }
 

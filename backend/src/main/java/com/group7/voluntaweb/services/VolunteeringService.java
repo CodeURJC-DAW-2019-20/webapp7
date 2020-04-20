@@ -33,20 +33,18 @@ public class VolunteeringService {
 	public Volunteering save(Volunteering anuncio) {
 		return volunteeringRepository.save(anuncio);
 	}
-	
+
 	public List<Volunteering> findAll() {
 		return volunteeringRepository.findAll();
 	}
 
-
 	public Iterable<Volunteering> findByCategory(long cid) {
 		return volunteeringRepository.findByCategory(cid);
 	}
-	
+
 	public Iterable<Volunteering> findByQuery(String search) {
 		return volunteeringRepository.findByQuery(search);
 	}
-
 
 	public void deleteJoin(long user_id, long volunteering_id) {
 		uservolRepository.deleteJoin(user_id, volunteering_id);
@@ -59,20 +57,22 @@ public class VolunteeringService {
 	public void delete(long id) {
 		volunteeringRepository.deleteById(id);
 	}
-	
-	public Iterable<Volunteering> volunteeringByPage(int pageNumber, int pageSize){
+
+	public Iterable<Volunteering> volunteeringByPage(int pageNumber, int pageSize) {
 		PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.unsorted());
 		Iterable<Volunteering> list = volunteeringRepository.findAll(pageRequest);
 		return list;
 	}
-	public Iterable<Volunteering> volunteeringsByNGO(ONG ong){
+
+	public Iterable<Volunteering> volunteeringsByNGO(ONG ong) {
 		Iterable<Volunteering> list = volunteeringRepository.findVolunteeringsByNGO(ong);
 		return list;
 	}
-	
+
 	public UsersVolunteerings join(UsersVolunteerings userVol) {
 		return uservolRepository.save(userVol);
 	}
+
 	public Like like(Like like) {
 		return likeRepository.save(like);
 	}

@@ -1,9 +1,5 @@
 package com.group7.voluntaweb.beans;
 
-import java.sql.Date;
-
-import javax.persistence.Lob;
-
 public class VolAndCat {
 
 	private Long id;

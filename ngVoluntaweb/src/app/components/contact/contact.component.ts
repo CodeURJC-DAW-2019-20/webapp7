@@ -17,7 +17,7 @@ export class ContactComponent implements OnInit {
   constructor(
     private _commentService: CommentService,
     private _titleService: Title
-  ) { 
+  ) {
     this._titleService.setTitle("Contacto - VoluntaWeb");
     this.comment = new Comment(null, "", "", "");
   }
@@ -26,17 +26,17 @@ export class ContactComponent implements OnInit {
   }
 
 
-  onSubmit(form){
+  onSubmit(form) {
     this._commentService.create(this.comment).subscribe(
-      response=>{
-        if(response.id != null){
+      response => {
+        if (response.id != null) {
           this.status = "success";
           form.reset();
         } else {
           this.status = "error";
         }
       },
-      error=>{
+      error => {
         console.log(<any>error);
         this.status = "error";
       }

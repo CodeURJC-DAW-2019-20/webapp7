@@ -26,21 +26,21 @@ export class LoginComponent implements OnInit {
     private _router: Router,
     private _entityService: EntityService,
     private _titleService: Title
-    ) {
-      this._titleService.setTitle("Iniciar sesión - VoluntaWeb");
-      this.page_title = 'Iniciar sesión';
-      this.logeable = new Logeable("","","user");
-     }
+  ) {
+    this._titleService.setTitle("Iniciar sesión - VoluntaWeb");
+    this.page_title = 'Iniciar sesión';
+    this.logeable = new Logeable("", "", "user");
+  }
 
   ngOnInit() {
   }
 
-  onSubmit(form){
+  onSubmit(form) {
     this._entityService.login(this.logeable).subscribe(
-      response =>{
-        if(response.id){
+      response => {
+        if (response.id) {
           this.identity = response;
-          let flatData = this.logeable.email+":"+this.logeable.password;
+          let flatData = this.logeable.email + ":" + this.logeable.password;
           localStorage.setItem('authorization', btoa(flatData));
           localStorage.setItem('identity', JSON.stringify(this.identity));
           localStorage.setItem('entity_type', this.logeable.type);
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
           this.status = "error";
         }
       },
-      error =>{
+      error => {
         this.status = "error";
         console.log(<any>error)
       }

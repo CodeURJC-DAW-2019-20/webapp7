@@ -27,7 +27,6 @@ public class UserComponent {
 	public User getLoggedUser() {
 		return user;
 	}
-	
 
 	public void setLoggedUser(User user) {
 		this.user = user;
@@ -36,11 +35,11 @@ public class UserComponent {
 	public boolean isLoggedUser() {
 		return this.user != null;
 	}
-	
+
 	public boolean isUser() {
 		return true;
 	}
-	
+
 	public boolean isONG() {
 		return false;
 	}

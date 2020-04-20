@@ -24,22 +24,22 @@ export class JoinedVolunteeringsComponent implements OnInit {
     this._titleService.setTitle("Mis voluntariados - VoluntaWeb");
     this.identity = this._entityService.getIdentity();
     this.url = global.url;
-   }
+  }
 
   ngOnInit() {
     this._volunteeringService.getByJoined(this.identity.id).subscribe(
-      response=>{
+      response => {
         this.joined = response;
       },
-      error=>{
+      error => {
         console.log(<any>error);
       }
     );
   }
 
 
-  getMyVolunteerings(){
-    
+  getMyVolunteerings() {
+
   }
 
 }

@@ -9,7 +9,7 @@
                 <div class="col-md-12 text-center">
                     <h5 class="widget-title font-weight-700 text-uppercase mb-5">Comentarios</h5>
                     <ul class="post-job-bx">
-                        <li *ngFor = "let c of comments">
+                        <li *ngFor="let c of comments">
                             <a>
                                 <div class="d-flex m-b30">
                                     <div class="job-post-info text-left">
@@ -25,10 +25,11 @@
                                         <p>{{c.message}}</p>
                                     </div>
                                 </div>
-                                <div class = "text-rigth">
-                                    <input type = "submit" class = "site-button" value = "Eliminar" (click) = "deleteComment(c.id)"/>
+                                <div class="text-rigth">
+                                    <input type="submit" class="site-button" value="Eliminar"
+                                        (click)="deleteComment(c.id)" />
                                 </div>
-                            </a>    
+                            </a>
                         </li>
                     </ul>
                 </div>

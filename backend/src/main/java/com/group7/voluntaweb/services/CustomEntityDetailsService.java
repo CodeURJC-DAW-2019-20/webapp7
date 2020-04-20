@@ -19,10 +19,8 @@ import com.group7.voluntaweb.models.User;
 import com.group7.voluntaweb.repositories.ONGRepository;
 import com.group7.voluntaweb.repositories.UserRepository;
 
-import antlr.collections.List;
-
 @Service
-public class ONGDetailsService implements UserDetailsService {
+public class CustomEntityDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -39,10 +37,9 @@ public class ONGDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// first try loading from User table
 		User user = userRepository.findByEmail(username);
-		
-		
+
 		if (user != null) {
-			
+
 			genComponent.setLoggedUser(user);
 			userComponent.setLoggedUser(user);
 			return new CustomUserDetails(user.getEmail(), user.getPassword(), user.getRoles().get(0));

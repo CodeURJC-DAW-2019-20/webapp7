@@ -13,30 +13,29 @@ import com.group7.voluntaweb.models.User;
 
 @Controller
 public class CErrorController implements ErrorController {
-	
+
 	@Autowired
 	private GenericComponent genCompo;
-	
-	
-    @RequestMapping("/error")
-    public String handleError(Model model) {
-    	
-    	Helpers helper = new Helpers();
+
+	@RequestMapping("/error")
+	public String handleError(Model model) {
+
+		Helpers helper = new Helpers();
 		if (genCompo.getLoggedUser() instanceof User) {
 			User user = (User) genCompo.getLoggedUser();
 			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
 			helper.setNavbar(model, user, null, isAdmin);
-			
-		} else if (genCompo.getLoggedUser() instanceof ONG){
+
+		} else if (genCompo.getLoggedUser() instanceof ONG) {
 			ONG ong = (ONG) genCompo.getLoggedUser();
 			helper.setNavbar(model, null, ong, false);
 		}
-        model.addAttribute("title", "Error");
-        return "error";
-    }
- 
-    @Override
-    public String getErrorPath() {
-        return "/error";
-    }
+		model.addAttribute("title", "Error");
+		return "error";
+	}
+
+	@Override
+	public String getErrorPath() {
+		return "/error";
+	}
 }

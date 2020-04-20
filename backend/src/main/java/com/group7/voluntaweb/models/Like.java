@@ -1,6 +1,5 @@
 package com.group7.voluntaweb.models;
 
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,34 +11,32 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-
 @Entity
-@Table(name="likes")
-public class Like{
-	
-	public interface Basico{
+@Table(name = "likes")
+public class Like {
+
+	public interface Basico {
 	}
-	
-	public interface Users{
+
+	public interface Users {
 	}
-	
-	public interface Volunteerings extends Volunteering.Basico{
+
+	public interface Volunteerings extends Volunteering.Basico {
 	}
-	
-	
+
 	@JsonView(Basico.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@JsonView(Users.class)
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	@JsonView(Volunteerings.class)
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="volunteering_id")
+	@JoinColumn(name = "volunteering_id")
 	private Volunteering volunteering;
 
 	public Long getId() {
@@ -67,7 +64,7 @@ public class Like{
 	}
 
 	public Like() {
-	
+
 	}
 
 	public Like(Long id, User user, Volunteering volunteering) {
@@ -75,7 +72,5 @@ public class Like{
 		this.user = user;
 		this.volunteering = volunteering;
 	}
-	
-	
-	
+
 }

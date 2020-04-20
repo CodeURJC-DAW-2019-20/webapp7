@@ -17,28 +17,28 @@ export class RegisterUserComponent implements OnInit {
   constructor(
     private _userService: UserService,
     private _titleService: Title
-  ) { 
+  ) {
     this._titleService.setTitle("Registrarse como usuario - VoluntaWeb");
-    this.user = new User(null,null,null,"","","","","","",null,"",null);
+    this.user = new User(null, null, null, "", "", "", "", "", "", null, "", null);
   }
 
   ngOnInit() {
   }
 
 
-  onSubmit(form){
-    this._userService.register(this.user).subscribe(response=>{
-      if(response.id != null){
+  onSubmit(form) {
+    this._userService.register(this.user).subscribe(response => {
+      if (response.id != null) {
         this.status = "success";
-      }else {
+      } else {
         this.status = "error";
       }
     },
-    error=>{
-      console.log(<any>error);
-      this.status = "error";
-    })
-    
+      error => {
+        console.log(<any>error);
+        this.status = "error";
+      })
+
   }
 
 }

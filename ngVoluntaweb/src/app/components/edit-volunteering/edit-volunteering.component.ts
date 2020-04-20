@@ -20,31 +20,30 @@ import { Title } from '@angular/platform-browser';
 export class EditVolunteeringComponent implements OnInit, OnDestroy {
 
   public volunteering: Volunteering;
-  private ngoLogged:NGO;
+  private ngoLogged: NGO;
   public categories;
   public category;
   private status: string;
 
-  
 
-  public afuConfig:any;
-  public url:string;
-  public token:string;
-  
 
-  constructor(private _volunteeringService: VolunteeringService, private _ngoService:NgoService, private _categoryService: CategoryService, private _route: ActivatedRoute, private _router: Router, private _titleService: Title) { 
+  public afuConfig: any;
+  public url: string;
+  public token: string;
+
+
+  constructor(private _volunteeringService: VolunteeringService, private _ngoService: NgoService, private _categoryService: CategoryService, private _route: ActivatedRoute, private _router: Router, private _titleService: Title) {
     this._titleService.setTitle("Editar voluntariado - VoluntaWeb");
-    
-    this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
+
+    this.volunteering = new Volunteering(null, null, null, "", null, null, null, "", "", "", null, "");
 
 
     this.getCategories();
 
-    //this.category = this.getCategories[6];
 
 
 
-    
+
 
     this.ngoLogged = this._volunteeringService.getNgoLogged();
 
@@ -53,13 +52,13 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
     this.token = localStorage.getItem('authorization');
 
     this._route.params.subscribe(
-      (params) =>{
+      (params) => {
         var volId = params['id'];
         this.afuConfig = {
           uploadAPI: {
-            url: this.url + 'volunteerings/image/'+ volId,
+            url: this.url + 'volunteerings/image/' + volId,
             headers: {
-              "Authorization": 'Basic '+ this.token
+              "Authorization": 'Basic ' + this.token
             }
           },
           multiple: false,
@@ -84,34 +83,22 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
     );
 
 
-    
-    //Esto esta para testear
-    /*localStorage.setItem('authorization',"cmVjZXBjaW9uLmNlbnRyYWxAc2F2ZXRoZWNoaWxkcmVuLm9yZzp0ZXN0");*/
-    //Esto esta para testear
-
-
-
-
-  
-    
-     
-
   }
 
-  getVolunteering(volId){
+  getVolunteering(volId) {
     this._volunteeringService.getVolunteeringById(volId).subscribe(
-      (response:any)=>{
-        if(response && response.ong.id == this.ngoLogged.id){
+      (response: any) => {
+        if (response && response.ong.id == this.ngoLogged.id) {
           this.volunteering = response;
           this.category = this.volunteering.category.id;
 
 
         }
-        else{
+        else {
           this._router.navigate(['/']);
         }
       },
-      error =>{
+      error => {
         console.log(<any>error);
       }
     );
@@ -120,60 +107,45 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    /*if(this.ngoLogged.volunteerings != null){     //Cuando se una todo esto no va 
-      this.ngoLogged.volunteerings.delete(this.volunteering);
-    }*/
-    
-    
+
   }
 
-  getCategories():void{
+  getCategories(): void {
     this._categoryService.getCategories().subscribe(
-      (response:any) =>{
-        if(response){
+      (response: any) => {
+        if (response) {
           this.categories = response;
         }
-        else{
+        else {
           this.status = 'error';
         }
       },
-      error =>{
+      error => {
         this.status = 'error';
         console.log(<any>error);
       }
     );
   }
-  
 
-  public onSubmit(){
-    this.volunteering.category = this.categories[this.category-1];
 
-    this._volunteeringService.updateVolunteering(this.volunteering.id,this.volunteering).subscribe(
-      (response:any) =>{
-        if(response){
+  public onSubmit() {
+    this.volunteering.category = this.categories[this.category - 1];
+
+    this._volunteeringService.updateVolunteering(this.volunteering.id, this.volunteering).subscribe(
+      (response: any) => {
+        if (response) {
           this.volunteering = response;
         }
-        else{
+        else {
           this.status = 'error';
         }
       },
-      error =>{
+      error => {
         console.log(<any>error);
         this.status = 'error';
       }
     );
 
-    //ERROR (Same as in create volunteering)
-
-    /*if(this.ngoLogged.volunteerings == null){
-        this.ngoLogged.volunteerings = new Set<Volunteering>();
-    }
-    
-    this.ngoLogged.volunteerings.add(this.volunteering);
-
-    localStorage.setItem('identity',JSON.stringify(this.ngoLogged));*/
-
-    //ERROR
   }
 
   avatarUpload(data) {
@@ -182,20 +154,20 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
     this.volunteering.image = data_obj.image;
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this._ngoService.getNgo(this.ngoLogged.id).subscribe(
-      (response:any)=>{
-        if(response){
+      (response: any) => {
+        if (response) {
           this.ngoLogged = response;
 
-          localStorage.setItem('identity',JSON.stringify(this.ngoLogged));
+          localStorage.setItem('identity', JSON.stringify(this.ngoLogged));
 
         }
-        else{
+        else {
           this.status = 'error';
         }
       },
-      error =>{
+      error => {
         this.status = 'error';
         console.log(<any>error);
       }

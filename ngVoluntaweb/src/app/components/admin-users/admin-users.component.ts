@@ -18,7 +18,7 @@ export class AdminUsersComponent implements OnInit {
   public page: number = 2;
   public url: string = global.url;
 
-  constructor(private _userService: UserService, private _titleService: Title) { 
+  constructor(private _userService: UserService, private _titleService: Title) {
     this._titleService.setTitle("Administrar usuarios - VoluntaWeb");
   }
 
@@ -28,17 +28,17 @@ export class AdminUsersComponent implements OnInit {
 
   deleteUser(id: number, $event: MouseEvent) {
     ($event.target as HTMLButtonElement).disabled = true;
-    ($event.target as HTMLButtonElement).value= "Procesando";
+    ($event.target as HTMLButtonElement).value = "Procesando";
     this._userService.delete(id).subscribe(
-      (response:User) =>{
-        if(response){
-          ($event.target as HTMLButtonElement).value= "Eliminado";
+      (response: User) => {
+        if (response) {
+          ($event.target as HTMLButtonElement).value = "Eliminado";
           this.getUsers();
         }
       },
-      error =>{
-        ($event.target as HTMLButtonElement).value= "Error";
-        console.log(<any> error);
+      error => {
+        ($event.target as HTMLButtonElement).value = "Error";
+        console.log(<any>error);
       }
     );
   }
@@ -53,8 +53,8 @@ export class AdminUsersComponent implements OnInit {
           this.more = true;
           this.page++;
           this.loading = false;
-          if(this.additional.length==0){
-            this.more=false;
+          if (this.additional.length == 0) {
+            this.more = false;
           }
         },
         error => {
@@ -66,7 +66,7 @@ export class AdminUsersComponent implements OnInit {
     }
   }
 
-  getUsers(){
+  getUsers() {
     this._userService.getUsers(0).subscribe(
       result => {
         this.data = result;

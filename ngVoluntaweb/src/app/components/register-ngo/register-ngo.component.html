@@ -31,51 +31,67 @@
                 <div class="col-md-12 m-b30">
                     <div class="p-a30 border-1  max-w500 m-auto">
                         <div class="tab-content nav">
-                            <form id="loginONGs" class="tab-pane active col-12 p-a0" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" enctype="multipart/form-data">
+                            <form id="loginONGs" class="tab-pane active col-12 p-a0" #registerForm="ngForm"
+                                (ngSubmit)="onSubmit(registerForm)" enctype="multipart/form-data">
                                 <h4 class="font-weight-700">INFORMACIÓN DE LA ONG</h4>
-                                <p class="font-weight-600">Si tiene una cuenta con nosotros, por favor inicie sesión.</p>
-                                <div class="alert alert-success mt-3" *ngIf="status == 'success'">¡Te has registrado correctamente!</div>
-                                <div class="alert alert-danger mt-3" *ngIf="status == 'error'">¡Ha habido un error al registrárte!</div>
+                                <p class="font-weight-600">Si tiene una cuenta con nosotros, por favor inicie sesión.
+                                </p>
+                                <div class="alert alert-success mt-3" *ngIf="status == 'success'">¡Te has registrado
+                                    correctamente!</div>
+                                <div class="alert alert-danger mt-3" *ngIf="status == 'error'">¡Ha habido un error al
+                                    registrárte!</div>
                                 <div class="form-group">
                                     <label class="font-weight-700">Nombre de la ONG *</label>
-                                    <input name="name" required="" class="form-control" placeholder="Nombre" type="text" #name="ngModel" [(ngModel)]="ngo.name">
+                                    <input name="name" required="" class="form-control" placeholder="Nombre" type="text"
+                                        #name="ngModel" [(ngModel)]="ngo.name">
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-700">Nombre Del Responsable *</label>
-                                    <input name="responsiblename" required="" class="form-control" placeholder="Nombre" type="text" #responsiblename="ngModel" [(ngModel)]="ngo.responsiblename">
+                                    <input name="responsiblename" required="" class="form-control" placeholder="Nombre"
+                                        type="text" #responsiblename="ngModel" [(ngModel)]="ngo.responsiblename">
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-700">Apellidos Del Responsable *</label>
-                                    <input name="responsiblesurname" required="" class="form-control" placeholder="Apellidos" type="text" #responsiblesurname="ngModel" [(ngModel)]="ngo.responsiblesurname">
+                                    <input name="responsiblesurname" required="" class="form-control"
+                                        placeholder="Apellidos" type="text" #responsiblesurname="ngModel"
+                                        [(ngModel)]="ngo.responsiblesurname">
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-700">Dirección De La Sede *</label>
-                                    <input name="address" required="" class="form-control" placeholder="Dirección" type="text" #address="ngModel" [(ngModel)]="ngo.address">
+                                    <input name="address" required="" class="form-control" placeholder="Dirección"
+                                        type="text" #address="ngModel" [(ngModel)]="ngo.address">
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-700">Código Postal *</label>
-                                    <input name="postal" required="" class="form-control" placeholder="Código Postal" type="text" #postal="ngModel" [(ngModel)]="ngo.postal">
+                                    <input name="postal" required="" class="form-control" placeholder="Código Postal"
+                                        type="text" #postal="ngModel" [(ngModel)]="ngo.postal">
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-700">E-mail *</label>
-                                    <input name="email" required="" class="form-control" placeholder="Tu Email" type="email" #email="ngModel" [(ngModel)]="ngo.email">
+                                    <input name="email" required="" class="form-control" placeholder="Tu Email"
+                                        type="email" #email="ngModel" [(ngModel)]="ngo.email">
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-700">Teléfono De Contacto *</label>
-                                    <input name="telephone" required="" class="form-control" placeholder="Teléfono" type="text" #telephone="ngModel" [(ngModel)]="ngo.telephone">
+                                    <input name="telephone" required="" class="form-control" placeholder="Teléfono"
+                                        type="text" #telephone="ngModel" [(ngModel)]="ngo.telephone">
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-700">Contraseña *</label>
-                                    <input name="password" required="" class="form-control " placeholder="Contraseña" type="password" #password="ngModel" [(ngModel)]="ngo.password">
+                                    <input name="password" required="" class="form-control " placeholder="Contraseña"
+                                        type="password" #password="ngModel" [(ngModel)]="ngo.password">
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-700">Descripción *</label>
-                                    <textarea name="description" required="" class="form-control " placeholder="Descripción de la ong" type="text" #description="ngModel" [(ngModel)]="ngo.description"></textarea>
+                                    <textarea name="description" required="" class="form-control "
+                                        placeholder="Descripción de la ong" type="text" #description="ngModel"
+                                        [(ngModel)]="ngo.description"></textarea>
                                 </div>
-                                
+
                                 <div class="text-left">
-                                    <input type='submit' class="site-button button-lg outline outline-2" value='Enviar' [disabled]="registerForm.invalid"/>
-                                    
+                                    <input type='submit' class="site-button button-lg outline outline-2" value='Enviar'
+                                        [disabled]="registerForm.invalid" />
+
                                 </div>
                             </form>
                         </div>

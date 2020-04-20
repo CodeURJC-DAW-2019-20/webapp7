@@ -1,7 +1,8 @@
 <!-- Content -->
 <div class="page-content bg-white">
     <!-- inner page banner -->
-    <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(assets/images/background/Volunteerswalk.jpg);">
+    <div class="dez-bnr-inr overlay-black-middle"
+        style="background-image:url(assets/images/background/Volunteerswalk.jpg);">
         <div class="container">
             <div class="dez-bnr-inr-entry">
                 <h1 class="text-white">Mis voluntariados</h1>
@@ -23,19 +24,22 @@
         <div class="section-full bg-white browse-job content-inner-2">
             <div class="container">
                 <!--<div class="row">-->
-                    <div class="col-md-12 text-center">
-                        <h5 class="widget-title font-weight-700 text-uppercase">Mis voluntariados</h5>
-                        <ul class="post-job-bx">
-                            
-                            <div *ngIf="!joined" align="center" class="mt-5 mb-5">
-                                <img src="assets/images/loading.svg" alt="">
-                            </div>
-                        
+                <div class="col-md-12 text-center">
+                    <h5 class="widget-title font-weight-700 text-uppercase">Mis voluntariados</h5>
+                    <ul class="post-job-bx">
+
+                        <div *ngIf="!joined" align="center" class="mt-5 mb-5">
+                            <img src="assets/images/loading.svg" alt="">
+                        </div>
+
                         <li *ngFor="let v of joined">
                             <a [routerLink]="['/volunteering', v.id]">
                                 <div class="d-flex m-b30">
                                     <div class="job-post-company">
-                                        <span class="container-volunteering"><img src="{{url}}volunteerings/image/{{v.image}}" onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'" class="avatar"/></span>
+                                        <span class="container-volunteering"><img
+                                                src="{{url}}volunteerings/image/{{v.image}}"
+                                                onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'"
+                                                class="avatar" /></span>
                                     </div>
                                     <div class="job-post-info">
                                         <h4>{{v.name}}</h4>
@@ -56,7 +60,7 @@
                         </li>
 
                     </ul>
-                 
+
                 </div>
 
                 <!--</div>-->

@@ -7,7 +7,7 @@ import { Comment } from '../models/comment';
 
 
 @Injectable()
-export class CommentService{
+export class CommentService {
     public url: String;
     public comment: Comment;
 
@@ -18,32 +18,32 @@ export class CommentService{
         this.url = global.url;
     }
 
-    create(comment):Observable<any>{
+    create(comment): Observable<any> {
         let headers = new HttpHeaders().set("Content-Type", "application/json");
-        return this._http.post(this.url+'comments/', comment, {headers: headers});
+        return this._http.post(this.url + 'comments/', comment, { headers: headers });
     }
 
-    get():Observable<any>{
+    get(): Observable<any> {
         let headers = new HttpHeaders().set("Content-Type", "application/json");
-        return this._http.get(this.url+'comments/', {headers: headers});
+        return this._http.get(this.url + 'comments/', { headers: headers });
     }
 
-    delete(commentId):Observable<any>{
+    delete(commentId): Observable<any> {
         /*
         Hay que añadir el auth de paripe
         */
 
-        let headers = new HttpHeaders().set("Content-Type", "application/json").set('Authorization', 'Basic '+this.getLoggedUserToken());
-        return this._http.delete(this.url+'comments/'+commentId, {headers: headers});
+        let headers = new HttpHeaders().set("Content-Type", "application/json").set('Authorization', 'Basic ' + this.getLoggedUserToken());
+        return this._http.delete(this.url + 'comments/' + commentId, { headers: headers });
     }
 
-    getOne(commentId):Observable<any>{
+    getOne(commentId): Observable<any> {
         let headers = new HttpHeaders().set("Content-Type", "application/json");
-        return this._http.get(this.url+'comments/'+commentId, {headers: headers});
+        return this._http.get(this.url + 'comments/' + commentId, { headers: headers });
     }
 
-    getLoggedUserToken(){
+    getLoggedUserToken() {
         return localStorage.getItem("authorization");
-      }
-    
+    }
+
 }

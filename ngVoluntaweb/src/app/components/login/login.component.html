@@ -1,75 +1,87 @@
-    <!-- Content -->
-    <div class="page-content bg-white">
-        <!-- inner page banner -->
-        <div class="dez-bnr-inr overlay-black-middle bg-pt" style="background-image:url(assets/images/banner/bnr2.jpg);">
-            <div class="container">
-                <div class="dez-bnr-inr-entry">
-                    <h1 class="text-white">{{page_title}}</h1>
-					<!-- Breadcrumb row -->
-					<div class="breadcrumb-row">
-						<ul class="list-inline">
-							<li><a href="index.html">Home</a></li>
-							<li>{{page_title}}</li>
-						</ul>
-					</div>
-					<!-- Breadcrumb row END -->
-                </div>
-            </div>
-        </div>
-        <!-- inner page banner END -->
-        <!-- contact area -->
-        <div class="section-full content-inner-2 shop-account">
-            <!-- Product -->
-            <div class="container">
-                <div class="row">
-					<div class="col-md-12 text-center">
-						<h3 class="font-weight-700 m-t0 m-b20">Inicia Sesión Con Tu Cuenta</h3>
-					</div>
+<!-- Content -->
+<div class="page-content bg-white">
+	<!-- inner page banner -->
+	<div class="dez-bnr-inr overlay-black-middle bg-pt" style="background-image:url(assets/images/banner/bnr2.jpg);">
+		<div class="container">
+			<div class="dez-bnr-inr-entry">
+				<h1 class="text-white">{{page_title}}</h1>
+				<!-- Breadcrumb row -->
+				<div class="breadcrumb-row">
+					<ul class="list-inline">
+						<li><a href="index.html">Home</a></li>
+						<li>{{page_title}}</li>
+					</ul>
 				</div>
-                <div>
-					<div class="max-w500 m-auto m-b30">
-						<div class="p-a30 border-1 seth">
-							<div class="tab-content nav">
-								<form id="login" class="tab-pane active col-12 p-a0" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-									<h4 class="font-weight-700">Inicia Sesión</h4>
-									<p class="font-weight-600">Si tienes una cuenta con nosotros, por favor inicia sesión.</p>
-									<div class="alert alert-danger mt-3" *ngIf="status == 'error'">Las credenciales de inicio de sesión no son
-										correctas.</div>
-									<div class="form-group">
-										<label class="font-weight-700">E-MAIL *</label>
-                                        <input name="email" required="" class="form-control" placeholder="Tu Email" type="email" #email="ngModel" [(ngModel)]="logeable.email" required pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$">
-                                        <small class="invalid-feedback d-block" *ngIf="!email.valid && email.touched">El email no es válido.</small>
-									</div>
-									<div class="form-group">
-										<label class="font-weight-700">CONTRASEÑA *</label>
-                                        <input name="password" required="" class="form-control " placeholder="Contraseña" type="password" #password="ngModel" [(ngModel)]="logeable.password" required>
-                                        <small class="invalid-feedback d-block" *ngIf="!password.valid && password.touched">La contraseña no es
-                                            válida.</small>
-									</div>
-									<div class="text-left">
-										<button class="site-button m-r5 button-lg" [disabled]="loginForm.invalid">Inicia Sesión</button>
-										<input class="ml-5" type="radio" value="user" name="user_or_ngo" #user_or_ngo="ngModel" [(ngModel)]="logeable.type"> Usuario
-										<input class="ml-2" type="radio" value="ngo" name="user_or_ngo" #user_or_ngo="ngModel" [(ngModel)]="logeable.type"> ONG
-									</div>
-								</form>
-								<form id="forgot-password" class="tab-pane fade  col-12 p-a0">
-									<h4 class="font-weight-700">¿OLVIDÓ SU CONTRASEÑA?</h4>
-									<p class="font-weight-600">Te enviaremos un email para restablecer tu contraseña. </p>
-									<div class="form-group">
-										<label class="font-weight-700">E-MAIL *</label>
-										<input name="dzName" required="" class="form-control" placeholder="Tu Email" type="email">
-									</div>
-									<div class="text-left"> 
-										<button class="site-button pull-right button-lg">Enviar</button>
-									</div>
-								</form>
-							</div>
+				<!-- Breadcrumb row END -->
+			</div>
+		</div>
+	</div>
+	<!-- inner page banner END -->
+	<!-- contact area -->
+	<div class="section-full content-inner-2 shop-account">
+		<!-- Product -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<h3 class="font-weight-700 m-t0 m-b20">Inicia Sesión Con Tu Cuenta</h3>
+				</div>
+			</div>
+			<div>
+				<div class="max-w500 m-auto m-b30">
+					<div class="p-a30 border-1 seth">
+						<div class="tab-content nav">
+							<form id="login" class="tab-pane active col-12 p-a0" #loginForm="ngForm"
+								(ngSubmit)="onSubmit(loginForm)">
+								<h4 class="font-weight-700">Inicia Sesión</h4>
+								<p class="font-weight-600">Si tienes una cuenta con nosotros, por favor inicia sesión.
+								</p>
+								<div class="alert alert-danger mt-3" *ngIf="status == 'error'">Las credenciales de
+									inicio de sesión no son
+									correctas.</div>
+								<div class="form-group">
+									<label class="font-weight-700">E-MAIL *</label>
+									<input name="email" required="" class="form-control" placeholder="Tu Email"
+										type="email" #email="ngModel" [(ngModel)]="logeable.email" required
+										pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$">
+									<small class="invalid-feedback d-block" *ngIf="!email.valid && email.touched">El
+										email no es válido.</small>
+								</div>
+								<div class="form-group">
+									<label class="font-weight-700">CONTRASEÑA *</label>
+									<input name="password" required="" class="form-control " placeholder="Contraseña"
+										type="password" #password="ngModel" [(ngModel)]="logeable.password" required>
+									<small class="invalid-feedback d-block"
+										*ngIf="!password.valid && password.touched">La contraseña no es
+										válida.</small>
+								</div>
+								<div class="text-left">
+									<button class="site-button m-r5 button-lg" [disabled]="loginForm.invalid">Inicia
+										Sesión</button>
+									<input class="ml-5" type="radio" value="user" name="user_or_ngo"
+										#user_or_ngo="ngModel" [(ngModel)]="logeable.type"> Usuario
+									<input class="ml-2" type="radio" value="ngo" name="user_or_ngo"
+										#user_or_ngo="ngModel" [(ngModel)]="logeable.type"> ONG
+								</div>
+							</form>
+							<form id="forgot-password" class="tab-pane fade  col-12 p-a0">
+								<h4 class="font-weight-700">¿OLVIDÓ SU CONTRASEÑA?</h4>
+								<p class="font-weight-600">Te enviaremos un email para restablecer tu contraseña. </p>
+								<div class="form-group">
+									<label class="font-weight-700">E-MAIL *</label>
+									<input name="dzName" required="" class="form-control" placeholder="Tu Email"
+										type="email">
+								</div>
+								<div class="text-left">
+									<button class="site-button pull-right button-lg">Enviar</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
-            <!-- Product END -->
 		</div>
-		<!-- contact area  END -->
-    </div>
-    <!-- Content END-->
+		<!-- Product END -->
+	</div>
+	<!-- contact area  END -->
+</div>
+<!-- Content END-->

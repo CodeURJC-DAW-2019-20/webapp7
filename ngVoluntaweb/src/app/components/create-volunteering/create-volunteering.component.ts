@@ -16,36 +16,36 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./create-volunteering.component.css'],
   providers: [VolunteeringService, NgoService, EntityService, CategoryService]
 })
-export class CreateVolunteeringComponent implements OnInit,OnDestroy {
+export class CreateVolunteeringComponent implements OnInit, OnDestroy {
 
   public volunteering: Volunteering;
 
-  public ngoLogged:NGO;
+  public ngoLogged: NGO;
 
   public categories;
 
-  public category:any;
+  public category: any;
 
   public status: string;
 
-  public afuConfig:any;
+  public afuConfig: any;
 
-  private url:string;
+  private url: string;
 
   private token: string;
   public identity;
-  
 
 
 
-  constructor(private _volunteeringService: VolunteeringService, private _ngoService: NgoService,private _categoryService: CategoryService, private _entityService: EntityService, private _titleService: Title) {
+
+  constructor(private _volunteeringService: VolunteeringService, private _ngoService: NgoService, private _categoryService: CategoryService, private _entityService: EntityService, private _titleService: Title) {
     this._titleService.setTitle("Publicar voluntariado - VoluntaWeb");
-    this.volunteering = new Volunteering(null,null,null,"",null,null,null,"","","",null,"");
+    this.volunteering = new Volunteering(null, null, null, "", null, null, null, "", "", "", null, "");
 
 
     this.getCategories();
 
-    
+
 
     this.url = global.url;
 
@@ -56,9 +56,9 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
 
     this.afuConfig = {
       uploadAPI: {
-        url: this.url + 'volunteerings/image/'+ this.volunteering.id,
+        url: this.url + 'volunteerings/image/' + this.volunteering.id,
         headers: {
-          "Authorization": 'Basic '+ this.token
+          "Authorization": 'Basic ' + this.token
         }
       },
       multiple: false,
@@ -78,7 +78,7 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
         afterUploadMsg_error: '¡Subida fallida!'
       }
     };
-   }
+  }
 
 
 
@@ -87,56 +87,47 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
     this.ngoLogged = this._volunteeringService.getNgoLogged();
   }
 
-  getCategories():void{
+  getCategories(): void {
 
     this._categoryService.getCategories().subscribe(
-      (response:any) =>{
-        if(response){
+      (response: any) => {
+        if (response) {
           this.categories = response;
           this.category = this.categories[0].id;
         }
-        else{
+        else {
           this.status = 'error';
         }
       },
-      error =>{
+      error => {
         this.status = 'error';
         console.log(<any>error);
       }
     );
   }
 
-  onSubmit(form){
+  onSubmit(form) {
 
-    this.volunteering.category = this.categories[this.category-1];
+    this.volunteering.category = this.categories[this.category - 1];
     this.volunteering.ong = this.ngoLogged;
     this.volunteering.id = null; //The API give the id
 
     this._volunteeringService.create(this.volunteering).subscribe(
-      (response:any) =>{
-        if(response){
+      (response: any) => {
+        if (response) {
           this.volunteering = response;
-          this.afuConfig.uploadAPI.url = this.url + 'volunteerings/image/'+ this.volunteering.id;
+          this.afuConfig.uploadAPI.url = this.url + 'volunteerings/image/' + this.volunteering.id;
         }
-        else{
+        else {
           this.status = 'error';
         }
       },
-      error =>{
+      error => {
         this.status = 'error';
         console.log(<any>error);
       }
     );
 
-    /*ERROR*/
-
-    /*if(this.ngoLogged.volunteerings == null){
-      this.identity.volunteerings = new Set();
-    }        
-    this.identity.volunteerings.add(this.volunteering); 
-    localStorage.setItem('identity',JSON.stringify(this.identity));*/
-
-    /*ERROR*/
 
 
   }
@@ -148,24 +139,24 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
     console.log(this.volunteering);
 
     console.log(this.afuConfig.uploadAPI.url);
-    
+
     console.log(data);
     let data_obj = JSON.parse(data.response);
     this.volunteering.image = data_obj.image;
   }
 
-  onImageSubmit(){
-    this._volunteeringService.updateVolunteering(this.volunteering.id,this.volunteering).subscribe(
-      (response:any) =>{
-        if(response){
+  onImageSubmit() {
+    this._volunteeringService.updateVolunteering(this.volunteering.id, this.volunteering).subscribe(
+      (response: any) => {
+        if (response) {
           this.volunteering = response;
           this.status = "success";
         }
-        else{
+        else {
           this.status = 'error';
         }
       },
-      error =>{
+      error => {
         console.log(<any>error);
         this.status = 'error';
       }
@@ -177,19 +168,19 @@ export class CreateVolunteeringComponent implements OnInit,OnDestroy {
   //We have to made this instead adding directly to localStorage because there is an error when we add to the set the volunteering that we don´t know how to resolve it.
   //So we have to get the ngo from spring with the new volunteering and bring it here to save it on the localStorage.
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this._ngoService.getNgo(this.ngoLogged.id).subscribe(
-      (response:any)=>{
-        if(response){
+      (response: any) => {
+        if (response) {
           this.ngoLogged = response;
 
-          localStorage.setItem('identity',JSON.stringify(this.ngoLogged));
+          localStorage.setItem('identity', JSON.stringify(this.ngoLogged));
         }
-        else{
+        else {
           this.status = 'error';
         }
       },
-      error =>{
+      error => {
         this.status = 'error';
         console.log(<any>error);
       }

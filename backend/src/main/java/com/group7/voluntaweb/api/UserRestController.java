@@ -24,18 +24,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.group7.voluntaweb.repositories.UserRepository;
-import com.group7.voluntaweb.services.ImageService;
-import com.group7.voluntaweb.services.UserService;
-import com.group7.voluntaweb.services.VolunteeringService;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.models.Like;
-import com.group7.voluntaweb.models.ONG;
 import com.group7.voluntaweb.models.User;
-import com.group7.voluntaweb.models.UsersVolunteerings;
 import com.group7.voluntaweb.models.Volunteering;
+import com.group7.voluntaweb.repositories.UserRepository;
+import com.group7.voluntaweb.services.ImageService;
+import com.group7.voluntaweb.services.UserService;
+import com.group7.voluntaweb.services.VolunteeringService;
 
 /*
  * 
@@ -58,7 +56,7 @@ public class UserRestController {
 
 	@Autowired
 	UserService service;
-	
+
 	@Autowired
 	VolunteeringService volService;
 
@@ -68,7 +66,7 @@ public class UserRestController {
 	interface UserBasico extends User.Basico {
 	}
 
-	interface UserCompuesto extends User.Basico, User.Likes, User.UsersVol  {
+	interface UserCompuesto extends User.Basico, User.Likes, User.UsersVol {
 	}
 
 	// AllUsers
@@ -155,12 +153,12 @@ public class UserRestController {
 	@JsonView(UserCompuesto.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-		
+
 		User deletedUser = this.createUser(userRepo.findByid(id));
-		
+
 		if (deletedUser != null) {
 			if (genCompo.getLoggedUser() instanceof User) {
-				
+
 				User user = (User) this.genCompo.getLoggedUser();
 
 				if (user.getRoles().contains("ROLE_ADMIN") || user.getId().equals(id)) {
@@ -172,8 +170,7 @@ public class UserRestController {
 					return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 				}
 
-			}
-			else {
+			} else {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
 
@@ -190,12 +187,11 @@ public class UserRestController {
 
 		com.group7.voluntaweb.models.User user = (User) this.genCompo.getLoggedUser();
 
-
 		Path path = this.imgService.saveImage("user", file0);
 		String filePath = path.getFileName().toString();
-		
+
 		user.setImage(filePath);
-		
+
 		this.userRepo.save(user);
 
 		return new ResponseEntity<>(user, HttpStatus.OK);
@@ -206,49 +202,48 @@ public class UserRestController {
 	@GetMapping(value = "/{filename}/image")
 	public ResponseEntity<Object> downloadImage(@PathVariable String filename) throws MalformedURLException {
 
+		return this.imgService.createResponseFromImage("user", filename);
 
-			return this.imgService.createResponseFromImage("user", filename);
-		
 	}
-	
+
 	@GetMapping("/joined/{id}")
-	//@JsonView(CompleteVolunteering2.class)
+	// @JsonView(CompleteVolunteering2.class)
 	public ResponseEntity<Object> getJoinedVolunteeringByUser(@PathVariable Long id) {
-		if(genCompo.isLoggedUser()) {
+		if (genCompo.isLoggedUser()) {
 			User user = (User) genCompo.getLoggedUser();
-			User row = service.findJoinedUser(id, user.getId());	
+			User row = service.findJoinedUser(id, user.getId());
 			if (row != null) {
-				return new ResponseEntity<>(true,HttpStatus.OK);
+				return new ResponseEntity<>(true, HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>(false,HttpStatus.OK);
+				return new ResponseEntity<>(false, HttpStatus.OK);
 			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-	
+
 	@GetMapping("/liked/{id}")
-	//@JsonView(CompleteVolunteering2.class)
+	// @JsonView(CompleteVolunteering2.class)
 	public ResponseEntity<Object> getLikedVolunteeringByUser(@PathVariable Long id) {
-		if(genCompo.isLoggedUser()) {
+		if (genCompo.isLoggedUser()) {
 			User user = (User) genCompo.getLoggedUser();
 			Volunteering vol = volService.findVolunteering(id);
-			Like row = volService.findLike(vol, user);	
+			Like row = volService.findLike(vol, user);
 			if (row != null) {
-				return new ResponseEntity<>(true,HttpStatus.OK);
+				return new ResponseEntity<>(true, HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>(false,HttpStatus.OK);
+				return new ResponseEntity<>(false, HttpStatus.OK);
 			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-	
+
 	@GetMapping(value = "/stats")
-	public ResponseEntity<int[]> graph(){
+	public ResponseEntity<int[]> graph() {
 		int[] stats = new int[12];
-		for(int i=0;i<12;i++) {
-			stats[i] = userRepo.usersPerMonth(i+1);
+		for (int i = 0; i < 12; i++) {
+			stats[i] = userRepo.usersPerMonth(i + 1);
 		}
 		return new ResponseEntity<>(stats, HttpStatus.OK);
 	}

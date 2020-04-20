@@ -7,14 +7,14 @@ export class AnonymousGuard implements CanActivate {
     constructor(
         private _router: Router,
         private _entityService: EntityService
-    ){
+    ) {
 
     }
 
-    canActivate(){
+    canActivate() {
         let identity = this._entityService.getIdentity();
 
-        if(identity && identity.name){
+        if (identity && identity.name) {
             this._router.navigate(['/']);
             return false;
         } else {

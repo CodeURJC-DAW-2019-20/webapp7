@@ -11,15 +11,15 @@ import { Title } from '@angular/platform-browser';
 })
 export class AdminCommentsComponent implements OnInit {
 
-  public comments:Set<Comment>;
-  private status:string;
+  public comments: Set<Comment>;
+  private status: string;
 
-  constructor(private _commentService:CommentService, private _titleService: Title) { 
+  constructor(private _commentService: CommentService, private _titleService: Title) {
     this._titleService.setTitle("Administrar comentarios - VoluntaWeb");
     this.comments = null;
 
     this.getComments();
-  
+
   }
 
   ngOnInit() {
@@ -27,35 +27,35 @@ export class AdminCommentsComponent implements OnInit {
   }
 
 
-  getComments():void{
+  getComments(): void {
     this._commentService.get().subscribe(
-      (response:any) =>{
-        if(response){
+      (response: any) => {
+        if (response) {
           this.comments = response;
           this.status = "success";
         }
-        else{
+        else {
           this.status = 'error';
         }
       },
-      error  =>{
+      error => {
         console.log(<any>error);
         this.status = 'error';
       }
     );
   }
 
-  deleteComment(commentId:number){
+  deleteComment(commentId: number) {
     this._commentService.delete(commentId).subscribe(
-      (response:Comment) =>{
-        if(response){
+      (response: Comment) => {
+        if (response) {
           this.status = "success";
 
           this.getComments();
 
         }
       },
-      error =>{
+      error => {
         console.log(<any>error);
         this.status = 'error';
       }

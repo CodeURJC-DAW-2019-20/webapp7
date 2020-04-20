@@ -10,7 +10,7 @@ export class AboutUsComponent implements OnInit {
 
   constructor(private _titleService: Title) {
     this._titleService.setTitle("Sobre nosotros - VoluntaWeb");
-   }
+  }
 
   ngOnInit() {
   }

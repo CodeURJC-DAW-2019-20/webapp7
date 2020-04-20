@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.group7.voluntaweb.models.Volunteering;
 import com.group7.voluntaweb.models.Category;
 import com.group7.voluntaweb.models.ONG;
+import com.group7.voluntaweb.models.Volunteering;
 import com.group7.voluntaweb.services.VolunteeringService;
 
 @RestController
@@ -28,7 +28,8 @@ public class SearchRestController {
 	interface VolunteeringDetalle extends Volunteering.Basico, Volunteering.NGO {
 	}
 
-	interface VolunteeringSDetalle extends Volunteering.Basico, Category.Basico, Volunteering.NGO, ONG.Basico, Volunteering.Cat {
+	interface VolunteeringSDetalle
+			extends Volunteering.Basico, Category.Basico, Volunteering.NGO, ONG.Basico, Volunteering.Cat {
 	}
 
 	@GetMapping(value = "/search", produces = "application/json;charset=UTF-8")

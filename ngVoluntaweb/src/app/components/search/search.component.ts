@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params} from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Category } from '../../models/category';
 import { SearchService } from '../../services/search.service';
 import { VolunteeringService } from '../../services/volunteering.service'
@@ -17,18 +17,18 @@ import { Title } from '@angular/platform-browser';
   providers: [SearchService, CategoryService, VolunteeringService]
 })
 export class SearchComponent implements OnInit {
-  private currentPage:number;
-  private numberPages:number;
-  private volunteerings:Array<Volunteering>;
-  private all_volunteerings:Array<Volunteering>;
-  private selected_volunteerings:Array<Volunteering>;
+  private currentPage: number;
+  private numberPages: number;
+  private volunteerings: Array<Volunteering>;
+  private all_volunteerings: Array<Volunteering>;
+  private selected_volunteerings: Array<Volunteering>;
   public categories: Array<Category>;
-  private categor:number;
-  private word:string;
-  private non_volunteerings:boolean;
+  private categor: number;
+  private word: string;
+  private non_volunteerings: boolean;
   public url: string;
-  public keywordIndex:string;
-  public loading:boolean = true;
+  public keywordIndex: string;
+  public loading: boolean = true;
 
   constructor(
     private _route: ActivatedRoute,
@@ -37,33 +37,33 @@ export class SearchComponent implements OnInit {
     private _volunteeringService: VolunteeringService,
     private _categoryService: CategoryService,
     private _titleService: Title
-    ) {
-      this._titleService.setTitle("Voluntariados - VoluntaWeb");
-      this.AllCategories();
-      this.getNumberPages();
-      this.url = global.url;
-      this.categor = 1;
-    }
+  ) {
+    this._titleService.setTitle("Voluntariados - VoluntaWeb");
+    this.AllCategories();
+    this.getNumberPages();
+    this.url = global.url;
+    this.categor = 1;
+  }
 
   ngOnInit() {
     this._route.params.subscribe((params: Params) => {
       this.keywordIndex = params.wordIndex;
     })
     this.word = this.keywordIndex;
-    if (this.numberPages == 0){
+    if (this.numberPages == 0) {
       this.non_volunteerings = true;
-    } else if(this.keywordIndex != undefined){
+    } else if (this.keywordIndex != undefined) {
       this.AllVolunteeringsByWord();
-    } 
-    else if (!this.volunteerings){
+    }
+    else if (!this.volunteerings) {
       this.AllVolunteerings();
-    }else{
+    } else {
       this.all_volunteerings = this.volunteerings;
       this.selected_volunteerings = null;
     }
   }
 
-  AllVolunteerings(){
+  AllVolunteerings() {
     this._searchService.getSearch(0).subscribe(
       response => {
         this.selected_volunteerings = null;
@@ -79,15 +79,15 @@ export class SearchComponent implements OnInit {
     )
   }
 
-  getNumberPages(){
+  getNumberPages() {
     this._volunteeringService.getVolunteerings().subscribe(
-      response =>{
-        if(response.length == 0){
+      response => {
+        if (response.length == 0) {
           this.numberPages = 0;
-        } else if ((response.length % 5) == 0){
+        } else if ((response.length % 5) == 0) {
           this.numberPages = response.length / 5;
           this.numberPages -= 1;
-        } else{
+        } else {
           this.numberPages = Math.floor(response.length / 5);
         }
         this.currentPage = 0;
@@ -98,8 +98,8 @@ export class SearchComponent implements OnInit {
     )
   }
 
-  addFiveMoreVolunteerings(){
-    if(this.currentPage < (this.numberPages + 1)){
+  addFiveMoreVolunteerings() {
+    if (this.currentPage < (this.numberPages + 1)) {
       this.currentPage += 1;
     }
     this._searchService.getSearch(this.currentPage).subscribe(
@@ -109,11 +109,11 @@ export class SearchComponent implements OnInit {
       error => {
         console.log(<any>error);
       }
-      
+
     )
   }
-  
-  AllVolunteeringsByWord(){
+
+  AllVolunteeringsByWord() {
     this._searchService.getByWord(this.word).subscribe(
       response => {
         this.selected_volunteerings = response;
@@ -130,7 +130,7 @@ export class SearchComponent implements OnInit {
     )
   }
 
-  AllCategories(){
+  AllCategories() {
     this._categoryService.getCategories().subscribe(
       response => {
         this.categories = response;
@@ -141,7 +141,7 @@ export class SearchComponent implements OnInit {
     )
   }
 
-  AllVolunteeringsByCategory(){
+  AllVolunteeringsByCategory() {
     this._searchService.getByCategory(this.categor).subscribe(
       response => {
         this.selected_volunteerings = response;

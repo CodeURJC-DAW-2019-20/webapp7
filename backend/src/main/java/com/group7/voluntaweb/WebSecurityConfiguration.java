@@ -1,14 +1,10 @@
 package com.group7.voluntaweb;
 
 import java.util.Arrays;
-
-
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,19 +12,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
-import com.group7.voluntaweb.services.ONGDetailsService;
-
-
+import com.group7.voluntaweb.services.CustomEntityDetailsService;
 
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -80,41 +71,44 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// Logout
 		http.logout().logoutUrl("/logout");
 		http.logout().logoutSuccessUrl("/");
-		
+
 		http.cors().configurationSource(corsConfigurationSource());
 
 		// Disable CSRF at the moment
 		http.csrf().disable();
-		 http.exceptionHandling()
-         //Actually Spring already configures default AuthenticationEntryPoint - LoginUrlAuthenticationEntryPoint
-         //This one is REST-specific addition to default one, that is based on PathRequest
-         .defaultAuthenticationEntryPointFor(getRestAuthenticationEntryPoint(), new AntPathRequestMatcher("/api/**"));
+		http.exceptionHandling()
+				// Actually Spring already configures default AuthenticationEntryPoint -
+				// LoginUrlAuthenticationEntryPoint
+				// This one is REST-specific addition to default one, that is based on
+				// PathRequest
+				.defaultAuthenticationEntryPointFor(getRestAuthenticationEntryPoint(),
+						new AntPathRequestMatcher("/api/**"));
 	}
-	//This can be customized as required
+
+	// This can be customized as required
 	CorsConfigurationSource corsConfigurationSource() {
-	    CorsConfiguration configuration = new CorsConfiguration();
-	    List<String> allowOrigins = Arrays.asList("*");
-	    configuration.setAllowedOrigins(allowOrigins);
-	    configuration.setAllowedMethods(Arrays.asList("*"));
-	    configuration.setAllowedHeaders(Arrays.asList("*"));
-	    //in case authentication is enabled this flag MUST be set, otherwise CORS requests will fail
-	    configuration.setAllowCredentials(true);
-	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	    source.registerCorsConfiguration("/**", configuration);
-	    return source;
+		CorsConfiguration configuration = new CorsConfiguration();
+		List<String> allowOrigins = Arrays.asList("*");
+		configuration.setAllowedOrigins(allowOrigins);
+		configuration.setAllowedMethods(Arrays.asList("*"));
+		configuration.setAllowedHeaders(Arrays.asList("*"));
+		// in case authentication is enabled this flag MUST be set, otherwise CORS
+		// requests will fail
+		configuration.setAllowCredentials(true);
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-		PasswordEncoder encoder = new BCryptPasswordEncoder();
 
 		auth.authenticationProvider(authProvider());
 	}
 
 	@Bean
 	public UserDetailsService userDetailsService() {
-		return new ONGDetailsService();
+		return new CustomEntityDetailsService();
 	}
 
 	@Bean
@@ -125,11 +119,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
 		return authProvider;
 	}
-	
+
 	private AuthenticationEntryPoint getRestAuthenticationEntryPoint() {
-        return new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED);
-    }
-	
-	
+		return new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED);
+	}
 
 }

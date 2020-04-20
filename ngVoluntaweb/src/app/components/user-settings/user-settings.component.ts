@@ -41,7 +41,7 @@ export class UserSettingsComponent implements OnInit {
       uploadAPI: {
         url: this.url + 'users/image',
         headers: {
-          "Authorization": 'Basic '+this.token
+          "Authorization": 'Basic ' + this.token
         }
       },
       multiple: false,
@@ -61,40 +61,40 @@ export class UserSettingsComponent implements OnInit {
         afterUploadMsg_error: '¡Subida fallida!'
       }
     };
-   }
+  }
 
   ngOnInit() {
     this.identity = this._entityService.getIdentity();
   }
 
-  ngDoCheck(){
+  ngDoCheck() {
     this.identity = this._entityService.getIdentity();
   }
 
-  onSubmit(form){
-    this._userService.update(this.user).subscribe(response=>{
-      if(response.id != null){
+  onSubmit(form) {
+    this._userService.update(this.user).subscribe(response => {
+      if (response.id != null) {
         this.status = "success";
         this.identity = response;
         localStorage.setItem("identity", JSON.stringify(response));
-      }else {
+      } else {
         this.status = "error";
       }
     },
-    error=>{
-      console.log(<any>error);
-      this.status = "error";
-    });
+      error => {
+        console.log(<any>error);
+        this.status = "error";
+      });
 
-    
-    
+
+
   }
 
-  deleteUser(){
-    let userId =this._entityService.getIdentity().id;
+  deleteUser() {
+    let userId = this._entityService.getIdentity().id;
     this._userService.delete(userId).subscribe(
-      response=>{
-        if (response.id){
+      response => {
+        if (response.id) {
           this.status = "success";
           localStorage.removeItem("authorization");
           localStorage.removeItem("identity");
@@ -102,9 +102,9 @@ export class UserSettingsComponent implements OnInit {
         }
 
         this._router.navigate(['/']);
-        
+
       },
-      error=>{
+      error => {
         console.log(<any>error);
       }
     );

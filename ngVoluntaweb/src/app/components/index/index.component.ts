@@ -14,24 +14,24 @@ import { Title } from '@angular/platform-browser';
 })
 export class IndexComponent implements OnInit {
   public categories: Category[];
-  public data: number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
+  public data: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   public key: string;
 
-  constructor(private _categoryService: CategoryService,private _userService: UserService, private router: Router, private _titleService: Title) {  
+  constructor(private _categoryService: CategoryService, private _userService: UserService, private router: Router, private _titleService: Title) {
     this._titleService.setTitle("Inicio - VoluntaWeb");
-   }
+  }
 
   ngOnInit() {
     this._userService.getStats().subscribe(
-      result =>{
-        for(let i=0;i< 12;i++){
+      result => {
+        for (let i = 0; i < 12; i++) {
           this.data[i] = result[i];
         }
         this._categoryService.getCategories().subscribe(
-          response=>{
+          response => {
             this.categories = response;
           },
-          error=>{
+          error => {
             console.log(<any>error);
           }
         );
@@ -61,25 +61,25 @@ export class IndexComponent implements OnInit {
         });
         chart.render();
       },
-      error =>{
+      error => {
         console.log("error");
       }
     )
-    
+
   }
 
 
-  prevent(event){
-    if(event.code == "Enter" || event.code == "NumpadEnter"){
+  prevent(event) {
+    if (event.code == "Enter" || event.code == "NumpadEnter") {
       event.preventDefault();
     }
   }
 
-  onSubmit(){
-    if(this.key.length>1){
-      this.router.navigate(['search/?keyword='+this.key]);
+  onSubmit() {
+    if (this.key.length > 1) {
+      this.router.navigate(['search/?keyword=' + this.key]);
     }
-    else{
+    else {
       this.router.navigate(['search']);
     }
   }

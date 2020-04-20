@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params} from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NGO } from '../../models/ngo';
 import { NgoService } from '../../services/ngo.service'
 import { global } from '../../services/global';
@@ -12,10 +12,10 @@ import { Title } from '@angular/platform-browser';
   providers: [NgoService]
 })
 export class NgoDetailsComponent implements OnInit {
-  public id_ngo:number;
+  public id_ngo: number;
   public current_ngo: NGO;
   public url: string;
-  public loading:boolean = true;
+  public loading: boolean = true;
 
   constructor(
     private _route: ActivatedRoute,
@@ -28,13 +28,13 @@ export class NgoDetailsComponent implements OnInit {
 
   ngOnInit() {
     this._route.params.subscribe((params: Params) => {
-        this.id_ngo = params.id;
+      this.id_ngo = params.id;
     });
     this._ngoService.getNgo(this.id_ngo).subscribe(
       response => {
-        if (response.id != null){
+        if (response.id != null) {
           this.current_ngo = response;
-          this._titleService.setTitle(this.current_ngo.name+" - VoluntaWeb");
+          this._titleService.setTitle(this.current_ngo.name + " - VoluntaWeb");
           this.loading = false;
         } else {
           this._router.navigate(['/']);

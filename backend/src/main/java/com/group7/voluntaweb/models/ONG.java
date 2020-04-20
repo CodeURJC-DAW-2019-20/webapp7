@@ -3,29 +3,22 @@ package com.group7.voluntaweb.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Lob;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.group7.voluntaweb.models.Volunteering.Basico;
 
 @Entity
 @Table(name = "ngos")
 public class ONG {
-	
+
 	public interface Basico {
 	}
 
@@ -80,7 +73,6 @@ public class ONG {
 		this.volunteerings = new ArrayList<>();
 	}
 
-	
 	@JsonView(Basico.class)
 	@NotEmpty
 	private String telephone;
@@ -114,6 +106,7 @@ public class ONG {
 	public String getResponsibleName() {
 		return responsiblename;
 	}
+
 	public void setResponsibleName(String responsibleName) {
 		this.responsiblename = responsibleName;
 	}
@@ -125,7 +118,6 @@ public class ONG {
 	public String getResponsibleSurname() {
 		return responsiblesurname;
 	}
-
 
 	public String getDescription() {
 		return description;

@@ -18,34 +18,34 @@ export class NavbarComponent implements OnInit {
     private _entityService: EntityService,
     private _router: Router,
     private _route: ActivatedRoute
-    ) {
-      this.url = global.url;
-     }
+  ) {
+    this.url = global.url;
+  }
 
   ngOnInit() {
     this.identity = this._entityService.getIdentity();
     this.entity_type = this._entityService.getEntityType();
   }
 
-  ngDoCheck(){
+  ngDoCheck() {
     this.identity = this._entityService.getIdentity();
     this.entity_type = this._entityService.getEntityType();
   }
 
 
-  logout(){
+  logout() {
     this._entityService.logout().subscribe(
-      response =>{
-        if (response==true){
+      response => {
+        if (response == true) {
           this.identity = null;
           this.entity_type = null;
           localStorage.removeItem("identity");
           localStorage.removeItem("entity_type");
           localStorage.removeItem("authorization");
           this._router.navigate(['/']);
-        } 
+        }
       },
-      error=>{
+      error => {
         console.log(<any>error);
       }
     );

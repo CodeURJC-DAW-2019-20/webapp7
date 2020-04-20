@@ -34,10 +34,15 @@
                         <a>
                             <div class="d-flex m-b30">
                                 <div class="job-post-company">
-                                    <span class="container-volunteering"><img src="{{url}}volunteerings/image/{{volunteering.image}}" onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'" class="avatar"/></span>    
+                                    <span class="container-volunteering"><img
+                                            src="{{url}}volunteerings/image/{{volunteering.image}}"
+                                            onerror="this.onerror=null;this.src='assets/images/user-placeholder.png'"
+                                            class="avatar" /></span>
                                 </div>
                                 <div class="job-post-info">
-                                    <a class="custom-anchor" [routerLink]="['/volunteering', volunteering.id]"><h4>{{volunteering.name}}</h4></a>
+                                    <a class="custom-anchor" [routerLink]="['/volunteering', volunteering.id]">
+                                        <h4>{{volunteering.name}}</h4>
+                                    </a>
                                     <ul class="text-left">
                                         <li><i class="fa fa-map-marker"></i>{{volunteering.city}}</li>
                                     </ul>
@@ -48,7 +53,8 @@
                                     <span>{{volunteering.category.name}}</span>
                                 </div>
                                 <div class="pagination-bx d-inline-block">
-                                    <button class="btn btn-primary" [routerLink]="['/volunteering/edit', volunteering.id]">Editar</button>
+                                    <button class="btn btn-primary"
+                                        [routerLink]="['/volunteering/edit', volunteering.id]">Editar</button>
                                     <button (click)="deleteVol(volunteering.id)"
                                         class="btn btn-danger ml-2">Retirar</button>
                                 </div>

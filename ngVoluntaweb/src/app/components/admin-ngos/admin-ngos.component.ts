@@ -8,15 +8,15 @@ import { Title } from '@angular/platform-browser';
   selector: 'app-admin-ngos',
   templateUrl: './admin-ngos.component.html',
   styleUrls: ['./admin-ngos.component.css'],
-  providers:[NgoService]
+  providers: [NgoService]
 })
 export class AdminNgosComponent implements OnInit {
-  public loading: boolean=true;
-  public more: boolean=false;
+  public loading: boolean = true;
+  public more: boolean = false;
   public data = [];
   public additional = [];
   public page: number = 2;
-  public url: string=global.url;
+  public url: string = global.url;
 
   constructor(private _ngoService: NgoService, private _titleService: Title) {
     this._titleService.setTitle("Administrar ONGs - VoluntaWeb");
@@ -27,7 +27,7 @@ export class AdminNgosComponent implements OnInit {
       result => {
         this.data = result;
         this.more = true;
-        this.loading=false;
+        this.loading = false;
       },
       error => {
         console.log("No hay nada");
@@ -39,46 +39,46 @@ export class AdminNgosComponent implements OnInit {
       },
       error => {
         this.more = false;
-        this.loading=false;
+        this.loading = false;
       }
     );
   }
 
   deleteNgo(id: number, $event: MouseEvent) {
     ($event.target as HTMLButtonElement).disabled = true;
-    ($event.target as HTMLButtonElement).value= "Procesando";
+    ($event.target as HTMLButtonElement).value = "Procesando";
     this._ngoService.delete(id).subscribe(
-      (response:NGO) =>{
-        if(response){
-          ($event.target as HTMLButtonElement).value= "Eliminada";
+      (response: NGO) => {
+        if (response) {
+          ($event.target as HTMLButtonElement).value = "Eliminada";
         }
       },
-      error =>{
-        ($event.target as HTMLButtonElement).value= "Error";
-        console.log(<any> error);
+      error => {
+        ($event.target as HTMLButtonElement).value = "Error";
+        console.log(<any>error);
       }
     );
   }
 
-  moreNgos(){
-    this.loading=true;
-    this.data= this.data.concat(this.additional);
+  moreNgos() {
+    this.loading = true;
+    this.data = this.data.concat(this.additional);
     this._ngoService.getNgos(this.page).subscribe(
-      result=>{
-        this.additional=result;
-        this.more=true;
+      result => {
+        this.additional = result;
+        this.more = true;
         this.page++;
-        this.loading=false;
-        if(this.additional.length==0){
-          this.more=false;
+        this.loading = false;
+        if (this.additional.length == 0) {
+          this.more = false;
         }
       },
-      error=>{
-        this.additional=[];
-        this.more=false;
-        this.loading=false;
+      error => {
+        this.additional = [];
+        this.more = false;
+        this.loading = false;
       }
     );
   }
-  
+
 }

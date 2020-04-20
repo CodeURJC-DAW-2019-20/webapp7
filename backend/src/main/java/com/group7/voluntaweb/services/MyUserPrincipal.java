@@ -8,12 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.group7.voluntaweb.models.ONG;
 
 public class MyUserPrincipal implements UserDetails {
-    private ONG user;
- 
-    public MyUserPrincipal(ONG user) {
-        this.user = user;
-    }
-    //...
+	private ONG user;
+
+	public MyUserPrincipal(ONG user) {
+		this.user = user;
+	}
+	// ...
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -24,8 +24,8 @@ public class UserService {
 	public Iterable<User> getAll() {
 		return userRepository.findAll();
 	}
-	
-	public List<User> findAll(){
+
+	public List<User> findAll() {
 		return userRepository.findAll();
 	}
 
@@ -53,12 +53,12 @@ public class UserService {
 	public User findJoinedUser(Long volunteeringId, Long userId) {
 		return userRepository.findUserVolunteering(volunteeringId, userId);
 	}
-	
+
 	public UsersVolunteerings findVolUser(Long volunteeringId, Long userId) {
 		return userRepository.findUserVolunteerings(volunteeringId, userId);
 	}
-	
-	public Iterable<User> userByPage(int pageNumber, int pageSize){
+
+	public Iterable<User> userByPage(int pageNumber, int pageSize) {
 		PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.unsorted());
 		Iterable<User> list = userRepository.findAll(pageRequest);
 		return list;

@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.group7.voluntaweb.models.ONG;
-import com.group7.voluntaweb.models.User;
 
 public interface ONGRepository extends JpaRepository<ONG, Long> {
 

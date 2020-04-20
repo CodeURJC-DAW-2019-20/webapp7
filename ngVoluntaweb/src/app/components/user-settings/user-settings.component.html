@@ -31,36 +31,41 @@
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name"
-                                        placeholder="Nombre" required autocomplete="name" autofocus value="{{user.name}}" #name="ngModel" [(ngModel)]="user.name">
+                                    <input id="name" type="text" class="form-control" name="name" placeholder="Nombre"
+                                        required autocomplete="name" autofocus value="{{user.name}}" #name="ngModel"
+                                        [(ngModel)]="user.name">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="surname" class="col-md-4 col-form-label text-md-right">Apellidos</label>
                                 <div class="col-md-6">
                                     <input id="surname" type="text" class="form-control" name="surname"
-                                        placeholder="Apellidos" required autocomplete="surname" value="{{user.surname}}" #surname="ngModel" [(ngModel)]="user.surname">
+                                        placeholder="Apellidos" required autocomplete="surname" value="{{user.surname}}"
+                                        #surname="ngModel" [(ngModel)]="user.surname">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="surname" class="col-md-4 col-form-label text-md-right">Ciudad</label>
                                 <div class="col-md-6">
-                                    <input id="city" type="text" class="form-control" name="city"
-                                        placeholder="Ciudad" required autocomplete="city" autofocus value="{{user.city}}" #city="ngModel" [(ngModel)]="user.city">
+                                    <input id="city" type="text" class="form-control" name="city" placeholder="Ciudad"
+                                        required autocomplete="city" autofocus value="{{user.city}}" #city="ngModel"
+                                        [(ngModel)]="user.city">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="surname" class="col-md-4 col-form-label text-md-right">Teléfono</label>
                                 <div class="col-md-6">
                                     <input id="telephone" type="text" class="form-control" name="telephone"
-                                        placeholder="Teléfono" required autocomplete="Teléfono" autofocus value="{{user.telephone}}" #telephone="ngModel" [(ngModel)]="user.telephone">
+                                        placeholder="Teléfono" required autocomplete="Teléfono" autofocus
+                                        value="{{user.telephone}}" #telephone="ngModel" [(ngModel)]="user.telephone">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email"
-                                        placeholder="Email" required autocomplete="email" value="{{user.email}}" #email="ngModel" [(ngModel)]="user.email">
+                                    <input id="email" type="email" class="form-control" name="email" placeholder="Email"
+                                        required autocomplete="email" value="{{user.email}}" #email="ngModel"
+                                        [(ngModel)]="user.email">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -68,7 +73,8 @@
                                     perfil</label>
 
                                 <div class="col-md-6">
-                                    <angular-file-uploader class="pointer" [config]="afuConfig" (ApiResponse)="avatarUpload($event)" name="file0">
+                                    <angular-file-uploader class="pointer" [config]="afuConfig"
+                                        (ApiResponse)="avatarUpload($event)" name="file0">
                                     </angular-file-uploader>
                                 </div>
                             </div>
@@ -79,41 +85,46 @@
                                     </button>
                                 </div>
                             </div>
-                    </form>
-                    <br>
+                        </form>
+                        <br>
 
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    
-                                    <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                          Eliminar Cuenta
-                                        </button>
-                                        
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                          <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                    Eliminar Cuenta
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Borrar Cuenta</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
                                                 </button>
-                                              </div>
-                                              <div class="modal-body">
-                                                ¿Realmente quiere eliminar la cuenta?
-                                              </div>
-                                              <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="deleteUser()">Eliminar</button>
-                                              </div>
                                             </div>
-                                          </div>
+                                            <div class="modal-body">
+                                                ¿Realmente quiere eliminar la cuenta?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary" data-dismiss="modal"
+                                                    (click)="deleteUser()">Eliminar</button>
+                                            </div>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
-                            
-                        
+                        </div>
+
+
                     </div>
                 </div>
             </div>

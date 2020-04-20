@@ -2,12 +2,10 @@ package com.group7.voluntaweb.models;
 
 import java.sql.Timestamp;
 import java.util.Date;
-
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -15,7 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -25,17 +22,15 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 @Table(name = "users")
 public class User {
-	
 
-	public interface Basico{
+	public interface Basico {
 	}
-	
-	public interface UsersVol extends UsersVolunteerings.Basico, UsersVolunteerings.Volunteerings{
+
+	public interface UsersVol extends UsersVolunteerings.Basico, UsersVolunteerings.Volunteerings {
 	}
-	
-	public interface Likes extends Like.Basico, Like.Volunteerings{ 
+
+	public interface Likes extends Like.Basico, Like.Volunteerings {
 	}
-	
 
 	@JsonView(Basico.class)
 	@Id
@@ -45,16 +40,14 @@ public class User {
 	@JsonView(UsersVol.class)
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<UsersVolunteerings> registrations;
-	
+
 	@JsonView(Likes.class)
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<Like> likes;
-	
-
 
 	@JsonView(Basico.class)
 	private String name;
-	
+
 	@JsonView(Basico.class)
 	private String surname;
 
@@ -63,17 +56,17 @@ public class User {
 	private String email;
 
 	private String password;
-	
+
 	@JsonView(Basico.class)
 	private String city;
-	
+
 	@JsonView(Basico.class)
 	private String telephone;
-	
+
 	@JsonView(Basico.class)
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
-	
+
 	@JsonView(Basico.class)
 	private String image;
 
@@ -163,7 +156,6 @@ public class User {
 	public void setRegisteredAt(Date registeredAt) {
 		this.registeredAt = registeredAt;
 	}
-	
 
 	public Set<Like> getLikes() {
 		return likes;

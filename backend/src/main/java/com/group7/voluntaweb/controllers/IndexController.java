@@ -1,16 +1,13 @@
 package com.group7.voluntaweb.controllers;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.group7.voluntaweb.components.GenericComponent;
 import com.group7.voluntaweb.helpers.Helpers;
 import com.group7.voluntaweb.models.Category;
@@ -36,8 +33,8 @@ public class IndexController {
 			User user = (User) genCompo.getLoggedUser();
 			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
 			helper.setNavbar(model, user, null, isAdmin);
-			
-		} else if (genCompo.getLoggedUser() instanceof ONG){
+
+		} else if (genCompo.getLoggedUser() instanceof ONG) {
 			ONG ong = (ONG) genCompo.getLoggedUser();
 			helper.setNavbar(model, null, ong, false);
 		}
@@ -77,8 +74,8 @@ public class IndexController {
 			User user = (User) genCompo.getLoggedUser();
 			Boolean isAdmin = user.getRoles().contains("ROLE_ADMIN");
 			helper.setNavbar(model, user, null, isAdmin);
-			
-		} else if (genCompo.getLoggedUser() instanceof ONG){
+
+		} else if (genCompo.getLoggedUser() instanceof ONG) {
 			ONG ong = (ONG) genCompo.getLoggedUser();
 			helper.setNavbar(model, null, ong, false);
 		}

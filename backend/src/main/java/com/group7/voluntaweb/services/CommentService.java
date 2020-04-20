@@ -36,10 +36,10 @@ public class CommentService {
 
 	}
 
-	public Iterable<Comment> commentByPage(int pageNumber, int pageSize){
+	public Iterable<Comment> commentByPage(int pageNumber, int pageSize) {
 		PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.unsorted());
 		Iterable<Comment> list = comRepo.findAll(pageRequest);
 		return list;
 	}
-	
+
 }

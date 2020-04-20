@@ -7,15 +7,15 @@ export class NGOGuard implements CanActivate {
     constructor(
         private _router: Router,
         private _entityService: EntityService
-    ){
+    ) {
 
     }
 
-    canActivate(){
+    canActivate() {
         let identity = this._entityService.getIdentity();
         let entity_type = this._entityService.getEntityType();
 
-        if(identity && identity.name && entity_type == "ngo"){
+        if (identity && identity.name && entity_type == "ngo") {
             return true;
         } else {
             this._router.navigate(['/']);

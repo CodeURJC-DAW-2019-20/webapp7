@@ -38,7 +38,7 @@ export class VolunteeringPageComponent implements OnInit {
     private _titleService: Title,
     private _sanitizer: DomSanitizer
 
-  ) { 
+  ) {
     this.identity = this._entityService.getIdentity();
     this.entity_type = this._entityService.getEntityType();
     this.url = global.url;
@@ -46,56 +46,56 @@ export class VolunteeringPageComponent implements OnInit {
 
   ngOnInit() {
     this._route.params.subscribe(
-      (params) =>{
+      (params) => {
         var volId = params['id'];
         this.getVolunteering(volId);
       }
     );
 
-    
+
 
 
 
   }
 
 
-  sanitizeURL(){
-    return this._sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/place?q='+this.volunteering.city+'&key=AIzaSyBRzPLTqGSEnouc5sMpfk6cYbVKVX42c5s');
+  sanitizeURL() {
+    return this._sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/place?q=' + this.volunteering.city + '&key=AIzaSyBRzPLTqGSEnouc5sMpfk6cYbVKVX42c5s');
   }
 
-  isJoinedF(volId){
+  isJoinedF(volId) {
     this._volunteeringService.isJoined(this.volunteering.id).subscribe(
-      (response)=>{
-          this.isJoined = response;
+      (response) => {
+        this.isJoined = response;
       },
-      error=>{
+      error => {
         console.log(<any>error);
       }
     );
   }
 
-  isLikedF(volId){
+  isLikedF(volId) {
     this._volunteeringService.isLiked(this.volunteering.id).subscribe(
-      (response)=>{
-          this.isLiked = response;
+      (response) => {
+        this.isLiked = response;
       },
-      error=>{
+      error => {
         console.log(<any>error);
       }
     );
   }
 
 
-  getVolunteering(volId){
+  getVolunteering(volId) {
     this._volunteeringService.getVolunteeringById(volId).subscribe(
-      response=> {
-        if (response.id != null){
+      response => {
+        if (response.id != null) {
           this.volunteering = response;
-          this._titleService.setTitle(this.volunteering.name+" - VoluntaWeb");
-          this.likesNumber=Array.from(this.volunteering.likes).length;
+          this._titleService.setTitle(this.volunteering.name + " - VoluntaWeb");
+          this.likesNumber = Array.from(this.volunteering.likes).length;
           this.isJoinedF(this.volunteering.id);
           this.isLikedF(this.volunteering.id);
-          if (this.isLiked){
+          if (this.isLiked) {
             this.btnColor = "blue2";
             this.iconColor = "blue";
           } else {
@@ -107,44 +107,44 @@ export class VolunteeringPageComponent implements OnInit {
           this._router.navigate(['/']);
         }
       },
-      error=>{
+      error => {
         console.log(<any>error);
         this._router.navigate(['/']);
       }
     );
   }
 
-  join(volId){
+  join(volId) {
     this._volunteeringService.join(volId).subscribe(
-      response=> {
-          this.isJoined= response;
-          if (this.isJoined){
-            this.alert = true;
-          } else {
-            this.alert = false;
-          }
+      response => {
+        this.isJoined = response;
+        if (this.isJoined) {
+          this.alert = true;
+        } else {
+          this.alert = false;
+        }
       },
-      error=>{
+      error => {
         console.log(<any>error);
       }
     );
   }
 
-  like(volId){
+  like(volId) {
     this._volunteeringService.like(volId).subscribe(
-      response=> {
-          this.isLiked= response;
-          if (this.isLiked){
-            this.likesNumber = this.likesNumber + 1;
-            this.btnColor = "blue2";
-            this.iconColor = "blue";
-          } else {
-            this.likesNumber = this.likesNumber -1;
-            this.btnColor = "grey2";
-            this.iconColor = "grey";
-          }
+      response => {
+        this.isLiked = response;
+        if (this.isLiked) {
+          this.likesNumber = this.likesNumber + 1;
+          this.btnColor = "blue2";
+          this.iconColor = "blue";
+        } else {
+          this.likesNumber = this.likesNumber - 1;
+          this.btnColor = "grey2";
+          this.iconColor = "grey";
+        }
       },
-      error=>{
+      error => {
         console.log(<any>error);
       }
     );

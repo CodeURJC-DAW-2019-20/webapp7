@@ -24,8 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.group7.voluntaweb.components.GenericComponent;
-import com.group7.voluntaweb.components.ONGComponent;
-import com.group7.voluntaweb.components.UserComponent;
 import com.group7.voluntaweb.models.Category;
 import com.group7.voluntaweb.models.ONG;
 import com.group7.voluntaweb.models.User;
@@ -44,22 +42,15 @@ public class ONGRestController {
 
 	@Autowired
 	private ONGRepository ongRepo;
-	
-	
 
 	@Autowired
-	private ONGComponent ongCompo;
-	@Autowired
-	private UserComponent userCompo;
-	
-	@Autowired
 	private ONGService service;
-	
+
 	@Autowired
 	private ImageService imgService;
-	
+
 	@Autowired
-	private GenericComponent genCompo ;
+	private GenericComponent genCompo;
 
 	interface ONGDetalle extends ONG.Basico, ONG.Ads, Volunteering.Basico, Volunteering.Cat, Category.Basico {
 	}
@@ -118,11 +109,11 @@ public class ONGRestController {
 	@JsonView(ONGDetalle.class)
 	@RequestMapping(value = "/", method = RequestMethod.PUT /* , produces = "application/json;charset=UTF-8" */)
 	public ResponseEntity<ONG> updateNGO(@RequestBody ONG ngo) {
-		
+
 		if (genCompo.getLoggedUser() instanceof ONG) {
-			
+
 			ONG loggedNgo = (ONG) this.genCompo.getLoggedUser();
-			
+
 			ngo.setId(loggedNgo.getId());
 
 			if (this.ongRepo.findByid(ngo.getId()) != null) {
@@ -138,7 +129,7 @@ public class ONGRestController {
 				return new ResponseEntity<>(ngo, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}	
+			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
@@ -149,43 +140,39 @@ public class ONGRestController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
 	public ResponseEntity<ONG> deleteNGO(@PathVariable Long id) {
 
-		if(this.ongRepo.findByid(id) != null) {
+		if (this.ongRepo.findByid(id) != null) {
 			if (genCompo.getLoggedUser() instanceof ONG) {
-				
+
 				ONG ngo = (ONG) this.genCompo.getLoggedUser();
-				
-				
+
 				if (ngo.getId().equals(id)) {
 
 					this.ongRepo.deleteById(id);
-					
+
 					return new ResponseEntity<>(ngo, HttpStatus.OK);
 				} else {
-					
+
 					return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-					
+
 				}
-				
-			} else if(genCompo.getLoggedUser() instanceof User){
-				
+
+			} else if (genCompo.getLoggedUser() instanceof User) {
+
 				User user = (User) this.genCompo.getLoggedUser();
-				
-				if(user.getRoles().contains("ROLE_ADMIN")) {
+
+				if (user.getRoles().contains("ROLE_ADMIN")) {
 					ONG deletedNgo = this.ongRepo.findByid(id);
-					
+
 					this.ongRepo.deleteById(id);
-					
-					return new ResponseEntity<>(deletedNgo, HttpStatus.OK);	
-				}
-				else {
+
+					return new ResponseEntity<>(deletedNgo, HttpStatus.OK);
+				} else {
 					return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 				}
-			}
-			else {
+			} else {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
-		}
-		else {
+		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -197,11 +184,10 @@ public class ONGRestController {
 
 		ONG ngo = (ONG) this.genCompo.getLoggedUser();
 
-
 		Path path = this.imgService.saveImage("ong", file0);
 		String filePath = path.getFileName().toString();
 		ngo.setImage(filePath);
-		
+
 		this.ongRepo.save(ngo);
 
 		return new ResponseEntity<>(ngo, HttpStatus.OK);
@@ -212,7 +198,7 @@ public class ONGRestController {
 	@GetMapping(value = "/{filename}/image")
 	public ResponseEntity<Object> downloadImage(@PathVariable String filename) throws MalformedURLException {
 
-			return this.imgService.createResponseFromImage("ong", filename);
-		
+		return this.imgService.createResponseFromImage("ong", filename);
+
 	}
 }

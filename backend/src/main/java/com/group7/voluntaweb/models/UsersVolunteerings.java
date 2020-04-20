@@ -2,7 +2,6 @@ package com.group7.voluntaweb.models;
 
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,17 +17,16 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 @Table(name = "users_volunteerings")
 public class UsersVolunteerings {
-	
-	public interface Basico{
+
+	public interface Basico {
 	}
-	
-	public interface Volunteerings extends Volunteering.Basico{
+
+	public interface Volunteerings extends Volunteering.Basico {
 	}
-	
-	public interface Users{
+
+	public interface Users {
 	}
-	
-	
+
 	@JsonView(Basico.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
