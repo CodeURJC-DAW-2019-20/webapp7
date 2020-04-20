@@ -19,7 +19,7 @@ export class RegisterNgoComponent implements OnInit {
     private _titleService: Title
   ) {
     this._titleService.setTitle("Registrarse como ONG - VoluntaWeb");
-    this.ngo = new NGO(null, "", "", "", "", "", "", "", "", null, null, "");
+    this.ngo = new NGO(null, "", "", "", "", "", "", "", "false", null, null, "");
   }
 
   ngOnInit() {
