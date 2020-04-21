@@ -29,6 +29,11 @@
                     <div class="card-header">Anuncio</div>
 
                     <div class="card-body">
+                        <div class="alert alert-success mt-3" *ngIf="status == 'success'">¡Has actualizado el
+                            voluntariado! Haz click <a [routerLink]="['/volunteering/',volunteering.id]">aquí</a> para
+                            verlo.</div>
+                        <div class="alert alert-danger mt-3" *ngIf="status == 'error'">No se ha podido actualizar tu
+                            anuncio. Inténtalo de nuevo.</div>
                         <!-- Settings form -->
                         <form #formCreateVolunteering="ngForm" (ngSubmit)="onSubmit()">
                             <div class="form-group row">
