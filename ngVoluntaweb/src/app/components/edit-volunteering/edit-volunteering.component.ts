@@ -23,7 +23,7 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
   private ngoLogged: NGO;
   public categories;
   public category;
-  private status: string;
+  public status: string;
 
 
 
@@ -135,6 +135,7 @@ export class EditVolunteeringComponent implements OnInit, OnDestroy {
       (response: any) => {
         if (response) {
           this.volunteering = response;
+          this.status = "success";
         }
         else {
           this.status = 'error';
