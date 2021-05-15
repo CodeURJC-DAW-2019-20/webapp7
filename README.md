@@ -14,7 +14,7 @@ _VoluntaWeb is a project developed by group 7 of the subject "Web Application De
 |--------|--------|------------|
 |Alicia Merino Martínez| a.merinom.2017@alumnos.urjc.es| aliholi44 |
 |Daniel Fuente Martínez| d.fuente.2017@alumnos.urjc.es | dfuente2017 |
-|Daniel Serrano Cobos| d.serranoc.2017@alumnos.urjc.es | theroxd4n |
+|Daniel Serrano Cobos| d.serranoc.2017@alumnos.urjc.es | dserranoc |
 |Pablo Atahonero García de Blas| p.atahonero.2017@alumnos.urjc.es | PabloAtahoneroGB |
 |Samuel Severiche Berna | s.severiche.2017@alumnos.urjc.es | sbsam |
 
